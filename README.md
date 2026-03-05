@@ -83,8 +83,8 @@ We welcome contributions — new servers, more tools, bug fixes, better error me
 1. Fork this repo
 2. Copy the template: `cp -r mcp-github mcp-YOUR_SERVICE`
 3. Edit `mcp-YOUR_SERVICE/src/index.ts` — implement the `TOOLS` array and `callTool()` function
-4. Update `mcp-YOUR_SERVICE/wrangler.toml` with the correct worker name
-5. Test locally: `cd mcp-YOUR_SERVICE && npx wrangler dev`
+4. Update `mcp-YOUR_SERVICE/aerostack.toml` with the correct worker name
+5. Test locally: `cd mcp-YOUR_SERVICE && aerostack dev`
 6. Submit a PR describing what the server does and which API it wraps
 
 ### Adding tools to an existing server
@@ -124,15 +124,29 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
 
 ### Testing locally
 
+Install the [Aerostack CLI](https://aerostack.dev/docs/cli) once — no wrangler, no extra config:
+
+```bash
+npm install -g aerostack
+```
+
+Then:
+
 ```bash
 cd mcp-YOUR_SERVICE
-npx wrangler dev --port 8787
+aerostack dev
 
 # In another terminal:
 curl -X POST http://localhost:8787 \
   -H "Content-Type: application/json" \
   -H "X-Mcp-Secret-YOUR-TOKEN: test_token_here" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+To deploy to Aerostack's hosted catalog:
+
+```bash
+aerostack deploy mcp --slug YOUR_SERVICE
 ```
 
 ---

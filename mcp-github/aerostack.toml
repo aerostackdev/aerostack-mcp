@@ -1,7 +1,4 @@
-name = "aerostack-mcp-resend"
+name = "mcp-github"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
-
-[placement]
-mode = "smart"

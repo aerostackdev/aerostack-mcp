@@ -1,5 +1,5 @@
 {
-  "name": "aerostack-mcp-cloudflare",
+  "name": "aerostack-mcp-twilio",
   "version": "1.0.0",
   "private": true,
   "scripts": {
