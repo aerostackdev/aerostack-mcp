@@ -24,7 +24,7 @@ Add any of these servers to your Aerostack workspace and they're instantly avail
 | ✅ [Resend](./mcp-resend/) | Email | Send, List, Domains | `RESEND_API_KEY` |
 | ✅ [Twilio](./mcp-twilio/) | SMS | Send SMS, List Messages | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
 | ✅ [HubSpot](./mcp-hubspot/) | CRM | Contacts, Deals, Companies | `HUBSPOT_ACCESS_TOKEN` |
-| 🔲 Supabase | Database | — | — |
+| ✅ [Supabase](./mcp-supabase/) | Database | Select, Insert, Update, Delete, RPC, Storage | `SUPABASE_URL`, `SUPABASE_ANON_KEY` |
 | 🔲 Vercel | Infrastructure | — | — |
 | 🔲 Sentry | Monitoring | — | — |
 | 🔲 Google Calendar | Productivity | — | — |
