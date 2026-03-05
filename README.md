@@ -39,12 +39,12 @@ Add any of these servers to your Aerostack workspace and they're instantly avail
 
 ## Using These Servers
 
-### Option 1: Aerostack Workspace (Recommended)
+Sign up at [aerostack.dev](https://aerostack.dev) and add any of these servers to your workspace in one click. Secrets are encrypted and injected at request time — your API keys stay in Aerostack's secure vault, not in config files on your machine.
 
-Sign up at [aerostack.dev](https://aerostack.dev) and add any of these servers to your workspace in one click. Secrets are encrypted and injected automatically at request time — your API keys never leave Aerostack's secure vault.
+Once added, paste a single endpoint into your AI client:
 
 ```json
-// Paste into Cursor / Claude Desktop ~/.cursor/mcp.json
+// ~/.cursor/mcp.json  |  Claude Desktop  |  Windsurf
 {
   "mcpServers": {
     "aerostack": {
@@ -57,31 +57,7 @@ Sign up at [aerostack.dev](https://aerostack.dev) and add any of these servers t
 }
 ```
 
-One endpoint. All your tools. Namespaced automatically (`notion__search`, `slack__post_message`, etc.)
-
-### Option 2: Deploy Your Own
-
-Every server is a standalone Cloudflare Worker. Deploy to your own account in 2 commands:
-
-```bash
-cd workers/mcp-notion
-npx wrangler deploy
-```
-
-Then add it to your `mcp.json` directly:
-
-```json
-{
-  "mcpServers": {
-    "notion": {
-      "url": "https://aerostack-mcp-notion.YOUR_SUBDOMAIN.workers.dev",
-      "headers": {
-        "X-Mcp-Secret-NOTION-TOKEN": "secret_xxx"
-      }
-    }
-  }
-}
-```
+All tools from all your servers, namespaced automatically — `notion__search`, `slack__post_message`, `stripe__list_customers`, etc.
 
 ---
 
@@ -105,15 +81,15 @@ We welcome contributions — new servers, more tools, bug fixes, better error me
 ### Adding a new server
 
 1. Fork this repo
-2. Copy the template: `cp -r workers/mcp-github workers/mcp-YOUR_SERVICE`
-3. Edit `src/index.ts` — implement the `TOOLS` array and `callTool()` function
-4. Update `wrangler.toml` with the correct worker name
-5. Test locally: `cd workers/mcp-YOUR_SERVICE && npx wrangler dev`
-6. Submit a PR with a description of what the server does and which API it wraps
+2. Copy the template: `cp -r mcp-github mcp-YOUR_SERVICE`
+3. Edit `mcp-YOUR_SERVICE/src/index.ts` — implement the `TOOLS` array and `callTool()` function
+4. Update `mcp-YOUR_SERVICE/wrangler.toml` with the correct worker name
+5. Test locally: `cd mcp-YOUR_SERVICE && npx wrangler dev`
+6. Submit a PR describing what the server does and which API it wraps
 
 ### Adding tools to an existing server
 
-Open the `workers/mcp-{slug}/src/index.ts` file, add a new entry to the `TOOLS` array, and implement the case in `callTool()`. Submit a PR.
+Open `mcp-{slug}/src/index.ts`, add a new entry to the `TOOLS` array, and implement the case in `callTool()`. Submit a PR.
 
 ### Template structure
 
@@ -149,7 +125,7 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
 ### Testing locally
 
 ```bash
-cd workers/mcp-YOUR_SERVICE
+cd mcp-YOUR_SERVICE
 npx wrangler dev --port 8787
 
 # In another terminal:
