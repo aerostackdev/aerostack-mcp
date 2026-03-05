@@ -1,0 +1,718 @@
+[
+  {
+    "slug": "notion",
+    "name": "Notion",
+    "description": "Read and write Notion pages, databases, and blocks",
+    "category": "productivity",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-notion",
+    "auth": {
+      "type": "bearer",
+      "envs": ["NOTION_TOKEN"],
+      "extra_headers": { "Notion-Version": "2022-06-28" }
+    },
+    "api_base": "https://api.notion.com/v1",
+    "tools": [
+      {
+        "name": "search",
+        "description": "Search Notion pages and databases by query text",
+        "method": "POST",
+        "path": "/search",
+        "params": {
+          "query": { "type": "string", "description": "Text to search for", "required": true },
+          "filter_type": { "type": "string", "enum": ["page", "database"], "description": "Filter by object type (optional)" }
+        }
+      },
+      {
+        "name": "get_page",
+        "description": "Get a Notion page's properties and metadata by its ID",
+        "method": "GET",
+        "path": "/pages/{page_id}",
+        "params": {
+          "page_id": { "type": "string", "description": "The Notion page ID (UUID format)", "required": true }
+        }
+      },
+      {
+        "name": "get_page_content",
+        "description": "Get the content blocks of a Notion page",
+        "method": "GET",
+        "path": "/blocks/{block_id}/children",
+        "params": {
+          "block_id": { "type": "string", "description": "Page or block ID to get children of", "required": true }
+        }
+      },
+      {
+        "name": "create_page",
+        "description": "Create a new page in a Notion database",
+        "method": "POST",
+        "path": "/pages",
+        "params": {
+          "database_id": { "type": "string", "description": "The database ID to create the page in", "required": true },
+          "title": { "type": "string", "description": "Page title", "required": true },
+          "properties": { "type": "object", "description": "Additional page properties as Notion property objects (optional)" }
+        }
+      },
+      {
+        "name": "update_page",
+        "description": "Update a Notion page's properties",
+        "method": "PATCH",
+        "path": "/pages/{page_id}",
+        "params": {
+          "page_id": { "type": "string", "description": "The page ID to update", "required": true },
+          "properties": { "type": "object", "description": "Properties to update as Notion property objects", "required": true }
+        }
+      },
+      {
+        "name": "query_database",
+        "description": "Query records from a Notion database with optional filters and sorts",
+        "method": "POST",
+        "path": "/databases/{database_id}/query",
+        "params": {
+          "database_id": { "type": "string", "description": "The database ID to query", "required": true },
+          "filter": { "type": "object", "description": "Notion filter object (optional)" },
+          "sorts": { "type": "array", "description": "Array of sort objects (optional)" },
+          "page_size": { "type": "number", "description": "Number of results (max 100, default 10)" }
+        }
+      },
+      {
+        "name": "append_content",
+        "description": "Append text content (paragraph blocks) to a Notion page",
+        "method": "PATCH",
+        "path": "/blocks/{block_id}/children",
+        "params": {
+          "block_id": { "type": "string", "description": "Page or block ID to append to", "required": true },
+          "text": { "type": "string", "description": "Text content to append as a paragraph", "required": true }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "slack",
+    "name": "Slack",
+    "description": "Send messages, search conversations, and manage channels in Slack",
+    "category": "communication",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-slack",
+    "auth": {
+      "type": "bearer",
+      "envs": ["SLACK_BOT_TOKEN"]
+    },
+    "api_base": "https://slack.com/api",
+    "tools": [
+      {
+        "name": "list_channels",
+        "description": "List public and private channels in the Slack workspace",
+        "method": "GET",
+        "path": "/conversations.list",
+        "params": {
+          "limit": { "type": "number", "description": "Max channels to return (default 20, max 200)" },
+          "exclude_archived": { "type": "boolean", "description": "Exclude archived channels (default true)" }
+        }
+      },
+      {
+        "name": "post_message",
+        "description": "Post a message to a Slack channel",
+        "method": "POST",
+        "path": "/chat.postMessage",
+        "params": {
+          "channel": { "type": "string", "description": "Channel ID or name (e.g. C01234 or #general)", "required": true },
+          "text": { "type": "string", "description": "Message text (supports mrkdwn)", "required": true },
+          "thread_ts": { "type": "string", "description": "Thread timestamp to reply in thread (optional)" }
+        }
+      },
+      {
+        "name": "get_channel_history",
+        "description": "Get recent messages from a Slack channel",
+        "method": "GET",
+        "path": "/conversations.history",
+        "params": {
+          "channel": { "type": "string", "description": "Channel ID", "required": true },
+          "limit": { "type": "number", "description": "Number of messages to return (default 10, max 50)" }
+        }
+      },
+      {
+        "name": "search_messages",
+        "description": "Search for messages across the Slack workspace",
+        "method": "GET",
+        "path": "/search.messages",
+        "params": {
+          "query": { "type": "string", "description": "Search query text", "required": true },
+          "count": { "type": "number", "description": "Number of results (default 5, max 20)" }
+        }
+      },
+      {
+        "name": "get_user_info",
+        "description": "Get profile information for a Slack user",
+        "method": "GET",
+        "path": "/users.info",
+        "params": {
+          "user": { "type": "string", "description": "User ID (e.g. U01234)", "required": true }
+        }
+      },
+      {
+        "name": "list_users",
+        "description": "List members of the Slack workspace",
+        "method": "GET",
+        "path": "/users.list",
+        "params": {
+          "limit": { "type": "number", "description": "Number of users to return (default 20)" }
+        }
+      },
+      {
+        "name": "add_reaction",
+        "description": "Add an emoji reaction to a Slack message",
+        "method": "POST",
+        "path": "/reactions.add",
+        "params": {
+          "channel": { "type": "string", "description": "Channel ID containing the message", "required": true },
+          "timestamp": { "type": "string", "description": "Message timestamp (ts field)", "required": true },
+          "name": { "type": "string", "description": "Emoji name without colons (e.g. thumbsup)", "required": true }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "linear",
+    "name": "Linear",
+    "description": "Manage issues, projects, and cycles in Linear",
+    "category": "project-management",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-linear",
+    "auth": {
+      "type": "bearer",
+      "envs": ["LINEAR_API_KEY"]
+    },
+    "api_base": "https://api.linear.app/graphql",
+    "transport": "graphql",
+    "notes": "Linear uses GraphQL. All requests are POST to /graphql with a query field. Use Authorization: Bearer header.",
+    "tools": [
+      {
+        "name": "list_issues",
+        "description": "List issues for the authenticated user, optionally filtered by team or status",
+        "params": {
+          "team_id": { "type": "string", "description": "Filter by team ID (optional)" },
+          "status": { "type": "string", "enum": ["Todo", "In Progress", "Done", "Cancelled"], "description": "Filter by status name (optional)" },
+          "limit": { "type": "number", "description": "Max issues to return (default 20)" }
+        }
+      },
+      {
+        "name": "get_issue",
+        "description": "Get detailed information about a Linear issue by its ID",
+        "params": {
+          "issue_id": { "type": "string", "description": "Linear issue ID (e.g. TEAM-123)", "required": true }
+        }
+      },
+      {
+        "name": "create_issue",
+        "description": "Create a new issue in Linear",
+        "params": {
+          "team_id": { "type": "string", "description": "Team ID to create the issue in", "required": true },
+          "title": { "type": "string", "description": "Issue title", "required": true },
+          "description": { "type": "string", "description": "Issue description (markdown)" },
+          "priority": { "type": "number", "enum": [0, 1, 2, 3, 4], "description": "Priority: 0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low" }
+        }
+      },
+      {
+        "name": "update_issue",
+        "description": "Update an existing Linear issue's state, assignee, priority, or title",
+        "params": {
+          "issue_id": { "type": "string", "description": "Linear issue ID", "required": true },
+          "title": { "type": "string", "description": "New title (optional)" },
+          "state_id": { "type": "string", "description": "New workflow state ID (optional)" },
+          "priority": { "type": "number", "description": "New priority 0-4 (optional)" }
+        }
+      },
+      {
+        "name": "list_teams",
+        "description": "List all teams in the Linear workspace",
+        "params": {}
+      },
+      {
+        "name": "list_projects",
+        "description": "List projects in Linear, optionally filtered by team",
+        "params": {
+          "team_id": { "type": "string", "description": "Filter by team ID (optional)" }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "stripe",
+    "name": "Stripe",
+    "description": "Query customers, payments, subscriptions, and invoices in Stripe",
+    "category": "payments",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-stripe",
+    "auth": {
+      "type": "bearer",
+      "envs": ["STRIPE_SECRET_KEY"],
+      "notes": "Use 'Authorization: Bearer {STRIPE_SECRET_KEY}'. Stripe accepts standard Bearer auth."
+    },
+    "api_base": "https://api.stripe.com/v1",
+    "tools": [
+      {
+        "name": "list_customers",
+        "description": "List Stripe customers, optionally searching by email",
+        "method": "GET",
+        "path": "/customers",
+        "params": {
+          "email": { "type": "string", "description": "Filter by exact email address (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10, max 100)" }
+        }
+      },
+      {
+        "name": "get_customer",
+        "description": "Get details of a specific Stripe customer",
+        "method": "GET",
+        "path": "/customers/{customer_id}",
+        "params": {
+          "customer_id": { "type": "string", "description": "Stripe customer ID (cus_...)", "required": true }
+        }
+      },
+      {
+        "name": "list_subscriptions",
+        "description": "List Stripe subscriptions, optionally filtered by customer or status",
+        "method": "GET",
+        "path": "/subscriptions",
+        "params": {
+          "customer": { "type": "string", "description": "Filter by customer ID (optional)" },
+          "status": { "type": "string", "enum": ["active", "canceled", "past_due", "trialing", "all"], "description": "Filter by status (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      },
+      {
+        "name": "list_invoices",
+        "description": "List Stripe invoices, optionally filtered by customer",
+        "method": "GET",
+        "path": "/invoices",
+        "params": {
+          "customer": { "type": "string", "description": "Filter by customer ID (optional)" },
+          "status": { "type": "string", "enum": ["draft", "open", "paid", "void", "uncollectible"], "description": "Filter by status (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      },
+      {
+        "name": "get_balance",
+        "description": "Get the current Stripe account balance",
+        "method": "GET",
+        "path": "/balance",
+        "params": {}
+      },
+      {
+        "name": "list_payment_intents",
+        "description": "List recent Stripe payment intents",
+        "method": "GET",
+        "path": "/payment_intents",
+        "params": {
+          "customer": { "type": "string", "description": "Filter by customer ID (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      },
+      {
+        "name": "list_products",
+        "description": "List Stripe products",
+        "method": "GET",
+        "path": "/products",
+        "params": {
+          "active": { "type": "boolean", "description": "Filter by active status (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "shopify",
+    "name": "Shopify",
+    "description": "Query products, orders, and customers in a Shopify store",
+    "category": "e-commerce",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-shopify",
+    "auth": {
+      "type": "custom-header",
+      "envs": ["SHOPIFY_ACCESS_TOKEN", "SHOPIFY_SHOP_DOMAIN"],
+      "header_name": "X-Shopify-Access-Token",
+      "notes": "Set X-Shopify-Access-Token header. API base is https://{SHOPIFY_SHOP_DOMAIN}/admin/api/2024-01"
+    },
+    "api_base": "https://{SHOPIFY_SHOP_DOMAIN}/admin/api/2024-01",
+    "tools": [
+      {
+        "name": "get_shop_info",
+        "description": "Get basic information about the Shopify store",
+        "method": "GET",
+        "path": "/shop.json",
+        "params": {}
+      },
+      {
+        "name": "list_products",
+        "description": "List products in the Shopify store",
+        "method": "GET",
+        "path": "/products.json",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10, max 250)" },
+          "status": { "type": "string", "enum": ["active", "archived", "draft"], "description": "Filter by status (optional)" }
+        }
+      },
+      {
+        "name": "get_product",
+        "description": "Get details of a specific Shopify product",
+        "method": "GET",
+        "path": "/products/{product_id}.json",
+        "params": {
+          "product_id": { "type": "string", "description": "Shopify product ID", "required": true }
+        }
+      },
+      {
+        "name": "list_orders",
+        "description": "List orders from the Shopify store",
+        "method": "GET",
+        "path": "/orders.json",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10, max 250)" },
+          "status": { "type": "string", "enum": ["open", "closed", "cancelled", "any"], "description": "Order status filter (default: any)" },
+          "financial_status": { "type": "string", "enum": ["paid", "pending", "refunded", "partially_refunded"], "description": "Financial status filter (optional)" }
+        }
+      },
+      {
+        "name": "get_order",
+        "description": "Get details of a specific Shopify order",
+        "method": "GET",
+        "path": "/orders/{order_id}.json",
+        "params": {
+          "order_id": { "type": "string", "description": "Shopify order ID", "required": true }
+        }
+      },
+      {
+        "name": "list_customers",
+        "description": "List customers in the Shopify store",
+        "method": "GET",
+        "path": "/customers.json",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10)" },
+          "email": { "type": "string", "description": "Filter by email (optional)" }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "jira",
+    "name": "Jira",
+    "description": "Search and manage Jira issues, projects, and sprints",
+    "category": "project-management",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-jira",
+    "auth": {
+      "type": "basic",
+      "envs": ["JIRA_EMAIL", "JIRA_API_TOKEN", "JIRA_DOMAIN"],
+      "notes": "Base64-encode 'JIRA_EMAIL:JIRA_API_TOKEN' and use as Authorization: Basic {encoded}. API base: https://{JIRA_DOMAIN}.atlassian.net/rest/api/3"
+    },
+    "api_base": "https://{JIRA_DOMAIN}.atlassian.net/rest/api/3",
+    "tools": [
+      {
+        "name": "search_issues",
+        "description": "Search Jira issues using JQL (Jira Query Language)",
+        "method": "GET",
+        "path": "/search",
+        "params": {
+          "jql": { "type": "string", "description": "JQL query (e.g. 'project = PROJ AND status = Open')", "required": true },
+          "max_results": { "type": "number", "description": "Max results (default 10, max 50)" },
+          "fields": { "type": "string", "description": "Comma-separated fields to include (default: summary,status,assignee,priority,created)" }
+        }
+      },
+      {
+        "name": "get_issue",
+        "description": "Get details of a specific Jira issue by its key",
+        "method": "GET",
+        "path": "/issue/{issue_key}",
+        "params": {
+          "issue_key": { "type": "string", "description": "Jira issue key (e.g. PROJ-123)", "required": true }
+        }
+      },
+      {
+        "name": "create_issue",
+        "description": "Create a new Jira issue",
+        "method": "POST",
+        "path": "/issue",
+        "params": {
+          "project_key": { "type": "string", "description": "Project key (e.g. PROJ)", "required": true },
+          "summary": { "type": "string", "description": "Issue summary/title", "required": true },
+          "issue_type": { "type": "string", "description": "Issue type (e.g. Bug, Task, Story)", "required": true },
+          "description": { "type": "string", "description": "Issue description (optional)" },
+          "priority": { "type": "string", "enum": ["Highest", "High", "Medium", "Low", "Lowest"], "description": "Priority (optional)" }
+        }
+      },
+      {
+        "name": "add_comment",
+        "description": "Add a comment to a Jira issue",
+        "method": "POST",
+        "path": "/issue/{issue_key}/comment",
+        "params": {
+          "issue_key": { "type": "string", "description": "Jira issue key", "required": true },
+          "body": { "type": "string", "description": "Comment text", "required": true }
+        }
+      },
+      {
+        "name": "list_projects",
+        "description": "List all Jira projects the user has access to",
+        "method": "GET",
+        "path": "/project",
+        "params": {
+          "max_results": { "type": "number", "description": "Max results (default 20)" }
+        }
+      },
+      {
+        "name": "transition_issue",
+        "description": "Transition a Jira issue to a new status (e.g. move to In Progress)",
+        "method": "POST",
+        "path": "/issue/{issue_key}/transitions",
+        "params": {
+          "issue_key": { "type": "string", "description": "Jira issue key", "required": true },
+          "transition_name": { "type": "string", "description": "Target status name (e.g. 'In Progress', 'Done')", "required": true }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "airtable",
+    "name": "Airtable",
+    "description": "Read and write records in Airtable bases and tables",
+    "category": "databases",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-airtable",
+    "auth": {
+      "type": "bearer",
+      "envs": ["AIRTABLE_API_KEY"]
+    },
+    "api_base": "https://api.airtable.com/v0",
+    "tools": [
+      {
+        "name": "list_bases",
+        "description": "List all Airtable bases the user has access to",
+        "method": "GET",
+        "path": "/meta/bases",
+        "params": {}
+      },
+      {
+        "name": "list_tables",
+        "description": "List tables in an Airtable base with their field schemas",
+        "method": "GET",
+        "path": "/meta/bases/{base_id}/tables",
+        "params": {
+          "base_id": { "type": "string", "description": "Airtable base ID (appXXX format)", "required": true }
+        }
+      },
+      {
+        "name": "list_records",
+        "description": "List records from an Airtable table with optional filtering",
+        "method": "GET",
+        "path": "/{base_id}/{table_name}",
+        "params": {
+          "base_id": { "type": "string", "description": "Airtable base ID", "required": true },
+          "table_name": { "type": "string", "description": "Table name or ID", "required": true },
+          "filter_formula": { "type": "string", "description": "Airtable filter formula (optional)" },
+          "max_records": { "type": "number", "description": "Max records to return (default 10, max 100)" }
+        }
+      },
+      {
+        "name": "create_record",
+        "description": "Create a new record in an Airtable table",
+        "method": "POST",
+        "path": "/{base_id}/{table_name}",
+        "params": {
+          "base_id": { "type": "string", "description": "Airtable base ID", "required": true },
+          "table_name": { "type": "string", "description": "Table name or ID", "required": true },
+          "fields": { "type": "object", "description": "Record fields as key-value pairs", "required": true }
+        }
+      },
+      {
+        "name": "update_record",
+        "description": "Update an existing record in an Airtable table",
+        "method": "PATCH",
+        "path": "/{base_id}/{table_name}/{record_id}",
+        "params": {
+          "base_id": { "type": "string", "description": "Airtable base ID", "required": true },
+          "table_name": { "type": "string", "description": "Table name or ID", "required": true },
+          "record_id": { "type": "string", "description": "Record ID to update (recXXX format)", "required": true },
+          "fields": { "type": "object", "description": "Fields to update as key-value pairs", "required": true }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "resend",
+    "name": "Resend",
+    "description": "Send transactional emails and manage email domains via Resend",
+    "category": "communication",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-resend",
+    "auth": {
+      "type": "bearer",
+      "envs": ["RESEND_API_KEY"]
+    },
+    "api_base": "https://api.resend.com",
+    "tools": [
+      {
+        "name": "send_email",
+        "description": "Send a transactional email via Resend",
+        "method": "POST",
+        "path": "/emails",
+        "params": {
+          "from": { "type": "string", "description": "Sender address (must be verified domain, e.g. 'hello@yourdomain.com')", "required": true },
+          "to": { "type": "string", "description": "Recipient email address (or comma-separated list)", "required": true },
+          "subject": { "type": "string", "description": "Email subject line", "required": true },
+          "html": { "type": "string", "description": "Email body as HTML (use this or 'text')" },
+          "text": { "type": "string", "description": "Email body as plain text (use this or 'html')" },
+          "reply_to": { "type": "string", "description": "Reply-to address (optional)" }
+        }
+      },
+      {
+        "name": "get_email",
+        "description": "Get the status and details of a sent email by ID",
+        "method": "GET",
+        "path": "/emails/{email_id}",
+        "params": {
+          "email_id": { "type": "string", "description": "Resend email ID", "required": true }
+        }
+      },
+      {
+        "name": "list_emails",
+        "description": "List recent emails sent via Resend",
+        "method": "GET",
+        "path": "/emails",
+        "params": {
+          "limit": { "type": "number", "description": "Max emails to return (default 10)" }
+        }
+      },
+      {
+        "name": "list_domains",
+        "description": "List sending domains configured in Resend",
+        "method": "GET",
+        "path": "/domains",
+        "params": {}
+      }
+    ]
+  },
+  {
+    "slug": "twilio",
+    "name": "Twilio",
+    "description": "Send SMS messages and manage Twilio phone numbers",
+    "category": "communication",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-twilio",
+    "auth": {
+      "type": "basic",
+      "envs": ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN"],
+      "notes": "Use Basic auth: base64('TWILIO_ACCOUNT_SID:TWILIO_AUTH_TOKEN'). API base: https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}"
+    },
+    "api_base": "https://api.twilio.com/2010-04-01",
+    "tools": [
+      {
+        "name": "send_sms",
+        "description": "Send an SMS message via Twilio",
+        "method": "POST",
+        "path": "/Accounts/{account_sid}/Messages.json",
+        "params": {
+          "to": { "type": "string", "description": "Recipient phone number in E.164 format (e.g. +14155551234)", "required": true },
+          "from": { "type": "string", "description": "Twilio phone number in E.164 format (must be in your account)", "required": true },
+          "body": { "type": "string", "description": "Message text content", "required": true }
+        }
+      },
+      {
+        "name": "list_messages",
+        "description": "List SMS/MMS messages sent or received on the account",
+        "method": "GET",
+        "path": "/Accounts/{account_sid}/Messages.json",
+        "params": {
+          "to": { "type": "string", "description": "Filter by recipient number (optional)" },
+          "from": { "type": "string", "description": "Filter by sender number (optional)" },
+          "limit": { "type": "number", "description": "Max results (default 10, max 100)" }
+        }
+      },
+      {
+        "name": "get_message",
+        "description": "Get status and details of a specific Twilio message",
+        "method": "GET",
+        "path": "/Accounts/{account_sid}/Messages/{message_sid}.json",
+        "params": {
+          "message_sid": { "type": "string", "description": "Twilio message SID (SM...)", "required": true }
+        }
+      },
+      {
+        "name": "list_phone_numbers",
+        "description": "List phone numbers purchased in the Twilio account",
+        "method": "GET",
+        "path": "/Accounts/{account_sid}/IncomingPhoneNumbers.json",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      }
+    ]
+  },
+  {
+    "slug": "hubspot",
+    "name": "HubSpot",
+    "description": "Manage contacts, deals, and companies in HubSpot CRM",
+    "category": "crm",
+    "source_repo": "https://github.com/aerostackdev/aerostack-mcp/tree/main/workers/mcp-hubspot",
+    "auth": {
+      "type": "bearer",
+      "envs": ["HUBSPOT_ACCESS_TOKEN"],
+      "notes": "Use private app access token. Authorization: Bearer {HUBSPOT_ACCESS_TOKEN}"
+    },
+    "api_base": "https://api.hubapi.com",
+    "tools": [
+      {
+        "name": "search_contacts",
+        "description": "Search HubSpot contacts by email, name, or other properties",
+        "method": "POST",
+        "path": "/crm/v3/objects/contacts/search",
+        "params": {
+          "query": { "type": "string", "description": "Search text (searches email, name, company)", "required": true },
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      },
+      {
+        "name": "get_contact",
+        "description": "Get details of a HubSpot contact by ID",
+        "method": "GET",
+        "path": "/crm/v3/objects/contacts/{contact_id}",
+        "params": {
+          "contact_id": { "type": "string", "description": "HubSpot contact ID", "required": true }
+        }
+      },
+      {
+        "name": "create_contact",
+        "description": "Create a new contact in HubSpot",
+        "method": "POST",
+        "path": "/crm/v3/objects/contacts",
+        "params": {
+          "email": { "type": "string", "description": "Contact email address", "required": true },
+          "firstname": { "type": "string", "description": "First name (optional)" },
+          "lastname": { "type": "string", "description": "Last name (optional)" },
+          "company": { "type": "string", "description": "Company name (optional)" },
+          "phone": { "type": "string", "description": "Phone number (optional)" }
+        }
+      },
+      {
+        "name": "list_deals",
+        "description": "List deals in HubSpot CRM",
+        "method": "GET",
+        "path": "/crm/v3/objects/deals",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      },
+      {
+        "name": "create_deal",
+        "description": "Create a new deal in HubSpot",
+        "method": "POST",
+        "path": "/crm/v3/objects/deals",
+        "params": {
+          "dealname": { "type": "string", "description": "Deal name", "required": true },
+          "amount": { "type": "number", "description": "Deal amount (optional)" },
+          "dealstage": { "type": "string", "description": "Deal stage ID (optional)" },
+          "closedate": { "type": "string", "description": "Expected close date in ISO format (optional)" }
+        }
+      },
+      {
+        "name": "list_companies",
+        "description": "List companies in HubSpot CRM",
+        "method": "GET",
+        "path": "/crm/v3/objects/companies",
+        "params": {
+          "limit": { "type": "number", "description": "Max results (default 10)" }
+        }
+      }
+    ]
+  }
+]

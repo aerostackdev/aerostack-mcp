@@ -1,0 +1,10 @@
+name = "get-aerostack"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[routes]]
+pattern = "get.aerostack.dev"
+custom_domain = true

@@ -1,0 +1,190 @@
+# Aerostack MCP Catalog
+
+Community-built MCP (Model Context Protocol) servers hosted on Cloudflare's edge infrastructure via [Aerostack](https://aerostack.dev).
+
+**One endpoint. All your tools. No local processes.**
+
+Add any of these servers to your Aerostack workspace and they're instantly available to Claude, Cursor, Windsurf, and any other MCP-compatible AI client — no npm, no local config, no environment variables on your machine.
+
+---
+
+## Available Servers
+
+| Service | Category | Tools | Secrets Required |
+|---|---|---|---|
+| ✅ [Cloudflare](./mcp-cloudflare/) | Infrastructure | Workers, KV, R2, D1 | `CF_API_TOKEN`, `CF_ACCOUNT_ID` |
+| ✅ [GitHub](./mcp-github/) | Developer Tools | Repos, Issues, PRs | `GITHUB_TOKEN` |
+| ✅ [Notion](./mcp-notion/) | Productivity | Pages, Databases, Search | `NOTION_TOKEN` |
+| ✅ [Slack](./mcp-slack/) | Communication | Channels, Messages, Search | `SLACK_BOT_TOKEN` |
+| ✅ [Linear](./mcp-linear/) | Project Mgmt | Issues, Projects, Teams | `LINEAR_API_KEY` |
+| ✅ [Stripe](./mcp-stripe/) | Payments | Customers, Invoices, Subscriptions | `STRIPE_SECRET_KEY` |
+| ✅ [Shopify](./mcp-shopify/) | E-commerce | Products, Orders, Customers | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_SHOP_DOMAIN` |
+| ✅ [Jira](./mcp-jira/) | Project Mgmt | Issues, Projects, Transitions | `JIRA_EMAIL`, `JIRA_API_TOKEN`, `JIRA_DOMAIN` |
+| ✅ [Airtable](./mcp-airtable/) | Databases | Records, Tables, Bases | `AIRTABLE_API_KEY` |
+| ✅ [Resend](./mcp-resend/) | Email | Send, List, Domains | `RESEND_API_KEY` |
+| ✅ [Twilio](./mcp-twilio/) | SMS | Send SMS, List Messages | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
+| ✅ [HubSpot](./mcp-hubspot/) | CRM | Contacts, Deals, Companies | `HUBSPOT_ACCESS_TOKEN` |
+| 🔲 Supabase | Database | — | — |
+| 🔲 Vercel | Infrastructure | — | — |
+| 🔲 Sentry | Monitoring | — | — |
+| 🔲 Google Calendar | Productivity | — | — |
+| 🔲 Figma | Design | — | — |
+| 🔲 OpenAI | AI | — | — |
+| 🔲 PlanetScale | Database | — | — |
+| 🔲 Railway | Infrastructure | — | — |
+
+**Want a server that's not listed?** [Open an issue →](https://github.com/aerostackdev/aerostack-mcp/issues/new?labels=request&template=server_request.md)
+
+---
+
+## Using These Servers
+
+### Option 1: Aerostack Workspace (Recommended)
+
+Sign up at [aerostack.dev](https://aerostack.dev) and add any of these servers to your workspace in one click. Secrets are encrypted and injected automatically at request time — your API keys never leave Aerostack's secure vault.
+
+```json
+// Paste into Cursor / Claude Desktop ~/.cursor/mcp.json
+{
+  "mcpServers": {
+    "aerostack": {
+      "url": "https://aerocall.ai/api/gateway/ws/YOUR_WORKSPACE_SLUG",
+      "headers": {
+        "Authorization": "Bearer mwt_YOUR_WORKSPACE_TOKEN"
+      }
+    }
+  }
+}
+```
+
+One endpoint. All your tools. Namespaced automatically (`notion__search`, `slack__post_message`, etc.)
+
+### Option 2: Deploy Your Own
+
+Every server is a standalone Cloudflare Worker. Deploy to your own account in 2 commands:
+
+```bash
+cd workers/mcp-notion
+npx wrangler deploy
+```
+
+Then add it to your `mcp.json` directly:
+
+```json
+{
+  "mcpServers": {
+    "notion": {
+      "url": "https://aerostack-mcp-notion.YOUR_SUBDOMAIN.workers.dev",
+      "headers": {
+        "X-Mcp-Secret-NOTION-TOKEN": "secret_xxx"
+      }
+    }
+  }
+}
+```
+
+---
+
+## How It Works
+
+Each server is a tiny Cloudflare Worker that:
+
+1. Accepts JSON-RPC 2.0 POST requests
+2. Reads secrets from `X-Mcp-Secret-*` headers (injected by the Aerostack gateway)
+3. Calls the target API with your credentials
+4. Returns tool results as MCP-formatted content
+
+There are no runtime dependencies, no npm packages, and no cold start delay. Just pure `fetch()` calls at the edge.
+
+---
+
+## Contributing
+
+We welcome contributions — new servers, more tools, bug fixes, better error messages.
+
+### Adding a new server
+
+1. Fork this repo
+2. Copy the template: `cp -r workers/mcp-github workers/mcp-YOUR_SERVICE`
+3. Edit `src/index.ts` — implement the `TOOLS` array and `callTool()` function
+4. Update `wrangler.toml` with the correct worker name
+5. Test locally: `cd workers/mcp-YOUR_SERVICE && npx wrangler dev`
+6. Submit a PR with a description of what the server does and which API it wraps
+
+### Adding tools to an existing server
+
+Open the `workers/mcp-{slug}/src/index.ts` file, add a new entry to the `TOOLS` array, and implement the case in `callTool()`. Submit a PR.
+
+### Template structure
+
+```typescript
+// Every server follows this exact pattern:
+
+const TOOLS = [
+    {
+        name: 'tool_name',
+        description: 'What this tool does',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                param: { type: 'string', description: '...' },
+            },
+            required: ['param'],
+        },
+    },
+];
+
+async function callTool(name: string, args: Record<string, unknown>, token: string) {
+    switch (name) {
+        case 'tool_name': {
+            const res = await fetch('https://api.example.com/endpoint', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            return res.json();
+        }
+    }
+}
+```
+
+### Testing locally
+
+```bash
+cd workers/mcp-YOUR_SERVICE
+npx wrangler dev --port 8787
+
+# In another terminal:
+curl -X POST http://localhost:8787 \
+  -H "Content-Type: application/json" \
+  -H "X-Mcp-Secret-YOUR-TOKEN: test_token_here" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+---
+
+## Is This Your Company's MCP?
+
+If you work at Notion, Slack, Stripe, or any other company with a server in this catalog — you can **claim it** and take over maintenance.
+
+Claiming gives you:
+- Your company's verified profile on the Aerostack Hub marketplace
+- Full control over the server (code, tools, versioning)
+- Option to add paid access tiers (Phase 5)
+- Your branding instead of "by Aerostack"
+
+To claim: email **mcp@aerostack.dev** with your company domain and we'll verify and transfer ownership within 48 hours.
+
+---
+
+## MCP Protocol
+
+All servers implement [MCP 2024-11-05](https://spec.modelcontextprotocol.io) over HTTP (JSON-RPC 2.0):
+
+- `POST /` — handle `initialize`, `tools/list`, `tools/call`
+- `GET /health` — health check
+- Secrets via `X-Mcp-Secret-{ENV_VAR_NAME}` headers
+
+---
+
+## License
+
+MIT — free to use, fork, and modify.
