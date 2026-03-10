@@ -4,3 +4,4 @@ dist/
 .aerostack/
 *.env
 .dev.vars
+MCP-list.json
