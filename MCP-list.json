@@ -1,0 +1,6404 @@
+[
+  {
+    "id": "filesystem",
+    "npm": "@modelcontextprotocol/server-filesystem",
+    "category": "Core",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Secure local file read/write/edit/search operations"
+  },
+  {
+    "id": "memory",
+    "npm": "@modelcontextprotocol/server-memory",
+    "category": "Core",
+    "status": "pending",
+    "env_vars": [
+      "MEMORY_FILE_PATH"
+    ],
+    "description": "Knowledge graph-based persistent memory across sessions"
+  },
+  {
+    "id": "sequential-thinking",
+    "npm": "@modelcontextprotocol/server-sequential-thinking",
+    "category": "Core",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Dynamic reflective problem-solving through thought sequences"
+  },
+  {
+    "id": "everything",
+    "npm": "@modelcontextprotocol/server-everything",
+    "category": "Core",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Reference/test server exercising all MCP protocol features"
+  },
+  {
+    "id": "github-mcp",
+    "npm": "@modelcontextprotocol/server-github",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_PERSONAL_ACCESS_TOKEN"
+    ],
+    "description": "GitHub API: repos, PRs, issues, branches, file ops"
+  },
+  {
+    "id": "gitlab-mcp",
+    "npm": "@modelcontextprotocol/server-gitlab",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITLAB_PERSONAL_ACCESS_TOKEN",
+      "GITLAB_API_URL"
+    ],
+    "description": "GitLab API: project management, file ops, CI/CD"
+  },
+  {
+    "id": "postgres-mcp",
+    "npm": "@modelcontextprotocol/server-postgres",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "POSTGRES_CONNECTION_STRING"
+    ],
+    "description": "Read-only PostgreSQL access with schema inspection"
+  },
+  {
+    "id": "puppeteer-mcp",
+    "npm": "@modelcontextprotocol/server-puppeteer",
+    "category": "Browser Automation",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Browser automation, screenshots, JS execution via Puppeteer"
+  },
+  {
+    "id": "playwright",
+    "npm": "@playwright/mcp",
+    "category": "Browser Automation",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Fast deterministic browser automation via accessibility snapshots"
+  },
+  {
+    "id": "playwright-community",
+    "npm": "@executeautomation/playwright-mcp-server",
+    "category": "Browser Automation",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Web automation and data extraction with Playwright"
+  },
+  {
+    "id": "browserbase",
+    "npm": "@browserbasehq/mcp-browserbase",
+    "category": "Browser Automation",
+    "status": "pending",
+    "env_vars": [
+      "BROWSERBASE_API_KEY",
+      "BROWSERBASE_PROJECT_ID"
+    ],
+    "description": "Cloud browser control: navigation, data extraction, form filling"
+  },
+  {
+    "id": "firecrawl",
+    "npm": "@mendableai/mcp-server-firecrawl",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "FIRECRAWL_API_KEY"
+    ],
+    "description": "Advanced web scraping for structured data extraction"
+  },
+  {
+    "id": "fetch",
+    "npm": "@modelcontextprotocol/server-fetch",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Web content fetching and conversion to markdown for LLMs"
+  },
+  {
+    "id": "tavily",
+    "npm": "tavily-mcp",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "TAVILY_API_KEY"
+    ],
+    "description": "Real-time web search and content extraction via Tavily"
+  },
+  {
+    "id": "brave-search",
+    "npm": "@modelcontextprotocol/server-brave-search",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "BRAVE_API_KEY"
+    ],
+    "description": "Privacy-focused web search via Brave Search API"
+  },
+  {
+    "id": "duckduckgo-search",
+    "npm": "duckduckgo-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Web search via DuckDuckGo, no API key required"
+  },
+  {
+    "id": "exa-search",
+    "npm": "exa-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "EXA_API_KEY"
+    ],
+    "description": "AI-native web search and content retrieval via Exa"
+  },
+  {
+    "id": "perplexity",
+    "npm": "mcp-server-perplexity",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "PERPLEXITY_API_KEY"
+    ],
+    "description": "Research and Q&A via Perplexity AI"
+  },
+  {
+    "id": "agentql",
+    "npm": "@tinyfish-io/agentql-mcp",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "AGENTQL_API_KEY"
+    ],
+    "description": "Structured data extraction from unstructured web content"
+  },
+  {
+    "id": "oxylabs",
+    "npm": "@oxylabs/mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "OXYLABS_USERNAME",
+      "OXYLABS_PASSWORD"
+    ],
+    "description": "Enterprise web scraping with proxy and anti-bot bypass"
+  },
+  {
+    "id": "webscraping-ai",
+    "npm": "webscraping-ai-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "WEBSCRAPING_AI_API_KEY"
+    ],
+    "description": "AI-powered web data extraction and scraping"
+  },
+  {
+    "id": "git",
+    "npm": "@modelcontextprotocol/server-git",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Local Git repo operations: commits, diffs, branches, history"
+  },
+  {
+    "id": "context7",
+    "npm": "@upstash/context7-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Injects version-specific library docs into AI prompts"
+  },
+  {
+    "id": "desktop-commander",
+    "npm": "@wonderwhy-er/desktop-commander",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Terminal commands and file operations with safety controls"
+  },
+  {
+    "id": "e2b",
+    "npm": "@e2b/mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "E2B_API_KEY"
+    ],
+    "description": "Secure cloud sandbox for running Python/JS code"
+  },
+  {
+    "id": "kubernetes",
+    "npm": "kubernetes-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Kubernetes cluster management: pods, deployments, services"
+  },
+  {
+    "id": "kubernetes-go",
+    "npm": "mcp-k8s-go",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Go-based Kubernetes MCP for cluster interaction"
+  },
+  {
+    "id": "docker",
+    "npm": "docker-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Build, run and inspect Docker containers via AI"
+  },
+  {
+    "id": "aws",
+    "npm": "aws-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS services: EC2, S3, IAM, CloudWatch, Lambda"
+  },
+  {
+    "id": "azure",
+    "npm": "@azure/mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_SUBSCRIPTION_ID",
+      "AZURE_TENANT_ID"
+    ],
+    "description": "40+ Azure services: Storage, CosmosDB, PostgreSQL, AI Search"
+  },
+  {
+    "id": "cloudflare",
+    "npm": "@cloudflare/mcp-server-cloudflare",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "description": "Cloudflare: Workers, KV, R2, D1, DNS, security rules"
+  },
+  {
+    "id": "vercel",
+    "npm": "@vercel/mcp-adapter",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "VERCEL_TOKEN"
+    ],
+    "description": "Vercel deployments, project management, env vars"
+  },
+  {
+    "id": "netlify",
+    "npm": "netlify-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "NETLIFY_TOKEN"
+    ],
+    "description": "Netlify: create projects, build, deploy, manage env vars"
+  },
+  {
+    "id": "firebase",
+    "npm": "firebase-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "FIREBASE_PROJECT_ID",
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Firebase: Authentication, Firestore, Storage"
+  },
+  {
+    "id": "sentry",
+    "npm": "@sentry/mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "SENTRY_AUTH_TOKEN",
+      "SENTRY_ORG"
+    ],
+    "description": "Live error context: query issues, generate patches"
+  },
+  {
+    "id": "postman",
+    "npm": "@delano/postman-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "POSTMAN_API_KEY"
+    ],
+    "description": "Postman API: collections, environments, test runs"
+  },
+  {
+    "id": "sonarqube",
+    "npm": "sonarqube-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "SONAR_TOKEN",
+      "SONAR_HOST_URL"
+    ],
+    "description": "SonarQube code quality and security analysis"
+  },
+  {
+    "id": "prisma",
+    "npm": "@prisma/mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "DATABASE_URL"
+    ],
+    "description": "Prisma ORM: query data, manage schema migrations"
+  },
+  {
+    "id": "supabase",
+    "npm": "@supabase/mcp-server-supabase",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "SUPABASE_URL",
+      "SUPABASE_SERVICE_ROLE_KEY"
+    ],
+    "description": "Supabase: DB, auth, edge functions, storage"
+  },
+  {
+    "id": "mongodb",
+    "npm": "@mongodb-js/mongodb-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "MONGODB_URI"
+    ],
+    "description": "MongoDB schema inspection, JSON querying, document ops"
+  },
+  {
+    "id": "sqlite",
+    "npm": "@modelcontextprotocol/server-sqlite",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Local SQLite database access and queries"
+  },
+  {
+    "id": "mysql",
+    "npm": "mcp-server-mysql",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "MYSQL_HOST",
+      "MYSQL_USER",
+      "MYSQL_PASSWORD",
+      "MYSQL_DATABASE"
+    ],
+    "description": "MySQL database operations and schema inspection"
+  },
+  {
+    "id": "redis",
+    "npm": "redis-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "REDIS_URL"
+    ],
+    "description": "Redis: natural language interface for data management and search"
+  },
+  {
+    "id": "neon",
+    "npm": "@neondatabase/mcp-server-neon",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "NEON_API_KEY"
+    ],
+    "description": "Neon serverless PostgreSQL: branches, queries, management"
+  },
+  {
+    "id": "planetscale",
+    "npm": "planetscale-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "PLANETSCALE_TOKEN"
+    ],
+    "description": "PlanetScale MySQL-compatible serverless DB"
+  },
+  {
+    "id": "arangodb",
+    "npm": "arangodb-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "ARANGO_URL",
+      "ARANGO_USERNAME",
+      "ARANGO_PASSWORD"
+    ],
+    "description": "ArangoDB graph and document database interaction"
+  },
+  {
+    "id": "couchbase",
+    "npm": "couchbase-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "CB_CONN_STR",
+      "CB_USERNAME",
+      "CB_PASSWORD"
+    ],
+    "description": "Couchbase cluster interaction with natural language querying"
+  },
+  {
+    "id": "convex",
+    "npm": "@convex-dev/mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "CONVEX_URL"
+    ],
+    "description": "Convex: backend functions, tables, full-stack feature impl"
+  },
+  {
+    "id": "duckdb",
+    "npm": "motherduck-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "motherduck_token"
+    ],
+    "description": "MotherDuck and local DuckDB flexible querying"
+  },
+  {
+    "id": "pinecone",
+    "npm": "@pinecone-database/mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "PINECONE_API_KEY"
+    ],
+    "description": "Pinecone vector database: similarity search, context retrieval"
+  },
+  {
+    "id": "qdrant",
+    "npm": "mcp-server-qdrant",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "QDRANT_URL",
+      "QDRANT_API_KEY"
+    ],
+    "description": "Qdrant vector search engine for semantic retrieval"
+  },
+  {
+    "id": "weaviate",
+    "npm": "mcp-server-weaviate",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "WEAVIATE_URL",
+      "WEAVIATE_API_KEY"
+    ],
+    "description": "Weaviate vector database for AI-native search"
+  },
+  {
+    "id": "snowflake",
+    "npm": "mcp-server-snowflake",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "SNOWFLAKE_ACCOUNT",
+      "SNOWFLAKE_USERNAME",
+      "SNOWFLAKE_PASSWORD"
+    ],
+    "description": "Snowflake data warehouse queries and management"
+  },
+  {
+    "id": "bigquery",
+    "npm": "mcp-server-bigquery",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLOUD_PROJECT",
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google BigQuery analytics and ML"
+  },
+  {
+    "id": "notion",
+    "npm": "@notionhq/notion-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "NOTION_API_KEY"
+    ],
+    "description": "Notion: search, query DBs, manage pages and comments"
+  },
+  {
+    "id": "linear",
+    "npm": "linear-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "LINEAR_API_KEY"
+    ],
+    "description": "Linear: find/create/update issues, projects, comments"
+  },
+  {
+    "id": "jira",
+    "npm": "jira-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "JIRA_HOST",
+      "JIRA_EMAIL",
+      "JIRA_API_TOKEN"
+    ],
+    "description": "Atlassian Jira: issues, sprints, projects"
+  },
+  {
+    "id": "confluence",
+    "npm": "confluence-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "CONFLUENCE_URL",
+      "CONFLUENCE_EMAIL",
+      "CONFLUENCE_TOKEN"
+    ],
+    "description": "Confluence: pages, spaces, content management"
+  },
+  {
+    "id": "asana",
+    "npm": "asana-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "ASANA_TOKEN"
+    ],
+    "description": "Asana: tasks, projects, teams management"
+  },
+  {
+    "id": "trello",
+    "npm": "trello-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "TRELLO_API_KEY",
+      "TRELLO_TOKEN"
+    ],
+    "description": "Trello boards, lists, cards management"
+  },
+  {
+    "id": "monday",
+    "npm": "monday-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "MONDAY_API_KEY"
+    ],
+    "description": "Monday.com project management and workflows"
+  },
+  {
+    "id": "clickup",
+    "npm": "clickup-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "CLICKUP_API_KEY"
+    ],
+    "description": "ClickUp tasks, docs, goals management"
+  },
+  {
+    "id": "airtable",
+    "npm": "airtable-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "AIRTABLE_API_KEY"
+    ],
+    "description": "Airtable base and table operations via MCP"
+  },
+  {
+    "id": "google-tasks",
+    "npm": "@arpitbatra123/mcp-googletasks",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Tasks API integration"
+  },
+  {
+    "id": "obsidian",
+    "npm": "mcp-obsidian",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "OBSIDIAN_VAULT_PATH"
+    ],
+    "description": "Obsidian vault: read, write, search notes"
+  },
+  {
+    "id": "todoist",
+    "npm": "todoist-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "TODOIST_API_TOKEN"
+    ],
+    "description": "Todoist tasks, projects, labels management"
+  },
+  {
+    "id": "apple-calendar",
+    "npm": "apple-calendar-mcp",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [],
+    "description": "macOS Calendar: create/modify events, find free time"
+  },
+  {
+    "id": "google-calendar",
+    "npm": "google-calendar-mcp",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Calendar event management"
+  },
+  {
+    "id": "fibery",
+    "npm": "fibery-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "FIBERY_HOST",
+      "FIBERY_TOKEN"
+    ],
+    "description": "Fibery: queries and entity operations in workspace"
+  },
+  {
+    "id": "slack",
+    "npm": "@modelcontextprotocol/server-slack",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "SLACK_BOT_TOKEN"
+    ],
+    "description": "Slack: messages, channels, threads, search"
+  },
+  {
+    "id": "gmail",
+    "npm": "@gongrzhe/server-gmail-autoauth-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "GMAIL_CLIENT_ID",
+      "GMAIL_CLIENT_SECRET"
+    ],
+    "description": "Gmail: read, send, search, manage emails"
+  },
+  {
+    "id": "whatsapp",
+    "npm": "whatsapp-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [],
+    "description": "WhatsApp: send messages, list messages, search contacts"
+  },
+  {
+    "id": "telegram",
+    "npm": "telegram-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "TELEGRAM_BOT_TOKEN"
+    ],
+    "description": "Telegram bot: send/receive messages, manage chats"
+  },
+  {
+    "id": "discord",
+    "npm": "discord-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "DISCORD_BOT_TOKEN"
+    ],
+    "description": "Discord: messages, channels, guilds management"
+  },
+  {
+    "id": "microsoft-teams",
+    "npm": "mcp-teams-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "TEAMS_TOKEN"
+    ],
+    "description": "Microsoft Teams: read, post, mention, list members"
+  },
+  {
+    "id": "outlook",
+    "npm": "outlook-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "OUTLOOK_CLIENT_ID",
+      "OUTLOOK_CLIENT_SECRET"
+    ],
+    "description": "Microsoft Outlook email and calendar"
+  },
+  {
+    "id": "twilio",
+    "npm": "twilio-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "TWILIO_ACCOUNT_SID",
+      "TWILIO_AUTH_TOKEN"
+    ],
+    "description": "Twilio: SMS, voice calls, messaging"
+  },
+  {
+    "id": "sendgrid",
+    "npm": "sendgrid-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "SENDGRID_API_KEY"
+    ],
+    "description": "SendGrid email sending and campaign management"
+  },
+  {
+    "id": "mailchimp",
+    "npm": "mailchimp-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "MAILCHIMP_API_KEY"
+    ],
+    "description": "Mailchimp email marketing and audience management"
+  },
+  {
+    "id": "zoom",
+    "npm": "zoom-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "ZOOM_CLIENT_ID",
+      "ZOOM_CLIENT_SECRET"
+    ],
+    "description": "Zoom: meetings, recordings, participants"
+  },
+  {
+    "id": "hubspot",
+    "npm": "@hubspot/mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "HUBSPOT_ACCESS_TOKEN"
+    ],
+    "description": "HubSpot CRM: contacts, companies, deals, tickets"
+  },
+  {
+    "id": "salesforce",
+    "npm": "salesforce-mcp",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "SALESFORCE_CLIENT_ID",
+      "SALESFORCE_CLIENT_SECRET"
+    ],
+    "description": "Salesforce CRM: accounts, leads, opportunities"
+  },
+  {
+    "id": "intercom",
+    "npm": "intercom-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "INTERCOM_TOKEN"
+    ],
+    "description": "Intercom: conversations, contacts, support tickets"
+  },
+  {
+    "id": "zendesk",
+    "npm": "zendesk-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "ZENDESK_SUBDOMAIN",
+      "ZENDESK_EMAIL",
+      "ZENDESK_TOKEN"
+    ],
+    "description": "Zendesk: tickets, users, help center articles"
+  },
+  {
+    "id": "stripe",
+    "npm": "@stripe/agent-toolkit",
+    "category": "Payments",
+    "status": "pending",
+    "env_vars": [
+      "STRIPE_SECRET_KEY"
+    ],
+    "description": "Stripe: payments, customers, products, invoices, subscriptions"
+  },
+  {
+    "id": "paypal",
+    "npm": "@paypal/agent-toolkit",
+    "category": "Payments",
+    "status": "pending",
+    "env_vars": [
+      "PAYPAL_CLIENT_ID",
+      "PAYPAL_CLIENT_SECRET"
+    ],
+    "description": "PayPal API: payments, orders, payouts"
+  },
+  {
+    "id": "razorpay",
+    "npm": "razorpay-mcp-server",
+    "category": "Payments",
+    "status": "pending",
+    "env_vars": [
+      "RAZORPAY_KEY_ID",
+      "RAZORPAY_KEY_SECRET"
+    ],
+    "description": "Razorpay: payment processing, payouts, working capital"
+  },
+  {
+    "id": "chargebee",
+    "npm": "chargebee-mcp-server",
+    "category": "Payments",
+    "status": "pending",
+    "env_vars": [
+      "CHARGEBEE_SITE",
+      "CHARGEBEE_API_KEY"
+    ],
+    "description": "Chargebee: subscription and billing management"
+  },
+  {
+    "id": "recurly",
+    "npm": "recurly-mcp-server",
+    "category": "Payments",
+    "status": "pending",
+    "env_vars": [
+      "RECURLY_API_KEY"
+    ],
+    "description": "Recurly subscription management platform"
+  },
+  {
+    "id": "quickbooks",
+    "npm": "quickbooks-mcp-server",
+    "category": "Finance",
+    "status": "pending",
+    "env_vars": [
+      "QB_CLIENT_ID",
+      "QB_CLIENT_SECRET"
+    ],
+    "description": "QuickBooks: invoices, expenses, reports"
+  },
+  {
+    "id": "xero",
+    "npm": "xero-mcp-server",
+    "category": "Finance",
+    "status": "pending",
+    "env_vars": [
+      "XERO_CLIENT_ID",
+      "XERO_CLIENT_SECRET"
+    ],
+    "description": "Xero accounting: invoices, contacts, bank transactions"
+  },
+  {
+    "id": "alpha-vantage",
+    "npm": "alpha-vantage-mcp",
+    "category": "Finance",
+    "status": "pending",
+    "env_vars": [
+      "ALPHA_VANTAGE_API_KEY"
+    ],
+    "description": "Stock market data: real-time, historical, forex, crypto"
+  },
+  {
+    "id": "google-drive",
+    "npm": "@google/mcp-server-gdrive",
+    "category": "Google Workspace",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Drive: search, read, manage files and folders"
+  },
+  {
+    "id": "google-docs",
+    "npm": "google-docs-mcp",
+    "category": "Google Workspace",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Docs: create, read, edit documents"
+  },
+  {
+    "id": "google-sheets",
+    "npm": "google-sheets-mcp",
+    "category": "Google Workspace",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Sheets: create, read, update spreadsheets"
+  },
+  {
+    "id": "google-slides",
+    "npm": "google-slides-mcp",
+    "category": "Google Workspace",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Slides: create and manage presentations"
+  },
+  {
+    "id": "google-maps",
+    "npm": "@modelcontextprotocol/server-google-maps",
+    "category": "Maps & Location",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_MAPS_API_KEY"
+    ],
+    "description": "Google Maps: locations, routes, geocoding, places"
+  },
+  {
+    "id": "google-ads",
+    "npm": "google-ads-mcp",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_ADS_DEVELOPER_TOKEN"
+    ],
+    "description": "Google Ads: campaigns, ad groups, keywords management"
+  },
+  {
+    "id": "google-analytics",
+    "npm": "google-analytics-mcp",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "GA_CLIENT_ID",
+      "GA_CLIENT_SECRET"
+    ],
+    "description": "Google Analytics: reports, metrics, user behavior"
+  },
+  {
+    "id": "youtube",
+    "npm": "youtube-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "YOUTUBE_API_KEY"
+    ],
+    "description": "YouTube: video info, transcripts, channel management"
+  },
+  {
+    "id": "youtube-transcript",
+    "npm": "@kimtaeyoon83/mcp-server-youtube-transcript",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Extract subtitles and transcripts from YouTube videos"
+  },
+  {
+    "id": "figma",
+    "npm": "figma-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [
+      "FIGMA_ACCESS_TOKEN"
+    ],
+    "description": "Figma: design files, components, prototypes, comments"
+  },
+  {
+    "id": "canva",
+    "npm": "canva-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [
+      "CANVA_CLIENT_ID",
+      "CANVA_CLIENT_SECRET"
+    ],
+    "description": "Canva: create and manage designs and apps"
+  },
+  {
+    "id": "magicui",
+    "npm": "magic-ui-mcp",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Magic UI React+Tailwind component library via MCP"
+  },
+  {
+    "id": "reactbits",
+    "npm": "reactbits-mcp",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "135+ animated React components from ReactBits.dev"
+  },
+  {
+    "id": "blender",
+    "npm": "blender-mcp",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Blender 3D modeling automation via MCP"
+  },
+  {
+    "id": "excalidraw",
+    "npm": "excalidraw-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Renders hand-drawn style diagrams using Excalidraw"
+  },
+  {
+    "id": "shopify",
+    "npm": "shopify-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "SHOPIFY_ACCESS_TOKEN",
+      "SHOPIFY_STORE_DOMAIN"
+    ],
+    "description": "Shopify: products, orders, customers, inventory"
+  },
+  {
+    "id": "woocommerce",
+    "npm": "woocommerce-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "WC_URL",
+      "WC_KEY",
+      "WC_SECRET"
+    ],
+    "description": "WooCommerce: orders, products, customers"
+  },
+  {
+    "id": "bigcommerce",
+    "npm": "bigcommerce-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "BC_STORE_HASH",
+      "BC_ACCESS_TOKEN"
+    ],
+    "description": "BigCommerce: catalog, orders, customers management"
+  },
+  {
+    "id": "magento",
+    "npm": "magento-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "MAGENTO_URL",
+      "MAGENTO_TOKEN"
+    ],
+    "description": "Magento: products, orders, CMS blocks management"
+  },
+  {
+    "id": "recharge",
+    "npm": "recharge-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "RECHARGE_API_KEY"
+    ],
+    "description": "ReCharge subscriptions and recurring payments"
+  },
+  {
+    "id": "shipstation",
+    "npm": "shipstation-mcp-server",
+    "category": "Ecommerce",
+    "status": "pending",
+    "env_vars": [
+      "SHIPSTATION_API_KEY",
+      "SHIPSTATION_API_SECRET"
+    ],
+    "description": "ShipStation: order fulfillment and shipping management"
+  },
+  {
+    "id": "zapier",
+    "npm": "@zapier/mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "ZAPIER_MCP_URL"
+    ],
+    "description": "Zapier: 8000+ app automations and workflow triggers"
+  },
+  {
+    "id": "n8n",
+    "npm": "n8n-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "N8N_HOST",
+      "N8N_API_KEY"
+    ],
+    "description": "n8n workflow automation with 525+ nodes"
+  },
+  {
+    "id": "make",
+    "npm": "make-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "MAKE_API_KEY"
+    ],
+    "description": "Make (Integromat): scenarios and automation management"
+  },
+  {
+    "id": "dune-analytics",
+    "npm": "dune-analytics-mcp",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "DUNE_API_KEY"
+    ],
+    "description": "Dune Analytics blockchain data queries"
+  },
+  {
+    "id": "segment",
+    "npm": "segment-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "SEGMENT_WRITE_KEY"
+    ],
+    "description": "Segment: track events, manage sources and destinations"
+  },
+  {
+    "id": "mixpanel",
+    "npm": "mixpanel-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "MIXPANEL_TOKEN"
+    ],
+    "description": "Mixpanel: events, funnels, user analytics"
+  },
+  {
+    "id": "amplitude",
+    "npm": "amplitude-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "AMPLITUDE_API_KEY"
+    ],
+    "description": "Amplitude: product analytics and user behavior"
+  },
+  {
+    "id": "datadog",
+    "npm": "datadog-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "DD_API_KEY",
+      "DD_APP_KEY"
+    ],
+    "description": "Datadog: logs, metrics, alerts, APM traces"
+  },
+  {
+    "id": "grafana",
+    "npm": "grafana-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "GRAFANA_URL",
+      "GRAFANA_TOKEN"
+    ],
+    "description": "Grafana dashboards, alerts, data sources"
+  },
+  {
+    "id": "new-relic",
+    "npm": "newrelic-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "NEW_RELIC_API_KEY"
+    ],
+    "description": "New Relic: APM, infrastructure, browser monitoring"
+  },
+  {
+    "id": "splunk",
+    "npm": "splunk-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "SPLUNK_HOST",
+      "SPLUNK_TOKEN"
+    ],
+    "description": "Splunk: log search, alerts, dashboards"
+  },
+  {
+    "id": "openai",
+    "npm": "openai-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI API: completions, embeddings, images, fine-tuning"
+  },
+  {
+    "id": "huggingface",
+    "npm": "huggingface-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "HF_TOKEN"
+    ],
+    "description": "Hugging Face: models, datasets, inference"
+  },
+  {
+    "id": "replicate",
+    "npm": "replicate-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "REPLICATE_API_TOKEN"
+    ],
+    "description": "Replicate: run AI models, image/video/audio generation"
+  },
+  {
+    "id": "stability-ai",
+    "npm": "stability-ai-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "STABILITY_API_KEY"
+    ],
+    "description": "Stability AI: image generation, upscaling, editing"
+  },
+  {
+    "id": "elevenlabs",
+    "npm": "elevenlabs-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "ELEVENLABS_API_KEY"
+    ],
+    "description": "ElevenLabs: text-to-speech, voice cloning"
+  },
+  {
+    "id": "assemblyai",
+    "npm": "assemblyai-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "ASSEMBLYAI_API_KEY"
+    ],
+    "description": "AssemblyAI: speech-to-text, audio intelligence"
+  },
+  {
+    "id": "deepgram",
+    "npm": "deepgram-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "DEEPGRAM_API_KEY"
+    ],
+    "description": "Deepgram: real-time and batch audio transcription"
+  },
+  {
+    "id": "langsmith",
+    "npm": "langsmith-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "LANGSMITH_API_KEY"
+    ],
+    "description": "LangSmith: LLM tracing, evals, prompt management"
+  },
+  {
+    "id": "langfuse",
+    "npm": "langfuse-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "LANGFUSE_SECRET_KEY",
+      "LANGFUSE_PUBLIC_KEY"
+    ],
+    "description": "Langfuse: LLM observability, tracing, evaluation"
+  },
+  {
+    "id": "vectara",
+    "npm": "vectara-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "VECTARA_API_KEY",
+      "VECTARA_CUSTOMER_ID"
+    ],
+    "description": "Vectara: semantic search and RAG"
+  },
+  {
+    "id": "pdf",
+    "npm": "pdf-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "PDF extraction, manipulation, text search"
+  },
+  {
+    "id": "excel",
+    "npm": "@haris-musa/excel-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Excel workbook: data, formatting, charts without MS Excel"
+  },
+  {
+    "id": "docx",
+    "npm": "docx-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Word documents: create, read, edit DOCX files"
+  },
+  {
+    "id": "powerpoint",
+    "npm": "powerpoint-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "PowerPoint: create and manage PPTX presentations"
+  },
+  {
+    "id": "box",
+    "npm": "box-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "BOX_CLIENT_ID",
+      "BOX_CLIENT_SECRET"
+    ],
+    "description": "Box: enterprise document management and storage"
+  },
+  {
+    "id": "dropbox",
+    "npm": "dropbox-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "DROPBOX_ACCESS_TOKEN"
+    ],
+    "description": "Dropbox: file management, sharing, search"
+  },
+  {
+    "id": "sharepoint",
+    "npm": "sharepoint-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "SP_CLIENT_ID",
+      "SP_CLIENT_SECRET",
+      "SP_TENANT_ID"
+    ],
+    "description": "SharePoint: document libraries, lists, pages"
+  },
+  {
+    "id": "onedrive",
+    "npm": "onedrive-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "MS_CLIENT_ID",
+      "MS_CLIENT_SECRET"
+    ],
+    "description": "OneDrive: files, folders, sharing management"
+  },
+  {
+    "id": "confluence-wiki",
+    "npm": "confluence-wiki-mcp",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "CONFLUENCE_URL",
+      "CONFLUENCE_TOKEN"
+    ],
+    "description": "Confluence: wiki pages, spaces, content search"
+  },
+  {
+    "id": "auth0",
+    "npm": "auth0-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "AUTH0_DOMAIN",
+      "AUTH0_CLIENT_ID",
+      "AUTH0_CLIENT_SECRET"
+    ],
+    "description": "Auth0: users, roles, applications management"
+  },
+  {
+    "id": "okta",
+    "npm": "okta-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "OKTA_DOMAIN",
+      "OKTA_API_TOKEN"
+    ],
+    "description": "Okta: users, groups, apps, SSO management"
+  },
+  {
+    "id": "vault",
+    "npm": "vault-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "VAULT_ADDR",
+      "VAULT_TOKEN"
+    ],
+    "description": "HashiCorp Vault: secrets management and access control"
+  },
+  {
+    "id": "shodan",
+    "npm": "shodan-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "SHODAN_API_KEY"
+    ],
+    "description": "Shodan: internet device search and vulnerability data"
+  },
+  {
+    "id": "cve-intelligence",
+    "npm": "cve-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "CVE vulnerability intelligence, EPSS risk scoring"
+  },
+  {
+    "id": "infobip",
+    "npm": "infobip-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "INFOBIP_API_KEY",
+      "INFOBIP_BASE_URL"
+    ],
+    "description": "Infobip: SMS, RCS, WhatsApp, Viber, communication APIs"
+  },
+  {
+    "id": "twitter",
+    "npm": "twitter-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "TWITTER_API_KEY",
+      "TWITTER_API_SECRET",
+      "TWITTER_ACCESS_TOKEN",
+      "TWITTER_ACCESS_SECRET"
+    ],
+    "description": "Twitter/X: tweets, searches, timeline management"
+  },
+  {
+    "id": "linkedin",
+    "npm": "linkedin-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "LINKEDIN_ACCESS_TOKEN"
+    ],
+    "description": "LinkedIn: posts, connections, job listings"
+  },
+  {
+    "id": "instagram",
+    "npm": "instagram-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "INSTAGRAM_ACCESS_TOKEN"
+    ],
+    "description": "Instagram: posts, stories, insights via Graph API"
+  },
+  {
+    "id": "facebook-ads",
+    "npm": "facebook-ads-mcp",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "FB_ACCESS_TOKEN",
+      "FB_AD_ACCOUNT_ID"
+    ],
+    "description": "Facebook Ads: campaigns, ad sets, ads management"
+  },
+  {
+    "id": "tiktok",
+    "npm": "tiktok-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "TIKTOK_ACCESS_TOKEN"
+    ],
+    "description": "TikTok: content, analytics, business API"
+  },
+  {
+    "id": "reddit",
+    "npm": "reddit-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET"
+    ],
+    "description": "Reddit: posts, comments, subreddits, search"
+  },
+  {
+    "id": "bluesky",
+    "npm": "bluesky-mcp-server",
+    "category": "Social Media",
+    "status": "pending",
+    "env_vars": [
+      "BLUESKY_IDENTIFIER",
+      "BLUESKY_PASSWORD"
+    ],
+    "description": "Bluesky: posts, feeds, follows"
+  },
+  {
+    "id": "mailerlite",
+    "npm": "mailerlite-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "MAILERLITE_API_KEY"
+    ],
+    "description": "MailerLite: email campaigns, subscribers, automations"
+  },
+  {
+    "id": "klaviyo",
+    "npm": "klaviyo-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "KLAVIYO_API_KEY"
+    ],
+    "description": "Klaviyo: email/SMS marketing, lists, flows"
+  },
+  {
+    "id": "customer-io",
+    "npm": "customerio-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "CUSTOMERIO_API_KEY",
+      "CUSTOMERIO_SITE_ID"
+    ],
+    "description": "Customer.io: messaging campaigns, event-triggered emails"
+  },
+  {
+    "id": "terraform",
+    "npm": "terraform-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Terraform: manage infrastructure as code"
+  },
+  {
+    "id": "pulumi",
+    "npm": "pulumi-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "PULUMI_ACCESS_TOKEN"
+    ],
+    "description": "Pulumi: cloud infrastructure with programming languages"
+  },
+  {
+    "id": "ansible",
+    "npm": "ansible-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Ansible: playbooks, inventory, automation"
+  },
+  {
+    "id": "jenkins",
+    "npm": "jenkins-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "JENKINS_URL",
+      "JENKINS_USER",
+      "JENKINS_TOKEN"
+    ],
+    "description": "Jenkins: CI/CD pipeline management"
+  },
+  {
+    "id": "circleci",
+    "npm": "circleci-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "CIRCLE_TOKEN"
+    ],
+    "description": "CircleCI: pipelines, workflows, artifacts"
+  },
+  {
+    "id": "github-actions",
+    "npm": "github-actions-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Actions: workflows, runs, artifacts management"
+  },
+  {
+    "id": "digital-ocean",
+    "npm": "digitalocean-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "DIGITALOCEAN_TOKEN"
+    ],
+    "description": "DigitalOcean: Droplets, Spaces, databases, Apps"
+  },
+  {
+    "id": "linode",
+    "npm": "linode-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "LINODE_TOKEN"
+    ],
+    "description": "Linode/Akamai Cloud: instances, storage, networking"
+  },
+  {
+    "id": "gcp",
+    "npm": "gcp-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud Platform: GCE, GCS, GKE, Cloud Run"
+  },
+  {
+    "id": "heroku",
+    "npm": "heroku-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "HEROKU_API_KEY"
+    ],
+    "description": "Heroku: apps, dynos, add-ons, deployments"
+  },
+  {
+    "id": "openapi-spec",
+    "npm": "openapi-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Expose any OpenAPI spec as MCP tools automatically"
+  },
+  {
+    "id": "weather",
+    "npm": "weather-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [
+      "OPENWEATHER_API_KEY"
+    ],
+    "description": "OpenWeather: current conditions, forecasts, alerts"
+  },
+  {
+    "id": "news",
+    "npm": "news-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [
+      "NEWS_API_KEY"
+    ],
+    "description": "News API: top headlines, search articles by topic"
+  },
+  {
+    "id": "wikipedia",
+    "npm": "wikipedia-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Wikipedia: article search, summaries, page content"
+  },
+  {
+    "id": "wolfram-alpha",
+    "npm": "wolfram-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [
+      "WOLFRAM_APP_ID"
+    ],
+    "description": "Wolfram Alpha: math, science, factual computations"
+  },
+  {
+    "id": "openstreetmap",
+    "npm": "osm-mcp-server",
+    "category": "Maps & Location",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OpenStreetMap: geocoding, routing, place search"
+  },
+  {
+    "id": "ipinfo",
+    "npm": "ipinfo-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [
+      "IPINFO_TOKEN"
+    ],
+    "description": "IP geolocation, ASN, organization lookup"
+  },
+  {
+    "id": "currency",
+    "npm": "currency-mcp-server",
+    "category": "Finance",
+    "status": "pending",
+    "env_vars": [
+      "EXCHANGE_RATE_API_KEY"
+    ],
+    "description": "Currency exchange rates and conversion"
+  },
+  {
+    "id": "nasa",
+    "npm": "nasa-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [
+      "NASA_API_KEY"
+    ],
+    "description": "NASA: APOD, Mars rover data, asteroids, EPIC"
+  },
+  {
+    "id": "spotify",
+    "npm": "spotify-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "SPOTIFY_CLIENT_ID",
+      "SPOTIFY_CLIENT_SECRET"
+    ],
+    "description": "Spotify: playback control, playlists, search, recommendations"
+  },
+  {
+    "id": "twitch",
+    "npm": "twitch-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "TWITCH_CLIENT_ID",
+      "TWITCH_CLIENT_SECRET"
+    ],
+    "description": "Twitch: streams, channels, clips, chat"
+  },
+  {
+    "id": "pagerduty",
+    "npm": "pagerduty-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "PAGERDUTY_API_KEY"
+    ],
+    "description": "PagerDuty: incidents, schedules, alerts management"
+  },
+  {
+    "id": "opsgenie",
+    "npm": "opsgenie-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "OPSGENIE_API_KEY"
+    ],
+    "description": "Opsgenie: alert management and on-call scheduling"
+  },
+  {
+    "id": "freshdesk",
+    "npm": "freshdesk-mcp-server",
+    "category": "Support",
+    "status": "pending",
+    "env_vars": [
+      "FRESHDESK_API_KEY",
+      "FRESHDESK_DOMAIN"
+    ],
+    "description": "Freshdesk: tickets, contacts, canned responses"
+  },
+  {
+    "id": "freshservice",
+    "npm": "freshservice-mcp-server",
+    "category": "Support",
+    "status": "pending",
+    "env_vars": [
+      "FRESHSERVICE_API_KEY",
+      "FRESHSERVICE_DOMAIN"
+    ],
+    "description": "Freshservice: IT service management, assets"
+  },
+  {
+    "id": "servicenow",
+    "npm": "servicenow-mcp-server",
+    "category": "Support",
+    "status": "pending",
+    "env_vars": [
+      "SN_INSTANCE",
+      "SN_USERNAME",
+      "SN_PASSWORD"
+    ],
+    "description": "ServiceNow: ITSM incidents, changes, CMDB"
+  },
+  {
+    "id": "github-official",
+    "npm": "@github/github-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "Official GitHub MCP (replaced old @modelcontextprotocol/server-github)"
+  },
+  {
+    "id": "apache-airflow",
+    "npm": "mcp-server-apache-airflow",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "AIRFLOW_HOST",
+      "AIRFLOW_USERNAME",
+      "AIRFLOW_PASSWORD"
+    ],
+    "description": "Apache Airflow: DAGs, task instances, variable management"
+  },
+  {
+    "id": "dbt",
+    "npm": "dbt-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "DBT_CLOUD_API_KEY"
+    ],
+    "description": "dbt Cloud: models, runs, sources, documentation"
+  },
+  {
+    "id": "airbyte",
+    "npm": "airbyte-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "AIRBYTE_API_KEY"
+    ],
+    "description": "Airbyte: connections, sources, destinations management"
+  },
+  {
+    "id": "fivetran",
+    "npm": "fivetran-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "FIVETRAN_API_KEY",
+      "FIVETRAN_API_SECRET"
+    ],
+    "description": "Fivetran: connectors, sync management, schemas"
+  },
+  {
+    "id": "kafka",
+    "npm": "kafka-mcp-server",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "KAFKA_BROKERS"
+    ],
+    "description": "Apache Kafka: topics, produce/consume messages, consumer groups"
+  },
+  {
+    "id": "rabbitmq",
+    "npm": "rabbitmq-mcp-server",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "RABBITMQ_URL"
+    ],
+    "description": "RabbitMQ: queues, exchanges, bindings management"
+  },
+  {
+    "id": "nats",
+    "npm": "nats-mcp-server",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "NATS_URL"
+    ],
+    "description": "NATS messaging: pub/sub, JetStream, key-value store"
+  },
+  {
+    "id": "elasticsearch",
+    "npm": "elasticsearch-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "ELASTICSEARCH_URL",
+      "ELASTICSEARCH_API_KEY"
+    ],
+    "description": "Elasticsearch: indices, search, document operations"
+  },
+  {
+    "id": "algolia",
+    "npm": "algolia-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "ALGOLIA_APP_ID",
+      "ALGOLIA_API_KEY"
+    ],
+    "description": "Algolia: indices, search, ranking, analytics"
+  },
+  {
+    "id": "meilisearch",
+    "npm": "meilisearch-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "MEILI_URL",
+      "MEILI_MASTER_KEY"
+    ],
+    "description": "Meilisearch: fast full-text search engine"
+  },
+  {
+    "id": "typesense",
+    "npm": "typesense-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "TYPESENSE_HOST",
+      "TYPESENSE_API_KEY"
+    ],
+    "description": "Typesense: instant search with typo tolerance"
+  },
+  {
+    "id": "wordpress",
+    "npm": "wordpress-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "WP_URL",
+      "WP_USERNAME",
+      "WP_PASSWORD"
+    ],
+    "description": "WordPress: posts, pages, media, plugins via REST API"
+  },
+  {
+    "id": "contentful",
+    "npm": "contentful-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "CONTENTFUL_SPACE_ID",
+      "CONTENTFUL_ACCESS_TOKEN"
+    ],
+    "description": "Contentful: entries, assets, content types management"
+  },
+  {
+    "id": "strapi",
+    "npm": "strapi-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "STRAPI_URL",
+      "STRAPI_API_KEY"
+    ],
+    "description": "Strapi headless CMS: content types, entries"
+  },
+  {
+    "id": "sanity",
+    "npm": "sanity-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "SANITY_PROJECT_ID",
+      "SANITY_TOKEN"
+    ],
+    "description": "Sanity: documents, assets, GROQ queries"
+  },
+  {
+    "id": "ghost",
+    "npm": "ghost-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "GHOST_URL",
+      "GHOST_ADMIN_API_KEY"
+    ],
+    "description": "Ghost: posts, pages, members, email newsletters"
+  },
+  {
+    "id": "webflow",
+    "npm": "webflow-mcp-server",
+    "category": "CMS",
+    "status": "pending",
+    "env_vars": [
+      "WEBFLOW_TOKEN"
+    ],
+    "description": "Webflow: CMS items, site management, Designer API"
+  },
+  {
+    "id": "atlassian-remote",
+    "npm": "atlassian-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "ATLASSIAN_TOKEN"
+    ],
+    "description": "Atlassian remote: Jira + Confluence unified access"
+  },
+  {
+    "id": "retool",
+    "npm": "retool-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "RETOOL_API_KEY"
+    ],
+    "description": "Retool: apps, workflows, database queries"
+  },
+  {
+    "id": "appsmith",
+    "npm": "appsmith-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "APPSMITH_URL",
+      "APPSMITH_TOKEN"
+    ],
+    "description": "Appsmith: apps, pages, datasources management"
+  },
+  {
+    "id": "bubble",
+    "npm": "bubble-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "BUBBLE_APP_NAME",
+      "BUBBLE_API_KEY"
+    ],
+    "description": "Bubble no-code: data, workflows, API management"
+  },
+  {
+    "id": "supabase-storage",
+    "npm": "supabase-storage-mcp",
+    "category": "Storage",
+    "status": "pending",
+    "env_vars": [
+      "SUPABASE_URL",
+      "SUPABASE_SERVICE_ROLE_KEY"
+    ],
+    "description": "Supabase Storage: buckets, files, signed URLs"
+  },
+  {
+    "id": "s3",
+    "npm": "s3-mcp-server",
+    "category": "Storage",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS S3: bucket and object operations"
+  },
+  {
+    "id": "cloudflare-r2",
+    "npm": "cloudflare-r2-mcp",
+    "category": "Storage",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDFLARE_API_TOKEN",
+      "CLOUDFLARE_ACCOUNT_ID"
+    ],
+    "description": "Cloudflare R2: object storage operations"
+  },
+  {
+    "id": "minio",
+    "npm": "minio-mcp-server",
+    "category": "Storage",
+    "status": "pending",
+    "env_vars": [
+      "MINIO_ENDPOINT",
+      "MINIO_ACCESS_KEY",
+      "MINIO_SECRET_KEY"
+    ],
+    "description": "MinIO: S3-compatible object storage"
+  },
+  {
+    "id": "imagekit",
+    "npm": "imagekit-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "IMAGEKIT_PUBLIC_KEY",
+      "IMAGEKIT_PRIVATE_KEY"
+    ],
+    "description": "ImageKit: image optimization, transformations, CDN"
+  },
+  {
+    "id": "cloudinary",
+    "npm": "cloudinary-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDINARY_CLOUD_NAME",
+      "CLOUDINARY_API_KEY",
+      "CLOUDINARY_API_SECRET"
+    ],
+    "description": "Cloudinary: media management, transformations, delivery"
+  },
+  {
+    "id": "vimeo",
+    "npm": "vimeo-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "VIMEO_ACCESS_TOKEN"
+    ],
+    "description": "Vimeo: video management, analytics, embedding"
+  },
+  {
+    "id": "mux",
+    "npm": "mux-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "MUX_TOKEN_ID",
+      "MUX_TOKEN_SECRET"
+    ],
+    "description": "Mux: video streaming, transcoding, analytics"
+  },
+  {
+    "id": "coingecko",
+    "npm": "coingecko-mcp-server",
+    "category": "Crypto",
+    "status": "pending",
+    "env_vars": [
+      "COINGECKO_API_KEY"
+    ],
+    "description": "CoinGecko: crypto prices, market data, coin info"
+  },
+  {
+    "id": "coinmarketcap",
+    "npm": "coinmarketcap-mcp",
+    "category": "Crypto",
+    "status": "pending",
+    "env_vars": [
+      "CMC_API_KEY"
+    ],
+    "description": "CoinMarketCap: cryptocurrency market data and rankings"
+  },
+  {
+    "id": "solana",
+    "npm": "solana-mcp-server",
+    "category": "Blockchain",
+    "status": "pending",
+    "env_vars": [
+      "SOLANA_RPC_URL"
+    ],
+    "description": "Solana blockchain: transactions, wallet, NFT minting"
+  },
+  {
+    "id": "ethereum",
+    "npm": "ethereum-mcp-server",
+    "category": "Blockchain",
+    "status": "pending",
+    "env_vars": [
+      "ETH_RPC_URL"
+    ],
+    "description": "Ethereum: transactions, smart contracts, wallet ops"
+  },
+  {
+    "id": "evm-rpc",
+    "npm": "evm-mcp-server",
+    "category": "Blockchain",
+    "status": "pending",
+    "env_vars": [
+      "ETH_RPC_URL"
+    ],
+    "description": "EVM-compatible blockchain services for 30+ networks"
+  },
+  {
+    "id": "openphone",
+    "npm": "openphone-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "OPENPHONE_API_KEY"
+    ],
+    "description": "OpenPhone: business phone calls and SMS"
+  },
+  {
+    "id": "vonage",
+    "npm": "vonage-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "VONAGE_API_KEY",
+      "VONAGE_API_SECRET"
+    ],
+    "description": "Vonage: SMS, voice, verify API"
+  },
+  {
+    "id": "plivo",
+    "npm": "plivo-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "PLIVO_AUTH_ID",
+      "PLIVO_AUTH_TOKEN"
+    ],
+    "description": "Plivo: SMS and voice communication API"
+  },
+  {
+    "id": "anthropic-api",
+    "npm": "anthropic-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "ANTHROPIC_API_KEY"
+    ],
+    "description": "Anthropic Claude API: completions, vision, tool use"
+  },
+  {
+    "id": "groq",
+    "npm": "groq-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GROQ_API_KEY"
+    ],
+    "description": "Groq: ultra-fast LLM inference"
+  },
+  {
+    "id": "cohere",
+    "npm": "cohere-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "COHERE_API_KEY"
+    ],
+    "description": "Cohere: text generation, embeddings, reranking"
+  },
+  {
+    "id": "mistral",
+    "npm": "mistral-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "MISTRAL_API_KEY"
+    ],
+    "description": "Mistral AI: chat completions, embeddings, function calling"
+  },
+  {
+    "id": "together-ai",
+    "npm": "together-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "TOGETHER_API_KEY"
+    ],
+    "description": "Together AI: open-source models inference"
+  },
+  {
+    "id": "aws-bedrock",
+    "npm": "aws-bedrock-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Bedrock: foundation models from Anthropic, Meta, Cohere"
+  },
+  {
+    "id": "vertex-ai",
+    "npm": "vertex-ai-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "VERTEX_LOCATION"
+    ],
+    "description": "Google Vertex AI: Gemini, embeddings, AutoML"
+  },
+  {
+    "id": "apple-docs",
+    "npm": "apple-docs-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Apple Developer Docs: frameworks, APIs, sample code"
+  },
+  {
+    "id": "mdn-docs",
+    "npm": "mdn-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "MDN Web Docs: HTML, CSS, JS reference documentation"
+  },
+  {
+    "id": "devdocs",
+    "npm": "devdocs-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "DevDocs.io: unified docs for 200+ programming libraries"
+  },
+  {
+    "id": "npm-search",
+    "npm": "npm-search-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Search npm registry, get package info and stats"
+  },
+  {
+    "id": "pypi-search",
+    "npm": "pypi-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Search PyPI registry, get Python package info"
+  },
+  {
+    "id": "jira-service-mgmt",
+    "npm": "jsm-mcp-server",
+    "category": "Support",
+    "status": "pending",
+    "env_vars": [
+      "JIRA_HOST",
+      "JIRA_EMAIL",
+      "JIRA_API_TOKEN"
+    ],
+    "description": "Jira Service Management: IT service requests, incidents"
+  },
+  {
+    "id": "pendo",
+    "npm": "pendo-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "PENDO_INTEGRATION_KEY"
+    ],
+    "description": "Pendo: product analytics, user guides, NPS"
+  },
+  {
+    "id": "hotjar",
+    "npm": "hotjar-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "HOTJAR_SITE_ID",
+      "HOTJAR_API_KEY"
+    ],
+    "description": "Hotjar: heatmaps, session recordings, feedback"
+  },
+  {
+    "id": "posthog",
+    "npm": "posthog-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "POSTHOG_HOST",
+      "POSTHOG_API_KEY"
+    ],
+    "description": "PostHog: product analytics, feature flags, A/B tests"
+  },
+  {
+    "id": "launchdarkly",
+    "npm": "launchdarkly-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "LD_SDK_KEY"
+    ],
+    "description": "LaunchDarkly: feature flags, experiments, targeting"
+  },
+  {
+    "id": "split-io",
+    "npm": "split-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "SPLIT_API_KEY"
+    ],
+    "description": "Split.io: feature flags and data-driven experiments"
+  },
+  {
+    "id": "twilio-segment",
+    "npm": "segment-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "SEGMENT_WRITE_KEY"
+    ],
+    "description": "Twilio Segment: customer data platform"
+  },
+  {
+    "id": "braze",
+    "npm": "braze-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "BRAZE_API_KEY",
+      "BRAZE_ENDPOINT"
+    ],
+    "description": "Braze: customer engagement, push, email, SMS"
+  },
+  {
+    "id": "onesignal",
+    "npm": "onesignal-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "ONESIGNAL_APP_ID",
+      "ONESIGNAL_REST_API_KEY"
+    ],
+    "description": "OneSignal: push notifications, in-app messages, email"
+  },
+  {
+    "id": "iterable",
+    "npm": "iterable-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "ITERABLE_API_KEY"
+    ],
+    "description": "Iterable: cross-channel marketing automation"
+  },
+  {
+    "id": "typeform",
+    "npm": "typeform-mcp-server",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "TYPEFORM_TOKEN"
+    ],
+    "description": "Typeform: forms, surveys, responses management"
+  },
+  {
+    "id": "google-forms",
+    "npm": "google-forms-mcp",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Forms: create forms, collect and analyze responses"
+  },
+  {
+    "id": "surveymonkey",
+    "npm": "surveymonkey-mcp",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "SURVEYMONKEY_TOKEN"
+    ],
+    "description": "SurveyMonkey: surveys, responses, analytics"
+  },
+  {
+    "id": "jotform",
+    "npm": "jotform-mcp-server",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "JOTFORM_API_KEY"
+    ],
+    "description": "JotForm: form management and submission data"
+  },
+  {
+    "id": "formstack",
+    "npm": "formstack-mcp-server",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "FORMSTACK_TOKEN"
+    ],
+    "description": "Formstack: forms, workflows, data management"
+  },
+  {
+    "id": "webex",
+    "npm": "webex-mcp-server",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "WEBEX_ACCESS_TOKEN"
+    ],
+    "description": "Webex: meetings, spaces, messages management"
+  },
+  {
+    "id": "google-meet",
+    "npm": "google-meet-mcp",
+    "category": "Communication",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET"
+    ],
+    "description": "Google Meet: schedule and manage video meetings"
+  },
+  {
+    "id": "calendly",
+    "npm": "calendly-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "CALENDLY_TOKEN"
+    ],
+    "description": "Calendly: scheduling, event types, invitees"
+  },
+  {
+    "id": "acuity",
+    "npm": "acuity-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "ACUITY_USER_ID",
+      "ACUITY_API_KEY"
+    ],
+    "description": "Acuity Scheduling: appointments, availability, clients"
+  },
+  {
+    "id": "docusign",
+    "npm": "docusign-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "DOCUSIGN_ACCOUNT_ID",
+      "DOCUSIGN_ACCESS_TOKEN"
+    ],
+    "description": "DocuSign: envelopes, templates, signature workflows"
+  },
+  {
+    "id": "hellosign",
+    "npm": "hellosign-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "HELLOSIGN_API_KEY"
+    ],
+    "description": "HelloSign (Dropbox Sign): e-signatures and document workflows"
+  },
+  {
+    "id": "adobe-sign",
+    "npm": "adobe-sign-mcp",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "ADOBE_CLIENT_ID",
+      "ADOBE_CLIENT_SECRET"
+    ],
+    "description": "Adobe Sign: agreements, templates, signatures"
+  },
+  {
+    "id": "esignatures",
+    "npm": "esignatures-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "ESIGNATURES_TOKEN"
+    ],
+    "description": "eSignatures: contract drafting and binding contracts"
+  },
+  {
+    "id": "tableau",
+    "npm": "tableau-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "TABLEAU_SERVER_URL",
+      "TABLEAU_PAT_NAME",
+      "TABLEAU_PAT_SECRET"
+    ],
+    "description": "Tableau: workbooks, datasources, views management"
+  },
+  {
+    "id": "looker",
+    "npm": "looker-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "LOOKER_BASE_URL",
+      "LOOKER_CLIENT_ID",
+      "LOOKER_CLIENT_SECRET"
+    ],
+    "description": "Looker: explores, dashboards, looks, SQL runner"
+  },
+  {
+    "id": "metabase",
+    "npm": "metabase-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "METABASE_URL",
+      "METABASE_USERNAME",
+      "METABASE_PASSWORD"
+    ],
+    "description": "Metabase: questions, dashboards, databases"
+  },
+  {
+    "id": "power-bi",
+    "npm": "powerbi-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "POWERBI_CLIENT_ID",
+      "POWERBI_CLIENT_SECRET",
+      "POWERBI_TENANT_ID"
+    ],
+    "description": "Power BI: datasets, reports, dashboards, workspaces"
+  },
+  {
+    "id": "domo",
+    "npm": "domo-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "DOMO_CLIENT_ID",
+      "DOMO_CLIENT_SECRET"
+    ],
+    "description": "Domo: datasets, cards, dashboards management"
+  },
+  {
+    "id": "github-copilot",
+    "npm": "github-copilot-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Copilot: code suggestions, review integration"
+  },
+  {
+    "id": "cursor-rules",
+    "npm": "cursor-rules-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Cursor IDE rules and context management"
+  },
+  {
+    "id": "vscode-mcp",
+    "npm": "vscode-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "VS Code integration for AI-assisted development"
+  },
+  {
+    "id": "jetbrains",
+    "npm": "jetbrains-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "JetBrains IDEs: project, file, code navigation"
+  },
+  {
+    "id": "xcode",
+    "npm": "xcode-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Xcode: iOS/macOS build, test, simulator control"
+  },
+  {
+    "id": "android-studio",
+    "npm": "android-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "ANDROID_HOME"
+    ],
+    "description": "Android development: build, test, emulator control"
+  },
+  {
+    "id": "vercel-ai-sdk",
+    "npm": "vercel-ai-sdk-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "VERCEL_TOKEN"
+    ],
+    "description": "Vercel AI SDK: model providers, hooks, streaming"
+  },
+  {
+    "id": "npm-registry",
+    "npm": "npm-registry-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "NPM_TOKEN"
+    ],
+    "description": "npm Registry: packages, orgs, access tokens"
+  },
+  {
+    "id": "docker-hub",
+    "npm": "dockerhub-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "DOCKERHUB_USERNAME",
+      "DOCKERHUB_TOKEN"
+    ],
+    "description": "Docker Hub: repositories, images, webhooks"
+  },
+  {
+    "id": "ghcr",
+    "npm": "ghcr-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Container Registry: packages, images"
+  },
+  {
+    "id": "ecr",
+    "npm": "ecr-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS ECR: container image registry management"
+  },
+  {
+    "id": "gcr",
+    "npm": "gcr-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Container Registry/Artifact Registry"
+  },
+  {
+    "id": "npm-packages",
+    "npm": "npm-packages-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "npm package search, download stats, vulnerability check"
+  },
+  {
+    "id": "crates-io",
+    "npm": "cratesio-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Rust crates.io: package search, versions, owners"
+  },
+  {
+    "id": "maven-central",
+    "npm": "maven-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Maven Central: Java artifact search and metadata"
+  },
+  {
+    "id": "nuget",
+    "npm": "nuget-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "NuGet: .NET package search and management"
+  },
+  {
+    "id": "homebrew",
+    "npm": "homebrew-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Homebrew: macOS package management"
+  },
+  {
+    "id": "apt-manager",
+    "npm": "apt-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Debian apt package manager via AI agents"
+  },
+  {
+    "id": "linear-remote",
+    "npm": "linear-remote-mcp",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "LINEAR_API_KEY"
+    ],
+    "description": "Linear remote MCP: native agent workflow optimization"
+  },
+  {
+    "id": "height",
+    "npm": "height-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "HEIGHT_API_KEY"
+    ],
+    "description": "Height: task and project management"
+  },
+  {
+    "id": "basecamp",
+    "npm": "basecamp-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "BASECAMP_ACCESS_TOKEN"
+    ],
+    "description": "Basecamp: projects, to-dos, messages, schedules"
+  },
+  {
+    "id": "wrike",
+    "npm": "wrike-mcp-server",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "WRIKE_ACCESS_TOKEN"
+    ],
+    "description": "Wrike: tasks, projects, folders management"
+  },
+  {
+    "id": "smartsheet",
+    "npm": "smartsheet-mcp",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "SMARTSHEET_TOKEN"
+    ],
+    "description": "Smartsheet: sheets, rows, columns, reports"
+  },
+  {
+    "id": "miro",
+    "npm": "miro-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [
+      "MIRO_ACCESS_TOKEN"
+    ],
+    "description": "Miro: boards, sticky notes, shapes, connectors"
+  },
+  {
+    "id": "lucidchart",
+    "npm": "lucidchart-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [
+      "LUCIDCHART_TOKEN"
+    ],
+    "description": "Lucidchart: diagrams, flowcharts, shapes"
+  },
+  {
+    "id": "whimsical",
+    "npm": "whimsical-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [
+      "WHIMSICAL_TOKEN"
+    ],
+    "description": "Whimsical: flowcharts, wireframes, mind maps"
+  },
+  {
+    "id": "pagerduty-schedule",
+    "npm": "pagerduty-schedule-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "PAGERDUTY_API_KEY"
+    ],
+    "description": "PagerDuty on-call schedules and escalation policies"
+  },
+  {
+    "id": "rollbar",
+    "npm": "rollbar-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "ROLLBAR_ACCESS_TOKEN"
+    ],
+    "description": "Rollbar: error monitoring, deployments, notifications"
+  },
+  {
+    "id": "bugsnag",
+    "npm": "bugsnag-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "BUGSNAG_AUTH_TOKEN"
+    ],
+    "description": "Bugsnag: error monitoring, stability scores"
+  },
+  {
+    "id": "logrocket",
+    "npm": "logrocket-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "LOGROCKET_API_KEY"
+    ],
+    "description": "LogRocket: session replay, error tracking"
+  },
+  {
+    "id": "raygun",
+    "npm": "raygun-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "RAYGUN_API_KEY"
+    ],
+    "description": "Raygun: crash reporting and real user monitoring"
+  },
+  {
+    "id": "instana",
+    "npm": "instana-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "INSTANA_API_KEY",
+      "INSTANA_ENDPOINT"
+    ],
+    "description": "Instana: APM, infrastructure, distributed tracing"
+  },
+  {
+    "id": "dynatrace",
+    "npm": "dynatrace-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "DT_API_URL",
+      "DT_API_TOKEN"
+    ],
+    "description": "Dynatrace: full-stack observability, AI-powered insights"
+  },
+  {
+    "id": "jaeger",
+    "npm": "jaeger-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "JAEGER_URL"
+    ],
+    "description": "Jaeger: distributed tracing for microservices"
+  },
+  {
+    "id": "zipkin",
+    "npm": "zipkin-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "ZIPKIN_URL"
+    ],
+    "description": "Zipkin: distributed tracing, latency analysis"
+  },
+  {
+    "id": "prometheus",
+    "npm": "prometheus-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "PROMETHEUS_URL"
+    ],
+    "description": "Prometheus: metrics, alerts, recording rules"
+  },
+  {
+    "id": "grafana-loki",
+    "npm": "loki-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "LOKI_URL"
+    ],
+    "description": "Grafana Loki: log aggregation, queries, streams"
+  },
+  {
+    "id": "opsgenie-alert",
+    "npm": "opsgenie-alert-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "OPSGENIE_API_KEY"
+    ],
+    "description": "OpsGenie alerts, teams, schedules"
+  },
+  {
+    "id": "victoriametrics",
+    "npm": "victoriametrics-mcp",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "VM_URL"
+    ],
+    "description": "VictoriaMetrics: fast time series database queries"
+  },
+  {
+    "id": "opentelemetry",
+    "npm": "otel-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "OTEL_EXPORTER_ENDPOINT"
+    ],
+    "description": "OpenTelemetry: traces, metrics, logs pipeline"
+  },
+  {
+    "id": "istio",
+    "npm": "istio-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Istio service mesh: traffic management, observability"
+  },
+  {
+    "id": "consul",
+    "npm": "consul-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "CONSUL_HTTP_ADDR",
+      "CONSUL_HTTP_TOKEN"
+    ],
+    "description": "HashiCorp Consul: service discovery, KV store, health checks"
+  },
+  {
+    "id": "nomad",
+    "npm": "nomad-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "NOMAD_ADDR",
+      "NOMAD_TOKEN"
+    ],
+    "description": "HashiCorp Nomad: job scheduling and orchestration"
+  },
+  {
+    "id": "gitlab-ci",
+    "npm": "gitlab-ci-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "GITLAB_TOKEN",
+      "GITLAB_URL"
+    ],
+    "description": "GitLab CI/CD: pipelines, jobs, artifacts"
+  },
+  {
+    "id": "bitbucket",
+    "npm": "bitbucket-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "BITBUCKET_USERNAME",
+      "BITBUCKET_APP_PASSWORD"
+    ],
+    "description": "Bitbucket: repos, PRs, pipelines, Jira integration"
+  },
+  {
+    "id": "azure-devops",
+    "npm": "azure-devops-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_DEVOPS_TOKEN",
+      "AZURE_DEVOPS_ORG"
+    ],
+    "description": "Azure DevOps: repos, boards, pipelines, test plans"
+  },
+  {
+    "id": "jfrog",
+    "npm": "jfrog-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "JFROG_URL",
+      "JFROG_ACCESS_TOKEN"
+    ],
+    "description": "JFrog Artifactory: repositories, artifacts, security scans"
+  },
+  {
+    "id": "nexus",
+    "npm": "nexus-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "NEXUS_URL",
+      "NEXUS_USERNAME",
+      "NEXUS_PASSWORD"
+    ],
+    "description": "Sonatype Nexus: artifact repository management"
+  },
+  {
+    "id": "sonatype-lifecycle",
+    "npm": "sonatype-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "SONATYPE_URL",
+      "SONATYPE_TOKEN"
+    ],
+    "description": "Sonatype: component vulnerability management"
+  },
+  {
+    "id": "snyk",
+    "npm": "snyk-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "SNYK_TOKEN"
+    ],
+    "description": "Snyk: vulnerability scanning for code, containers, IaC"
+  },
+  {
+    "id": "checkmarx",
+    "npm": "checkmarx-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "CHECKMARX_URL",
+      "CHECKMARX_TOKEN"
+    ],
+    "description": "Checkmarx: SAST, DAST security scanning"
+  },
+  {
+    "id": "dependabot",
+    "npm": "dependabot-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Dependabot: dependency alerts and PR management"
+  },
+  {
+    "id": "crowdstrike",
+    "npm": "crowdstrike-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "CS_CLIENT_ID",
+      "CS_CLIENT_SECRET"
+    ],
+    "description": "CrowdStrike: endpoint detection, threat intelligence"
+  },
+  {
+    "id": "cloudflare-waf",
+    "npm": "cloudflare-waf-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "description": "Cloudflare WAF: firewall rules, rate limiting, bot management"
+  },
+  {
+    "id": "letsencrypt",
+    "npm": "letsencrypt-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "ACME_EMAIL"
+    ],
+    "description": "Let's Encrypt: SSL certificate management"
+  },
+  {
+    "id": "1password",
+    "npm": "1password-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "OP_SERVICE_ACCOUNT_TOKEN"
+    ],
+    "description": "1Password: secrets, items, vault management"
+  },
+  {
+    "id": "bitwarden",
+    "npm": "bitwarden-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "BW_SESSION"
+    ],
+    "description": "Bitwarden: passwords, secrets, organizational items"
+  },
+  {
+    "id": "sso-okta",
+    "npm": "okta-sso-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "OKTA_DOMAIN",
+      "OKTA_API_TOKEN"
+    ],
+    "description": "Okta SSO: authentication flows, MFA, app assignments"
+  },
+  {
+    "id": "cloudwatch",
+    "npm": "cloudwatch-mcp-server",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS CloudWatch: logs, metrics, alarms, dashboards"
+  },
+  {
+    "id": "xray-aws",
+    "npm": "aws-xray-mcp",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS X-Ray: distributed tracing and performance analytics"
+  },
+  {
+    "id": "aws-cost",
+    "npm": "aws-cost-explorer-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Cost Explorer: usage, budgets, cost optimization"
+  },
+  {
+    "id": "infracost",
+    "npm": "infracost-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "INFRACOST_API_KEY"
+    ],
+    "description": "Infracost: cloud cost estimates for Terraform"
+  },
+  {
+    "id": "databricks",
+    "npm": "databricks-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "DATABRICKS_HOST",
+      "DATABRICKS_TOKEN"
+    ],
+    "description": "Databricks: notebooks, clusters, jobs, SQL warehouses"
+  },
+  {
+    "id": "pyspark",
+    "npm": "spark-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "SPARK_MASTER"
+    ],
+    "description": "Apache Spark: job submission, cluster management"
+  },
+  {
+    "id": "hadoop",
+    "npm": "hadoop-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "HADOOP_HOST"
+    ],
+    "description": "Hadoop: HDFS operations, YARN jobs"
+  },
+  {
+    "id": "flink",
+    "npm": "flink-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "FLINK_REST_URL"
+    ],
+    "description": "Apache Flink: stream processing, job management"
+  },
+  {
+    "id": "strimzi",
+    "npm": "strimzi-mcp-server",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Strimzi Kafka on Kubernetes: topic and cluster management"
+  },
+  {
+    "id": "aws-glue",
+    "npm": "aws-glue-mcp",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Glue: ETL jobs, crawlers, data catalog"
+  },
+  {
+    "id": "apache-nifi",
+    "npm": "nifi-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "NIFI_URL"
+    ],
+    "description": "Apache NiFi: data flow management and routing"
+  },
+  {
+    "id": "great-expectations",
+    "npm": "great-expectations-mcp",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Great Expectations: data quality validation and docs"
+  },
+  {
+    "id": "dvc",
+    "npm": "dvc-mcp-server",
+    "category": "ML Ops",
+    "status": "pending",
+    "env_vars": [],
+    "description": "DVC: data version control for ML projects"
+  },
+  {
+    "id": "mlflow",
+    "npm": "mlflow-mcp-server",
+    "category": "ML Ops",
+    "status": "pending",
+    "env_vars": [
+      "MLFLOW_TRACKING_URI"
+    ],
+    "description": "MLflow: experiment tracking, model registry, serving"
+  },
+  {
+    "id": "weights-biases",
+    "npm": "wandb-mcp-server",
+    "category": "ML Ops",
+    "status": "pending",
+    "env_vars": [
+      "WANDB_API_KEY"
+    ],
+    "description": "Weights & Biases: experiment tracking, model registry"
+  },
+  {
+    "id": "clearml",
+    "npm": "clearml-mcp-server",
+    "category": "ML Ops",
+    "status": "pending",
+    "env_vars": [
+      "CLEARML_API_ACCESS_KEY",
+      "CLEARML_API_SECRET_KEY"
+    ],
+    "description": "ClearML: ML experiment management and orchestration"
+  },
+  {
+    "id": "bentoml",
+    "npm": "bentoml-mcp-server",
+    "category": "ML Ops",
+    "status": "pending",
+    "env_vars": [
+      "BENTOML_API_TOKEN"
+    ],
+    "description": "BentoML: model packaging, serving, deployment"
+  },
+  {
+    "id": "modal",
+    "npm": "modal-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "MODAL_TOKEN_ID",
+      "MODAL_TOKEN_SECRET"
+    ],
+    "description": "Modal: serverless GPU compute for AI/ML workloads"
+  },
+  {
+    "id": "runpod",
+    "npm": "runpod-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "RUNPOD_API_KEY"
+    ],
+    "description": "RunPod: GPU cloud for AI/ML training and inference"
+  },
+  {
+    "id": "lambda-labs",
+    "npm": "lambda-labs-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "LAMBDA_LABS_API_KEY"
+    ],
+    "description": "Lambda Labs: on-demand GPU instances for ML"
+  },
+  {
+    "id": "vast-ai",
+    "npm": "vast-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "VAST_API_KEY"
+    ],
+    "description": "Vast.ai: marketplace for GPU cloud compute"
+  },
+  {
+    "id": "paperspace",
+    "npm": "paperspace-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "PAPERSPACE_API_KEY"
+    ],
+    "description": "Paperspace: GPU machines and gradient notebooks"
+  },
+  {
+    "id": "colab",
+    "npm": "colab-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Colab: notebook execution and management"
+  },
+  {
+    "id": "jupyter",
+    "npm": "jupyter-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "JUPYTER_URL",
+      "JUPYTER_TOKEN"
+    ],
+    "description": "JupyterLab: notebook management, kernel operations"
+  },
+  {
+    "id": "hex",
+    "npm": "hex-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "HEX_API_TOKEN"
+    ],
+    "description": "Hex: data analytics notebooks and dashboards"
+  },
+  {
+    "id": "observable",
+    "npm": "observable-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "OBSERVABLE_API_KEY"
+    ],
+    "description": "Observable: data visualization and exploration"
+  },
+  {
+    "id": "mode-analytics",
+    "npm": "mode-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "MODE_TOKEN",
+      "MODE_PASSWORD"
+    ],
+    "description": "Mode: SQL analysis, reports, charts"
+  },
+  {
+    "id": "retool-workflows",
+    "npm": "retool-workflows-mcp",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "RETOOL_WORKFLOW_API_KEY"
+    ],
+    "description": "Retool Workflows: trigger and manage automated workflows"
+  },
+  {
+    "id": "pipedream",
+    "npm": "pipedream-mcp",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "PIPEDREAM_API_KEY"
+    ],
+    "description": "Pipedream: event-driven workflows and integrations"
+  },
+  {
+    "id": "workato",
+    "npm": "workato-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "WORKATO_API_TOKEN"
+    ],
+    "description": "Workato: enterprise integration and automation"
+  },
+  {
+    "id": "tray-io",
+    "npm": "tray-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "TRAY_API_TOKEN"
+    ],
+    "description": "Tray.io: automation platform for SaaS integration"
+  },
+  {
+    "id": "boomi",
+    "npm": "boomi-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "BOOMI_ACCOUNT_ID",
+      "BOOMI_API_TOKEN"
+    ],
+    "description": "Dell Boomi: integration platform and API management"
+  },
+  {
+    "id": "mulesoft",
+    "npm": "mulesoft-mcp-server",
+    "category": "Automation",
+    "status": "pending",
+    "env_vars": [
+      "MULESOFT_CLIENT_ID",
+      "MULESOFT_CLIENT_SECRET"
+    ],
+    "description": "MuleSoft: API management and integration"
+  },
+  {
+    "id": "ibm-mq",
+    "npm": "ibm-mq-mcp",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "MQ_HOST",
+      "MQ_PORT",
+      "MQ_QMGR"
+    ],
+    "description": "IBM MQ: enterprise messaging queue management"
+  },
+  {
+    "id": "azure-service-bus",
+    "npm": "azure-servicebus-mcp",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "SERVICEBUS_CONNECTION_STRING"
+    ],
+    "description": "Azure Service Bus: queues, topics, subscriptions"
+  },
+  {
+    "id": "google-pubsub",
+    "npm": "google-pubsub-mcp",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Pub/Sub: topics, subscriptions, messages"
+  },
+  {
+    "id": "aws-sqs",
+    "npm": "aws-sqs-mcp",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS SQS: message queues, FIFO, dead letter queues"
+  },
+  {
+    "id": "aws-sns",
+    "npm": "aws-sns-mcp",
+    "category": "Messaging",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS SNS: topics, subscriptions, push notifications"
+  },
+  {
+    "id": "aws-eventbridge",
+    "npm": "aws-eventbridge-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS EventBridge: event buses, rules, pipes"
+  },
+  {
+    "id": "aws-step-functions",
+    "npm": "aws-stepfunctions-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Step Functions: state machines, workflow execution"
+  },
+  {
+    "id": "aws-lambda",
+    "npm": "aws-lambda-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Lambda: function management, invocation, logs"
+  },
+  {
+    "id": "aws-api-gateway",
+    "npm": "aws-apigateway-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS API Gateway: APIs, stages, deployments"
+  },
+  {
+    "id": "aws-dynamodb",
+    "npm": "aws-dynamodb-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS DynamoDB: tables, items, queries, scans"
+  },
+  {
+    "id": "aws-rds",
+    "npm": "aws-rds-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS RDS: database instances, snapshots, parameter groups"
+  },
+  {
+    "id": "aws-cloudformation",
+    "npm": "aws-cloudformation-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS CloudFormation: stacks, templates, change sets"
+  },
+  {
+    "id": "aws-codecommit",
+    "npm": "aws-codecommit-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS CodeCommit: repositories, branches, pull requests"
+  },
+  {
+    "id": "aws-codepipeline",
+    "npm": "aws-codepipeline-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS CodePipeline: CI/CD pipeline management"
+  },
+  {
+    "id": "aws-codebuild",
+    "npm": "aws-codebuild-mcp",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS CodeBuild: build projects, logs, reports"
+  },
+  {
+    "id": "azure-functions",
+    "npm": "azure-functions-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_SUBSCRIPTION_ID",
+      "AZURE_TENANT_ID"
+    ],
+    "description": "Azure Functions: serverless compute deployment"
+  },
+  {
+    "id": "azure-sql",
+    "npm": "azure-sql-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_SQL_CONNECTION_STRING"
+    ],
+    "description": "Azure SQL Database: queries, schemas, management"
+  },
+  {
+    "id": "azure-cosmos",
+    "npm": "azure-cosmos-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "COSMOS_ENDPOINT",
+      "COSMOS_KEY"
+    ],
+    "description": "Azure Cosmos DB: containers, documents, queries"
+  },
+  {
+    "id": "azure-blob",
+    "npm": "azure-blob-mcp",
+    "category": "Storage",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_STORAGE_CONNECTION_STRING"
+    ],
+    "description": "Azure Blob Storage: containers, blobs management"
+  },
+  {
+    "id": "azure-devops-boards",
+    "npm": "azure-boards-mcp",
+    "category": "Productivity",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_DEVOPS_TOKEN",
+      "AZURE_DEVOPS_ORG"
+    ],
+    "description": "Azure Boards: work items, iterations, backlogs"
+  },
+  {
+    "id": "gcp-cloud-run",
+    "npm": "cloud-run-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Run: container deployment, revisions"
+  },
+  {
+    "id": "gcp-cloud-functions",
+    "npm": "cloud-functions-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Functions: serverless function management"
+  },
+  {
+    "id": "gcp-pubsub-admin",
+    "npm": "pubsub-admin-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Pub/Sub admin: topics and subscription management"
+  },
+  {
+    "id": "gcp-spanner",
+    "npm": "cloud-spanner-mcp",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Spanner: globally distributed relational DB"
+  },
+  {
+    "id": "gcp-firestore",
+    "npm": "firestore-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Firestore: document database operations"
+  },
+  {
+    "id": "gcp-bigtable",
+    "npm": "bigtable-mcp-server",
+    "category": "Database",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Bigtable: wide-column NoSQL database"
+  },
+  {
+    "id": "gcp-dataflow",
+    "npm": "dataflow-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Dataflow: stream/batch data processing"
+  },
+  {
+    "id": "gcp-composer",
+    "npm": "composer-mcp-server",
+    "category": "Data Engineering",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GCP_PROJECT"
+    ],
+    "description": "Google Cloud Composer (Airflow): DAG management"
+  },
+  {
+    "id": "mcp-csv",
+    "npm": "csv-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "CSV: parse, transform, validate, query CSV files"
+  },
+  {
+    "id": "mcp-json",
+    "npm": "json-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "JSON: parse, transform, validate, query JSON files"
+  },
+  {
+    "id": "mcp-xml",
+    "npm": "xml-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "XML: parse, transform, validate, XPATH queries"
+  },
+  {
+    "id": "mcp-yaml",
+    "npm": "yaml-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "YAML: parse, validate, transform YAML files"
+  },
+  {
+    "id": "mcp-markdown",
+    "npm": "markdown-mcp-server",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Markdown: parse, transform, render markdown content"
+  },
+  {
+    "id": "mcp-time",
+    "npm": "@modelcontextprotocol/server-time",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Current time and timezone conversion tools"
+  },
+  {
+    "id": "mcp-math",
+    "npm": "math-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Advanced math operations, symbolic computation"
+  },
+  {
+    "id": "mcp-qrcode",
+    "npm": "qrcode-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Generate and decode QR codes"
+  },
+  {
+    "id": "mcp-barcode",
+    "npm": "barcode-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Generate and read barcodes in multiple formats"
+  },
+  {
+    "id": "mcp-pdf-convert",
+    "npm": "pdf-converter-mcp",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Convert documents to/from PDF format"
+  },
+  {
+    "id": "mcp-image-process",
+    "npm": "image-processing-mcp",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Image processing: resize, crop, convert formats"
+  },
+  {
+    "id": "mcp-ocr",
+    "npm": "ocr-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OCR: extract text from images and scanned documents"
+  },
+  {
+    "id": "mcp-translate",
+    "npm": "translate-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [
+      "TRANSLATION_API_KEY"
+    ],
+    "description": "Language translation via DeepL or Google Translate"
+  },
+  {
+    "id": "deepl",
+    "npm": "deepl-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [
+      "DEEPL_API_KEY"
+    ],
+    "description": "DeepL: high-quality language translation"
+  },
+  {
+    "id": "google-translate",
+    "npm": "google-translate-mcp",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_TRANSLATE_API_KEY"
+    ],
+    "description": "Google Translate: 100+ language translation"
+  },
+  {
+    "id": "regex-tools",
+    "npm": "regex-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Regex pattern testing, generation, explanation"
+  },
+  {
+    "id": "hash-tools",
+    "npm": "hash-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Cryptographic hash functions: MD5, SHA, bcrypt"
+  },
+  {
+    "id": "jwt-tools",
+    "npm": "jwt-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "JWT: create, verify, decode JSON Web Tokens"
+  },
+  {
+    "id": "oauth-helper",
+    "npm": "oauth-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OAuth 2.0 flow helper: token exchange, refresh"
+  },
+  {
+    "id": "domain-tools",
+    "npm": "domain-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Domain lookup, WHOIS, DNS records query"
+  },
+  {
+    "id": "ssl-checker",
+    "npm": "ssl-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "SSL certificate checker and expiry monitor"
+  },
+  {
+    "id": "port-scanner",
+    "npm": "port-scanner-mcp",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Network port scanning and service detection"
+  },
+  {
+    "id": "ping-tools",
+    "npm": "ping-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "ICMP ping, traceroute, network diagnostics"
+  },
+  {
+    "id": "cron-helper",
+    "npm": "cron-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Cron expression builder, validator, scheduler"
+  },
+  {
+    "id": "country-data",
+    "npm": "country-data-mcp",
+    "category": "Data",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Country information: capitals, currencies, phone codes"
+  },
+  {
+    "id": "timezone",
+    "npm": "timezone-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Timezone conversion, DST info, business hours calc"
+  },
+  {
+    "id": "color-tools",
+    "npm": "color-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Color conversion, palette generation, accessibility check"
+  },
+  {
+    "id": "font-tools",
+    "npm": "font-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Google Fonts: search, preview, download fonts"
+  },
+  {
+    "id": "icon-tools",
+    "npm": "icons-mcp-server",
+    "category": "Design",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Iconify: search and retrieve SVG icons from 100+ sets"
+  },
+  {
+    "id": "unsplash",
+    "npm": "unsplash-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "UNSPLASH_ACCESS_KEY"
+    ],
+    "description": "Unsplash: search and download high-quality photos"
+  },
+  {
+    "id": "pexels",
+    "npm": "pexels-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "PEXELS_API_KEY"
+    ],
+    "description": "Pexels: free stock photos and videos search"
+  },
+  {
+    "id": "giphy",
+    "npm": "giphy-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "GIPHY_API_KEY"
+    ],
+    "description": "GIPHY: search and retrieve GIFs and stickers"
+  },
+  {
+    "id": "tenor",
+    "npm": "tenor-mcp-server",
+    "category": "Media",
+    "status": "pending",
+    "env_vars": [
+      "TENOR_API_KEY"
+    ],
+    "description": "Tenor: GIF search and trending content"
+  },
+  {
+    "id": "openapi-validator",
+    "npm": "openapi-validator-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OpenAPI/Swagger: validate specs, lint, preview"
+  },
+  {
+    "id": "graphql-tools",
+    "npm": "graphql-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "GraphQL: schema introspection, query testing"
+  },
+  {
+    "id": "grpc-tools",
+    "npm": "grpc-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "gRPC: service reflection, method invocation"
+  },
+  {
+    "id": "websocket-tools",
+    "npm": "websocket-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "WebSocket: connect, send/receive messages, debug"
+  },
+  {
+    "id": "localtunnel",
+    "npm": "localtunnel-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Local tunnel: expose localhost to internet for testing"
+  },
+  {
+    "id": "ngrok",
+    "npm": "ngrok-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "NGROK_AUTHTOKEN"
+    ],
+    "description": "ngrok: secure tunnels to localhost"
+  },
+  {
+    "id": "mockserver",
+    "npm": "mockserver-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "HTTP mock server: create and manage API mocks"
+  },
+  {
+    "id": "swagger-ui",
+    "npm": "swagger-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Swagger UI: API documentation browsing and testing"
+  },
+  {
+    "id": "insomnia",
+    "npm": "insomnia-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "INSOMNIA_TOKEN"
+    ],
+    "description": "Insomnia: REST/GraphQL API client and collections"
+  },
+  {
+    "id": "hoppscotch",
+    "npm": "hoppscotch-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Hoppscotch: API testing and collaboration"
+  },
+  {
+    "id": "opentelemetry-traces",
+    "npm": "otel-traces-mcp",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "OTEL_ENDPOINT"
+    ],
+    "description": "OpenTelemetry trace collection and analysis"
+  },
+  {
+    "id": "keptn",
+    "npm": "keptn-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KEPTN_API_URL",
+      "KEPTN_API_TOKEN"
+    ],
+    "description": "Keptn: cloud-native lifecycle orchestration"
+  },
+  {
+    "id": "argo-cd",
+    "npm": "argocd-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "ARGOCD_SERVER",
+      "ARGOCD_AUTH_TOKEN"
+    ],
+    "description": "Argo CD: GitOps continuous delivery for Kubernetes"
+  },
+  {
+    "id": "flux-cd",
+    "npm": "fluxcd-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Flux CD: GitOps Kubernetes deployment management"
+  },
+  {
+    "id": "helm",
+    "npm": "helm-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Helm: Kubernetes package manager operations"
+  },
+  {
+    "id": "kustomize",
+    "npm": "kustomize-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "KUBECONFIG"
+    ],
+    "description": "Kustomize: Kubernetes configuration management"
+  },
+  {
+    "id": "github-packages",
+    "npm": "github-packages-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Packages: publish, manage code packages"
+  },
+  {
+    "id": "pypi-publish",
+    "npm": "pypi-publish-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "PYPI_TOKEN"
+    ],
+    "description": "PyPI: publish Python packages, manage releases"
+  },
+  {
+    "id": "rubygems",
+    "npm": "rubygems-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "RUBYGEMS_API_KEY"
+    ],
+    "description": "RubyGems: search gems, publish packages"
+  },
+  {
+    "id": "packagist",
+    "npm": "packagist-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Packagist: PHP Composer package search and info"
+  },
+  {
+    "id": "pub-dev",
+    "npm": "pub-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "PUB_TOKEN"
+    ],
+    "description": "pub.dev: Dart/Flutter package search and management"
+  },
+  {
+    "id": "gopkg",
+    "npm": "gopkg-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Go module search and dependency management"
+  },
+  {
+    "id": "hex-pm",
+    "npm": "hex-pm-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "HEX_API_KEY"
+    ],
+    "description": "Hex.pm: Elixir/Erlang package repository"
+  },
+  {
+    "id": "cargo",
+    "npm": "cargo-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Rust Cargo: package management and build tool"
+  },
+  {
+    "id": "swift-package",
+    "npm": "swift-package-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Swift Package Manager: packages, dependencies"
+  },
+  {
+    "id": "gradle",
+    "npm": "gradle-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Gradle: build automation for JVM projects"
+  },
+  {
+    "id": "maven",
+    "npm": "maven-build-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Apache Maven: project build and dependency management"
+  },
+  {
+    "id": "bazel",
+    "npm": "bazel-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Bazel: fast build system for large codebases"
+  },
+  {
+    "id": "cmake",
+    "npm": "cmake-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "CMake: cross-platform build system configuration"
+  },
+  {
+    "id": "make-build",
+    "npm": "make-build-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "GNU Make: build automation with Makefiles"
+  },
+  {
+    "id": "pytest",
+    "npm": "pytest-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "pytest: Python test execution and result analysis"
+  },
+  {
+    "id": "jest",
+    "npm": "jest-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Jest: JavaScript test runner and coverage"
+  },
+  {
+    "id": "cypress",
+    "npm": "cypress-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Cypress: E2E testing, component testing"
+  },
+  {
+    "id": "k6",
+    "npm": "k6-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "K6_CLOUD_TOKEN"
+    ],
+    "description": "k6: load testing and performance benchmarking"
+  },
+  {
+    "id": "gatling",
+    "npm": "gatling-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Gatling: load testing and simulation"
+  },
+  {
+    "id": "locust",
+    "npm": "locust-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Locust: distributed load testing with Python"
+  },
+  {
+    "id": "burp-suite",
+    "npm": "burpsuite-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "BURP_API_KEY"
+    ],
+    "description": "Burp Suite: web application security testing"
+  },
+  {
+    "id": "owasp-zap",
+    "npm": "owasp-zap-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "ZAP_API_KEY",
+      "ZAP_URL"
+    ],
+    "description": "OWASP ZAP: automated web security scanning"
+  },
+  {
+    "id": "nuclei",
+    "npm": "nuclei-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Nuclei: vulnerability scanning with templates"
+  },
+  {
+    "id": "nmap",
+    "npm": "nmap-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Nmap: network discovery and security auditing"
+  },
+  {
+    "id": "wireshark",
+    "npm": "wireshark-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Wireshark: network packet capture analysis"
+  },
+  {
+    "id": "ghidra",
+    "npm": "ghidra-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Ghidra: reverse engineering, decompilation via MCP"
+  },
+  {
+    "id": "metasploit",
+    "npm": "metasploit-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "MSF_PASSWORD"
+    ],
+    "description": "Metasploit: penetration testing framework"
+  },
+  {
+    "id": "qualys",
+    "npm": "qualys-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "QUALYS_USERNAME",
+      "QUALYS_PASSWORD"
+    ],
+    "description": "Qualys: cloud security and vulnerability management"
+  },
+  {
+    "id": "aws-security-hub",
+    "npm": "aws-securityhub-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Security Hub: findings, insights, security scores"
+  },
+  {
+    "id": "wiz",
+    "npm": "wiz-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "WIZ_CLIENT_ID",
+      "WIZ_CLIENT_SECRET"
+    ],
+    "description": "Wiz: cloud security posture, vulnerabilities"
+  },
+  {
+    "id": "prisma-cloud",
+    "npm": "prismacloud-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [
+      "PC_URL",
+      "PC_ACCESS_KEY",
+      "PC_SECRET_KEY"
+    ],
+    "description": "Palo Alto Prisma Cloud: cloud security and compliance"
+  },
+  {
+    "id": "freshworks",
+    "npm": "freshworks-mcp-server",
+    "category": "Support",
+    "status": "pending",
+    "env_vars": [
+      "FRESHWORKS_API_KEY"
+    ],
+    "description": "Freshworks: unified CRM, support, and sales"
+  },
+  {
+    "id": "zoho",
+    "npm": "zoho-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "ZOHO_CLIENT_ID",
+      "ZOHO_CLIENT_SECRET"
+    ],
+    "description": "Zoho CRM: contacts, leads, deals, activities"
+  },
+  {
+    "id": "pipedrive",
+    "npm": "pipedrive-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "PIPEDRIVE_API_TOKEN"
+    ],
+    "description": "Pipedrive: deals, contacts, activities pipeline"
+  },
+  {
+    "id": "copper-crm",
+    "npm": "copper-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "COPPER_API_KEY",
+      "COPPER_USER_EMAIL"
+    ],
+    "description": "Copper CRM: Google Workspace integrated CRM"
+  },
+  {
+    "id": "affinity",
+    "npm": "affinity-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "AFFINITY_API_KEY"
+    ],
+    "description": "Affinity: relationship intelligence CRM"
+  },
+  {
+    "id": "attio",
+    "npm": "attio-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "ATTIO_API_KEY"
+    ],
+    "description": "Attio: modern flexible CRM platform"
+  },
+  {
+    "id": "close-crm",
+    "npm": "closecrm-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "CLOSE_API_KEY"
+    ],
+    "description": "Close CRM: sales CRM with built-in email and calling"
+  },
+  {
+    "id": "apollo",
+    "npm": "apollo-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "APOLLO_API_KEY"
+    ],
+    "description": "Apollo.io: sales intelligence and engagement"
+  },
+  {
+    "id": "outreach",
+    "npm": "outreach-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "OUTREACH_ACCESS_TOKEN"
+    ],
+    "description": "Outreach: sales engagement and intelligence"
+  },
+  {
+    "id": "gong",
+    "npm": "gong-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "GONG_ACCESS_KEY",
+      "GONG_SECRET_KEY"
+    ],
+    "description": "Gong: revenue intelligence, call analysis"
+  },
+  {
+    "id": "chorus",
+    "npm": "chorus-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "CHORUS_API_KEY"
+    ],
+    "description": "Chorus.ai: conversation intelligence platform"
+  },
+  {
+    "id": "docusign-admin",
+    "npm": "docusign-admin-mcp",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "DOCUSIGN_ACCOUNT_ID",
+      "DOCUSIGN_ACCESS_TOKEN"
+    ],
+    "description": "DocuSign Admin: user provisioning, account management"
+  },
+  {
+    "id": "pandadoc",
+    "npm": "pandadoc-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "PANDADOC_API_KEY"
+    ],
+    "description": "PandaDoc: documents, templates, e-signatures"
+  },
+  {
+    "id": "proposify",
+    "npm": "proposify-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "PROPOSIFY_API_KEY"
+    ],
+    "description": "Proposify: proposal creation and tracking"
+  },
+  {
+    "id": "proposify-quotes",
+    "npm": "quote-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Quote management and CPQ workflows"
+  },
+  {
+    "id": "adobe-pdf",
+    "npm": "adobe-pdf-services-mcp",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "ADOBE_CLIENT_ID",
+      "ADOBE_CLIENT_SECRET"
+    ],
+    "description": "Adobe PDF Services: extract, combine, convert PDFs"
+  },
+  {
+    "id": "ilovepdf",
+    "npm": "ilovepdf-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "ILOVEPDF_KEY"
+    ],
+    "description": "iLovePDF: compress, merge, split, convert PDFs"
+  },
+  {
+    "id": "smallpdf",
+    "npm": "smallpdf-mcp-server",
+    "category": "Documents",
+    "status": "pending",
+    "env_vars": [
+      "SMALLPDF_API_KEY"
+    ],
+    "description": "Smallpdf: PDF tools for conversion and editing"
+  },
+  {
+    "id": "notion-forms",
+    "npm": "notion-forms-mcp",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "NOTION_API_KEY"
+    ],
+    "description": "Notion Forms: create forms that save to Notion DBs"
+  },
+  {
+    "id": "fillout",
+    "npm": "fillout-mcp-server",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "FILLOUT_API_KEY"
+    ],
+    "description": "Fillout: forms, surveys, quizzes with logic"
+  },
+  {
+    "id": "tally",
+    "npm": "tally-mcp-server",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "TALLY_API_KEY"
+    ],
+    "description": "Tally.so: free unlimited forms with no-code logic"
+  },
+  {
+    "id": "cognito-forms",
+    "npm": "cognitoforms-mcp",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "COGNITO_FORMS_API_KEY"
+    ],
+    "description": "Cognito Forms: smart forms with calculations and payments"
+  },
+  {
+    "id": "healthcare-fhir",
+    "npm": "fhir-mcp-server",
+    "category": "Healthcare",
+    "status": "pending",
+    "env_vars": [
+      "FHIR_BASE_URL",
+      "FHIR_ACCESS_TOKEN"
+    ],
+    "description": "FHIR: healthcare interoperability standard API"
+  },
+  {
+    "id": "epic-ehr",
+    "npm": "epic-mcp-server",
+    "category": "Healthcare",
+    "status": "pending",
+    "env_vars": [
+      "EPIC_CLIENT_ID",
+      "EPIC_CLIENT_SECRET"
+    ],
+    "description": "Epic EHR: patient data, clinical workflows via SMART on FHIR"
+  },
+  {
+    "id": "pubmed",
+    "npm": "pubmed-mcp-server",
+    "category": "Healthcare",
+    "status": "pending",
+    "env_vars": [],
+    "description": "PubMed: medical literature search and retrieval"
+  },
+  {
+    "id": "openfda",
+    "npm": "openfda-mcp-server",
+    "category": "Healthcare",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OpenFDA: drug recalls, warning letters, approvals"
+  },
+  {
+    "id": "clinicaltrials",
+    "npm": "clinicaltrials-mcp",
+    "category": "Healthcare",
+    "status": "pending",
+    "env_vars": [],
+    "description": "ClinicalTrials.gov: study search and details"
+  },
+  {
+    "id": "legal-courtlistener",
+    "npm": "courtlistener-mcp",
+    "category": "Legal",
+    "status": "pending",
+    "env_vars": [
+      "COURTLISTENER_TOKEN"
+    ],
+    "description": "CourtListener: court opinions, dockets, oral arguments"
+  },
+  {
+    "id": "legal-westlaw",
+    "npm": "westlaw-mcp-server",
+    "category": "Legal",
+    "status": "pending",
+    "env_vars": [
+      "WESTLAW_API_KEY"
+    ],
+    "description": "Westlaw: legal research, case law, statutes"
+  },
+  {
+    "id": "property-data",
+    "npm": "property-mcp-server",
+    "category": "Real Estate",
+    "status": "pending",
+    "env_vars": [
+      "PROPERTY_API_KEY"
+    ],
+    "description": "Property data: listings, valuations, ownership"
+  },
+  {
+    "id": "zillow",
+    "npm": "zillow-mcp-server",
+    "category": "Real Estate",
+    "status": "pending",
+    "env_vars": [
+      "ZILLOW_API_KEY"
+    ],
+    "description": "Zillow: property search, estimates, listings"
+  },
+  {
+    "id": "redfin",
+    "npm": "redfin-mcp-server",
+    "category": "Real Estate",
+    "status": "pending",
+    "env_vars": [
+      "REDFIN_API_KEY"
+    ],
+    "description": "Redfin: real estate listings and market data"
+  },
+  {
+    "id": "apple-script",
+    "npm": "applescript-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "macOS AppleScript: automate Mac apps via natural language"
+  },
+  {
+    "id": "powershell",
+    "npm": "powershell-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Windows PowerShell command execution and automation"
+  },
+  {
+    "id": "bash-runner",
+    "npm": "bash-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Bash/shell script execution in sandboxed environment"
+  },
+  {
+    "id": "python-runner",
+    "npm": "python-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Python code execution with sandboxing"
+  },
+  {
+    "id": "node-runner",
+    "npm": "node-runner-mcp",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Node.js code execution and npm script running"
+  },
+  {
+    "id": "deno-runner",
+    "npm": "deno-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Deno runtime: TypeScript/JavaScript execution"
+  },
+  {
+    "id": "r-language",
+    "npm": "r-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [],
+    "description": "R language execution for statistical computing"
+  },
+  {
+    "id": "julia-lang",
+    "npm": "julia-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Julia language for high-performance scientific computing"
+  },
+  {
+    "id": "ssh-manager",
+    "npm": "ssh-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "SSH: connect to remote hosts, execute commands"
+  },
+  {
+    "id": "sftp-tools",
+    "npm": "sftp-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "SFTP: secure file transfer protocol operations"
+  },
+  {
+    "id": "ftp-tools",
+    "npm": "ftp-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "FTP: file transfer protocol operations"
+  },
+  {
+    "id": "rsync",
+    "npm": "rsync-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "rsync: efficient remote file synchronization"
+  },
+  {
+    "id": "cPanel",
+    "npm": "cpanel-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "CPANEL_HOST",
+      "CPANEL_USERNAME",
+      "CPANEL_PASSWORD"
+    ],
+    "description": "cPanel: web hosting control panel management"
+  },
+  {
+    "id": "plesk",
+    "npm": "plesk-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "PLESK_HOST",
+      "PLESK_API_KEY"
+    ],
+    "description": "Plesk: web server management and hosting"
+  },
+  {
+    "id": "nginx",
+    "npm": "nginx-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Nginx: configuration management, server blocks, SSL"
+  },
+  {
+    "id": "apache-httpd",
+    "npm": "apache-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Apache HTTP Server: virtual hosts, .htaccess, modules"
+  },
+  {
+    "id": "caddy",
+    "npm": "caddy-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "CADDY_ADMIN_URL"
+    ],
+    "description": "Caddy: automatic HTTPS web server management"
+  },
+  {
+    "id": "traefik",
+    "npm": "traefik-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "TRAEFIK_API_URL"
+    ],
+    "description": "Traefik: cloud-native reverse proxy and load balancer"
+  },
+  {
+    "id": "haproxy",
+    "npm": "haproxy-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [],
+    "description": "HAProxy: load balancing and high availability"
+  },
+  {
+    "id": "envoy",
+    "npm": "envoy-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "ENVOY_ADMIN_URL"
+    ],
+    "description": "Envoy Proxy: service mesh sidecar and edge proxy"
+  },
+  {
+    "id": "openvpn",
+    "npm": "openvpn-mcp",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "OpenVPN: VPN management and user configuration"
+  },
+  {
+    "id": "wireguard",
+    "npm": "wireguard-mcp-server",
+    "category": "Security",
+    "status": "pending",
+    "env_vars": [],
+    "description": "WireGuard: modern VPN tunnel management"
+  },
+  {
+    "id": "dns-tools",
+    "npm": "dns-mcp-server",
+    "category": "Utilities",
+    "status": "pending",
+    "env_vars": [],
+    "description": "DNS: query records, propagation check, DNSSEC"
+  },
+  {
+    "id": "cloudflare-dns",
+    "npm": "cloudflare-dns-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "description": "Cloudflare DNS: zones, records, DNSSEC management"
+  },
+  {
+    "id": "route53",
+    "npm": "route53-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Route 53: DNS, health checks, routing policies"
+  },
+  {
+    "id": "cloudflare-pages",
+    "npm": "cloudflare-pages-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "description": "Cloudflare Pages: static site deployments"
+  },
+  {
+    "id": "netlify-forms",
+    "npm": "netlify-forms-mcp",
+    "category": "Forms",
+    "status": "pending",
+    "env_vars": [
+      "NETLIFY_TOKEN"
+    ],
+    "description": "Netlify Forms: form submissions and notifications"
+  },
+  {
+    "id": "github-gist",
+    "npm": "github-gist-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GITHUB_TOKEN"
+    ],
+    "description": "GitHub Gists: create, manage code snippets"
+  },
+  {
+    "id": "pastebin",
+    "npm": "pastebin-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "PASTEBIN_API_KEY"
+    ],
+    "description": "Pastebin: create and retrieve code pastes"
+  },
+  {
+    "id": "codepen",
+    "npm": "codepen-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "CODEPEN_API_KEY"
+    ],
+    "description": "CodePen: pen management and sharing"
+  },
+  {
+    "id": "stackblitz",
+    "npm": "stackblitz-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "STACKBLITZ_API_KEY"
+    ],
+    "description": "StackBlitz: online IDE project management"
+  },
+  {
+    "id": "codesandbox",
+    "npm": "codesandbox-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "CSB_API_KEY"
+    ],
+    "description": "CodeSandbox: sandbox creation and management"
+  },
+  {
+    "id": "replit",
+    "npm": "replit-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "REPLIT_TOKEN"
+    ],
+    "description": "Replit: REPL creation, collaboration, deployment"
+  },
+  {
+    "id": "glitch",
+    "npm": "glitch-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GLITCH_TOKEN"
+    ],
+    "description": "Glitch: web app creation and remixing"
+  },
+  {
+    "id": "railway",
+    "npm": "railway-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "RAILWAY_TOKEN"
+    ],
+    "description": "Railway: app deployment, databases, services"
+  },
+  {
+    "id": "render",
+    "npm": "render-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "RENDER_API_KEY"
+    ],
+    "description": "Render: web services, static sites, databases"
+  },
+  {
+    "id": "fly-io",
+    "npm": "flyio-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "FLY_API_TOKEN"
+    ],
+    "description": "Fly.io: apps, machines, volumes, edge deployment"
+  },
+  {
+    "id": "coolify",
+    "npm": "coolify-mcp-server",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "COOLIFY_TOKEN",
+      "COOLIFY_URL"
+    ],
+    "description": "Coolify: self-hosted Heroku/Netlify alternative"
+  },
+  {
+    "id": "plausible",
+    "npm": "plausible-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "PLAUSIBLE_API_KEY"
+    ],
+    "description": "Plausible Analytics: privacy-friendly web analytics"
+  },
+  {
+    "id": "fathom",
+    "npm": "fathom-analytics-mcp",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "FATHOM_API_TOKEN"
+    ],
+    "description": "Fathom Analytics: GDPR-compliant website analytics"
+  },
+  {
+    "id": "pirsch",
+    "npm": "pirsch-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "PIRSCH_CLIENT_SECRET"
+    ],
+    "description": "Pirsch: cookie-free web analytics"
+  },
+  {
+    "id": "umami",
+    "npm": "umami-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "UMAMI_API_URL",
+      "UMAMI_TOKEN"
+    ],
+    "description": "Umami: open-source, self-hostable web analytics"
+  },
+  {
+    "id": "matomo",
+    "npm": "matomo-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "MATOMO_URL",
+      "MATOMO_TOKEN"
+    ],
+    "description": "Matomo: self-hosted Google Analytics alternative"
+  },
+  {
+    "id": "heap",
+    "npm": "heap-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "HEAP_APP_ID",
+      "HEAP_API_KEY"
+    ],
+    "description": "Heap: auto-captures all user events for analysis"
+  },
+  {
+    "id": "clevertap",
+    "npm": "clevertap-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "CLEVERTAP_ACCOUNT_ID",
+      "CLEVERTAP_PASSCODE"
+    ],
+    "description": "CleverTap: user engagement and retention analytics"
+  },
+  {
+    "id": "appsflyer",
+    "npm": "appsflyer-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "APPSFLYER_API_TOKEN"
+    ],
+    "description": "AppsFlyer: mobile attribution and marketing analytics"
+  },
+  {
+    "id": "adjust",
+    "npm": "adjust-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "ADJUST_API_TOKEN"
+    ],
+    "description": "Adjust: mobile measurement and analytics"
+  },
+  {
+    "id": "branch",
+    "npm": "branch-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "BRANCH_KEY",
+      "BRANCH_SECRET"
+    ],
+    "description": "Branch: mobile linking and attribution"
+  },
+  {
+    "id": "kochava",
+    "npm": "kochava-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "KOCHAVA_APP_GUID"
+    ],
+    "description": "Kochava: mobile attribution platform"
+  },
+  {
+    "id": "firebase-analytics",
+    "npm": "firebase-analytics-mcp",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Firebase Analytics: app usage, events, audiences"
+  },
+  {
+    "id": "firebase-remote-config",
+    "npm": "firebase-remoteconfig-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Firebase Remote Config: feature flags, A/B tests"
+  },
+  {
+    "id": "firebase-crashlytics",
+    "npm": "firebase-crashlytics-mcp",
+    "category": "Observability",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Firebase Crashlytics: mobile crash reporting"
+  },
+  {
+    "id": "app-store-connect",
+    "npm": "@joshuarileydev/app-store-connect-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "ASC_ISSUER_ID",
+      "ASC_KEY_ID",
+      "ASC_PRIVATE_KEY"
+    ],
+    "description": "App Store Connect: apps, builds, TestFlight, reviews"
+  },
+  {
+    "id": "google-play",
+    "npm": "google-play-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Play Console: apps, releases, reviews, subscriptions"
+  },
+  {
+    "id": "huawei-appgallery",
+    "npm": "huawei-appgallery-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "HUAWEI_CLIENT_ID",
+      "HUAWEI_CLIENT_SECRET"
+    ],
+    "description": "Huawei AppGallery: app management and distribution"
+  },
+  {
+    "id": "amazon-appstore",
+    "npm": "amazon-appstore-mcp",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "AMAZON_CLIENT_ID",
+      "AMAZON_CLIENT_SECRET"
+    ],
+    "description": "Amazon Appstore: app submissions and management"
+  },
+  {
+    "id": "microsoft-store",
+    "npm": "ms-store-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "MS_STORE_TENANT_ID",
+      "MS_STORE_CLIENT_ID",
+      "MS_STORE_CLIENT_SECRET"
+    ],
+    "description": "Microsoft Store: app submissions and partner center"
+  },
+  {
+    "id": "expo",
+    "npm": "expo-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "EXPO_TOKEN"
+    ],
+    "description": "Expo: React Native builds, OTA updates, EAS"
+  },
+  {
+    "id": "fastlane",
+    "npm": "fastlane-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Fastlane: iOS/Android app deployment automation"
+  },
+  {
+    "id": "bitrise",
+    "npm": "bitrise-mcp-server",
+    "category": "DevOps",
+    "status": "pending",
+    "env_vars": [
+      "BITRISE_TOKEN"
+    ],
+    "description": "Bitrise: mobile CI/CD pipeline management"
+  },
+  {
+    "id": "appcenter",
+    "npm": "appcenter-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "APPCENTER_TOKEN"
+    ],
+    "description": "App Center: mobile app builds, distribution, analytics"
+  },
+  {
+    "id": "firebase-hosting",
+    "npm": "firebase-hosting-mcp",
+    "category": "Cloud",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Firebase Hosting: static site deployment and management"
+  },
+  {
+    "id": "storybook",
+    "npm": "storybook-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Storybook: component library management and testing"
+  },
+  {
+    "id": "chromatic",
+    "npm": "chromatic-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "CHROMATIC_PROJECT_TOKEN"
+    ],
+    "description": "Chromatic: visual testing and review for Storybook"
+  },
+  {
+    "id": "percy",
+    "npm": "percy-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [
+      "PERCY_TOKEN"
+    ],
+    "description": "Percy: visual testing and review for web apps"
+  },
+  {
+    "id": "lighthouse",
+    "npm": "lighthouse-mcp-server",
+    "category": "Developer Tools",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Lighthouse: web performance, accessibility, SEO audits"
+  },
+  {
+    "id": "web-vitals",
+    "npm": "web-vitals-mcp",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [],
+    "description": "Core Web Vitals: LCP, CLS, FID measurement"
+  },
+  {
+    "id": "pagespeed",
+    "npm": "pagespeed-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "PAGESPEED_API_KEY"
+    ],
+    "description": "Google PageSpeed Insights: performance analysis"
+  },
+  {
+    "id": "semrush",
+    "npm": "semrush-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "SEMRUSH_API_KEY"
+    ],
+    "description": "SEMrush: SEO, keyword research, competitor analysis"
+  },
+  {
+    "id": "ahrefs",
+    "npm": "ahrefs-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "AHREFS_API_TOKEN"
+    ],
+    "description": "Ahrefs: backlinks, keywords, site audit"
+  },
+  {
+    "id": "moz",
+    "npm": "moz-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "MOZ_ACCESS_ID",
+      "MOZ_SECRET_KEY"
+    ],
+    "description": "Moz: domain authority, links, keyword research"
+  },
+  {
+    "id": "screaming-frog",
+    "npm": "screamingfrog-mcp",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "SF_LICENSE_KEY"
+    ],
+    "description": "Screaming Frog: website crawl and SEO audit"
+  },
+  {
+    "id": "clearbit",
+    "npm": "clearbit-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "CLEARBIT_API_KEY"
+    ],
+    "description": "Clearbit: company and person data enrichment"
+  },
+  {
+    "id": "hunter",
+    "npm": "hunter-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "HUNTER_API_KEY"
+    ],
+    "description": "Hunter.io: email finder and verification"
+  },
+  {
+    "id": "snov",
+    "npm": "snov-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "SNOV_CLIENT_ID",
+      "SNOV_CLIENT_SECRET"
+    ],
+    "description": "Snov.io: email finding and outreach automation"
+  },
+  {
+    "id": "phantombuster",
+    "npm": "phantombuster-mcp",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "PHANTOMBUSTER_API_KEY"
+    ],
+    "description": "PhantomBuster: LinkedIn/web data extraction automation"
+  },
+  {
+    "id": "lemlist",
+    "npm": "lemlist-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "LEMLIST_API_KEY"
+    ],
+    "description": "Lemlist: personalized cold email and outreach"
+  },
+  {
+    "id": "instantly",
+    "npm": "instantly-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "INSTANTLY_API_KEY"
+    ],
+    "description": "Instantly: email outreach and deliverability"
+  },
+  {
+    "id": "smartlead",
+    "npm": "smartlead-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "SMARTLEAD_API_KEY"
+    ],
+    "description": "Smartlead: cold email infrastructure and automation"
+  },
+  {
+    "id": "reply-io",
+    "npm": "reply-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "REPLY_IO_API_KEY"
+    ],
+    "description": "Reply.io: multichannel sales engagement platform"
+  },
+  {
+    "id": "salesloft",
+    "npm": "salesloft-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "SALESLOFT_API_KEY"
+    ],
+    "description": "Salesloft: sales engagement and analytics"
+  },
+  {
+    "id": "apollo-io",
+    "npm": "apollo-io-mcp",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "APOLLO_API_KEY"
+    ],
+    "description": "Apollo.io: B2B contact database and sequencing"
+  },
+  {
+    "id": "zoominfo",
+    "npm": "zoominfo-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "ZOOMINFO_CLIENT_ID",
+      "ZOOMINFO_CLIENT_SECRET"
+    ],
+    "description": "ZoomInfo: B2B sales intelligence and contact data"
+  },
+  {
+    "id": "linkedin-sales",
+    "npm": "linkedin-sales-mcp",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "LINKEDIN_ACCESS_TOKEN"
+    ],
+    "description": "LinkedIn Sales Navigator: lead and account management"
+  },
+  {
+    "id": "lusha",
+    "npm": "lusha-mcp-server",
+    "category": "CRM",
+    "status": "pending",
+    "env_vars": [
+      "LUSHA_API_KEY"
+    ],
+    "description": "Lusha: B2B contact and company enrichment"
+  },
+  {
+    "id": "data-axle",
+    "npm": "dataaxle-mcp-server",
+    "category": "Marketing",
+    "status": "pending",
+    "env_vars": [
+      "DATA_AXLE_API_KEY"
+    ],
+    "description": "Data Axle: business and consumer data for marketing"
+  },
+  {
+    "id": "qualtrics",
+    "npm": "qualtrics-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "QUALTRICS_API_TOKEN",
+      "QUALTRICS_DATACENTER"
+    ],
+    "description": "Qualtrics: surveys, research, experience management"
+  },
+  {
+    "id": "medallia",
+    "npm": "medallia-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "MEDALLIA_API_TOKEN"
+    ],
+    "description": "Medallia: customer and employee experience management"
+  },
+  {
+    "id": "delighted",
+    "npm": "delighted-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "DELIGHTED_API_KEY"
+    ],
+    "description": "Delighted: NPS, CSAT, CES survey tool"
+  },
+  {
+    "id": "promoter-io",
+    "npm": "promoter-mcp-server",
+    "category": "Analytics",
+    "status": "pending",
+    "env_vars": [
+      "PROMOTER_API_KEY"
+    ],
+    "description": "Promoter.io: NPS survey collection and analysis"
+  },
+  {
+    "id": "apify",
+    "npm": "apify-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "APIFY_TOKEN"
+    ],
+    "description": "Apify: web scraping platform and actor marketplace"
+  },
+  {
+    "id": "scrapingbee",
+    "npm": "scrapingbee-mcp",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "SCRAPINGBEE_API_KEY"
+    ],
+    "description": "ScrapingBee: web scraping with headless Chrome"
+  },
+  {
+    "id": "scraperapi",
+    "npm": "scraperapi-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "SCRAPERAPI_KEY"
+    ],
+    "description": "ScraperAPI: rotating proxies, bypass anti-scraping"
+  },
+  {
+    "id": "brightdata",
+    "npm": "brightdata-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "BRIGHTDATA_TOKEN"
+    ],
+    "description": "Bright Data: enterprise web data platform"
+  },
+  {
+    "id": "zyte",
+    "npm": "zyte-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "ZYTE_API_KEY"
+    ],
+    "description": "Zyte (Scrapy Cloud): web crawling and data extraction"
+  },
+  {
+    "id": "webz",
+    "npm": "webz-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "WEBZ_TOKEN"
+    ],
+    "description": "Webz.io: web data and dark web monitoring"
+  },
+  {
+    "id": "diffbot",
+    "npm": "diffbot-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "DIFFBOT_TOKEN"
+    ],
+    "description": "Diffbot: AI-powered web data extraction"
+  },
+  {
+    "id": "import-io",
+    "npm": "importio-mcp-server",
+    "category": "Web Scraping",
+    "status": "pending",
+    "env_vars": [
+      "IMPORTIO_API_KEY"
+    ],
+    "description": "Import.io: web data extraction and transformation"
+  },
+  {
+    "id": "serpapi",
+    "npm": "serpapi-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "SERPAPI_KEY"
+    ],
+    "description": "SerpAPI: Google, Bing, Baidu SERP data extraction"
+  },
+  {
+    "id": "valueserp",
+    "npm": "valueserp-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "VALUESERP_API_KEY"
+    ],
+    "description": "ValueSERP: search engine results API"
+  },
+  {
+    "id": "dataforseo",
+    "npm": "dataforseo-mcp-server",
+    "category": "Search",
+    "status": "pending",
+    "env_vars": [
+      "DATAFORSEO_LOGIN",
+      "DATAFORSEO_PASSWORD"
+    ],
+    "description": "DataForSEO: SEO data and rank tracking API"
+  },
+  {
+    "id": "openai-embeddings",
+    "npm": "openai-embeddings-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI Embeddings: text to vector conversion"
+  },
+  {
+    "id": "openai-images",
+    "npm": "openai-images-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI DALL-E: image generation and editing"
+  },
+  {
+    "id": "openai-whisper",
+    "npm": "openai-whisper-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI Whisper: audio transcription and translation"
+  },
+  {
+    "id": "openai-tts",
+    "npm": "openai-tts-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI Text-to-Speech: natural voice generation"
+  },
+  {
+    "id": "openai-assistant",
+    "npm": "openai-assistant-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OPENAI_API_KEY"
+    ],
+    "description": "OpenAI Assistants API: threads, runs, file search"
+  },
+  {
+    "id": "google-gemini",
+    "npm": "gemini-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_API_KEY"
+    ],
+    "description": "Google Gemini: multimodal LLM, vision, code generation"
+  },
+  {
+    "id": "meta-llama",
+    "npm": "meta-llama-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "META_LLAMA_API_KEY"
+    ],
+    "description": "Meta Llama: open source LLM inference"
+  },
+  {
+    "id": "perplexity-sonar",
+    "npm": "perplexity-sonar-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "PERPLEXITY_API_KEY"
+    ],
+    "description": "Perplexity Sonar: real-time web search with citations"
+  },
+  {
+    "id": "xai-grok",
+    "npm": "grok-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "XAI_API_KEY"
+    ],
+    "description": "xAI Grok: real-time knowledge LLM"
+  },
+  {
+    "id": "deepseek",
+    "npm": "deepseek-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "DEEPSEEK_API_KEY"
+    ],
+    "description": "DeepSeek: coding and reasoning focused LLM"
+  },
+  {
+    "id": "nvidia-nim",
+    "npm": "nvidia-nim-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "NVIDIA_API_KEY"
+    ],
+    "description": "NVIDIA NIM: optimized model inference microservices"
+  },
+  {
+    "id": "ollama",
+    "npm": "ollama-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OLLAMA_HOST"
+    ],
+    "description": "Ollama: local LLM inference, model management"
+  },
+  {
+    "id": "localai",
+    "npm": "localai-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "LOCALAI_API_URL"
+    ],
+    "description": "LocalAI: self-hosted OpenAI-compatible inference"
+  },
+  {
+    "id": "lmstudio",
+    "npm": "lmstudio-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "LMSTUDIO_URL"
+    ],
+    "description": "LM Studio: local model management and inference"
+  },
+  {
+    "id": "comfyui",
+    "npm": "comfyui-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "COMFYUI_URL"
+    ],
+    "description": "ComfyUI: stable diffusion workflow management"
+  },
+  {
+    "id": "automatic1111",
+    "npm": "a1111-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "A1111_URL"
+    ],
+    "description": "Automatic1111 WebUI: image generation via Stable Diffusion"
+  },
+  {
+    "id": "midjourney",
+    "npm": "midjourney-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "MIDJOURNEY_TOKEN"
+    ],
+    "description": "Midjourney: AI image generation and variation"
+  },
+  {
+    "id": "runway",
+    "npm": "runway-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "RUNWAY_API_SECRET"
+    ],
+    "description": "Runway: AI video generation and editing"
+  },
+  {
+    "id": "suno",
+    "npm": "suno-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "SUNO_API_KEY"
+    ],
+    "description": "Suno: AI music generation from text prompts"
+  },
+  {
+    "id": "udio",
+    "npm": "udio-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "UDIO_API_KEY"
+    ],
+    "description": "Udio: AI music creation and remixing"
+  },
+  {
+    "id": "luma-ai",
+    "npm": "luma-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "LUMAAI_API_KEY"
+    ],
+    "description": "Luma AI: 3D scene capture and video generation"
+  },
+  {
+    "id": "pika",
+    "npm": "pika-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "PIKA_API_KEY"
+    ],
+    "description": "Pika: AI video creation from images and text"
+  },
+  {
+    "id": "kling",
+    "npm": "kling-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "KLING_API_KEY"
+    ],
+    "description": "Kling AI: video generation and visual creation"
+  },
+  {
+    "id": "minimax-video",
+    "npm": "minimax-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "MINIMAX_API_KEY"
+    ],
+    "description": "MiniMax: text-to-video, image, and speech generation"
+  },
+  {
+    "id": "heygen",
+    "npm": "heygen-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "HEYGEN_API_KEY"
+    ],
+    "description": "HeyGen: AI avatar video creation"
+  },
+  {
+    "id": "did-api",
+    "npm": "did-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "DID_API_KEY"
+    ],
+    "description": "D-ID: talking head video generation from images"
+  },
+  {
+    "id": "picovoice",
+    "npm": "picovoice-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "PICOVOICE_ACCESS_KEY"
+    ],
+    "description": "Picovoice: on-device voice AI, wake word, speech-to-intent"
+  },
+  {
+    "id": "speechify",
+    "npm": "speechify-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "SPEECHIFY_API_KEY"
+    ],
+    "description": "Speechify: text-to-speech with natural voices"
+  },
+  {
+    "id": "murf",
+    "npm": "murf-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "MURF_API_KEY"
+    ],
+    "description": "Murf.ai: AI voice generation for content"
+  },
+  {
+    "id": "play-ht",
+    "npm": "playht-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "PLAYHT_USER_ID",
+      "PLAYHT_SECRET_KEY"
+    ],
+    "description": "Play.ht: ultra-realistic AI voice generation"
+  },
+  {
+    "id": "wellsaid",
+    "npm": "wellsaid-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "WELLSAID_API_KEY"
+    ],
+    "description": "WellSaid Labs: enterprise text-to-speech voices"
+  },
+  {
+    "id": "otter-ai",
+    "npm": "otter-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "OTTER_API_KEY"
+    ],
+    "description": "Otter.ai: meeting transcription and notes"
+  },
+  {
+    "id": "fireflies",
+    "npm": "fireflies-mcp-server",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "FIREFLIES_API_KEY"
+    ],
+    "description": "Fireflies.ai: meeting transcription, search, analytics"
+  },
+  {
+    "id": "rev-ai",
+    "npm": "rev-ai-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "REV_AI_ACCESS_TOKEN"
+    ],
+    "description": "Rev.ai: speech-to-text transcription API"
+  },
+  {
+    "id": "azure-cognitive",
+    "npm": "azure-cognitive-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AZURE_COGNITIVE_KEY",
+      "AZURE_COGNITIVE_ENDPOINT"
+    ],
+    "description": "Azure Cognitive Services: vision, speech, language"
+  },
+  {
+    "id": "aws-comprehend",
+    "npm": "aws-comprehend-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Comprehend: NLP, sentiment, entity recognition"
+  },
+  {
+    "id": "aws-rekognition",
+    "npm": "aws-rekognition-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Rekognition: image and video analysis, face detection"
+  },
+  {
+    "id": "aws-polly",
+    "npm": "aws-polly-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Polly: lifelike text-to-speech synthesis"
+  },
+  {
+    "id": "aws-transcribe",
+    "npm": "aws-transcribe-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Transcribe: automatic speech recognition"
+  },
+  {
+    "id": "aws-translate",
+    "npm": "aws-translate-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY",
+      "AWS_REGION"
+    ],
+    "description": "AWS Translate: neural machine translation"
+  },
+  {
+    "id": "google-vision",
+    "npm": "google-vision-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud Vision: image labeling, OCR, face detection"
+  },
+  {
+    "id": "google-speech",
+    "npm": "google-speech-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud Speech-to-Text: audio transcription"
+  },
+  {
+    "id": "google-text-speech",
+    "npm": "google-tts-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud Text-to-Speech: WaveNet voice synthesis"
+  },
+  {
+    "id": "google-nlp",
+    "npm": "google-nlp-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud NLP: entity analysis, sentiment, syntax"
+  },
+  {
+    "id": "google-translation",
+    "npm": "google-cloud-translate-mcp",
+    "category": "AI Platform",
+    "status": "pending",
+    "env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "description": "Google Cloud Translation: 100+ language translation"
+  }
+]

@@ -48,7 +48,7 @@ Once added, paste a single endpoint into your AI client:
 {
   "mcpServers": {
     "aerostack": {
-      "url": "https://aerocall.ai/api/gateway/ws/YOUR_WORKSPACE_SLUG",
+      "url": "https://aerostack.run/api/gateway/ws/YOUR_WORKSPACE_SLUG",
       "headers": {
         "Authorization": "Bearer mwt_YOUR_WORKSPACE_TOKEN"
       }
