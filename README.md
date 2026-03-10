@@ -25,13 +25,13 @@ Add any of these servers to your Aerostack workspace and they're instantly avail
 | ✅ [Twilio](./mcp-twilio/) | SMS | Send SMS, List Messages | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
 | ✅ [HubSpot](./mcp-hubspot/) | CRM | Contacts, Deals, Companies | `HUBSPOT_ACCESS_TOKEN` |
 | ✅ [Supabase](./mcp-supabase/) | Database | Select, Insert, Update, Delete, RPC, Storage | `SUPABASE_URL`, `SUPABASE_ANON_KEY` |
-| 🔲 Vercel | Infrastructure | — | — |
-| 🔲 Sentry | Monitoring | — | — |
-| 🔲 Google Calendar | Productivity | — | — |
-| 🔲 Figma | Design | — | — |
-| 🔲 OpenAI | AI | — | — |
-| 🔲 PlanetScale | Database | — | — |
-| 🔲 Railway | Infrastructure | — | — |
+| ✅ [Vercel](./mcp-vercel/) | Infrastructure | Projects, Deployments, Domains, Env Vars | `VERCEL_TOKEN` |
+| ✅ [Sentry](./mcp-sentry/) | Monitoring | Orgs, Projects, Issues, Events, Releases | `SENTRY_AUTH_TOKEN` |
+| ✅ [Google Calendar](./mcp-google-calendar/) | Productivity | Calendars, Events, CRUD, Quick Add | `GOOGLE_ACCESS_TOKEN` |
+| ✅ [Figma](./mcp-figma/) | Design | Files, Nodes, Comments, Components, Styles, Images | `FIGMA_ACCESS_TOKEN` |
+| ✅ [OpenAI](./mcp-openai/) | AI | Chat, Models, Embeddings, Images, Moderation | `OPENAI_API_KEY` |
+| ✅ [PlanetScale](./mcp-planetscale/) | Database | Databases, Branches, Deploy Requests | `PLANETSCALE_TOKEN` |
+| ✅ [Railway](./mcp-railway/) | Infrastructure | Projects, Services, Deployments, Logs, Variables | `RAILWAY_API_TOKEN` |
 
 **Want a server that's not listed?** [Open an issue →](https://github.com/aerostackdev/aerostack-mcp/issues/new?labels=request&template=server_request.md)
 
