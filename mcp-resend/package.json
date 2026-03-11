@@ -1,11 +1,12 @@
 {
   "name": "aerostack-mcp-resend",
+  "description": "MCP server for Resend — send transactional emails and manage domains",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "aerostack dev",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
-    "deploy": "npm run build && aerostack deploy mcp"
+    "deploy": "aerostack deploy mcp resend"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",

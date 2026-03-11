@@ -1,4 +1,5 @@
 name = "mcp-stripe"
+description = "MCP server for Stripe — manage customers, subscriptions, invoices, and payments"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,4 +1,5 @@
 name = "mcp-openai"
+description = "MCP server for OpenAI — chat completions, embeddings, images, and moderation"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

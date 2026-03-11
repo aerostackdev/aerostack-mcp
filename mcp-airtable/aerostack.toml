@@ -1,4 +1,5 @@
 name = "mcp-airtable"
+description = "MCP server for Airtable — manage bases, tables, and records"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

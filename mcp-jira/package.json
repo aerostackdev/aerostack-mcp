@@ -1,11 +1,12 @@
 {
   "name": "aerostack-mcp-jira",
+  "description": "MCP server for Jira — search issues, create tasks, and manage workflows",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "aerostack dev",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
-    "deploy": "npm run build && aerostack deploy mcp"
+    "deploy": "aerostack deploy mcp jira"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",

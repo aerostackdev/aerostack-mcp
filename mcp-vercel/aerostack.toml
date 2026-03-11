@@ -1,4 +1,5 @@
 name = "mcp-vercel"
+description = "MCP server for Vercel — manage projects, deployments, domains, and env vars"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

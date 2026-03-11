@@ -1,11 +1,12 @@
 {
   "name": "aerostack-mcp-cloudflare",
+  "description": "MCP server for Cloudflare — manage Workers, KV, R2, D1, and analytics",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "aerostack dev",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
-    "deploy": "npm run build && aerostack deploy mcp"
+    "deploy": "aerostack deploy mcp cloudflare"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",

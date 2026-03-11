@@ -1,11 +1,12 @@
 {
   "name": "aerostack-mcp-slack",
+  "description": "MCP server for Slack — send messages, search channels, and manage users",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "aerostack dev",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
-    "deploy": "npm run build && aerostack deploy mcp"
+    "deploy": "aerostack deploy mcp slack"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
