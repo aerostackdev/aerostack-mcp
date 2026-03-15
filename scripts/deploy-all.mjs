@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Deploy all MCP servers to Aerostack.
+ * Deploy all MCP servers (hosted + proxy) to Aerostack.
  *
  * Usage:
  *   AEROSTACK_API_KEY=ak_... DEPLOY_ENV=staging node scripts/deploy-all.mjs
@@ -10,6 +10,7 @@
  *   --only mcp-airtable,mcp-slack   deploy specific MCPs only
  *   --skip mcp-airtable             skip specific MCPs
  *   --dry-run                       build only, skip API upload
+ *   --proxies-only                  only register proxy MCPs (no Worker builds)
  */
 import { readdirSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -22,8 +23,9 @@ const ROOT  = join(__dir, '..');
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-const ENV     = process.env.DEPLOY_ENV ?? 'staging';
-const DRY_RUN = process.argv.includes('--dry-run');
+const ENV          = process.env.DEPLOY_ENV ?? 'staging';
+const DRY_RUN      = process.argv.includes('--dry-run');
+const PROXIES_ONLY = process.argv.includes('--proxies-only');
 
 // API key: env var (CI) or local credentials file (local dev)
 let API_KEY = process.env.AEROSTACK_API_KEY;
@@ -40,9 +42,9 @@ if (!API_KEY && !DRY_RUN) {
 
 // --only / --skip filters
 const onlyArg  = process.argv.indexOf('--only');
-const onlyList = onlyArg !== -1 ? process.argv[onlyArg + 1]?.split(',') ?? [] : [];
+const onlyList = onlyArg !== -1 ? (process.argv[onlyArg + 1] ?? '').split(',').filter(Boolean) : [];
 const skipArg  = process.argv.indexOf('--skip');
-const skipList = skipArg !== -1 ? process.argv[skipArg + 1]?.split(',') ?? [] : [];
+const skipList = skipArg !== -1 ? (process.argv[skipArg + 1] ?? '').split(',').filter(Boolean) : [];
 
 const API_BASE = 'https://api.aerostack.dev';
 
@@ -57,6 +59,13 @@ function parseToml(content) {
   return result;
 }
 
+/** Convert API-returned URL to public aerostack.dev format */
+function publicUrl(slug) {
+  // e.g. mcp-airtable → https://aerostack.dev/mcp/navin/mcp-airtable
+  const profile = process.env.AEROSTACK_PROFILE ?? 'navin';
+  return `https://aerostack.dev/mcp/${profile}/${slug}`;
+}
+
 function buildMcp(dirPath, entryPath, outFile) {
   mkdirSync(join(dirPath, 'dist'), { recursive: true });
   execSync(
@@ -65,7 +74,7 @@ function buildMcp(dirPath, entryPath, outFile) {
   );
 }
 
-async function deployMcp(slug, outFile) {
+async function deployHosted(slug, outFile) {
   const workerCode = readFileSync(outFile);
   const form = new FormData();
   form.append('worker', new Blob([workerCode], { type: 'application/javascript' }), 'worker.js');
@@ -83,63 +92,138 @@ async function deployMcp(slug, outFile) {
   return data;
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+async function registerProxy(proxy) {
+  // POST /api/community/mcp — upsert by slug
+  const body = {
+    name:         proxy.name,
+    slug:         `mcp-${proxy.id}`,
+    description:  proxy.description,
+    category:     proxy.category,
+    type:         'proxy',
+    external_url: proxy.proxy_url,
+    auth_type:    proxy.auth_type ?? 'bearer',
+    auth_secret_key: proxy.env_vars?.[0]?.key ?? undefined,
+  };
 
-const dirs = readdirSync(ROOT, { withFileTypes: true })
-  .filter(d => d.isDirectory() && d.name.startsWith('mcp-'))
-  .map(d => d.name)
-  .filter(d => onlyList.length === 0 || onlyList.includes(d))
-  .filter(d => !skipList.includes(d))
-  .sort();
+  const res = await fetch(`${API_BASE}/api/community/mcp`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 
-console.log(`\n🚀 Aerostack MCP Deploy`);
-console.log(`   env:      ${ENV}${DRY_RUN ? ' (dry-run)' : ''}`);
-console.log(`   servers:  ${dirs.length}\n`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${JSON.stringify(data)}`);
+  return data;
+}
+
+// ── Hosted MCPs ───────────────────────────────────────────────────────────────
 
 const results = { ok: [], failed: [], skipped: [] };
 
-for (const dir of dirs) {
-  const dirPath   = join(ROOT, dir);
-  const tomlPath  = join(dirPath, 'aerostack.toml');
-  const entryPath = join(dirPath, 'src/index.ts');
-  const outFile   = join(dirPath, 'dist/index.js');
+if (!PROXIES_ONLY) {
+  const dirs = readdirSync(ROOT, { withFileTypes: true })
+    .filter(d => d.isDirectory() && d.name.startsWith('mcp-'))
+    .map(d => d.name)
+    .filter(d => onlyList.length === 0 || onlyList.includes(d))
+    .filter(d => !skipList.includes(d))
+    .sort();
 
-  if (!existsSync(tomlPath) || !existsSync(entryPath)) {
-    console.log(`⏭  ${dir} — skipped (missing aerostack.toml or src/index.ts)`);
-    results.skipped.push(dir);
-    continue;
+  console.log(`\n🚀 Aerostack MCP Deploy — Hosted`);
+  console.log(`   env:      ${ENV}${DRY_RUN ? ' (dry-run)' : ''}`);
+  console.log(`   servers:  ${dirs.length}\n`);
+
+  for (const dir of dirs) {
+    const dirPath   = join(ROOT, dir);
+    const tomlPath  = join(dirPath, 'aerostack.toml');
+    const entryPath = join(dirPath, 'src/index.ts');
+    const outFile   = join(dirPath, 'dist/index.js');
+
+    if (!existsSync(tomlPath) || !existsSync(entryPath)) {
+      console.log(`⏭  ${dir} — skipped (missing aerostack.toml or src/index.ts)`);
+      results.skipped.push(dir);
+      continue;
+    }
+
+    const toml = parseToml(readFileSync(tomlPath, 'utf8'));
+    const slug = toml.name ?? dir;
+
+    process.stdout.write(`🔨 ${slug} — building...`);
+    try {
+      buildMcp(dirPath, entryPath, outFile);
+      process.stdout.write(' built');
+    } catch (e) {
+      process.stdout.write('\n');
+      console.error(`❌ ${slug} — build failed: ${e.message}`);
+      results.failed.push({ slug, reason: 'build: ' + e.message });
+      continue;
+    }
+
+    if (DRY_RUN) {
+      process.stdout.write(' ✓ (dry-run)\n');
+      results.ok.push(slug);
+      continue;
+    }
+
+    process.stdout.write(' → deploying...');
+    try {
+      await deployHosted(slug, outFile);
+      process.stdout.write('\n');
+      console.log(`✅ ${slug} → ${publicUrl(slug)}`);
+      results.ok.push(slug);
+    } catch (e) {
+      process.stdout.write('\n');
+      console.error(`❌ ${slug} — deploy failed: ${e.message}`);
+      results.failed.push({ slug, reason: e.message });
+    }
   }
+}
 
-  const toml = parseToml(readFileSync(tomlPath, 'utf8'));
-  const slug = toml.name ?? dir;
+// ── Proxy MCPs ────────────────────────────────────────────────────────────────
 
-  process.stdout.write(`🔨 ${slug} — building...`);
-  try {
-    buildMcp(dirPath, entryPath, outFile);
-    process.stdout.write(' built');
-  } catch (e) {
-    process.stdout.write('\n');
-    console.error(`❌ ${slug} — build failed: ${e.message}`);
-    results.failed.push({ slug, reason: 'build: ' + e.message });
-    continue;
-  }
+const proxyRoot = join(ROOT, 'proxy');
+if (existsSync(proxyRoot)) {
+  const proxyDirs = readdirSync(proxyRoot, { withFileTypes: true })
+    .filter(d => d.isDirectory() && !d.name.startsWith('.'))
+    .map(d => d.name)
+    .filter(d => onlyList.length === 0 || onlyList.includes(`proxy-${d}`) || onlyList.includes(d))
+    .sort();
 
-  if (DRY_RUN) {
-    process.stdout.write(' ✓ (dry-run)\n');
-    results.ok.push(slug);
-    continue;
-  }
+  if (proxyDirs.length > 0) {
+    console.log(`\n🔗 Aerostack MCP Deploy — Proxy`);
+    console.log(`   proxies: ${proxyDirs.length}\n`);
 
-  process.stdout.write(' → deploying...');
-  try {
-    const data = await deployMcp(slug, outFile);
-    process.stdout.write('\n');
-    console.log(`✅ ${slug} → ${data.url}`);
-    results.ok.push(slug);
-  } catch (e) {
-    process.stdout.write('\n');
-    console.error(`❌ ${slug} — deploy failed: ${e.message}`);
-    results.failed.push({ slug, reason: e.message });
+    for (const name of proxyDirs) {
+      const proxyFile = join(proxyRoot, name, 'proxy.json');
+      if (!existsSync(proxyFile)) {
+        console.log(`⏭  proxy/${name} — skipped (no proxy.json)`);
+        results.skipped.push(`proxy-${name}`);
+        continue;
+      }
+
+      const proxy = JSON.parse(readFileSync(proxyFile, 'utf8'));
+      const slug  = `mcp-${proxy.id}`;
+
+      if (DRY_RUN) {
+        console.log(`✓  ${slug} → ${proxy.proxy_url} (dry-run)`);
+        results.ok.push(slug);
+        continue;
+      }
+
+      process.stdout.write(`🔗 ${slug} — registering proxy...`);
+      try {
+        await registerProxy(proxy);
+        process.stdout.write('\n');
+        console.log(`✅ ${slug} → ${publicUrl(slug)}`);
+        results.ok.push(slug);
+      } catch (e) {
+        process.stdout.write('\n');
+        console.error(`❌ ${slug} — register failed: ${e.message}`);
+        results.failed.push({ slug, reason: e.message });
+      }
+    }
   }
 }
 

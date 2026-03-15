@@ -19,6 +19,11 @@ on:
         description: 'Deploy specific MCPs only (comma-separated, e.g. mcp-airtable,mcp-slack)'
         required: false
         default: ''
+      deploy_all:
+        description: 'Force deploy all (ignore changed-files detection)'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   deploy:
@@ -29,6 +34,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # needed for git diff
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -39,7 +46,6 @@ jobs:
         run: npm install -g esbuild
 
       - name: Set deploy environment
-        id: env
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "DEPLOY_ENV=${{ github.event.inputs.env }}" >> $GITHUB_ENV
@@ -49,14 +55,45 @@ jobs:
             echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
           fi
 
-      - name: Set --only filter
-        if: ${{ github.event.inputs.only != '' }}
-        run: echo "ONLY_FLAG=--only ${{ github.event.inputs.only }}" >> $GITHUB_ENV
+      - name: Detect changed MCP directories
+        id: changes
+        run: |
+          # If --only flag provided via workflow_dispatch, use that
+          if [ -n "${{ github.event.inputs.only }}" ]; then
+            echo "ONLY_FLAG=--only ${{ github.event.inputs.only }}" >> $GITHUB_ENV
+            echo "changed=${{ github.event.inputs.only }}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
-      - name: Deploy all MCPs
+          # If force-all or first commit (no parent), deploy everything
+          if [ "${{ github.event.inputs.deploy_all }}" = "true" ] || ! git rev-parse HEAD~1 > /dev/null 2>&1; then
+            echo "Deploying all MCPs (force-all or first commit)"
+            exit 0
+          fi
+
+          # Detect changed mcp-* dirs and proxy/* dirs
+          CHANGED_MCP=$(git diff --name-only HEAD~1 HEAD | grep -E '^mcp-[^/]+/' | cut -d/ -f1 | sort -u | tr '\n' ',')
+          CHANGED_PROXY=$(git diff --name-only HEAD~1 HEAD | grep -E '^proxy/[^/]+/' | cut -d/ -f2 | sort -u | sed 's/^/proxy-/' | tr '\n' ',')
+          CHANGED="${CHANGED_MCP}${CHANGED_PROXY}"
+          CHANGED="${CHANGED%,}"  # strip trailing comma
+
+          if [ -n "$CHANGED" ]; then
+            echo "Changed: $CHANGED"
+            echo "ONLY_FLAG=--only $CHANGED" >> $GITHUB_ENV
+          else
+            echo "No MCP changes detected — nothing to deploy"
+            echo "SKIP_DEPLOY=true" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy changed MCPs
+        if: env.SKIP_DEPLOY != 'true'
         env:
           AEROSTACK_API_KEY: ${{ secrets.AEROSTACK_API_KEY }}
         run: node scripts/deploy-all.mjs ${{ env.ONLY_FLAG }}
+
+      - name: No changes
+        if: env.SKIP_DEPLOY == 'true'
+        run: echo "✅ No MCP directories changed — skipping deploy"
 
       - name: Summary
         if: always()
@@ -64,4 +101,5 @@ jobs:
           echo "### MCP Deploy Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Environment:** $DEPLOY_ENV" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Changed filter:** ${{ env.ONLY_FLAG || 'all' }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
