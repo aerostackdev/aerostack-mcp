@@ -1,5 +1,7 @@
 name = "mcp-google-sheets"
-description = "MCP server for Google Sheets — read, write, format, and manage spreadsheets via the Sheets API v4"
+description = "Read, write, and format Google Sheets data — use your spreadsheets as a live AI-accessible data source."
+category = "Database"
+tags = ["google", "spreadsheet", "data", "sheets", "database"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

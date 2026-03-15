@@ -1,5 +1,7 @@
 name = "mcp-slack"
-description = "MCP server for Slack — send messages, search channels, and manage users"
+description = "Send messages, search conversations, and manage channels in Slack — connect AI agents to your team workspace."
+category = "Communication"
+tags = ["slack", "messaging", "team", "channels", "notifications"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,5 +1,7 @@
 name = "mcp-klaviyo"
-description = "MCP server for Klaviyo — profiles, lists, events, campaigns, flows, and templates"
+description = "Manage email/SMS campaigns, sync customer profiles, and trigger flows — AI-powered lifecycle marketing automation."
+category = "Marketing"
+tags = ["email", "marketing", "sms", "campaigns", "ecommerce"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,5 +1,7 @@
 name = "mcp-discord"
-description = "MCP server for Discord — read/send messages, manage channels, members, and roles"
+description = "Read and send Discord messages, manage channels, roles, and members — automate your community from AI agents."
+category = "Communication"
+tags = ["discord", "messaging", "community", "channels"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

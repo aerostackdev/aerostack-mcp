@@ -1,5 +1,7 @@
 name = "mcp-railway"
-description = "MCP server for Railway — manage projects, services, deployments, and logs"
+description = "Deploy services, inspect logs, manage environments, and control your Railway infrastructure with AI."
+category = "DevOps"
+tags = ["devops", "deployment", "infrastructure", "railway", "hosting"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

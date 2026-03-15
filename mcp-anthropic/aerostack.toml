@@ -1,5 +1,7 @@
 name = "mcp-anthropic"
-description = "MCP server for Anthropic API — messages, models, batches, admin"
+description = "Call Claude models directly — run AI conversations, tool-use chains, batch jobs, and model comparisons from any agent."
+category = "AI Platform"
+tags = ["ai", "llm", "claude", "anthropic", "completions"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,5 +1,7 @@
 name = "mcp-posthog"
-description = "MCP server for PostHog — capture events, identify users, get feature flags, manage cohorts and experiments"
+description = "Capture events, manage feature flags, and run experiments in PostHog — AI-driven product analytics and A/B testing."
+category = "Analytics"
+tags = ["analytics", "feature-flags", "experiments", "product", "posthog"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

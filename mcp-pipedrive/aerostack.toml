@@ -1,5 +1,7 @@
 name = "mcp-pipedrive"
-description = "MCP server for Pipedrive CRM — persons, deals, organizations, activities, pipelines"
+description = "Manage deals, contacts, and sales pipelines in Pipedrive — give AI agents full access to your CRM."
+category = "CRM"
+tags = ["crm", "sales", "deals", "pipeline", "contacts"]
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 

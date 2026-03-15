@@ -1,165 +1,64 @@
-# mcp-openai
+# mcp-openai — OpenAI MCP Server
 
-Aerostack MCP server for the **OpenAI API**. Provides chat completions, embeddings, image generation, moderation, file management, and fine-tuning job listing — all running on Cloudflare's edge.
+> Access GPT chat completions, DALL-E image generation, embeddings, and moderation from your AI agents.
 
----
+OpenAI's API powers the most widely-used AI capabilities in production: chat completions with GPT-4, image generation with DALL-E, text embeddings for semantic search, and content moderation. This MCP server wraps all of them in a single endpoint — letting your Aerostack agents use OpenAI's models as tools within multi-agent workflows, or expose them directly to end users.
 
-## Tools
-
-| Tool | Method | Endpoint | Description |
-|------|--------|----------|-------------|
-| `chat_completion` | POST | `/chat/completions` | Create a chat completion using OpenAI models |
-| `list_models` | GET | `/models` | List all available OpenAI models |
-| `create_embedding` | POST | `/embeddings` | Create text embeddings |
-| `create_image` | POST | `/images/generations` | Generate an image using DALL-E |
-| `create_moderation` | POST | `/moderations` | Check text for policy violations |
-| `list_files` | GET | `/files` | List uploaded files |
-| `list_fine_tuning_jobs` | GET | `/fine_tuning/jobs` | List fine-tuning jobs |
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-openai`
 
 ---
 
-## Secrets
+## What You Can Do
 
-| Env Var | Header | Description |
-|---------|--------|-------------|
-| `OPENAI_API_KEY` | `X-Mcp-Secret-OPENAI-API-KEY` | OpenAI API key from [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+- Compose multi-model pipelines where one agent calls GPT-4o to generate text, then another calls DALL-E to generate an image from that text
+- Generate embeddings for documents to enable semantic search or RAG workflows without a separate embedding service
+- Run content moderation on user-generated text before storing or displaying it
+- Inspect available models and fine-tuning job status from your workspace
 
----
+## Available Tools
 
-## Local Development
+| Tool | Description |
+|------|-------------|
+| `chat_completion` | Create a chat completion using OpenAI models (GPT-4o, GPT-4, GPT-3.5, etc.) |
+| `list_models` | List all available OpenAI models |
+| `create_embedding` | Create text embeddings for semantic search or similarity |
+| `create_image` | Generate an image using DALL-E 3 |
+| `create_moderation` | Check text for policy violations |
+| `list_files` | List uploaded files associated with the API key |
+| `list_fine_tuning_jobs` | List fine-tuning jobs and their status |
 
-```bash
-cd MCP/mcp-openai
-aerostack dev
+## Configuration
+
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `OPENAI_API_KEY` | Yes | OpenAI API key for all API calls | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) → **Create new secret key** → copy the key (shown once) |
+
+## Quick Start
+
+### Add to Aerostack Workspace
+
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"OpenAI"** and click **Add to Workspace**
+3. Add your `OPENAI_API_KEY` under **Project → Secrets**
+
+Once added, every AI agent in your workspace can call OpenAI tools automatically — no per-user setup needed.
+
+### Example Prompts
+
+```
+"Use GPT-4o to write a product description for the following feature list..."
+"Generate a DALL-E image of a futuristic dashboard UI with dark theme and neon accents"
+"Create an embedding for this text and return the vector: 'customer churn prediction'"
 ```
 
-### Test: list tools
+### Direct API Call
 
 ```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-openai \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-OPENAI-API-KEY: your-api-key' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"chat_completion","arguments":{"messages":[{"role":"user","content":"Say hello in one sentence."}]}}}'
 ```
-
-### Test: chat completion
-
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-OPENAI-API-KEY: sk-your-key-here" \
-  -d '{
-    "jsonrpc":"2.0",
-    "id":2,
-    "method":"tools/call",
-    "params":{
-      "name":"chat_completion",
-      "arguments":{
-        "messages":[{"role":"user","content":"Say hello in one sentence."}]
-      }
-    }
-  }'
-```
-
-### Test: list models
-
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-OPENAI-API-KEY: sk-your-key-here" \
-  -d '{
-    "jsonrpc":"2.0",
-    "id":3,
-    "method":"tools/call",
-    "params":{
-      "name":"list_models",
-      "arguments":{}
-    }
-  }'
-```
-
-### Test: create embedding
-
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-OPENAI-API-KEY: sk-your-key-here" \
-  -d '{
-    "jsonrpc":"2.0",
-    "id":4,
-    "method":"tools/call",
-    "params":{
-      "name":"create_embedding",
-      "arguments":{
-        "input":"The quick brown fox jumps over the lazy dog"
-      }
-    }
-  }'
-```
-
-### Test: create image
-
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-OPENAI-API-KEY: sk-your-key-here" \
-  -d '{
-    "jsonrpc":"2.0",
-    "id":5,
-    "method":"tools/call",
-    "params":{
-      "name":"create_image",
-      "arguments":{
-        "prompt":"A futuristic city skyline at sunset, digital art"
-      }
-    }
-  }'
-```
-
-### Test: create moderation
-
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-OPENAI-API-KEY: sk-your-key-here" \
-  -d '{
-    "jsonrpc":"2.0",
-    "id":6,
-    "method":"tools/call",
-    "params":{
-      "name":"create_moderation",
-      "arguments":{
-        "input":"This is a perfectly normal sentence."
-      }
-    }
-  }'
-```
-
-### Test: health check
-
-```bash
-curl http://localhost:8787/health
-```
-
----
-
-## Deploy
-
-```bash
-npm run deploy
-# or
-aerostack deploy mcp --slug openai
-```
-
----
-
-## Protocol
-
-- JSON-RPC 2.0 over HTTP POST
-- MCP spec version: `2024-11-05`
-- Methods: `initialize`, `tools/list`, `tools/call`
-- Health check: `GET /health`
-
----
 
 ## License
 

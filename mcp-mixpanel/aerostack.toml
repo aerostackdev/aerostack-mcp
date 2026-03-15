@@ -1,5 +1,7 @@
 name = "mcp-mixpanel"
-description = "MCP server for Mixpanel — track events, set user properties, get insights reports, funnels, and cohort exports"
+description = "Track events, analyze user journeys, and export cohort data from Mixpanel — AI-driven product intelligence."
+category = "Analytics"
+tags = ["analytics", "product", "events", "funnels", "cohorts"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

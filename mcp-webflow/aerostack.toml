@@ -1,5 +1,7 @@
 name = "mcp-webflow"
-description = "MCP server for Webflow — manage sites, CMS collections, items, and publish deployments via Webflow API"
+description = "Manage CMS collections, publish content, and control site deployments in Webflow — AI-powered web publishing."
+category = "CMS"
+tags = ["cms", "webflow", "website", "content", "publishing"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

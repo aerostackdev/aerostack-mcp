@@ -1,37 +1,68 @@
-# mcp-amplitude
+# mcp-amplitude — Amplitude MCP Server
 
-MCP server for [Amplitude](https://amplitude.com) — track events, identify users, get chart data, funnel analysis, and cohort management.
+> Track events, analyze funnels, and query user cohorts from your AI agents.
 
-## Tools (8)
+Amplitude is the product analytics platform used by thousands of teams to understand user behavior, measure retention, and run growth experiments. This MCP server lets your AI agents send events directly into Amplitude and query charts, funnels, and cohort data — turning your analytics platform into a live data source for agent reasoning.
+
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-amplitude`
+
+---
+
+## What You Can Do
+
+- Track product events and user properties from automated workflows without touching your frontend tracking code
+- Pull funnel conversion data for any event sequence and any date range — ask "what's our signup-to-activation conversion this week?"
+- Fetch cohort membership to target specific user groups in downstream actions (emails, notifications, etc.)
+- Analyze daily/weekly event trends via segmentation charts to drive agent-generated product reports
+
+## Available Tools
 
 | Tool | Description |
 |------|-------------|
-| `track_event` | Track a custom event for a user |
-| `identify_user` | Set user properties via the identify API |
-| `get_user_activity` | Get recent event activity for a user |
-| `list_cohorts` | List all cohorts in the project |
-| `get_cohort_members` | Get member IDs for a specific cohort |
-| `get_chart_data` | Get event segmentation chart data |
-| `get_funnel_data` | Get funnel conversion data |
-| `export_events` | Initiate a raw event export |
+| `track_event` | Track a custom event in Amplitude for a specific user |
+| `identify_user` | Identify a user and set their properties in Amplitude |
+| `get_user_activity` | Get recent event activity for a specific user |
+| `list_cohorts` | List all cohorts defined in the Amplitude project |
+| `get_cohort_members` | Get member user IDs for a specific cohort |
+| `get_chart_data` | Get event segmentation chart data for an event and date range |
+| `get_funnel_data` | Get funnel conversion data for a sequence of events |
+| `export_events` | Initiate a raw event export from Amplitude for a date range |
 
-## Required Secrets
+## Configuration
 
-| Secret Header | Description |
-|---------------|-------------|
-| `X-Mcp-Secret-AMPLITUDE-API-KEY` | API key (used for ingestion + basic auth username) |
-| `X-Mcp-Secret-AMPLITUDE-SECRET-KEY` | Secret key (basic auth password for query API) |
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `AMPLITUDE_API_KEY` | Yes | Project API key (used for event ingestion) | [app.amplitude.com](https://app.amplitude.com) → Your Project → **Settings** → **General** → copy **API Key** |
+| `AMPLITUDE_SECRET_KEY` | Yes | Secret key (used for query API authentication) | Same page as API Key → copy **Secret Key** |
 
-## Auth
+## Quick Start
 
-- Event ingestion: API key in JSON body
-- Identify API: API key as form field + base64-encoded identification
-- Query API (chart, funnels, cohorts): HTTP Basic auth (API key:Secret key)
+### Add to Aerostack Workspace
 
-## Deploy
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"Amplitude"** and click **Add to Workspace**
+3. Add `AMPLITUDE_API_KEY` and `AMPLITUDE_SECRET_KEY` under **Project → Secrets**
+
+Once added, every AI agent in your workspace can call Amplitude tools automatically — no per-user setup needed.
+
+### Example Prompts
+
+```
+"What's our signup-to-purchase funnel conversion for the last 30 days?"
+"Track a 'plan_upgraded' event for user u_98765 with property plan: enterprise"
+"Show me daily active users for the 'dashboard_viewed' event this week"
+```
+
+### Direct API Call
 
 ```bash
-cd MCP/mcp-amplitude
-npm install
-wrangler deploy
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-amplitude \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-AMPLITUDE-API-KEY: your-api-key' \
+  -H 'X-Mcp-Secret-AMPLITUDE-SECRET-KEY: your-secret-key' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_cohorts","arguments":{}}}'
 ```
+
+## License
+
+MIT

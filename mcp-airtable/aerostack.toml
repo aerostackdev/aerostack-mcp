@@ -1,5 +1,7 @@
 name = "mcp-airtable"
-description = "MCP server for Airtable — manage bases, tables, and records"
+description = "Turn your Airtable bases into an AI-queryable database — create, update, search, and analyze records with natural language."
+category = "Database"
+tags = ["database", "spreadsheet", "records", "no-code"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

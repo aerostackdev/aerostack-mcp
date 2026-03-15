@@ -1,5 +1,7 @@
 name = "mcp-segment"
-description = "MCP server for Segment — track events, identify users, group calls, page views, and batch ingestion via Segment HTTP API"
+description = "Send track, identify, group, and page events to Segment — unify your customer data pipeline with AI."
+category = "Analytics"
+tags = ["analytics", "cdp", "segment", "events", "tracking"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

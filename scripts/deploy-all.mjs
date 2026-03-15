@@ -53,10 +53,27 @@ const API_BASE = 'https://api.aerostack.dev';
 function parseToml(content) {
   const result = {};
   for (const line of content.split('\n')) {
-    const m = line.match(/^(\w+)\s*=\s*"(.+?)"/);
-    if (m) result[m[1]] = m[2];
+    // key = "value"
+    const strMatch = line.match(/^(\w+)\s*=\s*"(.+?)"/);
+    if (strMatch) { result[strMatch[1]] = strMatch[2]; continue; }
+    // tags = ["a", "b"]
+    const arrMatch = line.match(/^(\w+)\s*=\s*\[(.+)\]/);
+    if (arrMatch) {
+      result[arrMatch[1]] = arrMatch[2].match(/"([^"]+)"/g)?.map(s => s.replace(/"/g, '')) ?? [];
+    }
   }
   return result;
+}
+
+async function patchMcpMeta(id, meta) {
+  const res = await fetch(`${API_BASE}/api/community/mcp/${id}`, {
+    method: 'PATCH',
+    headers: { 'X-API-Key': API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(meta),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`PATCH HTTP ${res.status}: ${JSON.stringify(data)}`);
+  return data;
 }
 
 /** Convert API-returned URL to public aerostack.dev format */
@@ -92,7 +109,7 @@ async function deployHosted(slug, outFile) {
   return data;
 }
 
-async function registerProxy(proxy) {
+async function registerProxy(proxy, readme) {
   // POST /api/community/mcp — upsert by slug
   const body = {
     name:         proxy.name,
@@ -103,12 +120,14 @@ async function registerProxy(proxy) {
     external_url: proxy.proxy_url,
     auth_type:    proxy.auth_type ?? 'bearer',
     auth_secret_key: proxy.env_vars?.[0]?.key ?? undefined,
+    ...(proxy.tags   && { tags: proxy.tags }),
+    ...(readme       && { readme }),
   };
 
   const res = await fetch(`${API_BASE}/api/community/mcp`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${API_KEY}`,
+      'X-API-Key': API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -169,13 +188,26 @@ if (!PROXIES_ONLY) {
 
     process.stdout.write(' → deploying...');
     try {
-      await deployHosted(slug, outFile);
+      const data = await deployHosted(slug, outFile);
+      process.stdout.write(' → patching metadata...');
+
+      // Patch description, category, tags, readme
+      const readme = existsSync(join(dirPath, 'README.md'))
+        ? readFileSync(join(dirPath, 'README.md'), 'utf8') : undefined;
+
+      await patchMcpMeta(data.mcp_server_id, {
+        ...(toml.description && { description: toml.description }),
+        ...(toml.category    && { category:    toml.category }),
+        ...(toml.tags        && { tags:        toml.tags }),
+        ...(readme           && { readme }),
+      });
+
       process.stdout.write('\n');
       console.log(`✅ ${slug} → ${publicUrl(slug)}`);
       results.ok.push(slug);
     } catch (e) {
       process.stdout.write('\n');
-      console.error(`❌ ${slug} — deploy failed: ${e.message}`);
+      console.error(`❌ ${slug} — ${e.message}`);
       results.failed.push({ slug, reason: e.message });
     }
   }
@@ -212,9 +244,19 @@ if (existsSync(proxyRoot)) {
         continue;
       }
 
+      // Skip proxies with per-tenant dynamic URLs (e.g. https://{SHOPIFY_DOMAIN}/...)
+      if (proxy.proxy_url.includes('{')) {
+        console.log(`⏭  ${slug} — skipped (dynamic per-tenant URL: ${proxy.proxy_url})`);
+        results.skipped.push(slug);
+        continue;
+      }
+
+      const proxyReadme = existsSync(join(proxyRoot, name, 'README.md'))
+        ? readFileSync(join(proxyRoot, name, 'README.md'), 'utf8') : undefined;
+
       process.stdout.write(`🔗 ${slug} — registering proxy...`);
       try {
-        await registerProxy(proxy);
+        await registerProxy(proxy, proxyReadme);
         process.stdout.write('\n');
         console.log(`✅ ${slug} → ${publicUrl(slug)}`);
         results.ok.push(slug);

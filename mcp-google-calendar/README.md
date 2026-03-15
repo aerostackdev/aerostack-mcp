@@ -1,109 +1,65 @@
-# mcp-google-calendar
+# mcp-google-calendar — Google Calendar MCP Server
 
-Google Calendar MCP server for Aerostack. Runs as a Cloudflare Worker, exposes Google Calendar operations via the MCP protocol (JSON-RPC 2.0 over HTTP).
+> Create, update, and query Google Calendar events through natural language.
 
-## Tools
+Google Calendar is the scheduling backbone for millions of teams and individuals. This MCP server gives your AI agents full access to create, list, update, and delete calendar events — enabling scheduling automation, meeting summaries, and calendar management without opening Google Calendar. The `quick_add` tool even parses natural language like "Lunch with Bob at noon tomorrow" into a properly structured event.
 
-| Tool | Description | Method |
-|------|-------------|--------|
-| `list_calendars` | List all calendars for the authenticated user | GET |
-| `list_events` | List events in a calendar with optional time range | GET |
-| `get_event` | Get details of a specific event | GET |
-| `create_event` | Create a new calendar event | POST |
-| `update_event` | Update an existing event (partial) | PATCH |
-| `delete_event` | Delete a calendar event | DELETE |
-| `quick_add` | Quick-add an event from natural language text | POST |
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-calendar`
 
-## Secrets
+---
 
-| Env Var | Header | Description |
-|---------|--------|-------------|
-| `GOOGLE_ACCESS_TOKEN` | `X-Mcp-Secret-GOOGLE-ACCESS-TOKEN` | Google OAuth2 access token |
+## What You Can Do
 
-Secrets are injected by the Aerostack gateway via request headers. Never hardcode tokens in source.
+- Schedule meetings and create calendar events from natural language input without manually filling out forms
+- List upcoming events for a date range to give an AI agent awareness of your schedule when planning tasks
+- Update or delete events in response to changes — useful for automated scheduling workflows that react to external triggers
+- Use quick_add to create events from plain text, letting users say "team standup every weekday at 9am" and get it on the calendar
 
-## API
+## Available Tools
 
-**Base URL:** `https://www.googleapis.com/calendar/v3`
+| Tool | Description |
+|------|-------------|
+| `list_calendars` | List all calendars for the authenticated user |
+| `list_events` | List events in a calendar with optional time range filter |
+| `get_event` | Get details of a specific event by ID |
+| `create_event` | Create a new calendar event with attendees and timezone support |
+| `update_event` | Update an existing event (partial patch) |
+| `delete_event` | Delete a calendar event |
+| `quick_add` | Quick-add an event from natural language text |
 
-### Health Check
+## Configuration
 
-```bash
-curl https://<worker-url>/health
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `GOOGLE_ACCESS_TOKEN` | Yes | Google OAuth2 access token with Calendar scope | [Google Cloud Console](https://console.cloud.google.com) → **APIs & Services** → **Credentials** → OAuth 2.0 → generate token with `https://www.googleapis.com/auth/calendar` scope. Use OAuth Playground at [developers.google.com/oauthplayground](https://developers.google.com/oauthplayground) for quick testing. |
+
+## Quick Start
+
+### Add to Aerostack Workspace
+
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"Google Calendar"** and click **Add to Workspace**
+3. Add your `GOOGLE_ACCESS_TOKEN` under **Project → Secrets**
+
+Once added, every AI agent in your workspace can call Google Calendar tools automatically — no per-user setup needed.
+
+### Example Prompts
+
+```
+"What meetings do I have tomorrow between 9am and 5pm Pacific?"
+"Schedule a 30-minute product review for next Monday at 2pm with alice@company.com and bob@company.com"
+"Cancel all events on my calendar tagged as Optional for this Friday"
 ```
 
-### Initialize
+### Direct API Call
 
 ```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"initialize"}'
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-calendar \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: your-oauth-token' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_calendars","arguments":{}}}'
 ```
 
-### List Tools
+## License
 
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
-```
-
-### List Calendars
-
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_calendars","arguments":{}}}'
-```
-
-### List Events
-
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"list_events","arguments":{"calendarId":"primary","timeMin":"2024-01-01T00:00:00Z","maxResults":5}}}'
-```
-
-### Create Event
-
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"create_event","arguments":{"summary":"Team Standup","startDateTime":"2024-06-15T09:00:00-07:00","endDateTime":"2024-06-15T09:30:00-07:00","timeZone":"America/Los_Angeles","attendees":["alice@example.com"]}}}'
-```
-
-### Quick Add
-
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"quick_add","arguments":{"text":"Lunch with Bob at noon tomorrow"}}}'
-```
-
-### Delete Event
-
-```bash
-curl -X POST https://<worker-url> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"delete_event","arguments":{"eventId":"<event-id>"}}}'
-```
-
-## Development
-
-```bash
-npm install
-npm run dev      # local dev server
-npm run build    # esbuild bundle
-npm run deploy   # build + deploy to Aerostack
-```
-
-## Deploy
-
-```bash
-aerostack deploy mcp --slug google-calendar
-```
+MIT

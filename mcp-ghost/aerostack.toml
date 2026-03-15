@@ -1,5 +1,7 @@
 name = "mcp-ghost"
-description = "MCP server for Ghost — manage posts, pages, and members via Ghost Admin API with JWT authentication"
+description = "Publish posts, manage members, and control your Ghost content platform — AI-powered editorial workflows."
+category = "CMS"
+tags = ["cms", "blogging", "content", "publishing", "ghost"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

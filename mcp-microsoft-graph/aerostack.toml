@@ -1,5 +1,7 @@
 name = "mcp-microsoft-graph"
-description = "MCP server for Microsoft 365 — Teams messaging, Outlook email, Calendar, and OneDrive via Microsoft Graph API"
+description = "Access Microsoft 365 from one API — Teams messages, Outlook email, Calendar events, and OneDrive files."
+category = "Productivity"
+tags = ["microsoft", "office365", "teams", "outlook", "enterprise"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,10 +1,21 @@
-# mcp-chargebee
+# mcp-chargebee — Chargebee MCP Server
 
-MCP server for [Chargebee](https://www.chargebee.com) — manage subscriptions, customers, invoices, and plans.
+> Manage subscriptions, customers, invoices, and plans from your AI agents.
 
-Deployed as a Cloudflare Worker, receiving secrets from the Aerostack gateway via `X-Mcp-Secret-*` headers.
+Chargebee is the subscription billing platform that handles recurring revenue for SaaS and e-commerce businesses. This MCP server gives your AI agents direct access to your Chargebee instance — letting them look up customers, manage subscription lifecycles, pull invoice history, and list available plans without anyone logging into the Chargebee dashboard.
 
-## Tools (10)
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-chargebee`
+
+---
+
+## What You Can Do
+
+- Look up customer records and subscription status instantly — useful for support agents handling billing questions
+- Cancel or reactivate subscriptions programmatically in response to customer requests or churn signals
+- Pull invoice history for a customer to answer billing disputes or generate reports
+- Create new subscriptions and customers as part of onboarding automation workflows
+
+## Available Tools
 
 | Tool | Description |
 |------|-------------|
@@ -19,25 +30,41 @@ Deployed as a Cloudflare Worker, receiving secrets from the Aerostack gateway vi
 | `list_invoices` | List invoices filtered by customer or status |
 | `list_plans` | List plans (active or archived) |
 
-## Secrets
+## Configuration
 
-| Secret | Header | Description |
-|--------|--------|-------------|
-| `CHARGEBEE_SITE` | `X-Mcp-Secret-CHARGEBEE-SITE` | Chargebee site subdomain (e.g. `my-company`) |
-| `CHARGEBEE_API_KEY` | `X-Mcp-Secret-CHARGEBEE-API-KEY` | API key (used as Basic auth username with empty password) |
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `CHARGEBEE_SITE` | Yes | Your Chargebee site subdomain (e.g. `my-company`) | Found in your Chargebee URL: `{site}.chargebee.com` |
+| `CHARGEBEE_API_KEY` | Yes | API key used for authentication | [app.chargebee.com](https://app.chargebee.com) → **Settings** → **Configure Chargebee** → **API Keys** → Create or copy a Full Access key |
 
-## Auth
+## Quick Start
 
-Chargebee uses HTTP Basic auth with the API key as the username and an empty password:
+### Add to Aerostack Workspace
+
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"Chargebee"** and click **Add to Workspace**
+3. Add `CHARGEBEE_SITE` and `CHARGEBEE_API_KEY` under **Project → Secrets**
+
+Once added, every AI agent in your workspace can call Chargebee tools automatically — no per-user setup needed.
+
+### Example Prompts
 
 ```
-Authorization: Basic {base64(apiKey + ':')}
+"Look up the subscription for customer@example.com and tell me their current plan and next billing date"
+"Cancel the subscription sub_abc123 at the end of the current term"
+"Show me all overdue invoices for the last 90 days"
 ```
 
-## Deploy
+### Direct API Call
 
 ```bash
-cd MCP/mcp-chargebee
-npm install
-wrangler deploy
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-chargebee \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-CHARGEBEE-SITE: your-site' \
+  -H 'X-Mcp-Secret-CHARGEBEE-API-KEY: your-api-key' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_plans","arguments":{}}}'
 ```
+
+## License
+
+MIT

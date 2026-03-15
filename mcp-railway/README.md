@@ -1,8 +1,21 @@
 # mcp-railway — Railway MCP Server
 
-Cloudflare Worker implementing the MCP protocol for Railway cloud platform operations. Provides tools to list projects, services, and deployments, read deployment logs and environment variables, and trigger redeploys via the Railway GraphQL API.
+> Manage Railway projects, services, deployments, and logs from your AI agents.
 
-## Tools
+Railway is the developer-friendly cloud platform for deploying backends, databases, and services with zero infrastructure configuration. This MCP server connects your AI agents to the Railway API — letting them inspect projects, check deployment health, stream logs, review environment variables, and trigger redeploys, all from natural language without opening the Railway dashboard.
+
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-railway`
+
+---
+
+## What You Can Do
+
+- Check deployment status across all Railway services to quickly identify what's failing or outdated
+- Stream deployment logs to diagnose production issues without leaving your chat interface
+- Trigger redeploys for any service in any environment to roll out a fix or restart a crashed container
+- Inspect environment variables for a service to verify configuration without granting dashboard access
+
+## Available Tools
 
 | Tool | Description |
 |------|-------------|
@@ -14,68 +27,39 @@ Cloudflare Worker implementing the MCP protocol for Railway cloud platform opera
 | `list_variables` | List environment variables for a service in an environment |
 | `redeploy_service` | Trigger a redeploy of a service in an environment |
 
-## Secrets Required
+## Configuration
 
-| Variable | Header | Description |
-|----------|--------|-------------|
-| `RAILWAY_API_TOKEN` | `X-Mcp-Secret-RAILWAY-API-TOKEN` | Railway API token (create at railway.com/account/tokens) |
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `RAILWAY_API_TOKEN` | Yes | Railway API token for GraphQL API authentication | [railway.com/account/tokens](https://railway.com/account/tokens) → **Create Token** → give it a name → copy the token |
 
-## Usage
+## Quick Start
 
-Health check:
+### Add to Aerostack Workspace
 
-```bash
-curl https://mcp-railway.<your-domain>/health
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"Railway"** and click **Add to Workspace**
+3. Add your `RAILWAY_API_TOKEN` under **Project → Secrets**
+
+Once added, every AI agent in your workspace can call Railway tools automatically — no per-user setup needed.
+
+### Example Prompts
+
+```
+"List all my Railway projects and show the status of the most recent deployment for each"
+"Get the last 100 log lines for the api-service deployment that failed 20 minutes ago"
+"Redeploy the worker service in the production environment on the my-app project"
 ```
 
-Initialize:
+### Direct API Call
 
 ```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"initialize"}'
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-railway \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-RAILWAY-API-TOKEN: your-api-token' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_projects","arguments":{}}}'
 ```
 
-List tools:
+## License
 
-```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
-```
-
-List projects:
-
-```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-RAILWAY-API-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_projects","arguments":{}}}'
-```
-
-Get project details:
-
-```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-RAILWAY-API-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_project","arguments":{"id":"project-uuid"}}}'
-```
-
-List deployments for a service:
-
-```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-RAILWAY-API-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"list_deployments","arguments":{"serviceId":"service-uuid"}}}'
-```
-
-Redeploy a service:
-
-```bash
-curl -X POST https://mcp-railway.<your-domain> \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-RAILWAY-API-TOKEN: <token>" \
-  -d '{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"redeploy_service","arguments":{"serviceId":"service-uuid","environmentId":"env-uuid"}}}'
-```
+MIT

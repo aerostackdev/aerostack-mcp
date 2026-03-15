@@ -1,5 +1,7 @@
 name = "mcp-planetscale"
-description = "MCP server for PlanetScale — manage MySQL databases and deploy requests"
+description = "Execute queries, inspect schemas, and manage deploy requests on PlanetScale MySQL databases."
+category = "Database"
+tags = ["database", "mysql", "planetscale", "sql", "serverless"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

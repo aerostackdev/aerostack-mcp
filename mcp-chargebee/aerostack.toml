@@ -1,5 +1,7 @@
 name = "mcp-chargebee"
-description = "MCP server for Chargebee — manage subscriptions, customers, invoices, and plans via Chargebee API"
+description = "Manage subscriptions, billing cycles, invoices, and customer plans — bring AI to your recurring revenue operations."
+category = "Billing"
+tags = ["billing", "subscriptions", "payments", "saas", "revenue"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,5 +1,7 @@
 name = "mcp-amplitude"
-description = "MCP server for Amplitude — track events, identify users, get chart data, funnel analysis, and cohort management"
+description = "Query product analytics, build audience cohorts, and surface funnel insights from Amplitude with AI-powered analysis."
+category = "Analytics"
+tags = ["analytics", "product", "events", "funnels", "cohorts"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,5 +1,7 @@
 name = "mcp-typeform"
-description = "MCP server for Typeform — forms, responses, webhooks, workspaces, account"
+description = "Create forms, collect responses, and manage workspaces in Typeform — conversational data collection at scale."
+category = "Forms"
+tags = ["forms", "surveys", "typeform", "data-collection", "responses"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

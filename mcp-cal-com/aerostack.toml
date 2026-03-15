@@ -1,5 +1,7 @@
 name = "mcp-cal-com"
-description = "MCP server for Cal.com — event types, bookings, availability, schedules, and user management"
+description = "Book meetings, check availability, and manage your entire scheduling workflow programmatically via Cal.com."
+category = "Scheduling"
+tags = ["scheduling", "calendar", "bookings", "meetings"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -1,195 +1,85 @@
-# mcp-whatsapp
+# mcp-whatsapp — WhatsApp Business MCP Server
 
-WhatsApp Business MCP server for Aerostack. Exposes 24 tools covering the full Meta Cloud API v20.0 surface: session messages (text, image, document, video, audio, location, reactions), interactive messages (buttons, lists, CTA URL), template management (create, list, send, delete), media upload/download, and account management.
+> Send messages, manage templates, and handle media across WhatsApp Business from your AI agents.
 
-This MCP powers real business workflows: order notifications, appointment reminders, broadcast campaigns, AI support agents — all via Claude in an Aerostack workspace, no code required.
+WhatsApp Business reaches over 2 billion users and is the dominant messaging channel for customer communication in many markets. This MCP server covers the full Meta Cloud API v20.0 — session messages (text, image, video, document, audio, location, reactions), interactive messages (buttons, lists, CTA URLs), template management, media upload, and account management — letting your AI agents run real customer conversations at scale.
 
----
-
-## The 24-Hour Window Rule
-
-WhatsApp enforces a strict conversation window:
-
-```
-User messages your business
-    ↓
-24-hour window opens
-    ↓
-During window: send ANY message freely (use send_text, send_image, send_buttons, etc.)
-    ↓
-Window closes after 24h of inactivity
-    ↓
-After window: can ONLY send pre-approved template messages (use send_template)
-```
-
-This is enforced at the API level. If you try to send a session message after the window expires, you'll get error 131047. Use `send_template` to re-engage users outside the window.
+**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-whatsapp`
 
 ---
 
-## Setup — Path A: Test in 15 Minutes (Free)
+## What You Can Do
 
-1. Go to [developers.facebook.com](https://developers.facebook.com)
-2. Create App → Select **Business** type
-3. Add **WhatsApp** product to the app
-4. In WhatsApp > Getting Started:
-   - Meta provides a **free test phone number** (no real phone needed)
-   - Meta provides a **temporary access token** (24h, good for testing)
-   - Copy **Phone Number ID** from the same page
-   - Copy **WhatsApp Business Account ID** from the same page
-5. Under "To" numbers, add your personal number to the test allowlist (up to 5 numbers)
-6. Add secrets to your Aerostack workspace (see table below)
+- Send rich session messages (text, images, documents, interactive buttons and lists) to customers within the 24-hour conversation window
+- Use pre-approved templates to re-engage customers outside the window — order updates, appointment reminders, payment confirmations
+- Manage your template library: list, create, submit for Meta review, and delete templates
+- Upload media once to get a reusable `media_id` for efficient re-sending without re-uploading
 
-## Setup — Path B: Production
-
-1. Complete Meta Business Verification (submit business documents, 1-3 business days)
-2. Create a **System User** in Meta Business Manager > System Users
-3. Assign the System User to your app with `whatsapp_business_messaging` permission
-4. Generate a **permanent access token** for the System User (never expires)
-5. Add a real phone number (or port an existing number)
-6. Production starts at 1,000 conversations/day, scales with business tier
-
----
-
-## Secrets
-
-| Secret | Required | Description |
-|--------|----------|-------------|
-| `WHATSAPP_ACCESS_TOKEN` | YES | Bearer token from Meta System User or App Dashboard |
-| `WHATSAPP_PHONE_NUMBER_ID` | YES | Numeric ID of the sending phone number (NOT the phone number itself — found in Meta Dashboard) |
-| `WHATSAPP_BUSINESS_ACCOUNT_ID` | For template tools | WABA ID — required for list_templates, create_template, delete_template, get_account_info |
-
-Add these in Aerostack: **Project → Secrets → Add Secret**
-
----
-
-## Phone Number Format
-
-All `to` fields must be in **E.164 format WITHOUT the + sign**:
-
-| Country | Format | Example |
-|---------|--------|---------|
-| United States | `1XXXXXXXXXX` | `15551234567` |
-| United Kingdom | `44XXXXXXXXXX` | `447911123456` |
-| Brazil | `55XXXXXXXXXXX` | `5511999998888` |
-| India | `91XXXXXXXXXX` | `919876543210` |
-| Germany | `49XXXXXXXXXX` | `4915123456789` |
-
----
-
-## Tool Reference
-
-### Group 1 — Account & Profile
+## Available Tools
 
 | Tool | Description |
 |------|-------------|
-| `get_business_profile` | Get business name, description, address, email, website, category, profile picture |
+| `get_business_profile` | Get business name, description, address, email, website, category, and profile picture |
 | `update_business_profile` | Update any profile field: description, address, email, websites, vertical |
-| `get_phone_number_info` | Display number, verified name, quality rating, platform type, throughput level |
-| `get_account_info` | WABA name, currency, timezone, template namespace (requires WABA ID secret) |
-
-### Group 2 — Session Messages (within 24h window)
-
-| Tool | Description |
-|------|-------------|
-| `send_text` | Send text message, optional URL preview |
-| `send_image` | Send image by URL or media_id, optional caption |
-| `send_document` | Send document/file by URL or media_id, optional caption and filename |
-| `send_video` | Send video by URL or media_id, optional caption |
-| `send_audio` | Send audio/voice note by URL or media_id |
-| `send_location` | Send location pin with latitude, longitude, optional name and address |
+| `get_phone_number_info` | Get display number, verified name, quality rating, platform type, and throughput level |
+| `get_account_info` | Get WABA name, currency, timezone, and template namespace |
+| `send_text` | Send a text message, with optional URL preview |
+| `send_image` | Send an image by URL or media_id, with optional caption |
+| `send_document` | Send a document or file by URL or media_id, with optional caption and filename |
+| `send_video` | Send a video by URL or media_id, with optional caption |
+| `send_audio` | Send an audio message or voice note by URL or media_id |
+| `send_location` | Send a location pin with latitude, longitude, optional name and address |
 | `send_reaction` | React to a received message with an emoji |
-
-### Group 3 — Interactive Messages
-
-| Tool | Description |
-|------|-------------|
-| `send_buttons` | Message with 1-3 quick-reply buttons (users tap instead of typing) |
-| `send_list` | Message with scrollable list of options in sections (max 10 rows) |
-| `send_cta_url` | Message with a URL call-to-action button |
-
-### Group 4 — Template Messages (work outside 24h window)
-
-| Tool | Description |
-|------|-------------|
-| `list_templates` | List all templates with status filter (APPROVED/PENDING/REJECTED/PAUSED) |
-| `get_template` | Full template details including components, variables, rejection reason |
-| `send_template` | Send approved template with variable values and optional media header |
-| `create_template` | Submit new template for Meta review (24-48h approval) |
-| `delete_template` | Delete template by name |
-
-### Group 5 — Message Management
-
-| Tool | Description |
-|------|-------------|
-| `mark_as_read` | Mark received message as read (shows blue double-tick to sender) |
-| `delete_message` | Delete a sent message from recipient's view |
-| `get_message_status` | Documentation: explains webhook-based status delivery |
-
-### Group 6 — Media
-
-| Tool | Description |
-|------|-------------|
-| `upload_media` | Upload media from public URL to WhatsApp servers, returns reusable media_id |
-| `get_media_url` | Get download URL for media received in webhook (expires in 5 minutes) |
+| `send_buttons` | Send a message with 1–3 quick-reply buttons |
+| `send_list` | Send a message with a scrollable list of options in sections (max 10 rows) |
+| `send_cta_url` | Send a message with a URL call-to-action button |
+| `list_templates` | List all templates with optional status filter (APPROVED, PENDING, REJECTED, PAUSED) |
+| `get_template` | Get full template details including components and rejection reason |
+| `send_template` | Send an approved template with variable values and optional media header |
+| `create_template` | Submit a new template for Meta review |
+| `delete_template` | Delete a template by name |
+| `mark_as_read` | Mark a received message as read (shows blue double-tick to sender) |
+| `delete_message` | Delete a sent message from the recipient's view |
+| `upload_media` | Upload media from a public URL to WhatsApp servers, returns reusable media_id |
+| `get_media_url` | Get the download URL for media received via webhook |
 | `delete_media` | Delete uploaded media from WhatsApp servers |
 
----
+## Configuration
 
-## Local Development
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `WHATSAPP_ACCESS_TOKEN` | Yes | Bearer token for Meta Cloud API | [developers.facebook.com](https://developers.facebook.com) → Your App → **WhatsApp** → **Getting Started** → copy **Temporary access token** (for testing) or generate a permanent System User token via **Meta Business Manager** → **System Users** |
+| `WHATSAPP_PHONE_NUMBER_ID` | Yes | Numeric ID of the sending phone number | Same Getting Started page → copy **Phone number ID** (NOT the phone number itself) |
+| `WHATSAPP_BUSINESS_ACCOUNT_ID` | For template tools | WABA ID — required for template management and account info | Same page → copy **WhatsApp Business Account ID** |
 
-```bash
-cd MCP/mcp-whatsapp
-npm install
+## Quick Start
 
-# Run tests
-npm test
+### Add to Aerostack Workspace
 
-# Type check
-npm run typecheck
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"WhatsApp"** and click **Add to Workspace**
+3. Add your secrets under **Project → Secrets**
 
-# Test a tool with curl
-curl -s -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-WHATSAPP-ACCESS-TOKEN: YOUR_TOKEN" \
-  -H "X-Mcp-Secret-WHATSAPP-PHONE-NUMBER-ID: YOUR_PHONE_ID" \
-  -d '{
-    "jsonrpc": "2.0",
-    "id": 1,
-    "method": "tools/call",
-    "params": {
-      "name": "send_text",
-      "arguments": {
-        "to": "15551234567",
-        "text": "Hello from mcp-whatsapp!"
-      }
-    }
-  }'
+Once added, every AI agent in your workspace can call WhatsApp tools automatically — no per-user setup needed.
 
-# List templates (requires WABA ID)
-curl -s -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-WHATSAPP-ACCESS-TOKEN: YOUR_TOKEN" \
-  -H "X-Mcp-Secret-WHATSAPP-PHONE-NUMBER-ID: YOUR_PHONE_ID" \
-  -H "X-Mcp-Secret-WHATSAPP-BUSINESS-ACCOUNT-ID: YOUR_WABA_ID" \
-  -d '{
-    "jsonrpc": "2.0",
-    "id": 2,
-    "method": "tools/call",
-    "params": {
-      "name": "list_templates",
-      "arguments": { "status": "APPROVED" }
-    }
-  }'
+### Example Prompts
+
+```
+"Send a WhatsApp message to 15551234567 saying their order has shipped and will arrive by Thursday"
+"List all APPROVED WhatsApp templates and show me their variable placeholders"
+"Send the order_confirmation template to 447911123456 with order number ORD-8821 and total $49.99"
 ```
 
-## Deploy
+### Direct API Call
 
 ```bash
-npm run deploy
+curl -X POST https://mcp.aerostack.dev/s/navin/mcp-whatsapp \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-WHATSAPP-ACCESS-TOKEN: your-access-token' \
+  -H 'X-Mcp-Secret-WHATSAPP-PHONE-NUMBER-ID: your-phone-number-id' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"send_text","arguments":{"to":"15551234567","text":"Hello from Aerostack!"}}}'
 ```
 
-Or via Aerostack CLI:
+## License
 
-```bash
-aerostack deploy mcp --slug whatsapp
-```
+MIT

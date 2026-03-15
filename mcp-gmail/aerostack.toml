@@ -1,5 +1,7 @@
 name = "mcp-gmail"
-description = "MCP server for Gmail — read, send, search messages, manage labels, drafts, and attachments"
+description = "Read, send, and search Gmail messages — manage labels, drafts, and attachments with full inbox control."
+category = "Email"
+tags = ["email", "gmail", "google", "inbox", "messaging"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

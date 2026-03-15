@@ -1,5 +1,7 @@
 name = "mcp-freshdesk"
-description = "MCP server for Freshdesk — tickets, contacts, companies, agents, groups, reports"
+description = "Create tickets, manage contacts, and resolve support issues faster — give your AI agents full Freshdesk access."
+category = "Customer Support"
+tags = ["support", "helpdesk", "tickets", "crm", "freshdesk"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

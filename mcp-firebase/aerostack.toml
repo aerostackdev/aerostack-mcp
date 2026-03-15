@@ -1,5 +1,7 @@
 name = "mcp-firebase"
-description = "MCP server for Firebase — Firestore CRUD, Firebase Auth user management, and FCM push notifications"
+description = "Query Firestore collections, manage Firebase Auth users, and send FCM push notifications from any AI workflow."
+category = "Database"
+tags = ["firebase", "firestore", "database", "auth", "notifications"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
