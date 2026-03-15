@@ -1,0 +1,9 @@
+name = "mcp-mailchimp"
+description = "MCP server for Mailchimp — audiences, subscribers, campaigns, and tags"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+MAILCHIMP_API_KEY = "Your Mailchimp API key (found in Account → Extras → API keys)"
+MAILCHIMP_SERVER_PREFIX = "Your server prefix (e.g. us6 — found in your API key after the dash)"

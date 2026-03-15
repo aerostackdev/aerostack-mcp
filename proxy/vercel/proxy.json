@@ -1,0 +1,19 @@
+{
+  "id": "vercel",
+  "name": "Vercel",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.vercel.com",
+  "auth_type": "bearer",
+  "category": "Cloud",
+  "description": "Deployments, projects, domains, env vars, logs via Vercel's official MCP",
+  "env_vars": [
+    {
+      "key": "VERCEL_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Vercel Personal Access Token",
+      "how_to_set": "vercel.com/account/tokens \u2192 Create Token"
+    }
+  ]
+}

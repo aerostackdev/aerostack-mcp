@@ -1,0 +1,5 @@
+name = "mcp-google-drive"
+description = "MCP server for Google Drive — list, search, copy, move, share files and export Google Docs as PDF"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

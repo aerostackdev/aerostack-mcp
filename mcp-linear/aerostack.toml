@@ -1,5 +1,0 @@
-name = "mcp-linear"
-description = "MCP server for Linear — manage issues, projects, and teams"
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]

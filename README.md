@@ -1,50 +1,437 @@
 # Aerostack MCP Catalog
 
-Community-built MCP (Model Context Protocol) servers hosted on Cloudflare's edge infrastructure via [Aerostack](https://aerostack.dev).
+Community-built MCP servers on Cloudflare's edge — one endpoint, every tool, no local processes.
 
-**One endpoint. All your tools. No local processes.**
+Connect any combination to Claude, Cursor, Windsurf, or your own AI agent. Your API keys stay encrypted in Aerostack's vault. Tools appear automatically namespaced: `discord__send_message`, `stripe__create_invoice`, `hubspot__search_contacts`.
 
-Add any of these servers to your Aerostack workspace and they're instantly available to Claude, Cursor, Windsurf, and any other MCP-compatible AI client — no npm, no local config, no environment variables on your machine.
+**40 servers total: 26 built Workers + 14 proxy entries.**
+
+---
+
+## Folder Structure
+
+| Folder | Type | Maintained by |
+|--------|------|--------------|
+| `proxy/` | Official hosted MCPs — proxy config + README only, no code | 3rd party |
+| `mcp-{service}/` | CF Workers we build and maintain | Aerostack team |
+
+---
+
+## What You Can Build
+
+These aren't just API wrappers. When you connect multiple MCPs, an LLM can orchestrate them together — and that's where the real products emerge.
+
+---
+
+### The AI Customer Support Bot
+
+**Stack:** `mcp-whatsapp` + `mcp-zendesk` + `mcp-hubspot` + `mcp-stripe`
+
+Customer messages you on WhatsApp. Your bot:
+1. Looks up who they are in HubSpot by phone number
+2. Checks their Stripe subscription status and open invoices
+3. Finds their Zendesk tickets
+4. Answers with full context — name, plan, history, balance
+
+If the issue is complex: creates a Zendesk ticket, notifies your Slack, tells the customer a human will follow up in 1 hour.
+
+**Zero code. Five secrets.**
+
+---
+
+### The Discord Community Bot
+
+**Stack:** `mcp-discord` + `mcp-notion` + `mcp-github` + `mcp-linear`
+
+Drops into your dev community server and:
+- Answers questions by searching your Notion knowledge base
+- Turns `#report-a-bug` messages into Linear/GitHub issues automatically
+- Posts weekly changelogs pulled from GitHub releases
+- Welcomes new members with role-based onboarding based on what they say they do
+
+Members feel heard. Your team stops manually triaging Discord.
+
+---
+
+### The Telegram Sales Assistant
+
+**Stack:** `mcp-telegram` + `mcp-pipedrive` + `mcp-calendly` + `mcp-resend`
+
+Your sales team runs on Telegram. The bot:
+- Qualifies inbound leads with 3 questions
+- Creates or updates the deal in Pipedrive automatically
+- Books a discovery call via Calendly, sends confirmation via Resend
+- Posts a summary to the team when a high-value lead books
+
+Your SDRs focus on calls, not data entry.
+
+---
+
+### The E-Commerce Order Assistant
+
+**Stack:** `mcp-whatsapp` + `mcp-shopify` + `mcp-stripe` + `mcp-mailchimp`
+
+Customer asks "where's my order?" on WhatsApp:
+- Shopify: finds the order, gets tracking link
+- Stripe: confirms payment cleared
+- Answers with order status, tracking, and ETA
+
+If their card failed: sends a Stripe payment retry link via WhatsApp buttons. Adds them to a Mailchimp "at-risk" segment for follow-up.
+
+---
+
+### The Developer Ops Bot
+
+**Stack:** `mcp-slack` + `mcp-github` + `mcp-sentry` + `mcp-railway` + `mcp-linear`
+
+Sentry fires an error. Your Slack bot:
+1. Gets the full Sentry event with stacktrace
+2. Searches GitHub for the file and recent commits
+3. Creates a Linear issue with full context pre-filled
+4. Checks Railway deployment logs for that time window
+5. Posts a summary in `#incidents` with links to everything
+
+From alert to triage: under 10 seconds.
+
+---
+
+### The Appointment Booking Bot
+
+**Stack:** `mcp-telegram` (or `mcp-whatsapp`) + `mcp-calendly` (or `mcp-cal-com`) + `mcp-google-calendar` + `mcp-sendgrid`
+
+Patient/client messages to book, reschedule, or cancel:
+- Checks availability in real time
+- Books the slot, adds to Google Calendar
+- Sends confirmation email via SendGrid
+- Sends reminder 24h before via Telegram/WhatsApp
+
+Works for clinics, consultants, coaches, salons — any appointment-based business.
+
+---
+
+### The Outbound Sales Machine
+
+**Stack:** `mcp-salesforce` + `mcp-sendgrid` + `mcp-gmail` + `mcp-calendly`
+
+Pull a list of leads from Salesforce. For each:
+- Draft a personalized email using their account context
+- Send via SendGrid or Gmail
+- Track opens; when they click "Book a call" → Calendly link
+- Update Salesforce opportunity stage automatically
+
+Personalized outreach at scale. No marketing automation tool needed.
+
+---
+
+### The Payment Recovery Bot
+
+**Stack:** `mcp-stripe` + `mcp-whatsapp` (or `mcp-telegram`) + `mcp-hubspot`
+
+Every morning, check Stripe for failed payments. For each:
+- Look up customer in HubSpot for their preferred channel
+- Send a WhatsApp/Telegram message with a one-click retry link
+- If no response in 48h: escalate to email, create HubSpot task for sales
+
+Churns recovered automatically before they even cancel.
 
 ---
 
 ## Available Servers
 
-| Service | Category | Tools | Secrets Required |
-|---|---|---|---|
-| ✅ [Cloudflare](./mcp-cloudflare/) | Infrastructure | Workers, KV, R2, D1 | `CF_API_TOKEN`, `CF_ACCOUNT_ID` |
-| ✅ [GitHub](./mcp-github/) | Developer Tools | Repos, Issues, PRs | `GITHUB_TOKEN` |
-| ✅ [Notion](./mcp-notion/) | Productivity | Pages, Databases, Search | `NOTION_TOKEN` |
-| ✅ [Slack](./mcp-slack/) | Communication | Channels, Messages, Search | `SLACK_BOT_TOKEN` |
-| ✅ [Linear](./mcp-linear/) | Project Mgmt | Issues, Projects, Teams | `LINEAR_API_KEY` |
-| ✅ [Stripe](./mcp-stripe/) | Payments | Customers, Invoices, Subscriptions | `STRIPE_SECRET_KEY` |
-| ✅ [Shopify](./mcp-shopify/) | E-commerce | Products, Orders, Customers | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_SHOP_DOMAIN` |
-| ✅ [Jira](./mcp-jira/) | Project Mgmt | Issues, Projects, Transitions | `JIRA_EMAIL`, `JIRA_API_TOKEN`, `JIRA_DOMAIN` |
-| ✅ [Airtable](./mcp-airtable/) | Databases | Records, Tables, Bases | `AIRTABLE_API_KEY` |
-| ✅ [Resend](./mcp-resend/) | Email | Send, List, Domains | `RESEND_API_KEY` |
-| ✅ [Twilio](./mcp-twilio/) | SMS | Send SMS, List Messages | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
-| ✅ [HubSpot](./mcp-hubspot/) | CRM | Contacts, Deals, Companies | `HUBSPOT_ACCESS_TOKEN` |
-| ✅ [Supabase](./mcp-supabase/) | Database | Select, Insert, Update, Delete, RPC, Storage | `SUPABASE_URL`, `SUPABASE_ANON_KEY` |
-| ✅ [Vercel](./mcp-vercel/) | Infrastructure | Projects, Deployments, Domains, Env Vars | `VERCEL_TOKEN` |
-| ✅ [Sentry](./mcp-sentry/) | Monitoring | Orgs, Projects, Issues, Events, Releases | `SENTRY_AUTH_TOKEN` |
-| ✅ [Google Calendar](./mcp-google-calendar/) | Productivity | Calendars, Events, CRUD, Quick Add | `GOOGLE_ACCESS_TOKEN` |
-| ✅ [Figma](./mcp-figma/) | Design | Files, Nodes, Comments, Components, Styles, Images | `FIGMA_ACCESS_TOKEN` |
-| ✅ [OpenAI](./mcp-openai/) | AI | Chat, Models, Embeddings, Images, Moderation | `OPENAI_API_KEY` |
-| ✅ [PlanetScale](./mcp-planetscale/) | Database | Databases, Branches, Deploy Requests | `PLANETSCALE_TOKEN` |
-| ✅ [Railway](./mcp-railway/) | Infrastructure | Projects, Services, Deployments, Logs, Variables | `RAILWAY_API_TOKEN` |
+### Messaging — The Bot Layer
 
-**Want a server that's not listed?** [Open an issue →](https://github.com/aerostackdev/aerostack-mcp/issues/new?labels=request&template=server_request.md)
+These are the inbound channels. Every product above starts here.
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Discord](./mcp-discord/) | 23 | Send messages, manage channels, roles, members, threads | `DISCORD_BOT_TOKEN` |
+| [Telegram](./mcp-telegram/) | 28 | Send/receive messages, inline keyboards, polls, moderation | `TELEGRAM_BOT_TOKEN` |
+| [WhatsApp Business](./mcp-whatsapp/) | 24 | Session messages, templates, interactive buttons/lists, media | `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID` |
+| [Slack](./mcp-slack/) | 12 | Post to channels, search, manage users and reactions | `SLACK_BOT_TOKEN` |
+| [Twilio](./mcp-twilio/) | 6 | SMS send/receive, voice, phone number lookup | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
+
+**Discord use cases:**
+- Community Q&A bot backed by your Notion/Airtable knowledge base
+- Bug report collector → auto-creates GitHub/Linear issues
+- Paid member verification → Stripe webhook → Discord role grant
+- Dev team standup bot — pulls GitHub PRs and Linear issues every morning
+
+**Telegram use cases:**
+- Customer support for markets where WhatsApp isn't dominant (Russia, Iran, parts of Asia)
+- Internal team alerts with inline approve/reject buttons
+- Inline bot mode: users type `@yourbot` anywhere to search your product catalog (Shopify)
+- Payment invoices sent and confirmed directly in chat (Stripe payment links)
+
+**WhatsApp use cases:**
+- E-commerce post-purchase flow: order confirmation → shipping update → review request
+- Appointment reminders for clinics, salons, coaches (2B users can't be ignored)
+- Payment collection in markets where WhatsApp is the primary communication layer
+- Rich interactive menus for food ordering, product browsing
+
+---
+
+### CRM & Identity — Who Is This Person?
+
+Before your bot responds, it should know who it's talking to.
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [HubSpot](./mcp-hubspot/) | 12 | Contacts, deals, companies, notes, activities | `HUBSPOT_ACCESS_TOKEN` |
+| [Salesforce](./mcp-salesforce/) | 25 | Leads, contacts, accounts, opportunities, tasks, SOQL | `SALESFORCE_ACCESS_TOKEN`, `SALESFORCE_INSTANCE_URL` |
+| [Pipedrive](./mcp-pipedrive/) | 20 | Persons, deals, organizations, activities, pipelines | `PIPEDRIVE_API_TOKEN` |
+| [Intercom](./mcp-intercom/) | 22 | Contacts, conversations, messages, tags, companies | `INTERCOM_ACCESS_TOKEN` |
+
+**When a message arrives:**
+```
+Phone: +44 7911 123456
+  ↓
+HubSpot: search_contacts(phone) → Sarah Chen, Enterprise plan
+  ↓
+Intercom: list_conversations(contact_id) → 2 open threads
+  ↓
+Stripe: get_customer(email) → $299/mo, renews April 5
+  ↓
+Claude now knows who Sarah is before saying hello
+```
+
+---
+
+### Support — Close the Loop
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Zendesk](./mcp-zendesk/) | 28 | Tickets, users, orgs, knowledge base, views, macros, CSAT | `ZENDESK_SUBDOMAIN`, `ZENDESK_EMAIL`, `ZENDESK_API_TOKEN` |
+
+**Zendesk use cases:**
+- Auto-create tickets from any messaging channel with full context pre-filled
+- AI triage: read the knowledge base first, try to self-serve before escalating
+- CSAT follow-up: closed ticket → send WhatsApp satisfaction survey 1 hour later
+- Escalation path: detect anger/legal keywords → urgent ticket + Slack alert + human handoff
+
+---
+
+### Scheduling — Book It Automatically
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Calendly](./mcp-calendly/) | 15 | Event types, availability, scheduled events, invitees, webhooks | `CALENDLY_API_TOKEN` |
+| [Cal.com](./mcp-cal-com/) | 15 | Bookings, availability, event types, schedules (open-source) | `CAL_COM_API_KEY` |
+| [Google Calendar](./mcp-google-calendar/) | 10 | Calendars, events, CRUD, free/busy, quick add | `GOOGLE_ACCESS_TOKEN` |
+
+**The scheduling flow:**
+```
+"Can we talk tomorrow afternoon?"
+  ↓
+Calendly: get_event_type_availability(tomorrow, 12pm-5pm)
+  ↓
+"I have 2pm, 3pm, or 4:30pm free. Which works?"
+  ↓
+User picks 3pm
+  ↓
+Calendly: book the slot → confirmation sent automatically
+HubSpot: update deal → next_step = "Discovery call Mar 15 3pm"
+```
+
+---
+
+### Email — Every Channel Covered
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Resend](./mcp-resend/) | 8 | Transactional email, domains, API keys | `RESEND_API_KEY` |
+| [SendGrid](./mcp-sendgrid/) | 20 | Send, templates, contacts, lists, analytics, senders | `SENDGRID_API_KEY` |
+| [Gmail](./mcp-gmail/) | 20 | Read, send, reply, forward, labels, drafts, threads | `GMAIL_ACCESS_TOKEN` |
+| [Mailchimp](./mcp-mailchimp/) | 15 | Audiences, members, campaigns, tags | `MAILCHIMP_API_KEY` |
+
+**Use Resend** for simple transactional (receipts, OTPs, welcome emails).
+**Use SendGrid** at scale with templates, personalization, and delivery analytics.
+**Use Gmail** when you need to read customer replies and act on them.
+**Use Mailchimp** for newsletters, drip campaigns, and audience segmentation.
+
+**Email + Bot combo:** Customer asks a question on WhatsApp → resolved in chat → follow-up summary email sent via SendGrid 5 minutes later. Professional touch, zero effort.
+
+---
+
+### Payments — Collect Money
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Stripe](./mcp-stripe/) | 14 | Customers, invoices, subscriptions, payment links | `STRIPE_SECRET_KEY` |
+| [PayPal](./mcp-paypal/) | 15 | Orders, captures, refunds, invoices, payouts | `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` |
+| [Razorpay](./mcp-razorpay/) | 15 | Orders, payments, refunds, customers, payouts | `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` |
+| [Shopify](./mcp-shopify/) | 12 | Products, orders, customers, fulfillments | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_SHOP_DOMAIN` |
+
+**Market coverage:**
+- Stripe → US, EU, global SaaS
+- PayPal → 400M users, preferred in Germany/Eastern Europe/LatAm
+- Razorpay → India (1.4B population, dominant payment gateway)
+- Shopify → any product/order context
+
+**Payment recovery flow (automated):**
+```
+Stripe: list_subscriptions(status: past_due) → 12 customers
+For each:
+  WhatsApp: send_template("payment_failed", {name, amount, retry_link})
+  HubSpot: create_task("Follow up on payment", due: tomorrow)
+
+If no action in 48h:
+  Gmail: send_email(personalized recovery email)
+
+If still no action in 7 days:
+  Zendesk: create_ticket(priority: high, "At-risk customer")
+```
+
+---
+
+### Project Management — Your Team's OS
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Linear](./mcp-linear/) | 12 | Issues, projects, teams, cycles, labels | `LINEAR_API_KEY` |
+| [Jira](./mcp-jira/) | 12 | Issues, projects, sprints, transitions, comments | `JIRA_EMAIL`, `JIRA_API_TOKEN`, `JIRA_DOMAIN` |
+| [Notion](./mcp-notion/) | 10 | Pages, databases, search, blocks | `NOTION_TOKEN` |
+| [Airtable](./mcp-airtable/) | 10 | Records, tables, bases, views | `AIRTABLE_API_KEY` |
+
+**Notion + Discord combo:**
+Your community asks questions in Discord. Your bot searches Notion for the answer. If no match: creates a Notion page stub so the team knows what to document next.
+
+**Linear + Sentry combo:**
+Every new Sentry error → search Linear for duplicate → if none, create issue with error context, stacktrace, affected users count, and link to Sentry event. Your on-call engineer sees a Linear issue, not an email flood.
+
+---
+
+### Developer Tools — Ship Faster
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [GitHub](./mcp-github/) | 14 | Repos, issues, PRs, commits, branches, files | `GITHUB_TOKEN` |
+| [Vercel](./mcp-vercel/) | 14 | Projects, deployments, domains, env vars | `VERCEL_TOKEN` |
+| [Railway](./mcp-railway/) | 12 | Projects, services, deployments, logs, variables | `RAILWAY_API_TOKEN` |
+| [Sentry](./mcp-sentry/) | 12 | Orgs, projects, issues, events, releases | `SENTRY_AUTH_TOKEN` |
+| [Cloudflare](./mcp-cloudflare/) | 18 | Workers, KV, R2, D1 databases | `CF_API_TOKEN`, `CF_ACCOUNT_ID` |
+
+**The deployment bot:**
+PR merged → Vercel deploys → bot posts in Slack:
+- Link to preview deployment
+- Changed files from GitHub
+- Any new Sentry errors in the last 30 minutes
+- Railway service health for dependent services
+
+One message. Complete picture. No tab switching.
+
+---
+
+### Database & Storage
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Supabase](./mcp-supabase/) | 12 | Select, insert, update, delete, RPC, storage | `SUPABASE_URL`, `SUPABASE_ANON_KEY` |
+| [PlanetScale](./mcp-planetscale/) | 10 | Databases, branches, deploy requests | `PLANETSCALE_TOKEN` |
+
+**Bot memory pattern with Supabase:**
+Every bot conversation stored in Supabase. Query conversation history by user ID. Build full audit trail of what your AI agent did and why.
+
+---
+
+### Forms & Marketing
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Typeform](./mcp-typeform/) | 16 | Forms, responses, webhooks, workspaces | `TYPEFORM_API_TOKEN` |
+| [Klaviyo](./mcp-klaviyo/) | 18 | Profiles, lists, events, campaigns, flows | `KLAVIYO_API_KEY` |
+| [Mailchimp](./mcp-mailchimp/) | 15 | Audiences, members, campaigns, tags | `MAILCHIMP_API_KEY` |
+
+**Typeform → trigger a bot flow:**
+Customer submits a form. Webhook fires. Your bot reads the response, creates a HubSpot contact, books a Calendly slot, sends a confirmation email. All automated, zero code.
+
+**Klaviyo use cases:**
+- Sync bot interactions to Klaviyo profiles for behavioral email sequences
+- Trigger flows when a bot conversation ends without resolution
+- Segment customers by bot interaction history for targeted campaigns
+
+---
+
+### Productivity
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Google Sheets](./mcp-google-sheets/) | 18 | Read, write, append, find, format, batch update | `GOOGLE_SHEETS_ACCESS_TOKEN` |
+| [Notion](./mcp-notion/) | 10 | Pages, databases, search, blocks | `NOTION_TOKEN` |
+| [Airtable](./mcp-airtable/) | 10 | Records, tables, bases, views | `AIRTABLE_API_KEY` |
+
+**Google Sheets as a lightweight database:**
+Append every bot conversation as a row. Build live dashboards showing resolution rates, escalations, top questions. No data warehouse needed.
+
+---
+
+### Design & AI
+
+| Server | Tools | Key Capability | Secrets |
+|--------|-------|----------------|---------|
+| [Figma](./mcp-figma/) | 12 | Files, nodes, comments, components, styles, images | `FIGMA_ACCESS_TOKEN` |
+| [OpenAI](./mcp-openai/) | 10 | Chat, models, embeddings, images, moderation | `OPENAI_API_KEY` |
+| [Anthropic](./mcp-anthropic/) | 12 | Messages, tool use, batches, models, admin | `ANTHROPIC_API_KEY` |
+
+**Anthropic MCP — recursive agents:**
+Use Claude as a tool inside your own Claude agent. Spin up sub-agents for specific tasks (translation, classification, summarization) while the main agent orchestrates the full conversation.
+
+---
+
+## Build Recipes
+
+Quick-start combinations for the most common products:
+
+### Recipe 1: WhatsApp Support Bot (30 min setup)
+```
+Secrets needed: WHATSAPP_ACCESS_TOKEN, WHATSAPP_PHONE_NUMBER_ID,
+                HUBSPOT_ACCESS_TOKEN, ZENDESK_SUBDOMAIN,
+                ZENDESK_EMAIL, ZENDESK_API_TOKEN
+MCPs: mcp-whatsapp, mcp-hubspot, mcp-zendesk
+```
+
+### Recipe 2: Discord Dev Community Bot
+```
+Secrets needed: DISCORD_BOT_TOKEN, NOTION_TOKEN,
+                GITHUB_TOKEN, LINEAR_API_KEY
+MCPs: mcp-discord, mcp-notion, mcp-github, mcp-linear
+```
+
+### Recipe 3: E-Commerce Concierge (WhatsApp)
+```
+Secrets needed: WHATSAPP_ACCESS_TOKEN, WHATSAPP_PHONE_NUMBER_ID,
+                SHOPIFY_ACCESS_TOKEN, SHOPIFY_SHOP_DOMAIN,
+                STRIPE_SECRET_KEY, SENDGRID_API_KEY
+MCPs: mcp-whatsapp, mcp-shopify, mcp-stripe, mcp-sendgrid
+```
+
+### Recipe 4: B2B Sales Assistant (Telegram)
+```
+Secrets needed: TELEGRAM_BOT_TOKEN, PIPEDRIVE_API_TOKEN,
+                CALENDLY_API_TOKEN, RESEND_API_KEY
+MCPs: mcp-telegram, mcp-pipedrive, mcp-calendly, mcp-resend
+```
+
+### Recipe 5: Incident Response Bot (Slack)
+```
+Secrets needed: SLACK_BOT_TOKEN, SENTRY_AUTH_TOKEN,
+                GITHUB_TOKEN, LINEAR_API_KEY, RAILWAY_API_TOKEN
+MCPs: mcp-slack, mcp-sentry, mcp-github, mcp-linear, mcp-railway
+```
+
+### Recipe 6: Payment Recovery (WhatsApp + Stripe)
+```
+Secrets needed: WHATSAPP_ACCESS_TOKEN, WHATSAPP_PHONE_NUMBER_ID,
+                STRIPE_SECRET_KEY, HUBSPOT_ACCESS_TOKEN
+MCPs: mcp-whatsapp, mcp-stripe, mcp-hubspot
+```
 
 ---
 
 ## Using These Servers
 
-Sign up at [aerostack.dev](https://aerostack.dev) and add any of these servers to your workspace in one click. Secrets are encrypted and injected at request time — your API keys stay in Aerostack's secure vault, not in config files on your machine.
-
-Once added, paste a single endpoint into your AI client:
+Sign up at [aerostack.dev](https://aerostack.dev). Add secrets once. Connect any servers. Paste one endpoint into your AI client:
 
 ```json
-// ~/.cursor/mcp.json  |  Claude Desktop  |  Windsurf
 {
   "mcpServers": {
     "aerostack": {
@@ -57,45 +444,75 @@ Once added, paste a single endpoint into your AI client:
 }
 ```
 
-All tools from all your servers, namespaced automatically — `notion__search`, `slack__post_message`, `stripe__list_customers`, etc.
+All tools from all your servers appear automatically. Claude sees `discord__send_message`, `stripe__create_invoice`, `hubspot__search_contacts` — and it knows how to chain them.
 
 ---
 
-## How It Works
+## What's Coming Next
 
-Each server is a tiny Cloudflare Worker that:
+### In Build Now
+| MCP | Why |
+|-----|-----|
+| `mcp-freshdesk` | Zendesk alternative, 60K+ businesses, strong in SMB |
+| `mcp-anthropic` | Use Claude as a tool inside your own Claude agents |
+| `mcp-google-sheets` | The most-used "database" in the world |
+| `mcp-mongodb-atlas` | Document DB via Data API (no TCP needed) |
 
+### High Priority
+| MCP | Why |
+|-----|-----|
+| `mcp-mixpanel` | Analytics — what are users actually doing? |
+| `mcp-posthog` | Open-source product analytics |
+| `mcp-firebase` | Mobile apps — auth, Firestore, FCM push |
+| `mcp-twilio-sendgrid` | Already built both halves; SMS + email in one |
+| `mcp-klaviyo` | E-commerce email/SMS automation |
+| `mcp-typeform` | Form responses → trigger workflows |
+| `mcp-google-drive` | Files, Docs, Sheets all in one |
+| `mcp-dropbox` | File storage for non-Google shops |
+
+### The Bot Brain (Phase 4)
+The next major build is the **Bot Brain** — a Cloudflare Worker that:
+1. Receives webhooks from any messaging channel
+2. Resolves user identity via CRM
+3. Loads conversation memory from KV
+4. Calls Claude with all workspace MCPs as tools
+5. Routes the response back to the correct channel
+
+This isn't an MCP. It's the orchestrator that makes all the MCPs above feel like one intelligent agent.
+
+---
+
+## Architecture
+
+Each server is a Cloudflare Worker that:
 1. Accepts JSON-RPC 2.0 POST requests
 2. Reads secrets from `X-Mcp-Secret-*` headers (injected by the Aerostack gateway)
 3. Calls the target API with your credentials
-4. Returns tool results as MCP-formatted content
+4. Returns MCP-formatted tool results
 
-There are no runtime dependencies, no npm packages, and no cold start delay. Just pure `fetch()` calls at the edge.
+No runtime dependencies. No npm packages in production. No cold start delay. Pure `fetch()` at the edge.
+
+Protocol: [MCP 2024-11-05](https://spec.modelcontextprotocol.io)
+Methods: `initialize`, `tools/list`, `tools/call`
+Health: `GET /health`
 
 ---
 
 ## Contributing
 
-We welcome contributions — new servers, more tools, bug fixes, better error messages.
-
-### Adding a new server
-
+### Add a new server
 1. Fork this repo
-2. Copy the template: `cp -r mcp-github mcp-YOUR_SERVICE`
-3. Edit `mcp-YOUR_SERVICE/src/index.ts` — implement the `TOOLS` array and `callTool()` function
-4. Update `mcp-YOUR_SERVICE/aerostack.toml` with the correct worker name
-5. Test locally: `cd mcp-YOUR_SERVICE && aerostack dev`
-6. Submit a PR describing what the server does and which API it wraps
+2. Copy a template: `cp -r mcp-github mcp-YOUR_SERVICE`
+3. Edit `src/index.ts` — implement `TOOLS` array and `callTool()`
+4. Update `aerostack.toml` with correct worker name
+5. Run `npm test` — all tests must pass
+6. Submit a PR describing the service and which tools you built
 
-### Adding tools to an existing server
+### Add tools to an existing server
+Open `mcp-{slug}/src/index.ts`, add to `TOOLS` and `callTool()`. Submit a PR.
 
-Open `mcp-{slug}/src/index.ts`, add a new entry to the `TOOLS` array, and implement the case in `callTool()`. Submit a PR.
-
-### Template structure
-
+### Template
 ```typescript
-// Every server follows this exact pattern:
-
 const TOOLS = [
     {
         name: 'tool_name',
@@ -122,59 +539,26 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
 }
 ```
 
-### Testing locally
-
-Install the [Aerostack CLI](https://aerostack.dev/docs/cli) once — no wrangler, no extra config:
-
-```bash
-npm install -g aerostack
-```
-
-Then:
-
+### Test locally
 ```bash
 cd mcp-YOUR_SERVICE
-aerostack dev
-
-# In another terminal:
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -H "X-Mcp-Secret-YOUR-TOKEN: test_token_here" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
-```
-
-To deploy to Aerostack's hosted catalog:
-
-```bash
-aerostack deploy mcp --slug YOUR_SERVICE
+npm install
+npm test           # unit tests (no real credentials needed)
+npm run dev        # local wrangler dev server
 ```
 
 ---
 
-## Is This Your Company's MCP?
+## Claiming Your Company's MCP
 
-If you work at Notion, Slack, Stripe, or any other company with a server in this catalog — you can **claim it** and take over maintenance.
+If you work at one of the companies in this catalog — claim the server and take over maintenance.
 
-Claiming gives you:
-- Your company's verified profile on the Aerostack Hub marketplace
-- Full control over the server (code, tools, versioning)
-- Option to add paid access tiers (Phase 5)
-- Your branding instead of "by Aerostack"
+You get: verified company profile on Aerostack Hub, full code control, your branding, and option to add paid tiers.
 
-To claim: email **mcp@aerostack.dev** with your company domain and we'll verify and transfer ownership within 48 hours.
-
----
-
-## MCP Protocol
-
-All servers implement [MCP 2024-11-05](https://spec.modelcontextprotocol.io) over HTTP (JSON-RPC 2.0):
-
-- `POST /` — handle `initialize`, `tools/list`, `tools/call`
-- `GET /health` — health check
-- Secrets via `X-Mcp-Secret-{ENV_VAR_NAME}` headers
+Email **mcp@aerostack.dev** with your company domain. Verified and transferred in 48h.
 
 ---
 
 ## License
 
-MIT — free to use, fork, and modify.
+MIT

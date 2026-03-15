@@ -1,0 +1,5 @@
+name = "mcp-segment"
+description = "MCP server for Segment — track events, identify users, group calls, page views, and batch ingestion via Segment HTTP API"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

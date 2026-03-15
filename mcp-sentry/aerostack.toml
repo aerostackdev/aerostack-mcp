@@ -1,5 +1,0 @@
-name = "mcp-sentry"
-description = "MCP server for Sentry — monitor errors, manage issues, and track releases"
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,26 @@
+{
+  "id": "shopify",
+  "name": "Shopify",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://{SHOPIFY_DOMAIN}/api/mcp",
+  "auth_type": "bearer",
+  "category": "Ecommerce",
+  "description": "Products, orders, customers, inventory via Shopify's official MCP",
+  "env_vars": [
+    {
+      "key": "SHOPIFY_DOMAIN",
+      "required": true,
+      "secret": false,
+      "description": "Your Shopify store domain (e.g. mystore.myshopify.com)",
+      "how_to_set": "Found in your Shopify admin URL"
+    },
+    {
+      "key": "SHOPIFY_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Shopify Admin API Access Token",
+      "how_to_set": "Shopify admin \u2192 Settings \u2192 Apps \u2192 Develop apps \u2192 Create app \u2192 Admin API access token"
+    }
+  ]
+}

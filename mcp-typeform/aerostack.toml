@@ -1,0 +1,8 @@
+name = "mcp-typeform"
+description = "MCP server for Typeform — forms, responses, webhooks, workspaces, account"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+TYPEFORM_API_TOKEN = "Your Typeform Personal Access Token (Account → Developer apps → Personal tokens)"

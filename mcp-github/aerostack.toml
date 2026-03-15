@@ -1,5 +1,0 @@
-name = "mcp-github"
-description = "MCP server for GitHub — manage repos, issues, and pull requests"
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]

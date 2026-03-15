@@ -1,0 +1,5 @@
+name = "mcp-firebase"
+description = "MCP server for Firebase — Firestore CRUD, Firebase Auth user management, and FCM push notifications"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

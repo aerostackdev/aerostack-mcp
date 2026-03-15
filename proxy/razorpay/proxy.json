@@ -1,0 +1,26 @@
+{
+  "id": "razorpay",
+  "name": "Razorpay",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.razorpay.com/mcp",
+  "auth_type": "bearer",
+  "category": "Payments",
+  "description": "Payments, orders, subscriptions, payouts via Razorpay's official MCP",
+  "env_vars": [
+    {
+      "key": "RAZORPAY_KEY_ID",
+      "required": true,
+      "secret": false,
+      "description": "Razorpay Key ID",
+      "how_to_set": "dashboard.razorpay.com \u2192 Settings \u2192 API Keys \u2192 Generate Test/Live Key"
+    },
+    {
+      "key": "RAZORPAY_KEY_SECRET",
+      "required": true,
+      "secret": true,
+      "description": "Razorpay Key Secret",
+      "how_to_set": "dashboard.razorpay.com \u2192 Settings \u2192 API Keys \u2192 same as Key ID generation"
+    }
+  ]
+}

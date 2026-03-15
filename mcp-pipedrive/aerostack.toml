@@ -1,0 +1,7 @@
+name = "mcp-pipedrive"
+description = "MCP server for Pipedrive CRM — persons, deals, organizations, activities, pipelines"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[secrets]
+PIPEDRIVE_API_TOKEN = { description = "Pipedrive API token — found in Settings > Personal preferences > API" }

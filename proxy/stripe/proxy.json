@@ -1,0 +1,19 @@
+{
+  "id": "stripe",
+  "name": "Stripe",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.stripe.com",
+  "auth_type": "bearer",
+  "category": "Payments",
+  "description": "Payments, customers, subscriptions, invoices via Stripe's official MCP",
+  "env_vars": [
+    {
+      "key": "STRIPE_SECRET_KEY",
+      "required": true,
+      "secret": true,
+      "description": "Stripe Secret API Key (sk_live_... or sk_test_...)",
+      "how_to_set": "dashboard.stripe.com \u2192 Developers \u2192 API keys \u2192 Secret key"
+    }
+  ]
+}

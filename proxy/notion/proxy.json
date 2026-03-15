@@ -1,0 +1,19 @@
+{
+  "id": "notion",
+  "name": "Notion",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.notion.com/mcp",
+  "auth_type": "bearer",
+  "category": "Productivity",
+  "description": "Pages, databases, blocks, search via Notion's official MCP",
+  "env_vars": [
+    {
+      "key": "NOTION_API_KEY",
+      "required": true,
+      "secret": true,
+      "description": "Notion Integration Token",
+      "how_to_set": "notion.so/my-integrations \u2192 New integration \u2192 Copy Internal Integration Token"
+    }
+  ]
+}

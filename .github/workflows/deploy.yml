@@ -1,0 +1,67 @@
+name: Deploy MCPs to Aerostack
+
+on:
+  push:
+    branches:
+      - main        # → staging (dev)
+      - production  # → production
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      only:
+        description: 'Deploy specific MCPs only (comma-separated, e.g. mcp-airtable,mcp-slack)'
+        required: false
+        default: ''
+
+jobs:
+  deploy:
+    name: Deploy MCP servers
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install esbuild
+        run: npm install -g esbuild
+
+      - name: Set deploy environment
+        id: env
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "DEPLOY_ENV=${{ github.event.inputs.env }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref_name }}" = "production" ]; then
+            echo "DEPLOY_ENV=production" >> $GITHUB_ENV
+          else
+            echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
+          fi
+
+      - name: Set --only filter
+        if: ${{ github.event.inputs.only != '' }}
+        run: echo "ONLY_FLAG=--only ${{ github.event.inputs.only }}" >> $GITHUB_ENV
+
+      - name: Deploy all MCPs
+        env:
+          AEROSTACK_API_KEY: ${{ secrets.AEROSTACK_API_KEY }}
+        run: node scripts/deploy-all.mjs ${{ env.ONLY_FLAG }}
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### MCP Deploy Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment:** $DEPLOY_ENV" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY

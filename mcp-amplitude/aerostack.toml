@@ -1,0 +1,5 @@
+name = "mcp-amplitude"
+description = "MCP server for Amplitude — track events, identify users, get chart data, funnel analysis, and cohort management"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

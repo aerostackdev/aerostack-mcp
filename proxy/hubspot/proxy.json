@@ -1,0 +1,19 @@
+{
+  "id": "hubspot",
+  "name": "HubSpot",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.hubspot.com",
+  "auth_type": "bearer",
+  "category": "CRM",
+  "description": "Contacts, deals, companies, tickets, workflows via HubSpot's official MCP",
+  "env_vars": [
+    {
+      "key": "HUBSPOT_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "HubSpot Private App Access Token",
+      "how_to_set": "app.hubspot.com \u2192 Settings \u2192 Integrations \u2192 Private Apps \u2192 Create private app"
+    }
+  ]
+}

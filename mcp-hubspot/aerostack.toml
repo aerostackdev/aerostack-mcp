@@ -1,5 +1,0 @@
-name = "mcp-hubspot"
-description = "MCP server for HubSpot — manage contacts, deals, and companies"
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]

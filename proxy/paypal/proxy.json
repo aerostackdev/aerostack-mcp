@@ -1,0 +1,19 @@
+{
+  "id": "paypal",
+  "name": "PayPal",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.paypal.com",
+  "auth_type": "bearer",
+  "category": "Payments",
+  "description": "Orders, payments, subscriptions, payouts via PayPal's official MCP",
+  "env_vars": [
+    {
+      "key": "PAYPAL_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "PayPal REST API Access Token",
+      "how_to_set": "developer.paypal.com \u2192 My Apps \u2192 Create App \u2192 Copy Client ID + Secret, then get access token via OAuth"
+    }
+  ]
+}

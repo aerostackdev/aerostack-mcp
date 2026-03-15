@@ -1,0 +1,19 @@
+{
+  "id": "intercom",
+  "name": "Intercom",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.intercom.com/mcp",
+  "auth_type": "bearer",
+  "category": "Communication",
+  "description": "Conversations, contacts, tickets, articles via Intercom's official MCP",
+  "env_vars": [
+    {
+      "key": "INTERCOM_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Intercom Access Token",
+      "how_to_set": "app.intercom.com \u2192 Settings \u2192 Integrations \u2192 Developer Hub \u2192 New App \u2192 Authentication"
+    }
+  ]
+}

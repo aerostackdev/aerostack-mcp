@@ -1,0 +1,19 @@
+{
+  "id": "github",
+  "name": "GitHub",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://api.githubcopilot.com/mcp/",
+  "auth_type": "bearer",
+  "category": "Developer Tools",
+  "description": "GitHub repos, PRs, issues, branches, code search via GitHub's official hosted MCP",
+  "env_vars": [
+    {
+      "key": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "GitHub Personal Access Token with required scopes",
+      "how_to_set": "github.com \u2192 Settings \u2192 Developer settings \u2192 Personal access tokens \u2192 Generate new token"
+    }
+  ]
+}

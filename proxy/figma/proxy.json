@@ -1,0 +1,19 @@
+{
+  "id": "figma",
+  "name": "Figma",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.figma.com/mcp",
+  "auth_type": "bearer",
+  "category": "Design",
+  "description": "Files, frames, components, comments, variables via Figma's official MCP",
+  "env_vars": [
+    {
+      "key": "FIGMA_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Figma Personal Access Token",
+      "how_to_set": "figma.com \u2192 Settings \u2192 Account \u2192 Personal access tokens \u2192 Generate new token"
+    }
+  ]
+}

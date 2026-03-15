@@ -1,0 +1,5 @@
+name = "mcp-zendesk"
+description = "MCP server for Zendesk — tickets, users, orgs, knowledge base, macros, views, CSAT"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

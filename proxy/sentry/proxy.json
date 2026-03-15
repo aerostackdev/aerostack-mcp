@@ -1,0 +1,26 @@
+{
+  "id": "sentry",
+  "name": "Sentry",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.sentry.dev/mcp",
+  "auth_type": "bearer",
+  "category": "Observability",
+  "description": "Issues, events, releases, performance via Sentry's official MCP",
+  "env_vars": [
+    {
+      "key": "SENTRY_AUTH_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Sentry User Auth Token",
+      "how_to_set": "sentry.io \u2192 Settings \u2192 Auth Tokens \u2192 Create New Token"
+    },
+    {
+      "key": "SENTRY_ORG_SLUG",
+      "required": true,
+      "secret": false,
+      "description": "Your Sentry organization slug (found in org URL)",
+      "how_to_set": "sentry.io \u2192 Settings \u2192 Organization \u2192 slug shown in URL"
+    }
+  ]
+}

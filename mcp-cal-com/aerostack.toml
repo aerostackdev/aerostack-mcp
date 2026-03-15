@@ -1,0 +1,8 @@
+name = "mcp-cal-com"
+description = "MCP server for Cal.com — event types, bookings, availability, schedules, and user management"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+CAL_COM_API_KEY = "Your Cal.com API key (Settings → Developer → API Keys)"

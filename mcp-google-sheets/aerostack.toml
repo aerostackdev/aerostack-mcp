@@ -1,0 +1,8 @@
+name = "mcp-google-sheets"
+description = "MCP server for Google Sheets — read, write, format, and manage spreadsheets via the Sheets API v4"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GOOGLE_SHEETS_ACCESS_TOKEN = "Your Google OAuth 2.0 access token (requires spreadsheets scope)"

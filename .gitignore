@@ -5,3 +5,13 @@ dist/
 *.env
 .dev.vars
 MCP-list.json
+
+# Private planning docs
+AI-BOT-STACK.md
+MCP-STRATEGY.md
+QUEUE.md
+TESTING-37-REDEPLOY.md
+test.txt
+
+# OS
+.DS_Store

@@ -1,5 +1,0 @@
-name = "mcp-figma"
-description = "MCP server for Figma — browse files, components, styles, and export images"
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]

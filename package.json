@@ -1,0 +1,17 @@
+{
+  "name": "@aerostack/mcp-catalog",
+  "version": "1.0.0",
+  "description": "Aerostack MCP server catalog — 654 entries, 37 Workers, 14 proxies",
+  "type": "module",
+  "scripts": {
+    "deploy:dev": "DEPLOY_ENV=staging node scripts/deploy-all.mjs",
+    "deploy:prod": "DEPLOY_ENV=production node scripts/deploy-all.mjs",
+    "deploy:dry-run": "DEPLOY_ENV=staging node scripts/deploy-all.mjs --dry-run",
+    "sync-catalog": "node scripts/sync-catalog.mjs",
+    "sync-catalog:dry-run": "node scripts/sync-catalog.mjs --dry-run",
+    "catalog-status": "node scripts/catalog-status.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

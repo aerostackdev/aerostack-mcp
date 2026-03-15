@@ -1,0 +1,8 @@
+name = "mcp-gmail"
+description = "MCP server for Gmail — read, send, search messages, manage labels, drafts, and attachments"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GMAIL_ACCESS_TOKEN = "Your Gmail OAuth 2.0 access token (requires gmail.send, gmail.readonly scopes)"

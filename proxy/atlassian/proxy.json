@@ -1,0 +1,26 @@
+{
+  "id": "atlassian",
+  "name": "Atlassian (Jira + Confluence)",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.atlassian.com/v1/mcp",
+  "auth_type": "bearer",
+  "category": "Productivity",
+  "description": "Jira issues, sprints, Confluence pages via Atlassian's official MCP",
+  "env_vars": [
+    {
+      "key": "ATLASSIAN_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Atlassian API Token",
+      "how_to_set": "id.atlassian.com/manage-profile/security/api-tokens \u2192 Create API token"
+    },
+    {
+      "key": "ATLASSIAN_CLOUD_ID",
+      "required": true,
+      "secret": false,
+      "description": "Your Atlassian Cloud ID (from site URL)",
+      "how_to_set": "Found at admin.atlassian.com or in your Jira/Confluence site URL"
+    }
+  ]
+}

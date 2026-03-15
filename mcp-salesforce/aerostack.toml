@@ -1,0 +1,9 @@
+name = "mcp-salesforce"
+description = "MCP server for Salesforce — leads, contacts, accounts, opportunities, tasks, and SOQL"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+SALESFORCE_ACCESS_TOKEN = "Your Salesforce OAuth 2.0 access token"
+SALESFORCE_INSTANCE_URL = "Your Salesforce instance URL (e.g. https://yourorg.my.salesforce.com)"

@@ -1,0 +1,19 @@
+{
+  "id": "linear",
+  "name": "Linear",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.linear.app/mcp",
+  "auth_type": "bearer",
+  "category": "Productivity",
+  "description": "Issues, projects, cycles, teams, roadmap via Linear's official MCP",
+  "env_vars": [
+    {
+      "key": "LINEAR_API_KEY",
+      "required": true,
+      "secret": true,
+      "description": "Linear Personal API Key",
+      "how_to_set": "linear.app \u2192 Settings \u2192 API \u2192 Personal API Keys \u2192 Create key"
+    }
+  ]
+}

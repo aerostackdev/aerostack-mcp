@@ -1,0 +1,8 @@
+name = "mcp-anthropic"
+description = "MCP server for Anthropic API — messages, models, batches, admin"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ANTHROPIC_API_KEY = "Your Anthropic API key (console.anthropic.com → API Keys)"

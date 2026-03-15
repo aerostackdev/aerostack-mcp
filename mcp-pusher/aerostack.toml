@@ -1,0 +1,5 @@
+name = "mcp-pusher"
+description = "MCP server for Pusher — trigger real-time events, manage channels, presence, and channel authentication"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

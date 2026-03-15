@@ -1,0 +1,11 @@
+name = "mcp-aerostack-registry"
+description = "Discovery MCP — search and call any function, MCP, or skill in the Aerostack marketplace"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+PLATFORM_URL = "https://api.aerostack.dev"
+
+# Secrets (set via workspace secrets or wrangler secret put):
+#   AEROSTACK_API_KEY — injected as X-Mcp-Secret-AEROSTACK-API-KEY by the gateway

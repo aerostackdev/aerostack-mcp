@@ -1,0 +1,26 @@
+{
+  "id": "cloudflare",
+  "name": "Cloudflare",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.cloudflare.com/mcp",
+  "auth_type": "bearer",
+  "category": "Cloud",
+  "description": "Cloudflare Workers, KV, R2, D1, Pages, DNS via Cloudflare's official MCP",
+  "env_vars": [
+    {
+      "key": "CLOUDFLARE_API_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Cloudflare API Token with required permissions",
+      "how_to_set": "dash.cloudflare.com \u2192 My Profile \u2192 API Tokens \u2192 Create Token"
+    },
+    {
+      "key": "CLOUDFLARE_ACCOUNT_ID",
+      "required": true,
+      "secret": false,
+      "description": "Your Cloudflare Account ID",
+      "how_to_set": "dash.cloudflare.com \u2192 right sidebar when viewing any zone"
+    }
+  ]
+}
