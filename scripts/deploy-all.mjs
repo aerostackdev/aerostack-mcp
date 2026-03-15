@@ -24,8 +24,9 @@ const ROOT  = join(__dir, '..');
 // ── Config ────────────────────────────────────────────────────────────────────
 
 const ENV          = process.env.DEPLOY_ENV ?? 'staging';
-const DRY_RUN      = process.argv.includes('--dry-run');
-const PROXIES_ONLY = process.argv.includes('--proxies-only');
+const DRY_RUN       = process.argv.includes('--dry-run');
+const PROXIES_ONLY  = process.argv.includes('--proxies-only');
+const HOSTED_ONLY   = process.argv.includes('--hosted-only');
 
 // API key: env var (CI) or local credentials file (local dev)
 let API_KEY = process.env.AEROSTACK_API_KEY;
@@ -142,7 +143,7 @@ async function registerProxy(proxy, readme) {
 
 const results = { ok: [], failed: [], skipped: [] };
 
-if (!PROXIES_ONLY) {
+if (!PROXIES_ONLY || HOSTED_ONLY) {
   const dirs = readdirSync(ROOT, { withFileTypes: true })
     .filter(d => d.isDirectory() && d.name.startsWith('mcp-'))
     .map(d => d.name)
