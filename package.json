@@ -4,7 +4,7 @@
   "description": "Aerostack MCP server catalog — 654 entries, 37 Workers, 14 proxies",
   "type": "module",
   "scripts": {
-    "deploy:dev": "DEPLOY_ENV=staging node scripts/deploy-all.mjs",
+    "deploy:dev": "AEROSTACK_API_BASE=https://aerostack-api.nyburs.workers.dev DEPLOY_ENV=staging node scripts/deploy-all.mjs",
     "deploy:prod": "DEPLOY_ENV=production node scripts/deploy-all.mjs",
     "deploy:dry-run": "DEPLOY_ENV=staging node scripts/deploy-all.mjs --dry-run",
     "sync-catalog": "node scripts/sync-catalog.mjs",

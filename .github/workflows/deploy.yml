@@ -3,8 +3,8 @@ name: Deploy MCPs to Aerostack
 on:
   push:
     branches:
-      - main        # → staging (dev)
-      - production  # → production
+      - main        # → prod marketplace + dev sync
+      - production  # → prod only
   workflow_dispatch:
     inputs:
       env:
@@ -16,38 +16,37 @@ on:
           - staging
           - production
       only:
-        description: 'Deploy specific hosted MCPs only (comma-separated, e.g. mcp-airtable,mcp-slack)'
+        description: 'Deploy specific MCPs only (comma-separated, e.g. mcp-airtable,mcp-slack)'
         required: false
         default: ''
       deploy_all:
-        description: 'Force deploy all hosted MCPs (ignore changed-files detection)'
+        description: 'Force deploy all MCPs (ignore changed-files detection)'
         required: false
         default: 'false'
         type: boolean
 
 env:
   NODE_VERSION: '20'
+  PROD_API: 'https://api.aerostack.dev'
+  DEV_API: 'https://aerostack-api.nyburs.workers.dev'
 
 jobs:
-  # ── Job 1: Deploy hosted MCPs (changed files only) ───────────────────────────
+  # ── Job 1: Deploy changed hosted MCPs → Prod marketplace ─────────────────────
   deploy-hosted:
-    name: Deploy hosted MCP servers
+    name: Deploy hosted MCPs (prod)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install esbuild
-        run: npm install -g esbuild
+      - run: npm install -g esbuild
 
       - name: Set deploy environment
         run: |
@@ -59,75 +58,86 @@ jobs:
             echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
           fi
 
-      - name: Detect changed MCP directories
+      - name: Detect changed MCP dirs
         run: |
-          # If --only flag provided via workflow_dispatch, use that
           if [ -n "${{ github.event.inputs.only }}" ]; then
             echo "ONLY_FLAG=--only ${{ github.event.inputs.only }}" >> $GITHUB_ENV
             exit 0
           fi
-
-          # Force-all or first commit → deploy everything
           if [ "${{ github.event.inputs.deploy_all }}" = "true" ] || ! git rev-parse HEAD~1 > /dev/null 2>&1; then
-            echo "Deploying all MCPs"
             exit 0
           fi
-
-          # Detect changed mcp-* dirs only
           CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^mcp-[^/]+/' | cut -d/ -f1 | sort -u | tr '\n' ',')
           CHANGED="${CHANGED%,}"
-
           if [ -n "$CHANGED" ]; then
-            echo "Changed hosted MCPs: $CHANGED"
             echo "ONLY_FLAG=--only $CHANGED" >> $GITHUB_ENV
           else
             echo "SKIP_HOSTED=true" >> $GITHUB_ENV
           fi
 
-      - name: Deploy changed hosted MCPs
+      - name: Deploy to prod marketplace
         if: env.SKIP_HOSTED != 'true'
         env:
           AEROSTACK_API_KEY: ${{ secrets.AEROSTACK_API_KEY }}
+          AEROSTACK_API_BASE: ${{ env.PROD_API }}
         run: node scripts/deploy-all.mjs --hosted-only ${{ env.ONLY_FLAG }}
 
       - name: No hosted changes
         if: env.SKIP_HOSTED == 'true'
-        run: echo "✅ No hosted MCP directories changed — skipping"
+        run: echo "✅ No hosted MCP dirs changed — skipping"
 
-  # ── Job 2: Always sync proxy MCPs ────────────────────────────────────────────
-  sync-proxies:
-    name: Sync proxy MCP registrations
+  # ── Job 2: Always sync proxy MCPs → Prod marketplace ─────────────────────────
+  sync-proxies-prod:
+    name: Sync proxy MCPs (prod)
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Set deploy environment
+      - name: Set deploy env
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "DEPLOY_ENV=${{ github.event.inputs.env }}" >> $GITHUB_ENV
-          elif [ "${{ github.ref_name }}" = "production" ]; then
+          if [ "${{ github.ref_name }}" = "production" ] || [ "${{ github.event.inputs.env }}" = "production" ]; then
             echo "DEPLOY_ENV=production" >> $GITHUB_ENV
           else
             echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
           fi
 
-      - name: Sync all proxy MCPs
+      - name: Sync all proxy MCPs to prod
         env:
           AEROSTACK_API_KEY: ${{ secrets.AEROSTACK_API_KEY }}
+          AEROSTACK_API_BASE: ${{ env.PROD_API }}
         run: node scripts/deploy-all.mjs --proxies-only
+
+  # ── Job 3: Sync all MCPs → Dev environment (aerocall-core) ───────────────────
+  sync-dev:
+    name: Sync all MCPs (dev)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Only run on main branch (not production branch)
+    if: github.ref_name == 'main' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: npm install -g esbuild
+
+      - name: Deploy all MCPs to dev
+        env:
+          AEROSTACK_API_KEY: ${{ secrets.AEROSTACK_DEV_API_KEY }}
+          AEROSTACK_API_BASE: ${{ env.DEV_API }}
+          DEPLOY_ENV: staging
+        run: node scripts/deploy-all.mjs
 
       - name: Summary
         if: always()
         run: |
-          echo "### MCP Deploy Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Environment:** $DEPLOY_ENV" >> $GITHUB_STEP_SUMMARY
+          echo "### Dev Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **API:** ${{ env.DEV_API }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY

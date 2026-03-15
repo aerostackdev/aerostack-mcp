@@ -47,7 +47,7 @@ const onlyList = onlyArg !== -1 ? (process.argv[onlyArg + 1] ?? '').split(',').f
 const skipArg  = process.argv.indexOf('--skip');
 const skipList = skipArg !== -1 ? (process.argv[skipArg + 1] ?? '').split(',').filter(Boolean) : [];
 
-const API_BASE = 'https://api.aerostack.dev';
+const API_BASE = process.env.AEROSTACK_API_BASE ?? 'https://api.aerostack.dev';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
