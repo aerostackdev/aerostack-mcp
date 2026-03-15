@@ -1,6 +1,6 @@
 {
   "id": "razorpay",
-  "name": "Razorpay",
+  "name": "Razorpay Billing",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.razorpay.com/mcp",
@@ -13,14 +13,152 @@
       "required": true,
       "secret": false,
       "description": "Razorpay Key ID",
-      "how_to_set": "dashboard.razorpay.com \u2192 Settings \u2192 API Keys \u2192 Generate Test/Live Key"
+      "how_to_set": "dashboard.razorpay.com → Settings → API Keys → Generate Test/Live Key"
     },
     {
       "key": "RAZORPAY_KEY_SECRET",
       "required": true,
       "secret": true,
       "description": "Razorpay Key Secret",
-      "how_to_set": "dashboard.razorpay.com \u2192 Settings \u2192 API Keys \u2192 same as Key ID generation"
+      "how_to_set": "dashboard.razorpay.com → Settings → API Keys → same as Key ID generation"
     }
+  ],
+  "tools": [
+    {
+      "name": "create_payment_link",
+      "description": "Create a Razorpay payment link with a specified amount, currency, and customer details to share with buyers",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Payment amount in paise (smallest currency unit, e.g. 5000 = ₹50)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO currency code (e.g. INR, USD)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of what the payment is for"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "Name of the customer receiving the payment link"
+          },
+          "customer_email": {
+            "type": "string",
+            "description": "Email address of the customer"
+          },
+          "customer_contact": {
+            "type": "string",
+            "description": "Phone number of the customer"
+          },
+          "expire_by": {
+            "type": "number",
+            "description": "Unix timestamp after which the link expires"
+          }
+        },
+        "required": [
+          "amount",
+          "currency",
+          "description"
+        ]
+      }
+    },
+    {
+      "name": "get_payment",
+      "description": "Retrieve details of a specific Razorpay payment by its payment ID including status and method",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payment_id": {
+            "type": "string",
+            "description": "The Razorpay payment ID (e.g. pay_xxxxxxxxxxxxx)"
+          }
+        },
+        "required": [
+          "payment_id"
+        ]
+      }
+    },
+    {
+      "name": "list_payments",
+      "description": "List Razorpay payments with optional filters for date range, count, and pagination",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "number",
+            "description": "Start Unix timestamp for filtering payments"
+          },
+          "to": {
+            "type": "number",
+            "description": "End Unix timestamp for filtering payments"
+          },
+          "count": {
+            "type": "number",
+            "description": "Number of payments to return (max 100)"
+          },
+          "skip": {
+            "type": "number",
+            "description": "Number of payments to skip for pagination"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "create_order",
+      "description": "Create a Razorpay order that is required before initiating a payment through the Razorpay checkout",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Order amount in paise (e.g. 10000 = ₹100)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO currency code (e.g. INR)"
+          },
+          "receipt": {
+            "type": "string",
+            "description": "Your internal receipt or order reference ID"
+          },
+          "notes": {
+            "type": "object",
+            "description": "Key-value pairs of additional notes to attach to the order"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ]
+      }
+    },
+    {
+      "name": "fetch_order",
+      "description": "Fetch details of an existing Razorpay order by ID, including its status and associated payments",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "description": "The Razorpay order ID (e.g. order_xxxxxxxxxxxxx)"
+          }
+        },
+        "required": [
+          "order_id"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "razorpay",
+    "payments",
+    "india",
+    "billing",
+    "subscriptions"
   ]
 }

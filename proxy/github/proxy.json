@@ -1,6 +1,6 @@
 {
   "id": "github",
-  "name": "GitHub",
+  "name": "GitHub API",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://api.githubcopilot.com/mcp/",
@@ -13,7 +13,156 @@
       "required": true,
       "secret": true,
       "description": "GitHub Personal Access Token with required scopes",
-      "how_to_set": "github.com \u2192 Settings \u2192 Developer settings \u2192 Personal access tokens \u2192 Generate new token"
+      "how_to_set": "github.com → Settings → Developer settings → Personal access tokens → Generate new token"
     }
+  ],
+  "tools": [
+    {
+      "name": "list_repos",
+      "description": "List repositories for the authenticated user or a specified organization, with sorting and filtering options",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "GitHub username or organization name; defaults to authenticated user"
+          },
+          "type": {
+            "type": "string",
+            "description": "Filter by repo type: all, owner, member, public, private"
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sort by: created, updated, pushed, full_name"
+          },
+          "per_page": {
+            "type": "number",
+            "description": "Number of results per page (max 100)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_repo",
+      "description": "Get detailed information about a GitHub repository including stats, topics, and default branch",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "The repository owner's GitHub username or org name"
+          },
+          "repo": {
+            "type": "string",
+            "description": "The repository name"
+          }
+        },
+        "required": [
+          "owner",
+          "repo"
+        ]
+      }
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new GitHub issue in a repository with title, body, labels, and assignees",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "The repository owner's GitHub username or org name"
+          },
+          "repo": {
+            "type": "string",
+            "description": "The repository name"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "body": {
+            "type": "string",
+            "description": "Markdown body content of the issue"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of label names to apply to the issue"
+          },
+          "assignees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of GitHub usernames to assign to the issue"
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "list_pull_requests",
+      "description": "List pull requests for a repository filtered by state, base branch, or head branch",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "The repository owner's GitHub username or org name"
+          },
+          "repo": {
+            "type": "string",
+            "description": "The repository name"
+          },
+          "state": {
+            "type": "string",
+            "description": "Filter by PR state: open, closed, or all"
+          },
+          "base": {
+            "type": "string",
+            "description": "Filter by base branch name (e.g. main)"
+          }
+        },
+        "required": [
+          "owner",
+          "repo"
+        ]
+      }
+    },
+    {
+      "name": "search_code",
+      "description": "Search for code across GitHub repositories using GitHub's code search syntax",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Code search query using GitHub search syntax (e.g. 'useState repo:facebook/react')"
+          },
+          "per_page": {
+            "type": "number",
+            "description": "Number of results per page (max 100)"
+          }
+        },
+        "required": [
+          "q"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "github",
+    "git",
+    "repos",
+    "pull-requests",
+    "code"
   ]
 }

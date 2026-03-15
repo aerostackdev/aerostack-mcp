@@ -1,6 +1,6 @@
 {
   "id": "atlassian",
-  "name": "Atlassian (Jira + Confluence)",
+  "name": "Atlassian Cloud",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.atlassian.com/v1/mcp",
@@ -13,7 +13,7 @@
       "required": true,
       "secret": true,
       "description": "Atlassian API Token",
-      "how_to_set": "id.atlassian.com/manage-profile/security/api-tokens \u2192 Create API token"
+      "how_to_set": "id.atlassian.com/manage-profile/security/api-tokens → Create API token"
     },
     {
       "key": "ATLASSIAN_CLOUD_ID",
@@ -22,5 +22,131 @@
       "description": "Your Atlassian Cloud ID (from site URL)",
       "how_to_set": "Found at admin.atlassian.com or in your Jira/Confluence site URL"
     }
+  ],
+  "tools": [
+    {
+      "name": "create_issue",
+      "description": "Create a new Jira issue in a specified project with summary, description, and issue type",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_key": {
+            "type": "string",
+            "description": "The Jira project key (e.g. ENG, PROJ)"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Short summary/title of the issue"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the issue"
+          },
+          "issue_type": {
+            "type": "string",
+            "description": "Issue type such as Bug, Story, Task, or Epic"
+          }
+        },
+        "required": [
+          "project_key",
+          "summary",
+          "issue_type"
+        ]
+      }
+    },
+    {
+      "name": "get_issue",
+      "description": "Retrieve a Jira issue by its key, including status, assignee, comments, and linked issues",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_key": {
+            "type": "string",
+            "description": "The Jira issue key (e.g. ENG-123)"
+          }
+        },
+        "required": [
+          "issue_key"
+        ]
+      }
+    },
+    {
+      "name": "search_issues",
+      "description": "Search Jira issues using JQL (Jira Query Language) with optional pagination",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "jql": {
+            "type": "string",
+            "description": "JQL query string, e.g. project = ENG AND status = Open"
+          },
+          "max_results": {
+            "type": "number",
+            "description": "Maximum number of results to return (default 50)"
+          }
+        },
+        "required": [
+          "jql"
+        ]
+      }
+    },
+    {
+      "name": "update_issue",
+      "description": "Update fields of an existing Jira issue such as status, assignee, priority, or description",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_key": {
+            "type": "string",
+            "description": "The Jira issue key to update (e.g. ENG-123)"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Key-value map of fields to update (e.g. status, assignee, priority)"
+          }
+        },
+        "required": [
+          "issue_key",
+          "fields"
+        ]
+      }
+    },
+    {
+      "name": "list_projects",
+      "description": "List all Jira projects accessible to the authenticated user in the Atlassian cloud instance",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "max_results": {
+            "type": "number",
+            "description": "Maximum number of projects to return (default 50)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_confluence_page",
+      "description": "Retrieve a Confluence page by ID, returning its title, body content, and metadata",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "The numeric Confluence page ID"
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "jira",
+    "confluence",
+    "atlassian",
+    "project-management",
+    "issues"
   ]
 }

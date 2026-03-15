@@ -1,6 +1,6 @@
 {
   "id": "sentry",
-  "name": "Sentry",
+  "name": "Sentry Error Monitoring",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.sentry.dev/mcp",
@@ -13,14 +13,118 @@
       "required": true,
       "secret": true,
       "description": "Sentry User Auth Token",
-      "how_to_set": "sentry.io \u2192 Settings \u2192 Auth Tokens \u2192 Create New Token"
+      "how_to_set": "sentry.io → Settings → Auth Tokens → Create New Token"
     },
     {
       "key": "SENTRY_ORG_SLUG",
       "required": true,
       "secret": false,
       "description": "Your Sentry organization slug (found in org URL)",
-      "how_to_set": "sentry.io \u2192 Settings \u2192 Organization \u2192 slug shown in URL"
+      "how_to_set": "sentry.io → Settings → Organization → slug shown in URL"
     }
+  ],
+  "tools": [
+    {
+      "name": "list_issues",
+      "description": "List Sentry error issues for a project with filtering by status, assignee, or date range",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_slug": {
+            "type": "string",
+            "description": "The Sentry project slug to list issues for"
+          },
+          "query": {
+            "type": "string",
+            "description": "Sentry search query (e.g. is:unresolved assigned:me)"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of issues to return (max 100)"
+          }
+        },
+        "required": [
+          "project_slug"
+        ]
+      }
+    },
+    {
+      "name": "get_issue",
+      "description": "Retrieve full details of a Sentry issue including stack trace, user impact, and occurrence count",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "type": "string",
+            "description": "The Sentry issue ID to retrieve"
+          }
+        },
+        "required": [
+          "issue_id"
+        ]
+      }
+    },
+    {
+      "name": "resolve_issue",
+      "description": "Mark a Sentry issue as resolved, optionally in the next release or a specific version",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "type": "string",
+            "description": "The Sentry issue ID to resolve"
+          },
+          "status_details": {
+            "type": "object",
+            "description": "Optional resolution details, e.g. inNextRelease: true or inRelease: '1.2.3'"
+          }
+        },
+        "required": [
+          "issue_id"
+        ]
+      }
+    },
+    {
+      "name": "list_projects",
+      "description": "List all Sentry projects in the organization with their slugs, platforms, and team assignments",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "description": "Pagination cursor for fetching the next page of results"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_event",
+      "description": "Retrieve a specific Sentry event by ID with full exception details, breadcrumbs, and context",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "type": "string",
+            "description": "The Sentry issue ID the event belongs to"
+          },
+          "event_id": {
+            "type": "string",
+            "description": "The specific event ID to retrieve (use 'latest' for the most recent event)"
+          }
+        },
+        "required": [
+          "issue_id",
+          "event_id"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "sentry",
+    "errors",
+    "monitoring",
+    "debugging",
+    "alerts"
   ]
 }

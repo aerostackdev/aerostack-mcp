@@ -1,6 +1,6 @@
 {
   "id": "figma",
-  "name": "Figma",
+  "name": "Figma Design",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.figma.com/mcp",
@@ -13,7 +13,117 @@
       "required": true,
       "secret": true,
       "description": "Figma Personal Access Token",
-      "how_to_set": "figma.com \u2192 Settings \u2192 Account \u2192 Personal access tokens \u2192 Generate new token"
+      "how_to_set": "figma.com → Settings → Account → Personal access tokens → Generate new token"
     }
+  ],
+  "tools": [
+    {
+      "name": "get_file",
+      "description": "Retrieve a Figma file's full document tree including all pages, frames, and layers",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_key": {
+            "type": "string",
+            "description": "The Figma file key extracted from the file URL"
+          },
+          "depth": {
+            "type": "number",
+            "description": "Depth of the node tree to return (default returns full tree)"
+          }
+        },
+        "required": [
+          "file_key"
+        ]
+      }
+    },
+    {
+      "name": "list_projects",
+      "description": "List all projects in a Figma team, including project IDs and names",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "team_id": {
+            "type": "string",
+            "description": "The Figma team ID to list projects for"
+          }
+        },
+        "required": [
+          "team_id"
+        ]
+      }
+    },
+    {
+      "name": "get_components",
+      "description": "Retrieve all published components from a Figma file including their descriptions and thumbnails",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_key": {
+            "type": "string",
+            "description": "The Figma file key to retrieve components from"
+          }
+        },
+        "required": [
+          "file_key"
+        ]
+      }
+    },
+    {
+      "name": "export_node",
+      "description": "Export one or more Figma nodes as PNG, JPG, SVG, or PDF at a specified scale",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_key": {
+            "type": "string",
+            "description": "The Figma file key containing the node to export"
+          },
+          "node_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of node IDs to export"
+          },
+          "format": {
+            "type": "string",
+            "description": "Export format: png, jpg, svg, or pdf"
+          },
+          "scale": {
+            "type": "number",
+            "description": "Export scale factor (e.g. 1, 2, 3 for 1x, 2x, 3x)"
+          }
+        },
+        "required": [
+          "file_key",
+          "node_ids",
+          "format"
+        ]
+      }
+    },
+    {
+      "name": "get_comments",
+      "description": "Retrieve all comments on a Figma file, including resolved comments and replies",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_key": {
+            "type": "string",
+            "description": "The Figma file key to fetch comments for"
+          }
+        },
+        "required": [
+          "file_key"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "figma",
+    "design",
+    "ui",
+    "prototyping",
+    "collaboration"
   ]
 }

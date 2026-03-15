@@ -1,6 +1,6 @@
 {
   "id": "linear",
-  "name": "Linear",
+  "name": "Linear Project Management",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.linear.app/mcp",
@@ -13,7 +13,128 @@
       "required": true,
       "secret": true,
       "description": "Linear Personal API Key",
-      "how_to_set": "linear.app \u2192 Settings \u2192 API \u2192 Personal API Keys \u2192 Create key"
+      "how_to_set": "linear.app → Settings → API → Personal API Keys → Create key"
     }
+  ],
+  "tools": [
+    {
+      "name": "list_issues",
+      "description": "List Linear issues with optional filters for team, state, assignee, label, or priority",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "team_id": {
+            "type": "string",
+            "description": "Filter issues by Linear team ID"
+          },
+          "state": {
+            "type": "string",
+            "description": "Filter by issue state name (e.g. In Progress, Done, Backlog)"
+          },
+          "assignee_id": {
+            "type": "string",
+            "description": "Filter issues by assignee user ID"
+          },
+          "first": {
+            "type": "number",
+            "description": "Number of issues to return (default 50)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new Linear issue in a team with title, description, priority, and label assignments",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "team_id": {
+            "type": "string",
+            "description": "The Linear team ID to create the issue in"
+          },
+          "title": {
+            "type": "string",
+            "description": "Issue title/summary"
+          },
+          "description": {
+            "type": "string",
+            "description": "Issue description in Markdown format"
+          },
+          "priority": {
+            "type": "number",
+            "description": "Priority level: 0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low"
+          },
+          "label_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of label IDs to apply to the issue"
+          }
+        },
+        "required": [
+          "team_id",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "update_issue",
+      "description": "Update an existing Linear issue's title, state, assignee, priority, or estimate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "type": "string",
+            "description": "The Linear issue ID to update"
+          },
+          "title": {
+            "type": "string",
+            "description": "New title for the issue"
+          },
+          "state_id": {
+            "type": "string",
+            "description": "New workflow state ID for the issue"
+          },
+          "assignee_id": {
+            "type": "string",
+            "description": "User ID to assign the issue to"
+          },
+          "priority": {
+            "type": "number",
+            "description": "New priority level: 0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low"
+          }
+        },
+        "required": [
+          "issue_id"
+        ]
+      }
+    },
+    {
+      "name": "list_teams",
+      "description": "List all Linear teams in the workspace with their IDs, names, and workflow states",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "get_viewer",
+      "description": "Get the authenticated user's Linear profile including ID, name, email, and team memberships",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ],
+  "tags": [
+    "linear",
+    "issues",
+    "project-management",
+    "engineering",
+    "sprints"
   ]
 }

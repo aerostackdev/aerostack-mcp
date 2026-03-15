@@ -1,6 +1,6 @@
 {
   "id": "hubspot",
-  "name": "HubSpot",
+  "name": "HubSpot CRM",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.hubspot.com",
@@ -13,7 +13,139 @@
       "required": true,
       "secret": true,
       "description": "HubSpot Private App Access Token",
-      "how_to_set": "app.hubspot.com \u2192 Settings \u2192 Integrations \u2192 Private Apps \u2192 Create private app"
+      "how_to_set": "app.hubspot.com → Settings → Integrations → Private Apps → Create private app"
     }
+  ],
+  "tools": [
+    {
+      "name": "get_contact",
+      "description": "Retrieve a HubSpot contact by ID with all CRM properties and association data",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "description": "The HubSpot contact ID to retrieve"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of property names to include in the response"
+          }
+        },
+        "required": [
+          "contact_id"
+        ]
+      }
+    },
+    {
+      "name": "create_contact",
+      "description": "Create a new HubSpot contact with email, name, phone, and any custom CRM properties",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Contact's email address (used as unique identifier)"
+          },
+          "firstname": {
+            "type": "string",
+            "description": "Contact's first name"
+          },
+          "lastname": {
+            "type": "string",
+            "description": "Contact's last name"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact's phone number"
+          },
+          "company": {
+            "type": "string",
+            "description": "Contact's company name"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      }
+    },
+    {
+      "name": "list_deals",
+      "description": "List CRM deals in HubSpot with optional filtering by pipeline, stage, or owner",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "type": "string",
+            "description": "Filter deals by pipeline ID"
+          },
+          "stage_id": {
+            "type": "string",
+            "description": "Filter deals by deal stage ID"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of deals to return (max 100)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "update_deal",
+      "description": "Update properties of an existing HubSpot deal such as amount, stage, or close date",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deal_id": {
+            "type": "string",
+            "description": "The HubSpot deal ID to update"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Key-value map of deal properties to update (e.g. dealstage, amount, closedate)"
+          }
+        },
+        "required": [
+          "deal_id",
+          "properties"
+        ]
+      }
+    },
+    {
+      "name": "search_contacts",
+      "description": "Search HubSpot contacts using filter criteria on any CRM property with sorting support",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Free-text search query matched against email, name, and company"
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Array of filter group objects using HubSpot filter syntax"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of results to return (max 100)"
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "tags": [
+    "hubspot",
+    "crm",
+    "contacts",
+    "deals",
+    "marketing"
   ]
 }

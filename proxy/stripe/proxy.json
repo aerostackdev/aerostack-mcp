@@ -1,6 +1,6 @@
 {
   "id": "stripe",
-  "name": "Stripe",
+  "name": "Stripe Payments",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.stripe.com",
@@ -13,7 +13,137 @@
       "required": true,
       "secret": true,
       "description": "Stripe Secret API Key (sk_live_... or sk_test_...)",
-      "how_to_set": "dashboard.stripe.com \u2192 Developers \u2192 API keys \u2192 Secret key"
+      "how_to_set": "dashboard.stripe.com → Developers → API keys → Secret key"
     }
+  ],
+  "tools": [
+    {
+      "name": "create_payment_intent",
+      "description": "Create a Stripe PaymentIntent to initiate a payment flow for a specified amount and currency",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Amount to charge in the smallest currency unit (e.g. cents for USD, so 2000 = $20.00)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Three-letter ISO currency code (e.g. usd, eur, gbp)"
+          },
+          "customer": {
+            "type": "string",
+            "description": "Optional Stripe customer ID to associate with the payment"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the payment shown on dashboard and receipts"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Key-value metadata to attach to the PaymentIntent"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ]
+      }
+    },
+    {
+      "name": "list_customers",
+      "description": "List Stripe customers with optional filtering by email or creation date and pagination",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Filter customers by exact email address"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of customers to return (max 100)"
+          },
+          "starting_after": {
+            "type": "string",
+            "description": "Stripe customer ID to paginate after (for next page)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_customer",
+      "description": "Retrieve a Stripe customer by ID with payment methods, subscriptions, and billing details",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "The Stripe customer ID (cus_xxxxxxxxxxxxx)"
+          }
+        },
+        "required": [
+          "customer_id"
+        ]
+      }
+    },
+    {
+      "name": "create_invoice",
+      "description": "Create a Stripe invoice for a customer that can be sent, finalized, and collected automatically",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer": {
+            "type": "string",
+            "description": "The Stripe customer ID to create the invoice for"
+          },
+          "collection_method": {
+            "type": "string",
+            "description": "How to collect payment: charge_automatically or send_invoice"
+          },
+          "days_until_due": {
+            "type": "number",
+            "description": "Number of days until invoice is due (required for send_invoice)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the invoice"
+          }
+        },
+        "required": [
+          "customer"
+        ]
+      }
+    },
+    {
+      "name": "list_subscriptions",
+      "description": "List Stripe subscriptions with optional filters for customer, status, or price ID",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer": {
+            "type": "string",
+            "description": "Filter subscriptions by Stripe customer ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "Filter by subscription status: active, past_due, canceled, trialing, incomplete, unpaid"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of subscriptions to return (max 100)"
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "tags": [
+    "stripe",
+    "payments",
+    "subscriptions",
+    "invoices",
+    "billing"
   ]
 }

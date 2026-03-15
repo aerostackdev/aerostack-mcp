@@ -1,6 +1,6 @@
 {
   "id": "notion",
-  "name": "Notion",
+  "name": "Notion Workspace",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.notion.com/mcp",
@@ -13,7 +13,143 @@
       "required": true,
       "secret": true,
       "description": "Notion Integration Token",
-      "how_to_set": "notion.so/my-integrations \u2192 New integration \u2192 Copy Internal Integration Token"
+      "how_to_set": "notion.so/my-integrations → New integration → Copy Internal Integration Token"
     }
+  ],
+  "tools": [
+    {
+      "name": "search_pages",
+      "description": "Search across all Notion pages and databases accessible to the integration by title or content",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Text to search for in page and database titles"
+          },
+          "filter": {
+            "type": "object",
+            "description": "Filter by object type: page or database"
+          },
+          "page_size": {
+            "type": "number",
+            "description": "Number of results to return (max 100)"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_page",
+      "description": "Retrieve a Notion page's properties and metadata by its page ID",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "The Notion page ID (UUID format or from page URL)"
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      }
+    },
+    {
+      "name": "create_page",
+      "description": "Create a new Notion page inside a parent page or database with properties and content blocks",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "parent_id": {
+            "type": "string",
+            "description": "ID of the parent page or database to create the new page in"
+          },
+          "parent_type": {
+            "type": "string",
+            "description": "Parent type: page_id or database_id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the new page"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Database properties to set if parent is a database (key-value map)"
+          },
+          "children": {
+            "type": "array",
+            "description": "Array of Notion block objects to add as page content"
+          }
+        },
+        "required": [
+          "parent_id",
+          "parent_type",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "update_page",
+      "description": "Update properties of an existing Notion page such as title, status, date, or any database property",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "The Notion page ID to update"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Key-value map of page properties to update using Notion property format"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "Set to true to archive (soft-delete) the page"
+          }
+        },
+        "required": [
+          "page_id",
+          "properties"
+        ]
+      }
+    },
+    {
+      "name": "query_database",
+      "description": "Query a Notion database with filters and sorting to retrieve matching page entries",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "The Notion database ID to query"
+          },
+          "filter": {
+            "type": "object",
+            "description": "Notion filter object to narrow results (e.g. by property value)"
+          },
+          "sorts": {
+            "type": "array",
+            "description": "Array of sort objects specifying property name and direction"
+          },
+          "page_size": {
+            "type": "number",
+            "description": "Number of results to return per request (max 100)"
+          }
+        },
+        "required": [
+          "database_id"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "notion",
+    "docs",
+    "wiki",
+    "database",
+    "productivity"
   ]
 }

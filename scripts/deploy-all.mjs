@@ -110,27 +110,36 @@ async function deployHosted(slug, outFile) {
   return data;
 }
 
+async function publishMcp(id) {
+  const res = await fetch(`${API_BASE}/api/community/mcp/${id}/publish`, {
+    method: 'POST',
+    headers: { 'X-API-Key': API_KEY },
+  });
+  const data = await res.json().catch(() => ({}));
+  // 422 = quality rejected, still return data so caller can log reason
+  return { status: res.status, ...data };
+}
+
 async function registerProxy(proxy, readme) {
-  // POST /api/community/mcp — upsert by slug
   const body = {
-    name:         proxy.name,
-    slug:         `mcp-${proxy.id}`,
-    description:  proxy.description,
-    category:     proxy.category,
-    type:         'proxy',
-    external_url: proxy.proxy_url,
-    auth_type:    proxy.auth_type ?? 'bearer',
+    name:            proxy.name,
+    slug:            `mcp-${proxy.id}`,
+    description:     proxy.description,
+    category:        proxy.category,
+    type:            'proxy',
+    external_url:    proxy.proxy_url,
+    auth_type:       proxy.auth_type ?? 'bearer',
     auth_secret_key: proxy.env_vars?.[0]?.key ?? undefined,
-    ...(proxy.tags   && { tags: proxy.tags }),
+    version:         '1.0.0',
+    license:         'MIT',
+    ...(proxy.tools  && { tools: proxy.tools }),
+    ...(proxy.tags   && { tags:  proxy.tags }),
     ...(readme       && { readme }),
   };
 
   const res = await fetch(`${API_BASE}/api/community/mcp`, {
     method: 'POST',
-    headers: {
-      'X-API-Key': API_KEY,
-      'Content-Type': 'application/json',
-    },
+    headers: { 'X-API-Key': API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 
@@ -255,15 +264,25 @@ if (existsSync(proxyRoot)) {
       const proxyReadme = existsSync(join(proxyRoot, name, 'README.md'))
         ? readFileSync(join(proxyRoot, name, 'README.md'), 'utf8') : undefined;
 
-      process.stdout.write(`🔗 ${slug} — registering proxy...`);
+      process.stdout.write(`🔗 ${slug} — registering...`);
       try {
-        await registerProxy(proxy, proxyReadme);
+        const reg = await registerProxy(proxy, proxyReadme);
+        process.stdout.write(' → publishing...');
+
+        const pub = await publishMcp(reg.id);
         process.stdout.write('\n');
-        console.log(`✅ ${slug} → ${publicUrl(slug)}`);
+
+        if (pub.decision === 'auto_publish' || pub.status === 'published' || pub.error === 'Already published') {
+          console.log(`✅ ${slug} → ${publicUrl(slug)}`);
+        } else if (pub.decision === 'pending_review') {
+          console.log(`⏳ ${slug} → pending review (score: ${pub.score})`);
+        } else {
+          console.log(`⚠️  ${slug} → registered but publish returned: ${JSON.stringify(pub)}`);
+        }
         results.ok.push(slug);
       } catch (e) {
         process.stdout.write('\n');
-        console.error(`❌ ${slug} — register failed: ${e.message}`);
+        console.error(`❌ ${slug} — ${e.message}`);
         results.failed.push({ slug, reason: e.message });
       }
     }

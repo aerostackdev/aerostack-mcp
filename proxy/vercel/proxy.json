@@ -1,6 +1,6 @@
 {
   "id": "vercel",
-  "name": "Vercel",
+  "name": "Vercel Deployments",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.vercel.com",
@@ -13,7 +13,112 @@
       "required": true,
       "secret": true,
       "description": "Vercel Personal Access Token",
-      "how_to_set": "vercel.com/account/tokens \u2192 Create Token"
+      "how_to_set": "vercel.com/account/tokens → Create Token"
     }
+  ],
+  "tools": [
+    {
+      "name": "list_deployments",
+      "description": "List Vercel deployments for all projects or a specific project, with status and URL details",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Filter deployments by Vercel project ID or name"
+          },
+          "state": {
+            "type": "string",
+            "description": "Filter by deployment state: BUILDING, ERROR, INITIALIZING, QUEUED, READY, CANCELED"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of deployments to return (max 100)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_deployment",
+      "description": "Retrieve details of a specific Vercel deployment including build logs URL, status, and aliases",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deployment_id": {
+            "type": "string",
+            "description": "The Vercel deployment ID or URL to retrieve"
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      }
+    },
+    {
+      "name": "list_projects",
+      "description": "List all Vercel projects in the account or team with their framework, repo, and latest deployment info",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Filter projects by name using a search query"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of projects to return (max 100)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_project",
+      "description": "Get detailed information about a Vercel project including framework, git integration, and environment variables",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The Vercel project ID or name to retrieve"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "create_deployment",
+      "description": "Trigger a new Vercel deployment for a project from a git branch, commit, or uploaded files",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The Vercel project name to deploy"
+          },
+          "git_source": {
+            "type": "object",
+            "description": "Git source object with type (github/gitlab/bitbucket), ref (branch), and repoId"
+          },
+          "target": {
+            "type": "string",
+            "description": "Deployment target environment: production or preview"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "vercel",
+    "deployments",
+    "hosting",
+    "frontend",
+    "ci-cd"
   ]
 }

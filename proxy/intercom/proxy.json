@@ -1,6 +1,6 @@
 {
   "id": "intercom",
-  "name": "Intercom",
+  "name": "Intercom Messaging",
   "tier": "proxy",
   "status": "live",
   "proxy_url": "https://mcp.intercom.com/mcp",
@@ -13,7 +13,136 @@
       "required": true,
       "secret": true,
       "description": "Intercom Access Token",
-      "how_to_set": "app.intercom.com \u2192 Settings \u2192 Integrations \u2192 Developer Hub \u2192 New App \u2192 Authentication"
+      "how_to_set": "app.intercom.com → Settings → Integrations → Developer Hub → New App → Authentication"
     }
+  ],
+  "tools": [
+    {
+      "name": "list_conversations",
+      "description": "List Intercom conversations with optional filters for state, assignee, or date range",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "Filter by conversation state: open, closed, snoozed, or all"
+          },
+          "assignee_id": {
+            "type": "string",
+            "description": "Filter conversations assigned to a specific team member ID"
+          },
+          "per_page": {
+            "type": "number",
+            "description": "Number of conversations per page (max 150)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "reply_to_conversation",
+      "description": "Send a reply message to an Intercom conversation from a team member or bot",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "description": "The Intercom conversation ID to reply to"
+          },
+          "body": {
+            "type": "string",
+            "description": "The reply message text (supports HTML)"
+          },
+          "message_type": {
+            "type": "string",
+            "description": "Message type: comment or note (internal note only visible to team)"
+          },
+          "admin_id": {
+            "type": "string",
+            "description": "ID of the admin/team member sending the reply"
+          }
+        },
+        "required": [
+          "conversation_id",
+          "body",
+          "admin_id"
+        ]
+      }
+    },
+    {
+      "name": "create_contact",
+      "description": "Create a new Intercom contact (user or lead) with email, name, and custom attributes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Contact's email address"
+          },
+          "name": {
+            "type": "string",
+            "description": "Contact's full name"
+          },
+          "role": {
+            "type": "string",
+            "description": "Contact role: user or lead"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact's phone number"
+          },
+          "custom_attributes": {
+            "type": "object",
+            "description": "Key-value map of custom contact attributes"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      }
+    },
+    {
+      "name": "search_contacts",
+      "description": "Search Intercom contacts using query operators on email, name, or custom attributes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "object",
+            "description": "Intercom search query object with field, operator, and value"
+          },
+          "per_page": {
+            "type": "number",
+            "description": "Number of contacts per page (max 150)"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_contact",
+      "description": "Retrieve a single Intercom contact by ID with all attributes, tags, and conversation history",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "description": "The Intercom contact ID to retrieve"
+          }
+        },
+        "required": [
+          "contact_id"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "intercom",
+    "support",
+    "messaging",
+    "customers",
+    "chat"
   ]
 }
