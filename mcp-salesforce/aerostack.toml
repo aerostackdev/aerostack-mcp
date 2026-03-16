@@ -2,6 +2,7 @@ name = "mcp-salesforce"
 description = "Query leads, contacts, opportunities, and accounts in Salesforce — full SOQL support for enterprise CRM automation."
 category = "CRM"
 tags = ["crm", "salesforce", "leads", "opportunities", "enterprise"]
+env = ["SALESFORCE_ACCESS_TOKEN", "SALESFORCE_INSTANCE_URL"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -2,6 +2,7 @@ name = "mcp-telegram"
 description = "Send messages, manage groups, run polls, and moderate Telegram communities — full Bot API access for AI agents."
 category = "Messaging"
 tags = ["telegram", "messaging", "bots", "community", "notifications"]
+env = ["TELEGRAM_BOT_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

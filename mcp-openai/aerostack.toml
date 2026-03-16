@@ -2,6 +2,7 @@ name = "mcp-openai"
 description = "Run chat completions, generate embeddings, create images, and moderate content via the OpenAI API."
 category = "AI Platform"
 tags = ["ai", "llm", "openai", "gpt", "embeddings", "images"]
+env = ["OPENAI_API_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

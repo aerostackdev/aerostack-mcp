@@ -2,6 +2,7 @@ name = "mcp-pusher"
 description = "Trigger real-time events to browser and mobile clients, manage presence channels, and authenticate sockets via Pusher."
 category = "Real-time"
 tags = ["realtime", "websockets", "events", "channels", "pusher"]
+env = ["PUSHER_APP_ID", "PUSHER_KEY", "PUSHER_SECRET", "PUSHER_CLUSTER"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

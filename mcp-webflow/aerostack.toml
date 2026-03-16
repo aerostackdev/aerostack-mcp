@@ -2,6 +2,7 @@ name = "mcp-webflow"
 description = "Manage CMS collections, publish content, and control site deployments in Webflow — AI-powered web publishing."
 category = "CMS"
 tags = ["cms", "webflow", "website", "content", "publishing"]
+env = ["WEBFLOW_API_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

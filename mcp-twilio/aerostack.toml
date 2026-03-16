@@ -2,6 +2,7 @@ name = "mcp-twilio"
 description = "Send SMS, make calls, and manage phone numbers via Twilio — add programmable communications to any AI workflow."
 category = "Communication"
 tags = ["sms", "twilio", "phone", "communications", "voice"]
+env = ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

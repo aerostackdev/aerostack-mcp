@@ -2,6 +2,7 @@ name = "mcp-sendgrid"
 description = "Send emails at scale, manage dynamic templates, and track delivery stats via SendGrid's email infrastructure."
 category = "Email"
 tags = ["email", "sendgrid", "transactional", "marketing", "templates"]
+env = ["SENDGRID_API_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

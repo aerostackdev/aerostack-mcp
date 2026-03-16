@@ -2,6 +2,7 @@ name = "mcp-gmail"
 description = "Read, send, and search Gmail messages — manage labels, drafts, and attachments with full inbox control."
 category = "Email"
 tags = ["email", "gmail", "google", "inbox", "messaging"]
+env = ["GMAIL_ACCESS_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

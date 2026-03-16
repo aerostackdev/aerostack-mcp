@@ -2,6 +2,7 @@ name = "mcp-discord"
 description = "Read and send Discord messages, manage channels, roles, and members — automate your community from AI agents."
 category = "Communication"
 tags = ["discord", "messaging", "community", "channels"]
+env = ["DISCORD_BOT_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

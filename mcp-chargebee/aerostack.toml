@@ -2,6 +2,7 @@ name = "mcp-chargebee"
 description = "Manage subscriptions, billing cycles, invoices, and customer plans — bring AI to your recurring revenue operations."
 category = "Billing"
 tags = ["billing", "subscriptions", "payments", "saas", "revenue"]
+env = ["CHARGEBEE_API_KEY", "CHARGEBEE_SITE"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

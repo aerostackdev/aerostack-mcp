@@ -2,6 +2,7 @@ name = "mcp-freshdesk"
 description = "Create tickets, manage contacts, and resolve support issues faster — give your AI agents full Freshdesk access."
 category = "Customer Support"
 tags = ["support", "helpdesk", "tickets", "crm", "freshdesk"]
+env = ["FRESHDESK_API_KEY", "FRESHDESK_DOMAIN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

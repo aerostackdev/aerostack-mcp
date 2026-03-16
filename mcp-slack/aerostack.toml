@@ -2,6 +2,7 @@ name = "mcp-slack"
 description = "Send messages, search conversations, and manage channels in Slack — connect AI agents to your team workspace."
 category = "Communication"
 tags = ["slack", "messaging", "team", "channels", "notifications"]
+env = ["SLACK_BOT_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

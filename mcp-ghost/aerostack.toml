@@ -2,6 +2,7 @@ name = "mcp-ghost"
 description = "Publish posts, manage members, and control your Ghost content platform — AI-powered editorial workflows."
 category = "CMS"
 tags = ["cms", "blogging", "content", "publishing", "ghost"]
+env = ["GHOST_ADMIN_API_KEY", "GHOST_URL"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

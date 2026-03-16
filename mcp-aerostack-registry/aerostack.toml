@@ -2,6 +2,7 @@ name = "mcp-aerostack-registry"
 description = "Discover and invoke any MCP, Function, or Skill published to the Aerostack marketplace — the universal AI capability hub."
 category = "Developer Tools"
 tags = ["registry", "discovery", "marketplace", "aerostack"]
+env = ["AEROSTACK_API_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

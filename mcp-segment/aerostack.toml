@@ -2,6 +2,7 @@ name = "mcp-segment"
 description = "Send track, identify, group, and page events to Segment — unify your customer data pipeline with AI."
 category = "Analytics"
 tags = ["analytics", "cdp", "segment", "events", "tracking"]
+env = ["SEGMENT_WRITE_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

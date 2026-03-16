@@ -2,6 +2,7 @@ name = "mcp-zendesk"
 description = "Manage support tickets, users, and knowledge base articles in Zendesk — AI-powered customer service automation."
 category = "Customer Support"
 tags = ["support", "zendesk", "helpdesk", "tickets", "knowledge-base"]
+env = ["ZENDESK_SUBDOMAIN", "ZENDESK_EMAIL", "ZENDESK_API_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

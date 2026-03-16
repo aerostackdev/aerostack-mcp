@@ -2,6 +2,7 @@ name = "mcp-railway"
 description = "Deploy services, inspect logs, manage environments, and control your Railway infrastructure with AI."
 category = "DevOps"
 tags = ["devops", "deployment", "infrastructure", "railway", "hosting"]
+env = ["RAILWAY_API_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

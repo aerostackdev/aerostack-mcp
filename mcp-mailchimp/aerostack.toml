@@ -2,6 +2,7 @@ name = "mcp-mailchimp"
 description = "Manage audiences, campaigns, and subscriber tags in Mailchimp — automate your email marketing with AI."
 category = "Marketing"
 tags = ["email", "marketing", "campaigns", "audiences", "newsletters"]
+env = ["MAILCHIMP_API_KEY", "MAILCHIMP_SERVER_PREFIX"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

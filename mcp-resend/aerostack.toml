@@ -2,6 +2,7 @@ name = "mcp-resend"
 description = "Send transactional emails with developer-grade deliverability — manage domains, API keys, and sending stats via Resend."
 category = "Email"
 tags = ["email", "transactional", "resend", "smtp", "deliverability"]
+env = ["RESEND_API_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

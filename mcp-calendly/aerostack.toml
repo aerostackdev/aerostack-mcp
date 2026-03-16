@@ -2,6 +2,7 @@ name = "mcp-calendly"
 description = "Access scheduled events, invitee data, and availability windows from Calendly — automate your booking workflows."
 category = "Scheduling"
 tags = ["scheduling", "calendar", "bookings", "meetings"]
+env = ["CALENDLY_API_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

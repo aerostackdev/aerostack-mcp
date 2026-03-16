@@ -2,6 +2,7 @@ name = "mcp-anthropic"
 description = "Call Claude models directly — run AI conversations, tool-use chains, batch jobs, and model comparisons from any agent."
 category = "AI Platform"
 tags = ["ai", "llm", "claude", "anthropic", "completions"]
+env = ["ANTHROPIC_API_KEY"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
