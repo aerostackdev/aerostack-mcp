@@ -186,6 +186,12 @@ async function tg(method: string, token: string, params: Record<string, unknown>
 // ── Tool definitions ─────────────────────────────────────────────────────────
 
 const TOOLS = [
+    // Internal — credential validation
+    {
+        name: '_ping',
+        description: 'Verify bot token by calling getMe. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {} },
+    },
     // Group 1 — Bot Config
     {
         name: 'get_me',
@@ -621,6 +627,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            const data = await tg('getMe', token) as TelegramUser;
+            return { content: [{ type: 'text', text: `Connected to Telegram bot @${data.username ?? data.first_name} (ID: ${data.id})` }] };
+        }
 
         // ── Group 1: Bot Config ────────────────────────────────────────────
 

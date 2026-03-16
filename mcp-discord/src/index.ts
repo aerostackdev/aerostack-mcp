@@ -26,6 +26,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 }
 
 const TOOLS = [
+    // Internal — credential validation
+    {
+        name: '_ping',
+        description: 'Verify Discord bot token by calling /users/@me. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {} },
+    },
     // ── Group A: Discovery ──────────────────────────────────────────────────
     {
         name: 'get_bot_info',
@@ -385,6 +391,11 @@ async function discord(
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            const data = await discord('GET', '/users/@me', token) as any;
+            return { content: [{ type: 'text', text: `Connected to Discord bot "${data.username}#${data.discriminator}" (ID: ${data.id})` }] };
+        }
 
         // ── Discovery ──────────────────────────────────────────────────────
 

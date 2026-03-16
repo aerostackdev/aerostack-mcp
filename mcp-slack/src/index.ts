@@ -25,6 +25,11 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Slack bot token by calling auth.test. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+    },
+    {
         name: 'list_channels',
         description: 'List public and private channels in the Slack workspace',
         inputSchema: {
@@ -146,6 +151,12 @@ async function slack(method: string, token: string, params: Record<string, unkno
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await slack('auth.test', token) as any;
+            if (!data.ok) throw new Error(data.error || 'Auth failed');
+            return { content: [{ type: 'text', text: `Connected to Slack workspace "${data.team}" as @${data.user}` }] };
+        }
+
         case 'list_channels': {
             const data = await slack('conversations.list', token, {
                 limit: Math.min(Number(args.limit ?? 20), 200),

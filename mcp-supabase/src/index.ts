@@ -4,6 +4,11 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Supabase connectivity by querying the health endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+    },
+    {
         name: 'list_tables',
         description: 'List all tables in the Supabase database',
         inputSchema: { type: 'object', properties: {}, required: [] },
@@ -109,6 +114,14 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            // Simple health check — hit the PostgREST root to verify URL + key
+            const res = await fetch(`${supabaseUrl}/rest/v1/`, { headers: { ...hdrs, 'Accept': 'application/json' } });
+            if (!res.ok) throw new Error(`Supabase returned ${res.status}: ${await res.text()}`);
+            const host = new URL(supabaseUrl).hostname.split('.')[0];
+            return text(`Connected to Supabase project "${host}"`);
+        }
+
         case 'list_tables': {
             // Use the PostgREST introspection endpoint
             const res = await fetch(`${base}/rest/v1/`, { headers });

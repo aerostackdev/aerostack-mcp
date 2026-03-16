@@ -28,6 +28,11 @@ function json(data: unknown) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify database connectivity by running SELECT 1. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+    },
+    {
         name: 'list_tables',
         description: 'List all user tables in the Neon PostgreSQL database with their column names and types',
         inputSchema: { type: 'object', properties: {}, required: [] },
@@ -177,6 +182,12 @@ function buildUpdate(table: string, values: Record<string, unknown>, where: stri
 
 async function callTool(name: string, args: Record<string, unknown>, dbUrl: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const { rows } = await neonQuery(dbUrl, 'SELECT 1 AS ok');
+            const { host, database } = parseDbUrl(dbUrl);
+            return text(`Connected to Neon database "${database}" on ${host}`);
+        }
+
         case 'list_tables': {
             const { rows } = await neonQuery(dbUrl, `
                 SELECT
