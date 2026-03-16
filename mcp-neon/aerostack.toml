@@ -1,0 +1,7 @@
+name = "mcp-neon"
+description = "Query and write to your Neon serverless PostgreSQL database — select, insert, update, delete, and run raw SQL from any AI agent."
+category = "Database"
+tags = ["database", "postgres", "postgresql", "neon", "sql", "serverless"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
