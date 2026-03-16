@@ -1,14 +1,12 @@
 /**
  * Neon MCP Worker
  * Implements MCP protocol over HTTP for Neon serverless PostgreSQL.
- * Uses Neon's native HTTP SQL API — pure fetch(), no npm deps.
  *
  * Secret: DATABASE_URL → header: X-Mcp-Secret-DATABASE-URL
  * Format: postgresql://user:pass@host.neon.tech/dbname?sslmode=require
- *
- * Neon HTTP SQL API: POST https://<host>/sql/v1
- * Docs: https://neon.tech/docs/serverless/serverless-driver
  */
+
+import { neon } from '@neondatabase/serverless';
 
 function rpcOk(id: unknown, result: unknown) {
     return Response.json({ jsonrpc: '2.0', id, result });
@@ -114,36 +112,18 @@ const TOOLS = [
 
 /** Parse a Postgres connection string into its components */
 function parseDbUrl(databaseUrl: string) {
-    const url = new URL(databaseUrl);
+    const url = new URL(databaseUrl.replace(/^postgres(ql)?:\/\//, 'https://'));
     return {
         host: url.hostname,
-        user: decodeURIComponent(url.username),
-        password: decodeURIComponent(url.password),
         database: url.pathname.replace(/^\//, ''),
     };
 }
 
-/** Execute a parameterized SQL query via Neon's HTTP API */
+/** Execute a SQL query via @neondatabase/serverless driver */
 async function neonQuery(databaseUrl: string, query: string, params: unknown[] = []): Promise<{ rows: Record<string, unknown>[]; rowCount: number }> {
-    const { host } = parseDbUrl(databaseUrl);
-    const endpoint = `https://${host}/sql`;
-
-    const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Neon-Connection-String': databaseUrl,
-        },
-        body: JSON.stringify({ query, params }),
-    });
-
-    if (!res.ok) {
-        const err = await res.text();
-        throw new Error(`Neon SQL error (${res.status}): ${err}`);
-    }
-
-    const data = await res.json() as { rows?: Record<string, unknown>[]; rowCount?: number };
-    return { rows: data.rows ?? [], rowCount: data.rowCount ?? 0 };
+    const sql = neon(databaseUrl, { fullResults: true });
+    const result = await sql.query(query, params) as any;
+    return { rows: result.rows ?? [], rowCount: result.rowCount ?? 0 };
 }
 
 /** Build a parameterized INSERT statement from row objects */
@@ -181,7 +161,7 @@ function buildUpdate(table: string, values: Record<string, unknown>, where: stri
 async function callTool(name: string, args: Record<string, unknown>, dbUrl: string): Promise<unknown> {
     switch (name) {
         case '_ping': {
-            const { rows } = await neonQuery(dbUrl, 'SELECT 1 AS ok');
+            await neonQuery(dbUrl, 'SELECT 1 AS ok');
             const { host, database } = parseDbUrl(dbUrl);
             return text(`Connected to Neon database "${database}" on ${host}`);
         }
