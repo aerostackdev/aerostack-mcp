@@ -209,6 +209,7 @@ if (!PROXIES_ONLY || HOSTED_ONLY) {
         ...(toml.description && { description: toml.description }),
         ...(toml.category    && { category:    toml.category }),
         ...(toml.tags        && { tags:        toml.tags }),
+        ...(toml.env         && { config_schema: { env: toml.env } }),
         ...(readme           && { readme }),
       });
 
