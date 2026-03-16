@@ -126,7 +126,7 @@ function parseDbUrl(databaseUrl: string) {
 /** Execute a parameterized SQL query via Neon's HTTP API */
 async function neonQuery(databaseUrl: string, query: string, params: unknown[] = []): Promise<{ rows: Record<string, unknown>[]; rowCount: number }> {
     const { host, user, password } = parseDbUrl(databaseUrl);
-    const endpoint = `https://${host}/sql/v1`;
+    const endpoint = `https://${host}/sql`;
     const auth = btoa(`${user}:${password}`);
 
     const res = await fetch(endpoint, {
