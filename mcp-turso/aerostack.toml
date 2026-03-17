@@ -1,0 +1,8 @@
+name = "mcp-turso"
+description = "Execute SQL queries, manage tables, and interact with your Turso (LibSQL) edge database — AI-native SQLite at the edge."
+category = "Database"
+tags = ["database", "turso", "libsql", "sqlite", "edge", "sql"]
+env = ["TURSO_DATABASE_URL", "TURSO_AUTH_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

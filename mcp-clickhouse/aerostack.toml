@@ -1,0 +1,8 @@
+name = "mcp-clickhouse"
+description = "Execute SQL queries, explore schemas, and analyze data in your ClickHouse database — AI-native analytics database access."
+category = "Database"
+tags = ["database", "clickhouse", "analytics", "sql", "olap", "columnar"]
+env = ["CLICKHOUSE_URL", "CLICKHOUSE_USER", "CLICKHOUSE_PASSWORD"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

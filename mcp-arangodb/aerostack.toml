@@ -1,0 +1,8 @@
+name = "mcp-arangodb"
+description = "Query documents, run AQL, traverse graphs, and manage collections in your ArangoDB database — AI-native multi-model database access."
+category = "Database"
+tags = ["database", "arangodb", "graph", "document", "nosql", "aql"]
+env = ["ARANGODB_URL", "ARANGODB_USERNAME", "ARANGODB_PASSWORD"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

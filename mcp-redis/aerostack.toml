@@ -1,0 +1,8 @@
+name = "mcp-redis"
+description = "Get, set, and manage keys, hashes, and lists in your Upstash Redis database — AI-native key-value store access."
+category = "Database"
+tags = ["database", "redis", "cache", "key-value", "upstash"]
+env = ["UPSTASH_REDIS_URL", "UPSTASH_REDIS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

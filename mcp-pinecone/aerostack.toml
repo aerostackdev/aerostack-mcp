@@ -1,0 +1,8 @@
+name = "mcp-pinecone"
+description = "Query, upsert, and manage vectors in your Pinecone indexes — AI-native vector database access for semantic search and RAG."
+category = "Database"
+tags = ["database", "pinecone", "vector", "embeddings", "search", "rag"]
+env = ["PINECONE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-elasticsearch"
+description = "Search, index, and manage documents in your Elasticsearch cluster — AI-native full-text search and analytics."
+category = "Database"
+tags = ["database", "elasticsearch", "search", "full-text", "analytics", "elastic"]
+env = ["ELASTICSEARCH_URL", "ELASTICSEARCH_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
