@@ -9,7 +9,7 @@
   "description": "GitHub repos, PRs, issues, branches, code search via GitHub's official hosted MCP",
   "env_vars": [
     {
-      "key": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "key": "GITHUB_TOKEN",
       "required": true,
       "secret": true,
       "description": "GitHub Personal Access Token with required scopes",
