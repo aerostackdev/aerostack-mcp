@@ -1,0 +1,8 @@
+name = "mcp-rss"
+description = "Read and monitor RSS/Atom feeds — get latest articles, blog posts, and news from any website with a feed."
+category = "Data"
+tags = ["rss", "atom", "feed", "blog", "news", "content"]
+env = []
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
