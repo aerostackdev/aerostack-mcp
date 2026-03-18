@@ -1,0 +1,8 @@
+name = "mcp-ocoya"
+description = "Schedule and manage social media posts across all platforms — Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, YouTube — powered by Ocoya."
+category = "Social Media"
+tags = ["social-media", "scheduling", "ocoya", "posting", "marketing"]
+env = ["OCOYA_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
