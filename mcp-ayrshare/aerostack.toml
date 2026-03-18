@@ -1,0 +1,8 @@
+name = "mcp-ayrshare"
+description = "Post, schedule, and analyze social media across 13 platforms — Facebook, Instagram, X, LinkedIn, TikTok, Bluesky, Threads, Reddit, Pinterest, YouTube, Telegram, Snapchat, Google Business."
+category = "Social Media"
+tags = ["social-media", "ayrshare", "posting", "scheduling", "analytics", "multi-platform"]
+env = ["AYRSHARE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-typefully"
+description = "Write, schedule, and manage social media drafts across X/Twitter, LinkedIn, Threads, Bluesky, and Mastodon — with queue management and analytics."
+category = "Social Media"
+tags = ["social-media", "typefully", "twitter", "linkedin", "threads", "bluesky", "scheduling"]
+env = ["TYPEFULLY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
