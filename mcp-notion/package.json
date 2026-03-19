@@ -1,0 +1,17 @@
+{
+  "name": "aerostack-mcp-notion",
+  "description": "MCP server for Notion — full read/write access to pages, databases, and blocks with simple API key auth",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "aerostack dev",
+    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
+    "deploy": "aerostack deploy mcp notion",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.0"
+  }
+}

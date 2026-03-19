@@ -1,0 +1,8 @@
+name = "mcp-notion"
+description = "Full read/write access to Notion pages, databases, and blocks using a simple API key — no OAuth required. Search, query, create, update, and read content."
+category = "Productivity"
+tags = ["notion", "productivity", "databases", "pages", "content", "wiki", "knowledge-base"]
+env = ["NOTION_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
