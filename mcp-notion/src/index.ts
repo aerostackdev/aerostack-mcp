@@ -466,7 +466,7 @@ export default {
 			const toolName = params?.name;
 			const toolArgs = params?.arguments ?? {};
 
-			const apiKey = request.headers.get('X-Mcp-Secret-NOTION-API-KEY') || request.headers.get('X-Mcp-Secret-NOTION_API_KEY');
+			const apiKey = request.headers.get('X-Mcp-Secret-NOTION_API_KEY');
 			if (!apiKey) {
 				return rpcErr(id, -32001, 'Missing NOTION_API_KEY secret. Add your Notion integration token in the dashboard. Get one at notion.so/my-integrations');
 			}
