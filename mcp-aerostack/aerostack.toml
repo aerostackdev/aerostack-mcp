@@ -1,0 +1,8 @@
+name = "mcp-aerostack"
+description = "Build bots, workflows, AI endpoints, and custom functions — guided by AI. Create complex integrations with Cache, AI, Queue, Vector Search, Database, and Storage."
+category = "Developer Tools"
+tags = ["aerostack", "developer", "bots", "workflows", "functions", "ai-endpoints"]
+env = ["AEROSTACK_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
