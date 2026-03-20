@@ -732,7 +732,7 @@ export default {
       // API URL: default to production, allow override
       const apiUrl =
         request.headers.get("X-Mcp-Secret-AEROSTACK-API-URL") ??
-        "https://aerostack-api-prod.nyburs.workers.dev";
+        "https://api.aerostack.dev";
 
       const api = new AerostackAPI(apiKey, apiUrl);
 
