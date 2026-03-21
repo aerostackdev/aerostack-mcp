@@ -196,7 +196,10 @@ async function callTool(name: string, args: Record<string, unknown>, dbUrl: stri
         }
 
         case 'insert': {
-            const rows = args.rows as Record<string, unknown>[];
+            // Auto-wrap single object into array (LLMs often send {..} instead of [{..}])
+            const rawRows = args.rows;
+            const rows: Record<string, unknown>[] = Array.isArray(rawRows)
+                ? rawRows : (rawRows && typeof rawRows === 'object' ? [rawRows as Record<string, unknown>] : []);
             if (!rows.length) throw new Error('rows array is empty');
             const { query, params } = buildInsert(args.table as string, rows);
             const { rows: inserted } = await neonQuery(dbUrl, query, params);

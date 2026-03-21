@@ -12,8 +12,8 @@
       "key": "SENTRY_AUTH_TOKEN",
       "required": true,
       "secret": true,
-      "description": "Sentry User Auth Token",
-      "how_to_set": "sentry.io → Settings → Auth Tokens → Create New Token"
+      "description": "Sentry OAuth Access Token (NOT user auth token)",
+      "how_to_set": "Sentry's MCP endpoint requires an OAuth token. Regular auth tokens will NOT work. Create an OAuth application at sentry.io/settings/developer-settings, complete the OAuth flow, then paste the access token. See: docs.sentry.io/api/guides/create-auth-token"
     },
     {
       "key": "SENTRY_ORG_SLUG",

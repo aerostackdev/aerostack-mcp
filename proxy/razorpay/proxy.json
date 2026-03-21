@@ -12,8 +12,8 @@
       "key": "RAZORPAY_KEY_ID",
       "required": true,
       "secret": false,
-      "description": "Razorpay Key ID",
-      "how_to_set": "dashboard.razorpay.com → Settings → API Keys → Generate Test/Live Key"
+      "description": "Razorpay OAuth Access Token or Key ID",
+      "how_to_set": "Razorpay's MCP endpoint may require an OAuth token. If API keys don't work, create an OAuth application at dashboard.razorpay.com/app/website-app-settings/api-keys. See: razorpay.com/docs/payments/server-integration/oauth"
     },
     {
       "key": "RAZORPAY_KEY_SECRET",

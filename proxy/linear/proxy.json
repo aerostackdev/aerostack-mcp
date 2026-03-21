@@ -12,8 +12,8 @@
       "key": "LINEAR_API_KEY",
       "required": true,
       "secret": true,
-      "description": "Linear Personal API Key",
-      "how_to_set": "linear.app → Settings → API → Personal API Keys → Create key"
+      "description": "Linear OAuth Access Token (NOT personal API key)",
+      "how_to_set": "Linear's MCP endpoint requires an OAuth token. Personal API keys will NOT work. Create an OAuth2 application at linear.app/settings/api/applications, complete the OAuth flow, then paste the access token. See: developers.linear.app/docs/oauth/authentication"
     }
   ],
   "tools": [

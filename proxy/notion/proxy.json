@@ -12,8 +12,8 @@
       "key": "NOTION_API_KEY",
       "required": true,
       "secret": true,
-      "description": "Notion Integration Token",
-      "how_to_set": "notion.so/my-integrations → New integration → Copy Internal Integration Token"
+      "description": "Notion OAuth Token (NOT internal integration token)",
+      "how_to_set": "Notion's MCP endpoint requires an OAuth token. Internal integration tokens (ntn_...) will NOT work. To get an OAuth token: 1) Create a public integration at notion.so/my-integrations 2) Set OAuth redirect URL 3) Complete the OAuth flow to get an access token. See: developers.notion.com/docs/authorization"
     }
   ],
   "tools": [

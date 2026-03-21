@@ -12,8 +12,8 @@
       "key": "PAYPAL_ACCESS_TOKEN",
       "required": true,
       "secret": true,
-      "description": "PayPal REST API Access Token",
-      "how_to_set": "developer.paypal.com → My Apps → Create App → Copy Client ID + Secret, then get access token via OAuth"
+      "description": "PayPal OAuth Access Token",
+      "how_to_set": "PayPal's MCP requires an OAuth access token. Steps: 1) Go to developer.paypal.com → My Apps → Create App 2) Copy Client ID + Secret 3) Get access token: curl -X POST https://api-m.paypal.com/v1/oauth2/token -u 'CLIENT_ID:SECRET' -d 'grant_type=client_credentials' 4) Paste the access_token here. See: developer.paypal.com/api/rest/authentication"
     }
   ],
   "tools": [
