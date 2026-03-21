@@ -1,8 +1,0 @@
-name = "mcp-aerostack"
-description = "Build and deploy AI bots, workflows, endpoints, and edge functions using natural language — your AI coding agent becomes a full-stack Aerostack developer."
-category = "Developer Tools"
-tags = ["aerostack", "bots", "workflows", "ai-endpoints", "functions", "developer", "automation", "telegram", "discord", "whatsapp", "slack", "no-code"]
-env = ["AEROSTACK_API_KEY"]
-main = "src/index.ts"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]
