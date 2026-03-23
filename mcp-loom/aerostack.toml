@@ -1,0 +1,8 @@
+name = "mcp-loom"
+description = "List, search, and manage Loom video recordings — get transcripts, embed URLs, and video analytics from any agent."
+category = "Communication"
+tags = ["loom", "video", "recording", "async", "messaging", "screen-recording"]
+env = ["LOOM_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

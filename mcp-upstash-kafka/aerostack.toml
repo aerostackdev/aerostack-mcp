@@ -1,0 +1,8 @@
+name = "mcp-upstash-kafka"
+description = "Produce and consume messages, manage topics, and inspect stats on Upstash serverless Kafka via the REST API."
+category = "Messaging"
+tags = ["upstash", "kafka", "messaging", "events", "streaming", "serverless"]
+env = ["UPSTASH_KAFKA_REST_URL", "UPSTASH_KAFKA_REST_USERNAME", "UPSTASH_KAFKA_REST_PASSWORD"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

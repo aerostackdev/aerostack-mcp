@@ -1,0 +1,8 @@
+name = "mcp-terraform"
+description = "Manage Terraform Cloud workspaces, runs, state, and variables — AI-driven infrastructure as code operations."
+category = "DevOps"
+tags = ["terraform", "iac", "infrastructure", "hashicorp", "devops", "cloud"]
+env = ["TERRAFORM_API_TOKEN", "TERRAFORM_ORG"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-ahrefs"
+description = "Analyze domains, backlinks, keywords, organic traffic, and competitor data via Ahrefs — AI-native SEO intelligence."
+category = "Marketing"
+tags = ["ahrefs", "seo", "backlinks", "keywords", "domain-rating", "marketing"]
+env = ["AHREFS_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

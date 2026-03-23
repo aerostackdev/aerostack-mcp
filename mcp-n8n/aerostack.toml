@@ -1,0 +1,8 @@
+name = "mcp-n8n"
+description = "List, trigger, and manage n8n workflows — execute automations, check execution status, and manage credentials from any agent."
+category = "Automation"
+tags = ["n8n", "workflow", "automation", "integrations", "no-code", "triggers"]
+env = ["N8N_API_URL", "N8N_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

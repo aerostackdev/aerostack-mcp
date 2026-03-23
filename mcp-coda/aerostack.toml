@@ -1,0 +1,8 @@
+name = "mcp-coda"
+description = "Access docs, tables, rows, formulas, and automations in Coda — AI-native doc-database hybrid for any agent."
+category = "Productivity"
+tags = ["coda", "documents", "tables", "automation", "productivity", "collaborative"]
+env = ["CODA_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-circleci"
+description = "Monitor pipelines, trigger builds, and manage workflows in CircleCI — give AI agents full CI/CD visibility."
+category = "DevOps"
+tags = ["circleci", "ci-cd", "pipelines", "builds", "testing", "devops"]
+env = ["CIRCLECI_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
