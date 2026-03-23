@@ -1,0 +1,18 @@
+{
+  "name": "aerostack-mcp-plaid",
+  "description": "MCP server for Plaid — access bank accounts, transactions, balances, and institutions from AI agents",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "aerostack dev",
+    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
+    "deploy": "aerostack deploy mcp plaid",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.0"
+  },
+  "dependencies": {}
+}

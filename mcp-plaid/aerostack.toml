@@ -1,0 +1,8 @@
+name = "mcp-plaid"
+description = "Access bank accounts, transactions, balances, institution search, and identity data via Plaid — AI-native financial data access."
+category = "Payments"
+tags = ["plaid", "banking", "finance", "transactions", "accounts", "fintech"]
+env = ["PLAID_CLIENT_ID", "PLAID_SECRET", "PLAID_ENV"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
