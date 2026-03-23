@@ -1,0 +1,137 @@
+{
+  "id": "box",
+  "name": "Box Content Management",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.box.com/mcp",
+  "auth_type": "bearer",
+  "category": "Storage",
+  "description": "Files, folders, search, metadata, sharing, comments, collaborations via Box's official MCP",
+  "env_vars": [
+    {
+      "key": "BOX_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Box OAuth2 Access Token or Developer Token for API access",
+      "how_to_set": "app.box.com/developers/console → My Apps → your app → Configuration → Developer Token → Generate. For production, use OAuth2 flow: developer.box.com/guides/authentication/oauth2"
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_content",
+      "description": "Search for files, folders, and web links across all accessible Box content by keyword, type, or metadata",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query string to match against file names and content"
+          },
+          "type": {
+            "type": "string",
+            "description": "Filter by item type: file, folder, or web_link"
+          },
+          "file_extensions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Filter by file extensions (e.g. ['pdf', 'docx'])"
+          },
+          "ancestor_folder_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Limit search to specific folder IDs and their subfolders"
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "list_folder_items",
+      "description": "List all files and subfolders within a Box folder with name, size, modified date, and permissions",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "folder_id": {
+            "type": "string",
+            "description": "The Box folder ID (use '0' for the root folder)"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of items to return (default 100, max 1000)"
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sort field: name, date, or size"
+          }
+        },
+        "required": ["folder_id"]
+      }
+    },
+    {
+      "name": "get_file_info",
+      "description": "Retrieve detailed metadata for a file including size, versions, tags, shared links, and collaborations",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The Box file ID to retrieve information for"
+          }
+        },
+        "required": ["file_id"]
+      }
+    },
+    {
+      "name": "create_shared_link",
+      "description": "Create or update a shared link for a file or folder with access level, password, and expiration settings",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "description": "The file or folder ID to create the shared link for"
+          },
+          "item_type": {
+            "type": "string",
+            "description": "Type of item: file or folder"
+          },
+          "access": {
+            "type": "string",
+            "description": "Access level: open, company, or collaborators"
+          },
+          "password": {
+            "type": "string",
+            "description": "Optional password to protect the shared link"
+          }
+        },
+        "required": ["item_id", "item_type"]
+      }
+    },
+    {
+      "name": "add_comment",
+      "description": "Add a comment to a Box file, optionally tagging users with @mentions",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "description": "The file ID to add the comment to"
+          },
+          "message": {
+            "type": "string",
+            "description": "Comment text (supports @[user_id:name] mentions)"
+          }
+        },
+        "required": ["file_id", "message"]
+      }
+    }
+  ],
+  "tags": [
+    "box",
+    "storage",
+    "files",
+    "enterprise",
+    "collaboration",
+    "content"
+  ]
+}

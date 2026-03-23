@@ -1,0 +1,134 @@
+{
+  "id": "monday",
+  "name": "Monday.com Work Management",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.monday.com/mcp",
+  "auth_type": "bearer",
+  "category": "Productivity",
+  "description": "Boards, items, columns, groups, updates, subitems, workspaces via Monday.com's official MCP",
+  "env_vars": [
+    {
+      "key": "MONDAY_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Monday.com API Token (personal or OAuth2 access token)",
+      "how_to_set": "monday.com → Avatar (bottom-left) → Developers → My access tokens → Show. Requires the Monday MCP app installed by a workspace admin."
+    }
+  ],
+  "tools": [
+    {
+      "name": "list_boards",
+      "description": "List all accessible Monday.com boards with name, columns, groups, and board metadata",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workspace_id": {
+            "type": "number",
+            "description": "Filter boards by workspace ID"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of boards to return (default 25)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_board_items",
+      "description": "Retrieve all items (rows) from a specific board with column values, subitems, and updates",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "board_id": {
+            "type": "number",
+            "description": "The ID of the Monday.com board"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of items to return (default 50)"
+          },
+          "group_id": {
+            "type": "string",
+            "description": "Filter items by group ID within the board"
+          }
+        },
+        "required": ["board_id"]
+      }
+    },
+    {
+      "name": "create_item",
+      "description": "Create a new item (row) on a Monday.com board with column values and optional group assignment",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "board_id": {
+            "type": "number",
+            "description": "The ID of the board to create the item on"
+          },
+          "item_name": {
+            "type": "string",
+            "description": "Name of the new item"
+          },
+          "group_id": {
+            "type": "string",
+            "description": "Group ID to place the item in"
+          },
+          "column_values": {
+            "type": "object",
+            "description": "JSON object mapping column IDs to their values"
+          }
+        },
+        "required": ["board_id", "item_name"]
+      }
+    },
+    {
+      "name": "update_item",
+      "description": "Update column values of an existing item on a Monday.com board",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "board_id": {
+            "type": "number",
+            "description": "The ID of the board containing the item"
+          },
+          "item_id": {
+            "type": "number",
+            "description": "The ID of the item to update"
+          },
+          "column_values": {
+            "type": "object",
+            "description": "JSON object mapping column IDs to new values"
+          }
+        },
+        "required": ["board_id", "item_id", "column_values"]
+      }
+    },
+    {
+      "name": "create_update",
+      "description": "Post an update (comment) on a Monday.com item with rich text body",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "number",
+            "description": "The ID of the item to post the update on"
+          },
+          "body": {
+            "type": "string",
+            "description": "The text content of the update (supports HTML)"
+          }
+        },
+        "required": ["item_id", "body"]
+      }
+    }
+  ],
+  "tags": [
+    "monday",
+    "work-management",
+    "boards",
+    "project-management",
+    "productivity"
+  ]
+}

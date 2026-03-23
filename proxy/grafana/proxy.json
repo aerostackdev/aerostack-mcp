@@ -1,0 +1,135 @@
+{
+  "id": "grafana",
+  "name": "Grafana Cloud Observability",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.grafana.com/mcp",
+  "auth_type": "bearer",
+  "category": "Observability",
+  "description": "Dashboards, alerting, Loki logs, Tempo traces, Prometheus metrics via Grafana's official MCP",
+  "env_vars": [
+    {
+      "key": "GRAFANA_API_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Grafana Cloud API Token or Service Account Token with appropriate permissions",
+      "how_to_set": "grafana.com → My Account → Access Policies → Create token. Or: your-instance.grafana.net → Administration → Service accounts → Add token"
+    }
+  ],
+  "tools": [
+    {
+      "name": "list_dashboards",
+      "description": "List all Grafana dashboards with title, folder, tags, and URL for quick navigation",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search dashboards by title substring"
+          },
+          "tag": {
+            "type": "string",
+            "description": "Filter dashboards by tag"
+          },
+          "folder_id": {
+            "type": "number",
+            "description": "Filter dashboards by folder ID"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_dashboard",
+      "description": "Retrieve a specific dashboard by UID with all panels, variables, annotations, and data source configuration",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "The unique identifier of the dashboard"
+          }
+        },
+        "required": ["uid"]
+      }
+    },
+    {
+      "name": "query_loki_logs",
+      "description": "Query logs from Grafana Loki using LogQL with label and line filters, aggregations, and time ranges",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "LogQL query string (e.g. '{app=\"nginx\"} |= \"error\"')"
+          },
+          "start": {
+            "type": "string",
+            "description": "Start time as ISO 8601 timestamp or relative (e.g. 'now-1h')"
+          },
+          "end": {
+            "type": "string",
+            "description": "End time as ISO 8601 timestamp"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of log lines to return (default 100)"
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "list_alerts",
+      "description": "List all Grafana alerting rules with status, labels, evaluation interval, and notification channels",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "Filter by alert state: alerting, pending, normal, nodata, error"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "query_prometheus",
+      "description": "Execute PromQL queries against Grafana's Prometheus-compatible data sources for metric analysis",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "PromQL query string (e.g. 'rate(http_requests_total[5m])')"
+          },
+          "time": {
+            "type": "string",
+            "description": "Evaluation timestamp as ISO 8601 or Unix epoch"
+          },
+          "start": {
+            "type": "string",
+            "description": "Range query start time"
+          },
+          "end": {
+            "type": "string",
+            "description": "Range query end time"
+          },
+          "step": {
+            "type": "string",
+            "description": "Query resolution step width (e.g. '15s', '1m', '5m')"
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  ],
+  "tags": [
+    "grafana",
+    "observability",
+    "dashboards",
+    "logs",
+    "metrics",
+    "alerting"
+  ]
+}

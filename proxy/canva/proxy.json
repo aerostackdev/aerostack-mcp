@@ -1,0 +1,119 @@
+{
+  "id": "canva",
+  "name": "Canva Design Platform",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.canva.com/mcp",
+  "auth_type": "bearer",
+  "category": "Design",
+  "description": "Design creation, AI generation, editing, export, assets, brand kits, folders via Canva's official MCP",
+  "env_vars": [
+    {
+      "key": "CANVA_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Canva Connect API OAuth2 Access Token with design scope permissions",
+      "how_to_set": "canva.dev/console → Create integration → Configure OAuth scopes → Authenticate via OAuth flow → Copy access token. See: canva.dev/docs/connect/mcp-server"
+    }
+  ],
+  "tools": [
+    {
+      "name": "generate_design",
+      "description": "Generate a new Canva design using AI from a text prompt with optional size, style, and template preferences",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Natural language description of the design to generate (e.g. 'A modern social media banner for a tech startup')"
+          },
+          "design_type": {
+            "type": "string",
+            "description": "Type of design: presentation, social_media, poster, logo, banner, invitation, flyer, infographic"
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "search_designs",
+      "description": "Search your Canva designs by name, type, or keyword with sort and pagination options",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query to match against design names and tags"
+          },
+          "design_type": {
+            "type": "string",
+            "description": "Filter by design type"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of designs to return (default 20)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "export_design",
+      "description": "Export a Canva design to PNG, JPG, PDF, SVG, MP4, or GIF format with quality and page selection options",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "design_id": {
+            "type": "string",
+            "description": "The Canva design ID to export"
+          },
+          "format": {
+            "type": "string",
+            "description": "Export format: png, jpg, pdf, svg, mp4, gif"
+          },
+          "quality": {
+            "type": "string",
+            "description": "Export quality: regular or high (PNG/JPG only)"
+          },
+          "pages": {
+            "type": "array",
+            "items": { "type": "number" },
+            "description": "Array of page numbers to export (1-indexed). Omit for all pages."
+          }
+        },
+        "required": ["design_id", "format"]
+      }
+    },
+    {
+      "name": "list_brand_kits",
+      "description": "List your Canva brand kits with logos, colors, fonts, and brand guidelines",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "get_design",
+      "description": "Retrieve design details including thumbnail, page count, owner, creation date, and edit URL",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "design_id": {
+            "type": "string",
+            "description": "The Canva design ID to retrieve"
+          }
+        },
+        "required": ["design_id"]
+      }
+    }
+  ],
+  "tags": [
+    "canva",
+    "design",
+    "graphics",
+    "ai-generation",
+    "branding",
+    "export"
+  ]
+}

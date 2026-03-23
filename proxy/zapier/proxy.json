@@ -1,0 +1,105 @@
+{
+  "id": "zapier",
+  "name": "Zapier Automation",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.zapier.com/mcp",
+  "auth_type": "bearer",
+  "category": "Automation",
+  "description": "8,000+ app integrations, trigger Zaps, run actions across Gmail, Slack, Sheets, HubSpot via Zapier's official MCP",
+  "env_vars": [
+    {
+      "key": "ZAPIER_MCP_API_KEY",
+      "required": true,
+      "secret": true,
+      "description": "Zapier MCP API Key (generated after connecting apps in Zapier's MCP setup)",
+      "how_to_set": "zapier.com/mcp → Sign in → Connect the apps you want to use → Copy the API key from the setup page"
+    }
+  ],
+  "tools": [
+    {
+      "name": "list_available_actions",
+      "description": "List all available actions across your connected Zapier apps. Each action represents something you can do in a connected service.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "run_action",
+      "description": "Execute an action in a connected app (e.g. send a Slack message, create a Google Sheet row, add a HubSpot contact). Each call counts as 2 Zapier tasks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "type": "string",
+            "description": "The ID of the Zapier action to execute (from list_available_actions)"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "Natural language instructions describing what to do (Zapier's AI maps this to the action parameters)"
+          },
+          "params": {
+            "type": "object",
+            "description": "Explicit key-value parameters for the action (alternative to natural language instructions)"
+          }
+        },
+        "required": ["action_id"]
+      }
+    },
+    {
+      "name": "get_action_details",
+      "description": "Get full details about a specific Zapier action including required parameters, available fields, and example values",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "type": "string",
+            "description": "The ID of the action to get details for"
+          }
+        },
+        "required": ["action_id"]
+      }
+    },
+    {
+      "name": "list_zaps",
+      "description": "List your Zapier Zaps (automated workflows) with status, trigger app, action apps, and last run time",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Filter by Zap status: on, off, or draft"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "toggle_zap",
+      "description": "Turn a Zap on or off by ID to enable or disable an automated workflow",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "zap_id": {
+            "type": "string",
+            "description": "The ID of the Zap to toggle"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Set to true to turn on, false to turn off"
+          }
+        },
+        "required": ["zap_id", "enabled"]
+      }
+    }
+  ],
+  "tags": [
+    "zapier",
+    "automation",
+    "integrations",
+    "workflows",
+    "no-code"
+  ]
+}

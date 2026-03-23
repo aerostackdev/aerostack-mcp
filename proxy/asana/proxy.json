@@ -1,0 +1,147 @@
+{
+  "id": "asana",
+  "name": "Asana Project Management",
+  "tier": "proxy",
+  "status": "live",
+  "proxy_url": "https://mcp.asana.com/v2/mcp",
+  "auth_type": "bearer",
+  "category": "Productivity",
+  "description": "Tasks, projects, sections, comments, teams, custom fields via Asana's official MCP",
+  "env_vars": [
+    {
+      "key": "ASANA_ACCESS_TOKEN",
+      "required": true,
+      "secret": true,
+      "description": "Asana Personal Access Token or OAuth2 access token",
+      "how_to_set": "app.asana.com → My Settings → Apps → Developer apps → Personal access tokens → Create new token"
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_tasks",
+      "description": "Search for tasks across all accessible workspaces and projects using keywords, assignee, completion status, or custom field filters",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Free-text search query to match against task names and descriptions"
+          },
+          "workspace": {
+            "type": "string",
+            "description": "Workspace GID to search within"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "User GID or 'me' to filter by task assignee"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Filter by completion status (true = completed, false = incomplete)"
+          }
+        },
+        "required": ["workspace"]
+      }
+    },
+    {
+      "name": "create_task",
+      "description": "Create a new task in a specified project with name, description, assignee, due date, and custom fields",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the task"
+          },
+          "projects": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Array of project GIDs to add the task to"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "User GID or email to assign the task to"
+          },
+          "due_on": {
+            "type": "string",
+            "description": "Due date in YYYY-MM-DD format"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Plain-text description of the task"
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "get_task",
+      "description": "Retrieve a task by GID with all details including custom fields, subtasks, attachments, and comments",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_gid": {
+            "type": "string",
+            "description": "The globally unique identifier of the task"
+          }
+        },
+        "required": ["task_gid"]
+      }
+    },
+    {
+      "name": "list_projects",
+      "description": "List all projects in a workspace or team with name, status, owner, and member details",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workspace": {
+            "type": "string",
+            "description": "Workspace GID to list projects from"
+          },
+          "team": {
+            "type": "string",
+            "description": "Team GID to filter projects by team"
+          }
+        },
+        "required": ["workspace"]
+      }
+    },
+    {
+      "name": "update_task",
+      "description": "Update an existing task's name, description, assignee, due date, completion status, or custom fields",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_gid": {
+            "type": "string",
+            "description": "The globally unique identifier of the task to update"
+          },
+          "name": {
+            "type": "string",
+            "description": "New name for the task"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Set task completion status"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "User GID or email to reassign the task to"
+          },
+          "due_on": {
+            "type": "string",
+            "description": "New due date in YYYY-MM-DD format"
+          }
+        },
+        "required": ["task_gid"]
+      }
+    }
+  ],
+  "tags": [
+    "asana",
+    "project-management",
+    "tasks",
+    "productivity",
+    "teams"
+  ]
+}
