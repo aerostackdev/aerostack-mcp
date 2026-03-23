@@ -1,0 +1,8 @@
+name = "mcp-google-analytics"
+description = "Run reports, query real-time data, list dimensions and metrics from Google Analytics 4 — AI-native web analytics access."
+category = "Analytics"
+tags = ["google-analytics", "ga4", "analytics", "reporting", "traffic", "marketing"]
+env = ["GOOGLE_SERVICE_ACCOUNT_JSON", "GA4_PROPERTY_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
