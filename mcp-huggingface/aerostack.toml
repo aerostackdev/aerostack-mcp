@@ -1,0 +1,8 @@
+name = "mcp-huggingface"
+description = "Search models, datasets, and Spaces on Hugging Face — browse trending AI models, check downloads, and run inference from any agent."
+category = "AI Platform"
+tags = ["huggingface", "ai", "ml", "models", "datasets", "inference"]
+env = ["HUGGINGFACE_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
