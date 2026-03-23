@@ -1,0 +1,8 @@
+name = "mcp-algolia"
+description = "Search indexes, manage records, browse data, and configure ranking in Algolia — AI-native instant search access."
+category = "Database"
+tags = ["algolia", "search", "indexing", "full-text", "instant-search", "relevance"]
+env = ["ALGOLIA_APP_ID", "ALGOLIA_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

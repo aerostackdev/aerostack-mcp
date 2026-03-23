@@ -1,0 +1,8 @@
+name = "mcp-render"
+description = "List services, trigger deploys, manage environment variables, and view logs on Render — AI-native cloud deployment platform."
+category = "Cloud"
+tags = ["render", "deployment", "hosting", "cloud", "services", "infrastructure"]
+env = ["RENDER_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

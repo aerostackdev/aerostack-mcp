@@ -1,0 +1,8 @@
+name = "mcp-jira"
+description = "Create, search, update issues, manage sprints, boards, and projects in Jira — AI-native agile project management."
+category = "Developer Tools"
+tags = ["jira", "issues", "sprints", "project-management", "atlassian", "agile"]
+env = ["JIRA_URL", "JIRA_EMAIL", "JIRA_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

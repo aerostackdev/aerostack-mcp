@@ -1,0 +1,18 @@
+{
+  "name": "aerostack-mcp-basecamp",
+  "description": "MCP server for Basecamp — manage projects, to-dos, messages, schedules, and campfire chats",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "aerostack dev",
+    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
+    "deploy": "aerostack deploy mcp basecamp",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.0"
+  }
+}

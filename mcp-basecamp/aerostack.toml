@@ -1,0 +1,8 @@
+name = "mcp-basecamp"
+description = "Manage projects, to-dos, messages, schedules, and campfire chats in Basecamp — AI-native project management."
+category = "Productivity"
+tags = ["basecamp", "project-management", "todos", "messages", "campfire", "teams"]
+env = ["BASECAMP_ACCESS_TOKEN", "BASECAMP_ACCOUNT_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
