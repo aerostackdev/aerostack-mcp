@@ -1,0 +1,8 @@
+name = "mcp-docker"
+description = "Search Docker Hub images, inspect tags, view manifests, and manage repositories — AI-native container registry access."
+category = "DevOps"
+tags = ["docker", "containers", "registry", "images", "devops", "hub"]
+env = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
