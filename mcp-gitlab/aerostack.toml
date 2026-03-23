@@ -1,0 +1,8 @@
+name = "mcp-gitlab"
+description = "Manage projects, issues, merge requests, pipelines, branches, and code search on GitLab — AI-native DevOps platform access."
+category = "Developer Tools"
+tags = ["gitlab", "git", "devops", "merge-requests", "issues", "ci-cd"]
+env = ["GITLAB_TOKEN", "GITLAB_URL"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
