@@ -1,0 +1,8 @@
+name = "mcp-snowflake"
+description = "Run SQL queries, list databases, schemas, tables, and inspect column definitions on Snowflake — AI-native cloud data warehouse access."
+category = "Database"
+tags = ["snowflake", "database", "sql", "data-warehouse", "analytics", "cloud"]
+env = ["SNOWFLAKE_ACCOUNT", "SNOWFLAKE_USERNAME", "SNOWFLAKE_PASSWORD", "SNOWFLAKE_WAREHOUSE", "SNOWFLAKE_DATABASE"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
