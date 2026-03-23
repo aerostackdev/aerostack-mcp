@@ -1,0 +1,8 @@
+name = "mcp-exa"
+description = "Semantic web search, page scraping, and similarity discovery powered by Exa — built for AI agents and RAG pipelines."
+category = "Data"
+tags = ["exa", "search", "web", "semantic", "rag", "research"]
+env = ["EXA_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-cloudinary"
+description = "Upload, transform, search, and manage images and videos in Cloudinary — AI-native media asset management for any agent."
+category = "Storage"
+tags = ["cloudinary", "images", "video", "media", "cdn", "transformation"]
+env = ["CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

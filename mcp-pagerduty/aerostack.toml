@@ -1,0 +1,8 @@
+name = "mcp-pagerduty"
+description = "Manage incidents, on-call schedules, and escalation policies in PagerDuty — AI-driven incident response and alerting."
+category = "Observability"
+tags = ["pagerduty", "incidents", "oncall", "alerting", "monitoring", "devops"]
+env = ["PAGERDUTY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
