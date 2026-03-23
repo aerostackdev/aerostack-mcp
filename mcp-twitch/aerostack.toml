@@ -1,0 +1,8 @@
+name = "mcp-twitch"
+description = "Search channels, streams, games, clips, and videos on Twitch — AI-native live streaming platform access."
+category = "Social Media"
+tags = ["twitch", "streaming", "gaming", "live", "channels", "clips"]
+env = ["TWITCH_CLIENT_ID", "TWITCH_CLIENT_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,15 @@
+name = "mcp-google-ads"
+description = "Manage Google Ads campaigns, ad groups, keywords, and budgets — automate your PPC advertising with AI."
+category = "Marketing"
+tags = ["google-ads", "advertising", "campaigns", "ppc", "marketing", "analytics"]
+env = ["GOOGLE_ADS_DEVELOPER_TOKEN", "GOOGLE_ADS_CLIENT_ID", "GOOGLE_ADS_CLIENT_SECRET", "GOOGLE_ADS_REFRESH_TOKEN", "GOOGLE_ADS_CUSTOMER_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+GOOGLE_ADS_DEVELOPER_TOKEN = "Your Google Ads API developer token (found in Google Ads → Tools & Settings → API Center)"
+GOOGLE_ADS_CLIENT_ID = "Your OAuth2 client ID from Google Cloud Console"
+GOOGLE_ADS_CLIENT_SECRET = "Your OAuth2 client secret from Google Cloud Console"
+GOOGLE_ADS_REFRESH_TOKEN = "Your OAuth2 refresh token (obtained via OAuth2 consent flow)"
+GOOGLE_ADS_CUSTOMER_ID = "Your Google Ads customer ID without dashes (e.g. 1234567890)"
