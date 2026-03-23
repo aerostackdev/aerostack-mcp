@@ -1,0 +1,8 @@
+name = "mcp-aws-s3"
+description = "List buckets, upload, download, delete, and manage objects in Amazon S3 — AI-native cloud storage access for any agent."
+category = "Cloud"
+tags = ["aws", "s3", "cloud", "storage", "files", "buckets"]
+env = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
