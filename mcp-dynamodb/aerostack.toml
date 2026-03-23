@@ -1,0 +1,8 @@
+name = "mcp-dynamodb"
+description = "Query, put, update, delete, and scan items in Amazon DynamoDB tables — AI-native NoSQL database access for any agent."
+category = "Database"
+tags = ["aws", "dynamodb", "database", "nosql", "key-value", "serverless"]
+env = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
