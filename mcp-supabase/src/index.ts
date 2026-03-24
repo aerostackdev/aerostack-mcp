@@ -1,6 +1,6 @@
 // mcp-supabase — Aerostack MCP Server
 // Wraps the Supabase REST (PostgREST) and Management APIs
-// Secrets: X-Mcp-Secret-SUPABASE-URL, X-Mcp-Secret-SUPABASE-ANON-KEY
+// Secrets: X-Mcp-Secret-SUPABASE-URL, X-Mcp-Secret-SUPABASE-KEY
 
 const TOOLS = [
     {
@@ -233,7 +233,7 @@ export default {
         }
 
         const supabaseUrl = request.headers.get('X-Mcp-Secret-SUPABASE-URL') || '';
-        const anonKey = request.headers.get('X-Mcp-Secret-SUPABASE-ANON-KEY') || '';
+        const anonKey = request.headers.get('X-Mcp-Secret-SUPABASE-KEY') || '';
 
         let body: { jsonrpc: string; id: unknown; method: string; params?: Record<string, unknown> };
         try {
@@ -266,7 +266,7 @@ export default {
             if (!supabaseUrl || !anonKey) {
                 return Response.json({
                     jsonrpc: '2.0', id,
-                    error: { code: -32001, message: 'Missing secrets: SUPABASE_URL and SUPABASE_ANON_KEY required' },
+                    error: { code: -32001, message: 'Missing secrets: SUPABASE_URL and SUPABASE_KEY required' },
                 });
             }
             const { name, arguments: args = {} } = (params || {}) as { name: string; arguments?: Record<string, unknown> };
