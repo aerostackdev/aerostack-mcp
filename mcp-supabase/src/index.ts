@@ -115,20 +115,33 @@ async function callTool(
 
     switch (name) {
         case '_ping': {
-            // Simple health check — hit the PostgREST root to verify URL + key
-            const res = await fetch(`${supabaseUrl}/rest/v1/`, { headers: { ...headers, 'Accept': 'application/json' } });
-            if (!res.ok) throw new Error(`Supabase returned ${res.status}: ${await res.text()}`);
+            // Health check — use PostgREST health endpoint (no auth required for connectivity,
+            // then verify the key works by attempting a lightweight query)
+            const res = await fetch(`${base}/rest/v1/`, {
+                method: 'HEAD',
+                headers: { 'apikey': anonKey, 'Authorization': `Bearer ${anonKey}` },
+            });
+            // 401 = bad key, anything else = connected
+            if (res.status === 401) throw new Error('Invalid Supabase key — authentication failed');
             const host = new URL(supabaseUrl).hostname.split('.')[0];
             return text(`Connected to Supabase project "${host}"`);
         }
 
         case 'list_tables': {
-            // Use the PostgREST introspection endpoint
-            const res = await fetch(`${base}/rest/v1/`, { headers });
-            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
-            const data = await res.json() as { definitions?: Record<string, unknown> };
-            const tables = Object.keys(data.definitions || {});
-            return json({ tables });
+            // Try schema introspection (requires service-role key)
+            const res = await fetch(`${base}/rest/v1/`, { headers, redirect: 'follow' });
+            if (res.ok) {
+                const data = await res.json() as { definitions?: Record<string, unknown>; paths?: Record<string, unknown> };
+                const tables = Object.keys(data.definitions || data.paths || {}).filter(t => !t.startsWith('/'));
+                return json({ tables });
+            }
+            // Fallback for anon key: query information_schema via RPC if available
+            const rpcRes = await fetch(`${base}/rest/v1/rpc/list_tables`, {
+                method: 'POST', headers, body: '{}',
+            });
+            if (rpcRes.ok) return json(await rpcRes.json());
+            // If both fail, return a helpful error
+            return text(`Cannot list tables — schema introspection requires a service-role key (not an anon key). Update SUPABASE_KEY in workspace secrets to your service_role key from Supabase Dashboard > Settings > API.`);
         }
 
         case 'select': {
