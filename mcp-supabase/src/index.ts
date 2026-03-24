@@ -116,7 +116,7 @@ async function callTool(
     switch (name) {
         case '_ping': {
             // Simple health check — hit the PostgREST root to verify URL + key
-            const res = await fetch(`${supabaseUrl}/rest/v1/`, { headers: { ...hdrs, 'Accept': 'application/json' } });
+            const res = await fetch(`${supabaseUrl}/rest/v1/`, { headers: { ...headers, 'Accept': 'application/json' } });
             if (!res.ok) throw new Error(`Supabase returned ${res.status}: ${await res.text()}`);
             const host = new URL(supabaseUrl).hostname.split('.')[0];
             return text(`Connected to Supabase project "${host}"`);
