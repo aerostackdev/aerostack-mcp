@@ -121,6 +121,8 @@ async function publishMcp(id) {
 }
 
 async function registerProxy(proxy, readme) {
+  // Build config_schema from ALL env_vars (not just the first one)
+  const allEnvKeys = proxy.env_vars?.map(v => v.key).filter(Boolean) ?? [];
   const body = {
     name:            proxy.name,
     slug:            `mcp-${proxy.id}`,
@@ -129,7 +131,8 @@ async function registerProxy(proxy, readme) {
     type:            'proxy',
     external_url:    proxy.proxy_url,
     auth_type:       proxy.auth_type ?? 'bearer',
-    auth_secret_key: proxy.env_vars?.[0]?.key ?? undefined,
+    auth_secret_key: allEnvKeys[0] ?? undefined,
+    ...(allEnvKeys.length > 0 && { config_schema: { env: allEnvKeys } }),
     version:         '1.0.0',
     license:         'MIT',
     ...(proxy.tools  && { tools: proxy.tools }),
