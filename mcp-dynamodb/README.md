@@ -84,3 +84,4 @@ curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-dynamodb \
 ## License
 
 MIT
+

@@ -100,10 +100,16 @@ function publicUrl(slug) {
 
 function buildMcp(dirPath, entryPath, outFile) {
   mkdirSync(join(dirPath, 'dist'), { recursive: true });
-  // Install npm dependencies if package-lock.json exists (e.g. mcp-neon, mcp-aws-s3)
+  // Install npm dependencies if the MCP has any
+  const pkgFile = join(dirPath, 'package.json');
   const lockFile = join(dirPath, 'package-lock.json');
   if (existsSync(lockFile)) {
     execSync('npm ci --ignore-scripts', { cwd: dirPath, stdio: 'pipe' });
+  } else if (existsSync(pkgFile)) {
+    const pkg = JSON.parse(readFileSync(pkgFile, 'utf8'));
+    if (pkg.dependencies && Object.keys(pkg.dependencies).length > 0) {
+      execSync('npm install --ignore-scripts --no-audit --no-fund', { cwd: dirPath, stdio: 'pipe' });
+    }
   }
   execSync(
     `npx esbuild "${entryPath}" --bundle --outfile="${outFile}" --format=esm --minify --external:node:* --external:cloudflare:*`,
