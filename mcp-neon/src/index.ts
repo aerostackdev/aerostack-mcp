@@ -294,3 +294,4 @@ export default {
         return rpcErr(id, -32601, `Method not found: ${method}`);
     },
 };
+
