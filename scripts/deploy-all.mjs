@@ -93,13 +93,18 @@ async function patchMcpMeta(id, meta) {
 
 /** Convert API-returned URL to public aerostack.dev format */
 function publicUrl(slug) {
-  // e.g. mcp-airtable → https://aerostack.dev/mcp/navin/mcp-airtable
+  // e.g. mcp-airtable → https://aerostack.dev/mcp/aerostack/mcp-airtable
   const profile = process.env.AEROSTACK_PROFILE ?? 'aerostack';
   return `https://aerostack.dev/mcp/${profile}/${slug}`;
 }
 
 function buildMcp(dirPath, entryPath, outFile) {
   mkdirSync(join(dirPath, 'dist'), { recursive: true });
+  // Install npm dependencies if package-lock.json exists (e.g. mcp-neon, mcp-aws-s3)
+  const lockFile = join(dirPath, 'package-lock.json');
+  if (existsSync(lockFile)) {
+    execSync('npm ci --ignore-scripts', { cwd: dirPath, stdio: 'pipe' });
+  }
   execSync(
     `npx esbuild "${entryPath}" --bundle --outfile="${outFile}" --format=esm --minify --external:node:* --external:cloudflare:*`,
     { stdio: 'pipe' }
