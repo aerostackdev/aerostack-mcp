@@ -203,38 +203,48 @@ async function callTool(name: string, args: Record<string, unknown>, dbUrl: stri
         }
 
         case 'insert': {
+            const table = args.table as string;
+            if (!table) return text('Error: "table" is required');
             // Auto-wrap single object into array (LLMs often send {..} instead of [{..}])
             const rawRows = args.rows;
             const rows: Record<string, unknown>[] = Array.isArray(rawRows)
                 ? rawRows : (rawRows && typeof rawRows === 'object' ? [rawRows as Record<string, unknown>] : []);
-            if (!rows.length) throw new Error('rows array is empty');
-            const { query, params } = buildInsert(args.table as string, rows);
+            if (!rows.length) return text('Error: "rows" is required — provide an array of row objects or a single object');
+            const { query, params } = buildInsert(table, rows);
             const { rows: inserted } = await neonQuery(dbUrl, query, params);
             return json({ inserted, count: inserted.length });
         }
 
         case 'update': {
-            const { query, params } = buildUpdate(
-                args.table as string,
-                args.values as Record<string, unknown>,
-                args.where as string,
-            );
+            const table = args.table as string;
+            const values = args.values as Record<string, unknown>;
+            const where = args.where as string;
+            if (!table) return text('Error: "table" is required');
+            if (!values || typeof values !== 'object' || !Object.keys(values).length) return text('Error: "values" is required — provide column/value pairs to set, e.g. {"email": "new@example.com"}');
+            if (!where) return text('Error: "where" is required to prevent accidental full-table updates');
+            const { query, params } = buildUpdate(table, values, where);
             const { rows, rowCount } = await neonQuery(dbUrl, query, params);
             return json({ updated: rows, count: rowCount });
         }
 
         case 'delete': {
+            const table = args.table as string;
+            const where = args.where as string;
+            if (!table) return text('Error: "table" is required');
+            if (!where) return text('Error: "where" is required to prevent accidental full-table deletes');
             const { rows, rowCount } = await neonQuery(
                 dbUrl,
-                `DELETE FROM ${args.table} WHERE ${args.where} RETURNING *`,
+                `DELETE FROM ${table} WHERE ${where} RETURNING *`,
             );
             return json({ deleted: rows, count: rowCount });
         }
 
         case 'run_sql': {
+            const query = args.query as string;
+            if (!query) return text('Error: "query" is required — provide a SQL statement to execute');
             const { rows, rowCount } = await neonQuery(
                 dbUrl,
-                args.query as string,
+                query,
                 (args.params as unknown[]) ?? [],
             );
             return json({ rows, rowCount });
