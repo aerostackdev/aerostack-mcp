@@ -29,6 +29,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_site',
@@ -40,6 +41,7 @@ const TOOLS = [
             },
             required: ['site_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'publish_site',
@@ -52,6 +54,7 @@ const TOOLS = [
             },
             required: ['site_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_collections',
@@ -63,6 +66,7 @@ const TOOLS = [
             },
             required: ['site_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_collection',
@@ -74,6 +78,7 @@ const TOOLS = [
             },
             required: ['collection_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_items',
@@ -88,6 +93,7 @@ const TOOLS = [
             },
             required: ['collection_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_item',
@@ -100,6 +106,7 @@ const TOOLS = [
             },
             required: ['collection_id', 'item_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_item',
@@ -113,6 +120,7 @@ const TOOLS = [
             },
             required: ['collection_id', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_item',
@@ -126,6 +134,7 @@ const TOOLS = [
             },
             required: ['collection_id', 'item_id', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_item',
@@ -138,6 +147,7 @@ const TOOLS = [
             },
             required: ['collection_id', 'item_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 ];
 

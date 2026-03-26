@@ -31,6 +31,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Terraform Cloud API token by fetching the current account. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_workspaces',
@@ -43,6 +44,7 @@ const TOOLS = [
                 page_size: { type: 'number', description: 'Results per page (default 20, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_workspace',
@@ -54,6 +56,7 @@ const TOOLS = [
             },
             required: ['workspace_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_runs',
@@ -67,6 +70,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_run',
@@ -78,6 +82,7 @@ const TOOLS = [
             },
             required: ['run_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'trigger_run',
@@ -92,6 +97,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_state_versions',
@@ -105,6 +111,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_current_state',
@@ -116,6 +123,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_variables',
@@ -127,6 +135,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set_variable',
@@ -144,6 +153,7 @@ const TOOLS = [
             },
             required: ['workspace_id', 'key', 'value'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

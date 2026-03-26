@@ -28,6 +28,7 @@ const TOOLS = [
         name: 'list_bases',
         description: 'List all Airtable bases the authenticated user has access to',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -39,6 +40,7 @@ const TOOLS = [
             },
             required: ['base_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_records',
@@ -55,6 +57,7 @@ const TOOLS = [
             },
             required: ['base_id', 'table_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_record',
@@ -68,6 +71,7 @@ const TOOLS = [
             },
             required: ['base_id', 'table_name', 'record_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_record',
@@ -81,6 +85,7 @@ const TOOLS = [
             },
             required: ['base_id', 'table_name', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_record',
@@ -95,6 +100,7 @@ const TOOLS = [
             },
             required: ['base_id', 'table_name', 'record_id', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'search_records',
@@ -110,6 +116,7 @@ const TOOLS = [
             },
             required: ['base_id', 'table_name', 'search_field', 'search_value'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

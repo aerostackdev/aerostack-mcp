@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Dashboards, monitors, logs, metrics, incidents, SLOs, APM traces via Datadog's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-datadog`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-datadog`
 
 ---
 
@@ -53,7 +53,7 @@ Once added, every AI agent in your workspace can query Datadog tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-datadog \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-datadog \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-DD-API-KEY: your-api-key' \
   -H 'X-Mcp-Secret-DD-APP-KEY: your-app-key' \

@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Deployments, projects, domains, env vars, logs via Vercel's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-vercel`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-vercel`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Vercel tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-vercel \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-vercel \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-VERCEL-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_deployments","arguments":{}}}'

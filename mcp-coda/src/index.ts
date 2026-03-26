@@ -28,6 +28,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Health check — returns { ok: true } if the server and API token are working',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_docs',
@@ -39,6 +40,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max docs to return (default 25, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_doc',
@@ -50,6 +52,7 @@ const TOOLS = [
             },
             required: ['doc_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -61,6 +64,7 @@ const TOOLS = [
             },
             required: ['doc_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_table_rows',
@@ -77,6 +81,7 @@ const TOOLS = [
             },
             required: ['doc_id', 'table_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert_rows',
@@ -110,6 +115,7 @@ const TOOLS = [
             },
             required: ['doc_id', 'table_id', 'rows'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_row',
@@ -135,6 +141,7 @@ const TOOLS = [
             },
             required: ['doc_id', 'table_id', 'row_id', 'cells'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_row',
@@ -148,6 +155,7 @@ const TOOLS = [
             },
             required: ['doc_id', 'table_id', 'row_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_formulas',
@@ -159,6 +167,7 @@ const TOOLS = [
             },
             required: ['doc_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_controls',
@@ -170,6 +179,7 @@ const TOOLS = [
             },
             required: ['doc_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

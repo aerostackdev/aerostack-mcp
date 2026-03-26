@@ -41,6 +41,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -77,6 +81,10 @@
           "team_id",
           "title"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -109,6 +117,10 @@
         "required": [
           "issue_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -118,6 +130,10 @@
         "type": "object",
         "properties": {},
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -127,6 +143,10 @@
         "type": "object",
         "properties": {},
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -136,5 +156,36 @@
     "project-management",
     "engineering",
     "sprints"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "update"
+    ],
+    "data_types": [
+      "user",
+      "file",
+      "project",
+      "issue",
+      "team",
+      "product",
+      "workspace",
+      "member"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "calendar",
+      "webhook"
+    ],
+    "best_for": [
+      "managing productivity data"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

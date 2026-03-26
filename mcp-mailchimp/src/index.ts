@@ -313,6 +313,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_audience',
@@ -327,6 +328,7 @@ const TOOLS = [
             },
             required: ['list_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_audience',
@@ -389,6 +391,7 @@ const TOOLS = [
             },
             required: ['name', 'permission_reminder', 'contact_company', 'contact_address1', 'contact_city', 'contact_state', 'contact_zip', 'contact_country', 'from_name', 'from_email', 'subject', 'language'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_audience_stats',
@@ -407,6 +410,7 @@ const TOOLS = [
             },
             required: ['list_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 2 — Members / Subscribers (5 tools) ────────────────────────────
@@ -437,6 +441,7 @@ const TOOLS = [
             },
             required: ['list_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_member',
@@ -455,6 +460,7 @@ const TOOLS = [
             },
             required: ['list_id', 'email'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_member',
@@ -487,6 +493,7 @@ const TOOLS = [
             },
             required: ['list_id', 'email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_member',
@@ -514,6 +521,7 @@ const TOOLS = [
             },
             required: ['list_id', 'email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'unsubscribe_member',
@@ -532,6 +540,7 @@ const TOOLS = [
             },
             required: ['list_id', 'email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // ── Group 3 — Campaigns (4 tools) ────────────────────────────────────────
@@ -557,6 +566,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_campaign',
@@ -571,6 +581,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_campaign',
@@ -606,6 +617,7 @@ const TOOLS = [
             },
             required: ['type', 'list_id', 'subject_line', 'from_name', 'reply_to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_campaign',
@@ -620,6 +632,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Tags (2 tools) ──────────────────────────────────────────────
@@ -645,6 +658,7 @@ const TOOLS = [
             },
             required: ['list_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_tags_to_member',
@@ -679,6 +693,7 @@ const TOOLS = [
             },
             required: ['list_id', 'email', 'tags'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

@@ -219,6 +219,7 @@ const TOOLS = [
             properties: {},
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'update_business_profile',
@@ -238,6 +239,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_phone_number_info',
@@ -247,6 +249,7 @@ const TOOLS = [
             properties: {},
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_account_info',
@@ -256,6 +259,7 @@ const TOOLS = [
             properties: {},
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // Group 2 — Session Messages
@@ -274,6 +278,7 @@ const TOOLS = [
             },
             required: ['to', 'text'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_image',
@@ -291,6 +296,7 @@ const TOOLS = [
             },
             required: ['to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_document',
@@ -309,6 +315,7 @@ const TOOLS = [
             },
             required: ['to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_video',
@@ -326,6 +333,7 @@ const TOOLS = [
             },
             required: ['to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_audio',
@@ -342,6 +350,7 @@ const TOOLS = [
             },
             required: ['to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_location',
@@ -360,6 +369,7 @@ const TOOLS = [
             },
             required: ['to', 'latitude', 'longitude'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_reaction',
@@ -376,6 +386,7 @@ const TOOLS = [
             },
             required: ['to', 'message_id', 'emoji'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // Group 3 — Interactive Messages
@@ -408,6 +419,7 @@ const TOOLS = [
             },
             required: ['to', 'body', 'buttons'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_list',
@@ -450,6 +462,7 @@ const TOOLS = [
             },
             required: ['to', 'body', 'button_label', 'sections'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_cta_url',
@@ -469,6 +482,7 @@ const TOOLS = [
             },
             required: ['to', 'body', 'button_text', 'url'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // Group 4 — Template Messages
@@ -487,6 +501,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_template',
@@ -498,6 +513,7 @@ const TOOLS = [
             },
             required: ['template_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'send_template',
@@ -533,6 +549,7 @@ const TOOLS = [
             },
             required: ['to', 'template_name', 'language_code'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_template',
@@ -575,6 +592,7 @@ const TOOLS = [
             },
             required: ['name', 'category', 'language', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_template',
@@ -586,6 +604,7 @@ const TOOLS = [
             },
             required: ['template_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // Group 5 — Message Management
@@ -599,6 +618,7 @@ const TOOLS = [
             },
             required: ['message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_message',
@@ -610,6 +630,7 @@ const TOOLS = [
             },
             required: ['message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     // Group 6 — Media
     {
@@ -627,6 +648,7 @@ const TOOLS = [
             },
             required: ['media_url', 'media_type'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_media_url',
@@ -638,6 +660,7 @@ const TOOLS = [
             },
             required: ['media_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'delete_media',
@@ -649,6 +672,7 @@ const TOOLS = [
             },
             required: ['media_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 ];
 

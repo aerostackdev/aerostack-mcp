@@ -7,11 +7,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Elasticsearch connectivity by querying the cluster root. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_indices',
         description: 'List all indices in the Elasticsearch cluster with stats (health, status, doc count, size)',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_mapping',
@@ -23,6 +25,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search',
@@ -39,6 +42,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'index_document',
@@ -52,6 +56,7 @@ const TOOLS = [
             },
             required: ['index', 'document'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_document',
@@ -64,6 +69,7 @@ const TOOLS = [
             },
             required: ['index', 'id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'update_document',
@@ -77,6 +83,7 @@ const TOOLS = [
             },
             required: ['index', 'id', 'doc'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_document',
@@ -89,6 +96,7 @@ const TOOLS = [
             },
             required: ['index', 'id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'bulk',
@@ -104,6 +112,7 @@ const TOOLS = [
             },
             required: ['operations'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'count',
@@ -116,6 +125,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_index',
@@ -129,6 +139,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_index',
@@ -140,11 +151,13 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'cluster_health',
         description: 'Get the health status of the Elasticsearch cluster (green/yellow/red)',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

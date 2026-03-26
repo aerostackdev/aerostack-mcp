@@ -35,6 +35,10 @@
         "required": [
           "file_key"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -51,6 +55,10 @@
         "required": [
           "team_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -67,6 +75,10 @@
         "required": [
           "file_key"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -100,6 +112,10 @@
           "node_ids",
           "format"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -116,6 +132,10 @@
         "required": [
           "file_key"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -125,5 +145,32 @@
     "ui",
     "prototyping",
     "collaboration"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read"
+    ],
+    "data_types": [
+      "file",
+      "document",
+      "project",
+      "page",
+      "team",
+      "comment"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "notion",
+      "github",
+      "webhook"
+    ],
+    "best_for": [
+      "design operations"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

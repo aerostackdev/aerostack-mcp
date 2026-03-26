@@ -4,7 +4,7 @@
 
 PlanetScale is the serverless MySQL platform built for scale, with Git-style branching for schema changes. This MCP server exposes PlanetScale's management API — letting your AI agents list databases, inspect branches, create feature branches for schema work, and manage deploy requests to promote changes to production safely.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-planetscale`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-planetscale`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call PlanetScale tools automati
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-planetscale \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-planetscale \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PLANETSCALE-TOKEN: your-token-id:your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_databases","arguments":{"org":"my-org"}}}'

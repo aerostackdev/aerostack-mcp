@@ -2,7 +2,7 @@
 
 > Post, schedule, and analyze across 13 social platforms from a single MCP.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-ayrshare`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-ayrshare`
 
 ## What You Can Do
 

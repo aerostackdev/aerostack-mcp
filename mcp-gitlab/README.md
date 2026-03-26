@@ -4,7 +4,7 @@
 
 Give your AI agents full access to GitLab. Browse projects, manage issues and merge requests, monitor CI/CD pipelines, search code, read files, and track branches — works with gitlab.com and self-hosted instances.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-gitlab`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-gitlab`
 
 ---
 
@@ -64,7 +64,7 @@ Give your AI agents full access to GitLab. Browse projects, manage issues and me
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-gitlab \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-gitlab \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GITLAB-TOKEN: glpat-xxxxxxxxxxxx' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_projects","arguments":{"owned":true}}}'

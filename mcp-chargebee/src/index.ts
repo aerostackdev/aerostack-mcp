@@ -32,6 +32,7 @@ const TOOLS = [
                 email: { type: 'string', description: 'Filter customers by email address (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_customer',
@@ -43,6 +44,7 @@ const TOOLS = [
             },
             required: ['customer_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_customer',
@@ -58,6 +60,7 @@ const TOOLS = [
             },
             required: ['email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_subscriptions',
@@ -74,6 +77,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Maximum number to return (default 20)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_subscription',
@@ -85,6 +89,7 @@ const TOOLS = [
             },
             required: ['subscription_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_subscription',
@@ -98,6 +103,7 @@ const TOOLS = [
             },
             required: ['customer_id', 'plan_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'cancel_subscription',
@@ -113,6 +119,7 @@ const TOOLS = [
             },
             required: ['subscription_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'reactivate_subscription',
@@ -124,6 +131,7 @@ const TOOLS = [
             },
             required: ['subscription_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_invoices',
@@ -140,6 +148,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Maximum number to return (default 20)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_plans',
@@ -155,6 +164,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

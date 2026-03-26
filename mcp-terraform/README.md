@@ -4,7 +4,7 @@
 
 Terraform Cloud is HashiCorp's managed service for infrastructure as code. This MCP server lets your AI agents list workspaces, trigger and inspect runs, browse state versions, and manage workspace variables — turning Terraform Cloud into a live infrastructure control plane for intelligent DevOps workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-terraform`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-terraform`
 
 ---
 
@@ -60,7 +60,7 @@ Once added, every AI agent in your workspace can call Terraform Cloud tools auto
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-terraform \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-terraform \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TERRAFORM-API-TOKEN: your-api-token' \
   -H 'X-Mcp-Secret-TERRAFORM-ORG: your-org-name' \

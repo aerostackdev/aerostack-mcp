@@ -4,7 +4,7 @@
 
 Pinecone is the leading vector database for AI/ML applications — purpose-built for high-performance similarity search at scale. This MCP server gives your AI agents full access to your Pinecone indexes: querying vectors for semantic search and RAG, upserting embeddings, managing namespaces, and inspecting index statistics — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-pinecone`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-pinecone`
 
 ---
 
@@ -58,7 +58,7 @@ Once added, every AI agent in your workspace can call Pinecone tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-pinecone \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-pinecone \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PINECONE-API-KEY: your-pinecone-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_indexes","arguments":{}}}'

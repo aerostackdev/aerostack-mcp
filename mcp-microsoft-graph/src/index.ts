@@ -29,6 +29,7 @@ const TOOLS = [
         name: 'list_teams',
         description: 'List all Microsoft Teams the authenticated user has joined',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_team_channels',
@@ -40,6 +41,7 @@ const TOOLS = [
             },
             required: ['team_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'send_teams_message',
@@ -58,6 +60,7 @@ const TOOLS = [
             },
             required: ['team_id', 'channel_id', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_team_messages',
@@ -71,6 +74,7 @@ const TOOLS = [
             },
             required: ['team_id', 'channel_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Outlook Email ────────────────────────────────────────────────────────
@@ -92,6 +96,7 @@ const TOOLS = [
             },
             required: ['to', 'subject', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_emails',
@@ -108,6 +113,7 @@ const TOOLS = [
                 search: { type: 'string', description: 'Optional keyword to search emails (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_email',
@@ -119,6 +125,7 @@ const TOOLS = [
             },
             required: ['message_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'reply_to_email',
@@ -131,6 +138,7 @@ const TOOLS = [
             },
             required: ['message_id', 'comment'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Calendar ─────────────────────────────────────────────────────────────
@@ -145,6 +153,7 @@ const TOOLS = [
                 end_date: { type: 'string', description: 'Filter events ending before this ISO 8601 datetime (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_calendar_event',
@@ -166,6 +175,7 @@ const TOOLS = [
             },
             required: ['subject', 'start', 'end'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_calendar_event',
@@ -182,6 +192,7 @@ const TOOLS = [
             },
             required: ['event_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_calendar_event',
@@ -193,6 +204,7 @@ const TOOLS = [
             },
             required: ['event_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // ── OneDrive ─────────────────────────────────────────────────────────────
@@ -208,6 +220,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_drive_files',
@@ -220,6 +233,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

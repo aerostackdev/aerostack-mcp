@@ -33,6 +33,7 @@ const TOOLS = [
                 mime_type: { type: 'string', description: 'Filter by MIME type (optional, e.g. application/vnd.google-apps.spreadsheet)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_file_metadata',
@@ -44,6 +45,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_files',
@@ -56,6 +58,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_folder',
@@ -68,6 +71,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'move_file',
@@ -81,6 +85,7 @@ const TOOLS = [
             },
             required: ['file_id', 'new_parent_id', 'current_parent_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'copy_file',
@@ -93,6 +98,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_file',
@@ -104,6 +110,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'share_file',
@@ -117,6 +124,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'export_file_as_pdf',
@@ -128,6 +136,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_shared_drives',
@@ -138,6 +147,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max shared drives to return (default 20)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

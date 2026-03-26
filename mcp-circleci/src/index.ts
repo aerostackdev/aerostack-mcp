@@ -36,6 +36,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify CircleCI token by fetching the current user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_pipelines',
@@ -49,6 +50,7 @@ const TOOLS = [
             },
             required: ['project_slug'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_pipeline',
@@ -60,6 +62,7 @@ const TOOLS = [
             },
             required: ['pipeline_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_workflows',
@@ -72,6 +75,7 @@ const TOOLS = [
             },
             required: ['pipeline_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_workflow',
@@ -83,6 +87,7 @@ const TOOLS = [
             },
             required: ['workflow_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_jobs',
@@ -95,6 +100,7 @@ const TOOLS = [
             },
             required: ['workflow_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_job',
@@ -107,6 +113,7 @@ const TOOLS = [
             },
             required: ['project_slug', 'job_number'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_job_artifacts',
@@ -119,6 +126,7 @@ const TOOLS = [
             },
             required: ['project_slug', 'job_number'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'trigger_pipeline',
@@ -133,6 +141,7 @@ const TOOLS = [
             },
             required: ['project_slug'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'cancel_workflow',
@@ -144,6 +153,7 @@ const TOOLS = [
             },
             required: ['workflow_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

@@ -4,7 +4,7 @@
 
 Supabase is the open-source Firebase alternative built on PostgreSQL — used by thousands of startups and teams as their primary application database. This MCP server gives your AI agents direct read/write access to your Supabase project: selecting, inserting, updating, and deleting rows, calling stored procedures, and listing files in storage buckets — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-supabase`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-supabase`
 
 ---
 
@@ -55,7 +55,7 @@ Once added, every AI agent in your workspace can call Supabase tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-supabase \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-supabase \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SUPABASE-URL: https://yourproject.supabase.co' \
   -H 'X-Mcp-Secret-SUPABASE-ANON-KEY: your-anon-key' \

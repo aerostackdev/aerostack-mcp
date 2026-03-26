@@ -4,7 +4,7 @@
 
 Cal.com is the open-source scheduling infrastructure used by thousands of businesses. This MCP server gives your agents full control over the Cal.com API: managing bookable event types, checking real-time availability, creating and rescheduling bookings, and tracking no-shows — all without human intervention.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-cal-com`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-cal-com`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can book and manage meetings automa
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-cal-com \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-cal-com \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CAL-COM-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_availability","arguments":{"event_type_id":123,"start_time":"2024-08-13T00:00:00Z","end_time":"2024-08-20T23:59:59Z"}}}'

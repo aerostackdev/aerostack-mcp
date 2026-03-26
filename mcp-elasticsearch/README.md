@@ -4,7 +4,7 @@
 
 Elasticsearch is the distributed search and analytics engine powering search at scale — from full-text search and log analytics to vector similarity and real-time aggregations. This MCP server gives your AI agents direct access to your Elasticsearch cluster: searching documents with the full Query DSL, indexing and updating records, managing indices and mappings, and monitoring cluster health — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-elasticsearch`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-elasticsearch`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can call Elasticsearch tools automa
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-elasticsearch \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-elasticsearch \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ELASTICSEARCH-URL: https://my-deploy.es.us-east-1.aws.elastic.cloud:9243' \
   -H 'X-Mcp-Secret-ELASTICSEARCH-API-KEY: your-api-key' \

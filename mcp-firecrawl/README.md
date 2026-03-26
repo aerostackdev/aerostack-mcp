@@ -4,7 +4,7 @@
 
 Give your AI agents the ability to read any web page. Scrape JavaScript-rendered pages to clean markdown, crawl entire sites with depth control, extract structured data with natural language prompts, discover all URLs on a domain, and search the web with scraped results — perfect for RAG, research, and data pipelines.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-firecrawl`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-firecrawl`
 
 ---
 
@@ -58,7 +58,7 @@ Give your AI agents the ability to read any web page. Scrape JavaScript-rendered
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-firecrawl \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-firecrawl \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-FIRECRAWL-API-KEY: fc-xxxxxxxxxxxx' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"scrape","arguments":{"url":"https://example.com"}}}'

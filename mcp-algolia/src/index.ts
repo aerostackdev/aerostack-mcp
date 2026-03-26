@@ -14,6 +14,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Algolia connectivity by listing indexes. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search',
@@ -32,11 +33,13 @@ const TOOLS = [
             },
             required: ['index', 'query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_indexes',
         description: 'List all indexes in the Algolia application with their stats (entries, size, last updated)',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_index_settings',
@@ -48,6 +51,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'browse_index',
@@ -63,6 +67,7 @@ const TOOLS = [
             },
             required: ['index'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_records',
@@ -79,6 +84,7 @@ const TOOLS = [
             },
             required: ['index', 'records'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_record',
@@ -91,6 +97,7 @@ const TOOLS = [
             },
             required: ['index', 'objectID'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_record',
@@ -104,6 +111,7 @@ const TOOLS = [
             },
             required: ['index', 'objectID'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set_settings',
@@ -119,6 +127,7 @@ const TOOLS = [
             },
             required: ['index', 'settings'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

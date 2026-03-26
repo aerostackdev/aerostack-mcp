@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Pages, databases, blocks, search via Notion's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-notion`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-notion`
 
 ---
 
@@ -79,7 +79,7 @@ Once added, every AI agent in your workspace can use Notion tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-notion \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-notion \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-NOTION-API-KEY: your-oauth-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_pages","arguments":{"query":"test"}}}'

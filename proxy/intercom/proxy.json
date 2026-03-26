@@ -37,6 +37,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -67,6 +71,10 @@
           "body",
           "admin_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -99,6 +107,10 @@
         "required": [
           "email"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -119,6 +131,10 @@
         "required": [
           "query"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -135,6 +151,10 @@
         "required": [
           "contact_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -144,5 +164,35 @@
     "messaging",
     "customers",
     "chat"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "user",
+      "message",
+      "customer",
+      "ticket",
+      "team",
+      "member"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "notion",
+      "github",
+      "jira",
+      "webhook"
+    ],
+    "best_for": [
+      "managing communication data",
+      "searching and filtering users"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

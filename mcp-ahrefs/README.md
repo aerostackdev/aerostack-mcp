@@ -4,7 +4,7 @@
 
 Ahrefs is one of the most comprehensive SEO toolsets available, used by marketers and developers to research backlinks, track keyword rankings, audit sites, and analyze competitors. This MCP server lets your AI agents query Ahrefs data directly — turning your SEO platform into a live intelligence source for agent-driven content strategy, competitor analysis, and link building.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-ahrefs`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-ahrefs`
 
 ---
 
@@ -60,7 +60,7 @@ Once added, every AI agent in your workspace can call Ahrefs tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-ahrefs \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-ahrefs \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AHREFS-API-TOKEN: your-ahrefs-api-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_domain_rating","arguments":{"target":"ahrefs.com"}}}'

@@ -7,11 +7,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Supabase connectivity by querying the health endpoint. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
         description: 'List all tables in the Supabase database',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'select',
@@ -28,6 +30,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert',
@@ -40,6 +43,7 @@ const TOOLS = [
             },
             required: ['table', 'rows'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update',
@@ -53,6 +57,7 @@ const TOOLS = [
             },
             required: ['table', 'filter', 'values'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete',
@@ -65,6 +70,7 @@ const TOOLS = [
             },
             required: ['table', 'filter'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'rpc',
@@ -77,6 +83,7 @@ const TOOLS = [
             },
             required: ['function_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'storage_list',
@@ -89,6 +96,7 @@ const TOOLS = [
             },
             required: ['bucket'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

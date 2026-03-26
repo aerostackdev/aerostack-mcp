@@ -4,7 +4,7 @@
 
 Klaviyo is the leading e-commerce marketing platform, trusted by 130,000+ brands for email and SMS automation. This MCP server gives your agents full access to Klaviyo's API: managing customer profiles, subscribing contacts to lists, tracking custom events that trigger flows, monitoring campaigns, and inspecting automation flows — enabling AI-driven marketing operations without manual platform access.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-klaviyo`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-klaviyo`
 
 ---
 
@@ -65,7 +65,7 @@ Once added, every AI agent in your workspace can manage Klaviyo marketing data a
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-klaviyo \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-klaviyo \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-KLAVIYO-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_event","arguments":{"email":"alice@example.com","metric_name":"Placed Order","value":149.99}}}'

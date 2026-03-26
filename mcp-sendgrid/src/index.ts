@@ -146,6 +146,7 @@ const TOOLS = [
             },
             required: ['to', 'from'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_bulk_email',
@@ -197,6 +198,7 @@ const TOOLS = [
             },
             required: ['personalizations', 'from'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_template_email',
@@ -225,6 +227,7 @@ const TOOLS = [
             },
             required: ['template_id', 'to', 'from'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'schedule_email',
@@ -260,6 +263,7 @@ const TOOLS = [
             },
             required: ['to', 'from', 'subject', 'content', 'send_at'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 2 — Templates (4 tools) ────────────────────────────────────────
@@ -276,6 +280,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_template',
@@ -290,6 +295,7 @@ const TOOLS = [
             },
             required: ['template_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_template',
@@ -304,6 +310,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_template_version',
@@ -322,6 +329,7 @@ const TOOLS = [
             },
             required: ['template_id', 'version_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Contacts & Lists (5 tools) ─────────────────────────────────
@@ -339,6 +347,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_contact',
@@ -353,6 +362,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'upsert_contacts',
@@ -378,6 +388,7 @@ const TOOLS = [
             },
             required: ['contacts'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_contact_lists',
@@ -391,6 +402,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_contacts_to_list',
@@ -410,6 +422,7 @@ const TOOLS = [
             },
             required: ['list_id', 'contact_ids'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Stats & Analytics (4 tools) ────────────────────────────────
@@ -436,6 +449,7 @@ const TOOLS = [
             },
             required: ['start_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_email_stats',
@@ -463,6 +477,7 @@ const TOOLS = [
             },
             required: ['start_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_template_stats',
@@ -489,6 +504,7 @@ const TOOLS = [
             },
             required: ['template_id', 'version_id', 'start_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_bounce_list',
@@ -510,6 +526,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 5 — Sender Management (3 tools) ────────────────────────────────
@@ -521,6 +538,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_sender',
@@ -565,6 +583,7 @@ const TOOLS = [
             },
             required: ['from', 'reply_to', 'address', 'city', 'country'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'verify_sender_domain',
@@ -579,6 +598,7 @@ const TOOLS = [
             },
             required: ['domain_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

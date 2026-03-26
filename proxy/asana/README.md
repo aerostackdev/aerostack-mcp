@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Tasks, projects, sections, comments, teams, custom fields via Asana's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-asana`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-asana`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Asana tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-asana \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-asana \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ASANA-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_tasks","arguments":{"workspace":"12345","query":"bug fix"}}}'

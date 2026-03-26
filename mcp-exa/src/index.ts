@@ -38,6 +38,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Exa API connectivity. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search',
@@ -86,6 +87,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_contents',
@@ -114,6 +116,7 @@ const TOOLS = [
             },
             required: ['urls'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'find_similar',
@@ -148,6 +151,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_and_contents',
@@ -208,6 +212,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

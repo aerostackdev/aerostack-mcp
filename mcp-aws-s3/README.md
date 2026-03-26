@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Amazon S3. Browse buckets, list objects with folder navigation, upload and download files, generate pre-signed URLs for secure sharing, and manage object metadata — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-aws-s3`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-aws-s3`
 
 ---
 
@@ -67,7 +67,7 @@ Give your AI agents full access to Amazon S3. Browse buckets, list objects with 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-aws-s3 \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-aws-s3 \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AWS-ACCESS-KEY-ID: AKIA...' \
   -H 'X-Mcp-Secret-AWS-SECRET-ACCESS-KEY: wJalr...' \

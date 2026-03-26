@@ -7,6 +7,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Redis connectivity with a PING command. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get',
@@ -18,6 +19,7 @@ const TOOLS = [
             },
             required: ['key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set',
@@ -31,6 +33,7 @@ const TOOLS = [
             },
             required: ['key', 'value'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'del',
@@ -42,6 +45,7 @@ const TOOLS = [
             },
             required: ['keys'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'keys',
@@ -53,6 +57,7 @@ const TOOLS = [
             },
             required: ['pattern'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'exists',
@@ -64,6 +69,7 @@ const TOOLS = [
             },
             required: ['keys'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'ttl',
@@ -75,6 +81,7 @@ const TOOLS = [
             },
             required: ['key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'expire',
@@ -87,6 +94,7 @@ const TOOLS = [
             },
             required: ['key', 'seconds'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'hget',
@@ -99,6 +107,7 @@ const TOOLS = [
             },
             required: ['key', 'field'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'hset',
@@ -111,6 +120,7 @@ const TOOLS = [
             },
             required: ['key', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'hgetall',
@@ -122,6 +132,7 @@ const TOOLS = [
             },
             required: ['key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'lpush',
@@ -134,6 +145,7 @@ const TOOLS = [
             },
             required: ['key', 'values'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'lrange',
@@ -147,6 +159,7 @@ const TOOLS = [
             },
             required: ['key', 'start', 'stop'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'incr',
@@ -158,11 +171,13 @@ const TOOLS = [
             },
             required: ['key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'info',
         description: 'Get Upstash Redis server info and statistics',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -30,6 +30,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Basecamp credentials by fetching account authorization. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_projects',
@@ -40,6 +41,7 @@ const TOOLS = [
                 status: { type: 'string', description: 'Filter by status: active (default), archived, or trashed', enum: ['active', 'archived', 'trashed'] },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_project',
@@ -51,6 +53,7 @@ const TOOLS = [
             },
             required: ['project_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_todolists',
@@ -64,6 +67,7 @@ const TOOLS = [
             },
             required: ['project_id', 'todoset_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_todolist',
@@ -76,6 +80,7 @@ const TOOLS = [
             },
             required: ['project_id', 'todolist_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_todo',
@@ -92,6 +97,7 @@ const TOOLS = [
             },
             required: ['project_id', 'todolist_id', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'complete_todo',
@@ -104,6 +110,7 @@ const TOOLS = [
             },
             required: ['project_id', 'todo_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_messages',
@@ -116,6 +123,7 @@ const TOOLS = [
             },
             required: ['project_id', 'message_board_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_message',
@@ -131,6 +139,7 @@ const TOOLS = [
             },
             required: ['project_id', 'message_board_id', 'subject', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_schedule_entries',
@@ -144,6 +153,7 @@ const TOOLS = [
             },
             required: ['project_id', 'schedule_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

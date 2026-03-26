@@ -4,7 +4,7 @@
 
 Twitch is the leading live streaming platform for gaming, esports, creative content, and community interaction. This MCP server exposes 9 tools covering the Twitch Helix API — letting your AI agents search channels, discover live streams, browse top games, find clips, and check stream schedules, all using OAuth2 client credentials for server-to-server access.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-twitch`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-twitch`
 
 ---
 
@@ -59,7 +59,7 @@ Once added, every AI agent in your workspace can call Twitch tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-twitch \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-twitch \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TWITCH-CLIENT-ID: your-client-id' \
   -H 'X-Mcp-Secret-TWITCH-CLIENT-SECRET: your-client-secret' \

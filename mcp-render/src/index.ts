@@ -27,6 +27,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Render API connectivity by listing the first service. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_services',
@@ -48,6 +49,7 @@ const TOOLS = [
                 cursor: { type: 'string', description: 'Pagination cursor from a previous response' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_service',
@@ -59,6 +61,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_deploys',
@@ -72,6 +75,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'trigger_deploy',
@@ -84,6 +88,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_deploy',
@@ -96,6 +101,7 @@ const TOOLS = [
             },
             required: ['serviceId', 'deployId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_env_vars',
@@ -107,6 +113,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set_env_var',
@@ -120,6 +127,7 @@ const TOOLS = [
             },
             required: ['serviceId', 'key', 'value'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_env_var',
@@ -132,6 +140,7 @@ const TOOLS = [
             },
             required: ['serviceId', 'key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_custom_domains',
@@ -143,6 +152,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_service_logs',
@@ -155,6 +165,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

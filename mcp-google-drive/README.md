@@ -4,7 +4,7 @@
 
 Google Drive is where teams store documents, spreadsheets, presentations, and more. This MCP server gives your AI agents the ability to search files, organize them into folders, share with specific people, and export Google Docs as PDFs — making it possible to automate file management workflows that would otherwise require manual drag-and-drop.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-drive`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-google-drive`
 
 ---
 
@@ -57,7 +57,7 @@ Once added, every AI agent in your workspace can call Google Drive tools automat
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-drive \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-google-drive \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: your-oauth-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_files","arguments":{}}}'

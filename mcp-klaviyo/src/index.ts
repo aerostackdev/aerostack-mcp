@@ -89,6 +89,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_profile',
@@ -103,6 +104,7 @@ const TOOLS = [
             },
             required: ['profile_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_profile',
@@ -133,6 +135,7 @@ const TOOLS = [
             },
             required: ['email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_profile',
@@ -167,6 +170,7 @@ const TOOLS = [
             },
             required: ['profile_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'subscribe_profiles',
@@ -188,6 +192,7 @@ const TOOLS = [
             },
             required: ['list_id', 'emails'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Lists (4) ─────────────────────────────────────────────────────────────
@@ -204,6 +209,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_list',
@@ -218,6 +224,7 @@ const TOOLS = [
             },
             required: ['list_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_list',
@@ -232,6 +239,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'add_profiles_to_list',
@@ -251,6 +259,7 @@ const TOOLS = [
             },
             required: ['list_id', 'profile_ids'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Events (3) ────────────────────────────────────────────────────────────
@@ -271,6 +280,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_event',
@@ -301,6 +311,7 @@ const TOOLS = [
             },
             required: ['email', 'metric_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_metrics',
@@ -314,6 +325,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Campaigns (3) ─────────────────────────────────────────────────────────
@@ -330,6 +342,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_campaign',
@@ -344,6 +357,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_campaign_recipient_estimation',
@@ -358,6 +372,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Flows (2) ─────────────────────────────────────────────────────────────
@@ -374,6 +389,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_flow',
@@ -388,6 +404,7 @@ const TOOLS = [
             },
             required: ['flow_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Templates (1) ─────────────────────────────────────────────────────────
@@ -404,6 +421,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

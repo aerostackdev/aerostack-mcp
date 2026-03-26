@@ -4,7 +4,7 @@
 
 Turso is the edge-native SQLite-compatible distributed database by ChiselStrike — designed for low-latency reads at the edge with embedded replicas and branching. This MCP server gives your AI agents direct read/write access to your Turso database: executing SQL, querying and mutating rows, describing schemas, and running batch transactions — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-turso`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-turso`
 
 ---
 
@@ -60,7 +60,7 @@ Once added, every AI agent in your workspace can call Turso tools automatically 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-turso \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-turso \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TURSO-DATABASE-URL: https://mydb-myorg.turso.io' \
   -H 'X-Mcp-Secret-TURSO-AUTH-TOKEN: your-auth-token' \

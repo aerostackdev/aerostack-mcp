@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Jira issues, sprints, Confluence pages via Atlassian's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-atlassian`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-atlassian`
 
 ---
 
@@ -52,7 +52,7 @@ Once added, every AI agent in your workspace can use Atlassian tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-atlassian \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-atlassian \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ATLASSIAN-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_issue","arguments":{}}}'

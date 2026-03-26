@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Google Analytics 4. Run standard reports with dimensions, metrics, date ranges, and filters. Query real-time active users, discover available dimensions/metrics, analyze funnels, and create pivot tables — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-analytics`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-google-analytics`
 
 ---
 
@@ -61,7 +61,7 @@ Give your AI agents full access to Google Analytics 4. Run standard reports with
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-analytics \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-google-analytics \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-SERVICE-ACCOUNT-JSON: {"type":"service_account",...}' \
   -H 'X-Mcp-Secret-GA4-PROPERTY-ID: 123456789' \

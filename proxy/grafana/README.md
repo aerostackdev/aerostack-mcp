@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Dashboards, alerting, Loki logs, Tempo traces, Prometheus metrics via Grafana's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-grafana`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-grafana`
 
 ---
 
@@ -52,7 +52,7 @@ Once added, every AI agent in your workspace can query Grafana tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-grafana \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-grafana \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GRAFANA-API-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"query_loki_logs","arguments":{"query":"{app=\"nginx\"} |= \"error\""}}}'

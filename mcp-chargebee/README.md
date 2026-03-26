@@ -4,7 +4,7 @@
 
 Chargebee is the subscription billing platform that handles recurring revenue for SaaS and e-commerce businesses. This MCP server gives your AI agents direct access to your Chargebee instance — letting them look up customers, manage subscription lifecycles, pull invoice history, and list available plans without anyone logging into the Chargebee dashboard.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-chargebee`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-chargebee`
 
 ---
 
@@ -58,7 +58,7 @@ Once added, every AI agent in your workspace can call Chargebee tools automatica
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-chargebee \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-chargebee \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CHARGEBEE-SITE: your-site' \
   -H 'X-Mcp-Secret-CHARGEBEE-API-KEY: your-api-key' \

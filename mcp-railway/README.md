@@ -4,7 +4,7 @@
 
 Railway is the developer-friendly cloud platform for deploying backends, databases, and services with zero infrastructure configuration. This MCP server connects your AI agents to the Railway API — letting them inspect projects, check deployment health, stream logs, review environment variables, and trigger redeploys, all from natural language without opening the Railway dashboard.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-railway`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-railway`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call Railway tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-railway \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-railway \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-RAILWAY-API-TOKEN: your-api-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_projects","arguments":{}}}'

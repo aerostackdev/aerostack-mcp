@@ -4,7 +4,7 @@
 
 Algolia is a hosted search-as-a-service platform with instant full-text search, typo tolerance, faceting, and custom ranking. This MCP server gives your AI agents direct access to search queries, record management, index browsing, and settings configuration — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-algolia`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-algolia`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can search and manage your Algolia 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-algolia \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-algolia \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ALGOLIA-APP-ID: YOUR_APP_ID' \
   -H 'X-Mcp-Secret-ALGOLIA-API-KEY: YOUR_API_KEY' \

@@ -13,11 +13,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Snowflake connectivity by running SELECT CURRENT_VERSION(). Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_databases',
         description: 'List all databases in the Snowflake account with name, owner, creation time, and retention days',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_schemas',
@@ -29,6 +31,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -41,6 +44,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_table',
@@ -54,6 +58,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'query',
@@ -68,11 +73,13 @@ const TOOLS = [
             },
             required: ['sql'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_warehouses',
         description: 'List all Snowflake virtual warehouses with name, size, state (STARTED, SUSPENDED), and auto-suspend settings',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

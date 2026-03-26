@@ -43,6 +43,7 @@ const TOOLS = [
             },
             required: ['collection', 'document_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set_document',
@@ -56,6 +57,7 @@ const TOOLS = [
             },
             required: ['collection', 'document_id', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_document',
@@ -69,6 +71,7 @@ const TOOLS = [
             },
             required: ['collection', 'document_id', 'fields'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_document',
@@ -81,6 +84,7 @@ const TOOLS = [
             },
             required: ['collection', 'document_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'query_collection',
@@ -100,6 +104,7 @@ const TOOLS = [
             },
             required: ['collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_documents',
@@ -113,6 +118,7 @@ const TOOLS = [
             },
             required: ['collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Firebase Auth ─────────────────────────────────────────────────────────
@@ -125,6 +131,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Maximum users to return (default 20, max 500)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_user',
@@ -136,6 +143,7 @@ const TOOLS = [
                 email: { type: 'string', description: 'User email address (provide uid or email, not both)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_user',
@@ -150,6 +158,7 @@ const TOOLS = [
             },
             required: ['email', 'password'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'disable_user',
@@ -162,6 +171,7 @@ const TOOLS = [
             },
             required: ['uid', 'disabled'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── FCM Push ──────────────────────────────────────────────────────────────
@@ -183,6 +193,7 @@ const TOOLS = [
             },
             required: ['token', 'title', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_multicast_push',
@@ -205,6 +216,7 @@ const TOOLS = [
             },
             required: ['tokens', 'title', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

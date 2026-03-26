@@ -191,12 +191,14 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify bot token by calling getMe. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     // Group 1 — Bot Config
     {
         name: 'get_me',
         description: 'Get information about the bot itself — username, ID, capabilities (can_join_groups, supports_inline_queries, etc.)',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_my_commands',
@@ -207,6 +209,7 @@ const TOOLS = [
                 language_code: { type: 'string', description: 'BCP-47 language code for localized commands (optional, e.g. "en", "ru")' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'set_my_commands',
@@ -230,11 +233,13 @@ const TOOLS = [
             },
             required: ['commands'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_webhook_info',
         description: 'Get current webhook configuration — URL, pending update count, last error message. Useful for diagnosing webhook issues.',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // Group 2 — Receiving Messages
@@ -253,6 +258,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_chat_history',
@@ -265,6 +271,7 @@ const TOOLS = [
             },
             required: ['chat_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // Group 3 — Sending Messages
@@ -298,6 +305,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'text'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_photo',
@@ -312,6 +320,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'photo'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_document',
@@ -326,6 +335,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'document'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_poll',
@@ -344,6 +354,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'question', 'options'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_invoice',
@@ -372,6 +383,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'title', 'description', 'payload', 'provider_token', 'currency', 'prices'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'edit_message',
@@ -386,6 +398,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'message_id', 'text'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_message',
@@ -398,6 +411,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // Group 4 — Chat & User Intelligence
@@ -411,6 +425,7 @@ const TOOLS = [
             },
             required: ['chat_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_chat_member',
@@ -423,6 +438,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_chat_member_count',
@@ -434,6 +450,7 @@ const TOOLS = [
             },
             required: ['chat_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_chat_administrators',
@@ -445,6 +462,7 @@ const TOOLS = [
             },
             required: ['chat_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_user_profile_photos',
@@ -458,6 +476,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_file',
@@ -469,6 +488,7 @@ const TOOLS = [
             },
             required: ['file_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // Group 5 — Moderation
@@ -485,6 +505,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'unban_member',
@@ -498,6 +519,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'restrict_member',
@@ -516,6 +538,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'promote_member',
@@ -538,6 +561,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'pin_message',
@@ -551,6 +575,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // Group 6 — Group & Channel Management
@@ -565,6 +590,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'set_chat_description',
@@ -577,6 +603,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'description'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_invite_link',
@@ -592,6 +619,7 @@ const TOOLS = [
             },
             required: ['chat_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'send_chat_action',
@@ -620,6 +648,7 @@ const TOOLS = [
             },
             required: ['chat_id', 'action'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

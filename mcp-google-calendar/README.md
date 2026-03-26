@@ -4,7 +4,7 @@
 
 Google Calendar is the scheduling backbone for millions of teams and individuals. This MCP server gives your AI agents full access to create, list, update, and delete calendar events — enabling scheduling automation, meeting summaries, and calendar management without opening Google Calendar. The `quick_add` tool even parses natural language like "Lunch with Bob at noon tomorrow" into a properly structured event.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-calendar`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-google-calendar`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call Google Calendar tools auto
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-calendar \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-google-calendar \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-ACCESS-TOKEN: your-oauth-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_calendars","arguments":{}}}'

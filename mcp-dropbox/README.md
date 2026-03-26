@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Dropbox. Browse folders, search files, upload and download content, create shared links, and organize your file tree — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-dropbox`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-dropbox`
 
 ---
 
@@ -65,7 +65,7 @@ Give your AI agents full access to Dropbox. Browse folders, search files, upload
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-dropbox \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-dropbox \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-DROPBOX-ACCESS-TOKEN: sl.B...' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_folder","arguments":{"path":""}}}'

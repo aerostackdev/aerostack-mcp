@@ -35,6 +35,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Loom API connectivity by fetching the authenticated user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_videos',
@@ -47,6 +48,7 @@ const TOOLS = [
                 page: { type: 'number', description: 'Page number for pagination (default 1)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_video',
@@ -58,6 +60,7 @@ const TOOLS = [
             },
             required: ['video_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_videos',
@@ -71,6 +74,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_video_transcript',
@@ -82,6 +86,7 @@ const TOOLS = [
             },
             required: ['video_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_video_insights',
@@ -93,6 +98,7 @@ const TOOLS = [
             },
             required: ['video_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_folders',
@@ -104,6 +110,7 @@ const TOOLS = [
                 page: { type: 'number', description: 'Page number for pagination (default 1)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

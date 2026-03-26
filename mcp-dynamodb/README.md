@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Amazon DynamoDB. List tables, inspect schemas and indexes, query by partition key with sort key filters, scan with expressions, and perform CRUD operations — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-dynamodb`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-dynamodb`
 
 ---
 
@@ -66,7 +66,7 @@ Give your AI agents full access to Amazon DynamoDB. List tables, inspect schemas
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-dynamodb \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-dynamodb \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AWS-ACCESS-KEY-ID: AKIA...' \
   -H 'X-Mcp-Secret-AWS-SECRET-ACCESS-KEY: wJalr...' \

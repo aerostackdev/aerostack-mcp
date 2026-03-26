@@ -4,7 +4,7 @@
 
 Pipedrive is a sales-focused CRM used by over 100,000 companies to manage their revenue pipelines. This MCP server gives your agents complete access to the Pipedrive API: searching and creating contacts and organizations, opening and progressing deals through pipeline stages, logging activities, and managing the pipeline structure itself — enabling fully automated CRM operations.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-pipedrive`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-pipedrive`
 
 ---
 
@@ -67,7 +67,7 @@ Once added, every AI agent in your workspace can manage Pipedrive CRM data autom
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-pipedrive \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-pipedrive \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PIPEDRIVE-API-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_deals","arguments":{"status":"open","limit":20}}}'

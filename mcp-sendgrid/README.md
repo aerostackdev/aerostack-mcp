@@ -4,7 +4,7 @@
 
 SendGrid powers email delivery for over 80,000 companies, sending billions of emails every month. This MCP server gives your agents the full SendGrid v3 API: sending single and bulk emails with dynamic templates, managing marketing contacts and lists, pulling delivery and engagement stats, monitoring bounces, and managing verified sender identities.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-sendgrid`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-sendgrid`
 
 ---
 
@@ -67,7 +67,7 @@ Once added, every AI agent in your workspace can send and manage emails via Send
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-sendgrid \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-sendgrid \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SENDGRID-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"send_email","arguments":{"to":"alice@example.com","from":"hello@yourapp.com","subject":"Welcome!","content":[{"type":"text/plain","value":"Thanks for signing up!"}]}}}'

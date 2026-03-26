@@ -17,6 +17,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Dropbox connectivity by fetching the current account info. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_folder',
@@ -31,6 +32,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_file_metadata',
@@ -42,6 +44,7 @@ const TOOLS = [
             },
             required: ['path'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'download_file',
@@ -53,6 +56,7 @@ const TOOLS = [
             },
             required: ['path'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'upload_file',
@@ -66,6 +70,7 @@ const TOOLS = [
             },
             required: ['path', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'search',
@@ -84,6 +89,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_folder',
@@ -95,6 +101,7 @@ const TOOLS = [
             },
             required: ['path'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete',
@@ -106,6 +113,7 @@ const TOOLS = [
             },
             required: ['path'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'move',
@@ -118,6 +126,7 @@ const TOOLS = [
             },
             required: ['from_path', 'to_path'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_shared_link',
@@ -129,6 +138,7 @@ const TOOLS = [
             },
             required: ['path'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

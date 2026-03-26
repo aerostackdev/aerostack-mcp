@@ -4,7 +4,7 @@
 
 Amplitude is the product analytics platform used by thousands of teams to understand user behavior, measure retention, and run growth experiments. This MCP server lets your AI agents send events directly into Amplitude and query charts, funnels, and cohort data — turning your analytics platform into a live data source for agent reasoning.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-amplitude`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-amplitude`
 
 ---
 
@@ -56,7 +56,7 @@ Once added, every AI agent in your workspace can call Amplitude tools automatica
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-amplitude \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-amplitude \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AMPLITUDE-API-KEY: your-api-key' \
   -H 'X-Mcp-Secret-AMPLITUDE-SECRET-KEY: your-secret-key' \

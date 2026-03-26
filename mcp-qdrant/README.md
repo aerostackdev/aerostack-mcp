@@ -4,7 +4,7 @@
 
 Qdrant is the open-source vector search engine built for AI applications — powering semantic search, RAG pipelines, and recommendation systems at scale. This MCP server gives your AI agents direct access to your Qdrant instance: creating collections, upserting vectors with payloads, running similarity searches, and managing points — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-qdrant`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-qdrant`
 
 ---
 
@@ -59,7 +59,7 @@ Once added, every AI agent in your workspace can call Qdrant tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-qdrant \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-qdrant \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-QDRANT-URL: https://your-cluster.cloud.qdrant.io:6333' \
   -H 'X-Mcp-Secret-QDRANT-API-KEY: your-api-key' \

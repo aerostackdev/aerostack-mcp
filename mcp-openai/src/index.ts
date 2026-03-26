@@ -46,6 +46,7 @@ const TOOLS = [
             },
             required: ['messages'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_models',
@@ -54,6 +55,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_embedding',
@@ -66,6 +68,7 @@ const TOOLS = [
             },
             required: ['input'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_image',
@@ -81,6 +84,7 @@ const TOOLS = [
             },
             required: ['prompt'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_moderation',
@@ -92,6 +96,7 @@ const TOOLS = [
             },
             required: ['input'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_files',
@@ -100,6 +105,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_fine_tuning_jobs',
@@ -110,6 +116,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Number of jobs to retrieve (default 10, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Issues, events, releases, performance via Sentry's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-sentry`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-sentry`
 
 ---
 
@@ -51,7 +51,7 @@ Once added, every AI agent in your workspace can use Sentry tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-sentry \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-sentry \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SENTRY-AUTH-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_issues","arguments":{}}}'

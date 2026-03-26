@@ -4,7 +4,7 @@
 
 Resend is the developer-first email platform built for reliable transactional delivery — welcome emails, password resets, invoice notifications, and anything else your product needs to send. This MCP server lets your AI agents send emails, check delivery status, list recent sends, and inspect verified sending domains without touching code.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-resend`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-resend`
 
 ---
 
@@ -52,7 +52,7 @@ Once added, every AI agent in your workspace can call Resend tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-resend \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-resend \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-RESEND-API-KEY: your-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"send_email","arguments":{"from":"hello@yourdomain.com","to":"recipient@example.com","subject":"Welcome aboard","html":"<p>Thanks for signing up!</p>"}}}'

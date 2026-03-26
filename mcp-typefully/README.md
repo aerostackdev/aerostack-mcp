@@ -2,7 +2,7 @@
 
 > Write, schedule, and manage social media drafts across X/Twitter, LinkedIn, Threads, Bluesky, and Mastodon.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-typefully`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-typefully`
 
 ## What You Can Do
 

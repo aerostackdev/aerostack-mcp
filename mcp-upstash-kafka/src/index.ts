@@ -37,6 +37,7 @@ const TOOLS = [
         description:
             'Verify Upstash Kafka credentials by listing topics. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'produce',
@@ -57,6 +58,7 @@ const TOOLS = [
             },
             required: ['topic', 'value'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'produce_batch',
@@ -81,6 +83,7 @@ const TOOLS = [
             },
             required: ['messages'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'consume',
@@ -102,11 +105,13 @@ const TOOLS = [
             },
             required: ['topic', 'group'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_topics',
         description: 'List all Kafka topics in the Upstash cluster.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_topic',
@@ -131,6 +136,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_topic',
@@ -142,6 +148,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_topic_stats',
@@ -154,6 +161,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

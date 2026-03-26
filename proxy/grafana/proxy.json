@@ -37,6 +37,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -50,7 +54,13 @@
             "description": "The unique identifier of the dashboard"
           }
         },
-        "required": ["uid"]
+        "required": [
+          "uid"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -76,7 +86,13 @@
             "description": "Maximum number of log lines to return (default 100)"
           }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -91,6 +107,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -120,7 +140,13 @@
             "description": "Query resolution step width (e.g. '15s', '1m', '5m')"
           }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -131,5 +157,32 @@
     "logs",
     "metrics",
     "alerting"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "channel",
+      "alert",
+      "metric",
+      "dashboard",
+      "board",
+      "folder"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "searching and filtering channels"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

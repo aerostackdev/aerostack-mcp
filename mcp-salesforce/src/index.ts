@@ -120,6 +120,7 @@ const TOOLS = [
             },
             required: ['field', 'value'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_lead',
@@ -134,6 +135,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_lead',
@@ -153,6 +155,7 @@ const TOOLS = [
             },
             required: ['LastName', 'Company'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_lead',
@@ -174,6 +177,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'convert_lead',
@@ -193,6 +197,7 @@ const TOOLS = [
             },
             required: ['lead_id', 'converted_status'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 2 — Contacts (5 tools) ──────────────────────────────────────────
@@ -218,6 +223,7 @@ const TOOLS = [
             },
             required: ['field', 'value'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_contact',
@@ -232,6 +238,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_contact',
@@ -247,6 +254,7 @@ const TOOLS = [
             },
             required: ['LastName'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_contact',
@@ -265,6 +273,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_contact_activities',
@@ -279,6 +288,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Accounts (5 tools) ──────────────────────────────────────────
@@ -300,6 +310,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_account',
@@ -314,6 +325,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_account',
@@ -330,6 +342,7 @@ const TOOLS = [
             },
             required: ['Name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_account',
@@ -348,6 +361,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_account_contacts',
@@ -362,6 +376,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 4 — Opportunities (5 tools) ─────────────────────────────────────
@@ -382,6 +397,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_opportunity',
@@ -396,6 +412,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_opportunity',
@@ -417,6 +434,7 @@ const TOOLS = [
             },
             required: ['Name', 'StageName', 'CloseDate'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_opportunity',
@@ -433,6 +451,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'add_opportunity_note',
@@ -453,6 +472,7 @@ const TOOLS = [
             },
             required: ['opportunity_id', 'subject'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 5 — Tasks & Activities (3 tools) ────────────────────────────────
@@ -474,6 +494,7 @@ const TOOLS = [
             },
             required: ['owner_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_task',
@@ -506,6 +527,7 @@ const TOOLS = [
             },
             required: ['Subject'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'complete_task',
@@ -520,6 +542,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 6 — SOQL (2 tools) ──────────────────────────────────────────────
@@ -537,6 +560,7 @@ const TOOLS = [
             },
             required: ['soql'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_object',
@@ -551,6 +575,7 @@ const TOOLS = [
             },
             required: ['object_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

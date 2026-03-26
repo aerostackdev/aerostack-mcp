@@ -253,6 +253,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_organization',
@@ -266,6 +267,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 2 — Event Types (3 tools) ──────────────────────────────────────
@@ -286,6 +288,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_event_type',
@@ -300,6 +303,7 @@ const TOOLS = [
             },
             required: ['event_type_uuid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_event_type_availability',
@@ -322,6 +326,7 @@ const TOOLS = [
             },
             required: ['event_type_uri', 'start_time', 'end_time'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Scheduled Events (5 tools) ─────────────────────────────────
@@ -355,6 +360,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_scheduled_event',
@@ -369,6 +375,7 @@ const TOOLS = [
             },
             required: ['event_uuid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_event_invitees',
@@ -387,6 +394,7 @@ const TOOLS = [
             },
             required: ['event_uuid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'cancel_event',
@@ -405,6 +413,7 @@ const TOOLS = [
             },
             required: ['event_uuid'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_invitee',
@@ -419,6 +428,7 @@ const TOOLS = [
             },
             required: ['invitee_uuid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 4 — Scheduling Links (2 tools) ─────────────────────────────────
@@ -445,6 +455,7 @@ const TOOLS = [
             },
             required: ['event_type_uri'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_scheduling_links',
@@ -462,6 +473,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 5 — Webhooks (3 tools) ─────────────────────────────────────────
@@ -482,6 +494,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_webhook',
@@ -514,6 +527,7 @@ const TOOLS = [
             },
             required: ['url', 'events'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_webhook',
@@ -528,6 +542,7 @@ const TOOLS = [
             },
             required: ['webhook_uuid'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 ];
 

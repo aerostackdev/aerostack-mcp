@@ -39,6 +39,7 @@ const TOOLS = [
             },
             required: ['channel', 'event_name', 'data'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'trigger_batch_events',
@@ -62,6 +63,7 @@ const TOOLS = [
             },
             required: ['events'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_channel_info',
@@ -74,6 +76,7 @@ const TOOLS = [
             },
             required: ['channel_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_channels',
@@ -85,6 +88,7 @@ const TOOLS = [
                 info: { type: 'string', description: 'Optional comma-separated attributes to include (e.g. "user_count")' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_channel_users',
@@ -96,6 +100,7 @@ const TOOLS = [
             },
             required: ['channel_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_app_info',
@@ -104,6 +109,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'authenticate_private_channel',
@@ -116,6 +122,7 @@ const TOOLS = [
             },
             required: ['socket_id', 'channel_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'authenticate_presence_channel',
@@ -130,6 +137,7 @@ const TOOLS = [
             },
             required: ['socket_id', 'channel_name', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

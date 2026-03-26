@@ -33,16 +33,26 @@
           },
           "file_extensions": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "Filter by file extensions (e.g. ['pdf', 'docx'])"
           },
           "ancestor_folder_ids": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "Limit search to specific folder IDs and their subfolders"
           }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -64,7 +74,13 @@
             "description": "Sort field: name, date, or size"
           }
         },
-        "required": ["folder_id"]
+        "required": [
+          "folder_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -78,7 +94,13 @@
             "description": "The Box file ID to retrieve information for"
           }
         },
-        "required": ["file_id"]
+        "required": [
+          "file_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -104,7 +126,14 @@
             "description": "Optional password to protect the shared link"
           }
         },
-        "required": ["item_id", "item_type"]
+        "required": [
+          "item_id",
+          "item_type"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -122,7 +151,14 @@
             "description": "Comment text (supports @[user_id:name] mentions)"
           }
         },
-        "required": ["file_id", "message"]
+        "required": [
+          "file_id",
+          "message"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     }
   ],
@@ -133,5 +169,34 @@
     "enterprise",
     "collaboration",
     "content"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "user",
+      "file",
+      "comment",
+      "item",
+      "folder"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "notion",
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "managing storage data",
+      "searching and filtering users"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

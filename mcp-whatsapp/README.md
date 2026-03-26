@@ -4,7 +4,7 @@
 
 WhatsApp Business reaches over 2 billion users and is the dominant messaging channel for customer communication in many markets. This MCP server covers the full Meta Cloud API v20.0 — session messages (text, image, video, document, audio, location, reactions), interactive messages (buttons, lists, CTA URLs), template management, media upload, and account management — letting your AI agents run real customer conversations at scale.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-whatsapp`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-whatsapp`
 
 ---
 
@@ -73,7 +73,7 @@ Once added, every AI agent in your workspace can call WhatsApp tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-whatsapp \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-whatsapp \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-WHATSAPP-ACCESS-TOKEN: your-access-token' \
   -H 'X-Mcp-Secret-WHATSAPP-PHONE-NUMBER-ID: your-phone-number-id' \

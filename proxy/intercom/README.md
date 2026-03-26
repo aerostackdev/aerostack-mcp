@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Conversations, contacts, tickets, articles via Intercom's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-intercom`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-intercom`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Intercom tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-intercom \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-intercom \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-INTERCOM-ACCESS-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_conversations","arguments":{}}}'

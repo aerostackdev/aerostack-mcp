@@ -90,6 +90,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_event_type',
@@ -104,6 +105,7 @@ const TOOLS = [
             },
             required: ['event_type_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_event_type',
@@ -143,6 +145,7 @@ const TOOLS = [
             },
             required: ['title', 'slug', 'length'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_event_type',
@@ -157,6 +160,7 @@ const TOOLS = [
             },
             required: ['event_type_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // ── Group 2 — Bookings (6 tools) ──────────────────────────────────────────
@@ -186,6 +190,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_booking',
@@ -200,6 +205,7 @@ const TOOLS = [
             },
             required: ['booking_uid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_booking',
@@ -235,6 +241,7 @@ const TOOLS = [
             },
             required: ['event_type_id', 'start', 'attendee_name', 'attendee_email', 'attendee_time_zone'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'reschedule_booking',
@@ -257,6 +264,7 @@ const TOOLS = [
             },
             required: ['booking_uid', 'start'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'cancel_booking',
@@ -275,6 +283,7 @@ const TOOLS = [
             },
             required: ['booking_uid'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'mark_no_show',
@@ -289,6 +298,7 @@ const TOOLS = [
             },
             required: ['booking_uid'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 3 — Availability (3 tools) ─────────────────────────────────────
@@ -318,6 +328,7 @@ const TOOLS = [
             },
             required: ['event_type_id', 'start_time', 'end_time'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_busy_times',
@@ -344,6 +355,7 @@ const TOOLS = [
             },
             required: ['user_id', 'date_from', 'date_to'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_schedules',
@@ -352,6 +364,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 4 — Users & Me (2 tools) ────────────────────────────────────────
@@ -363,6 +376,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'update_me',
@@ -390,6 +404,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

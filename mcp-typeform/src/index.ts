@@ -32,6 +32,7 @@ const TOOLS = [
                 workspace_id: { type: 'string', description: 'Filter by workspace ID' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_form',
@@ -43,6 +44,7 @@ const TOOLS = [
             },
             required: ['form_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_form',
@@ -72,6 +74,7 @@ const TOOLS = [
             },
             required: ['title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_form',
@@ -88,6 +91,7 @@ const TOOLS = [
             },
             required: ['form_id', 'title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_form',
@@ -99,6 +103,7 @@ const TOOLS = [
             },
             required: ['form_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     // Responses
     {
@@ -118,6 +123,7 @@ const TOOLS = [
             },
             required: ['form_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_response',
@@ -130,6 +136,7 @@ const TOOLS = [
             },
             required: ['form_id', 'response_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'delete_responses',
@@ -148,6 +155,7 @@ const TOOLS = [
             },
             required: ['form_id', 'response_ids'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_response_count',
@@ -159,6 +167,7 @@ const TOOLS = [
             },
             required: ['form_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_responses',
@@ -172,6 +181,7 @@ const TOOLS = [
             },
             required: ['form_id', 'query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     // Webhooks
     {
@@ -184,6 +194,7 @@ const TOOLS = [
             },
             required: ['form_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_webhook',
@@ -199,6 +210,7 @@ const TOOLS = [
             },
             required: ['form_id', 'tag', 'url'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_webhook',
@@ -211,6 +223,7 @@ const TOOLS = [
             },
             required: ['form_id', 'tag'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     // Workspaces
     {
@@ -223,6 +236,7 @@ const TOOLS = [
                 page_size: { type: 'number', description: 'Results per page (default: 10)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_workspace',
@@ -234,6 +248,7 @@ const TOOLS = [
             },
             required: ['workspace_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     // Account
     {
@@ -243,6 +258,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -31,12 +31,14 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Discord bot token by calling /users/@me. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     // ── Group A: Discovery ──────────────────────────────────────────────────
     {
         name: 'get_bot_info',
         description: 'Get information about the connected Discord bot (username, ID, avatar)',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_guilds',
@@ -47,6 +49,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max guilds to return (default 20, max 200)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_guild',
@@ -58,6 +61,7 @@ const TOOLS = [
             },
             required: ['guild_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_channels',
@@ -69,6 +73,7 @@ const TOOLS = [
             },
             required: ['guild_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_channel',
@@ -80,6 +85,7 @@ const TOOLS = [
             },
             required: ['channel_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group B: Messages ───────────────────────────────────────────────────
@@ -96,6 +102,7 @@ const TOOLS = [
             },
             required: ['channel_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'send_message',
@@ -112,6 +119,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'reply_to_message',
@@ -126,6 +134,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'message_id', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'edit_message',
@@ -139,6 +148,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'message_id', 'content'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_message',
@@ -151,6 +161,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_pinned_messages',
@@ -162,6 +173,7 @@ const TOOLS = [
             },
             required: ['channel_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'pin_message',
@@ -174,6 +186,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'message_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'add_reaction',
@@ -187,6 +200,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'message_id', 'emoji'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group C: Members & Roles ────────────────────────────────────────────
@@ -202,6 +216,7 @@ const TOOLS = [
             },
             required: ['guild_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_member',
@@ -214,6 +229,7 @@ const TOOLS = [
             },
             required: ['guild_id', 'user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_roles',
@@ -225,6 +241,7 @@ const TOOLS = [
             },
             required: ['guild_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'assign_role',
@@ -238,6 +255,7 @@ const TOOLS = [
             },
             required: ['guild_id', 'user_id', 'role_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'remove_role',
@@ -251,6 +269,7 @@ const TOOLS = [
             },
             required: ['guild_id', 'user_id', 'role_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'kick_member',
@@ -264,6 +283,7 @@ const TOOLS = [
             },
             required: ['guild_id', 'user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // ── Group D: Channels & Threads ─────────────────────────────────────────
@@ -286,6 +306,7 @@ const TOOLS = [
             },
             required: ['guild_id', 'name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'edit_channel',
@@ -301,6 +322,7 @@ const TOOLS = [
             },
             required: ['channel_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_thread',
@@ -319,6 +341,7 @@ const TOOLS = [
             },
             required: ['channel_id', 'name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_active_threads',
@@ -330,6 +353,7 @@ const TOOLS = [
             },
             required: ['guild_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

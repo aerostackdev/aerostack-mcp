@@ -4,7 +4,7 @@
 
 Telegram is a messaging platform with 900M+ active users and a powerful Bot API used by businesses for notifications, support, and community management. This MCP server gives your agents complete access to the Telegram Bot API: sending text, photos, documents, polls, and invoices; managing group and channel members; setting roles and permissions; pinning messages; and handling bot commands.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-telegram`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-telegram`
 
 ---
 
@@ -75,7 +75,7 @@ Once added, every AI agent in your workspace can send messages and manage your T
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-telegram \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-telegram \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TELEGRAM-BOT-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"send_message","arguments":{"chat_id":"-1001234567890","text":"Hello from the AI agent!"}}}'

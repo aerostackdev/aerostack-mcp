@@ -30,6 +30,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify PagerDuty API token by listing abilities. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_incidents',
@@ -52,6 +53,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max results to return (default 25, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_incident',
@@ -63,6 +65,7 @@ const TOOLS = [
             },
             required: ['incident_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'acknowledge_incident',
@@ -79,6 +82,7 @@ const TOOLS = [
             },
             required: ['incident_ids', 'from_email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'resolve_incident',
@@ -95,6 +99,7 @@ const TOOLS = [
             },
             required: ['incident_ids', 'from_email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_services',
@@ -106,6 +111,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max results to return (default 25, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_oncalls',
@@ -122,6 +128,7 @@ const TOOLS = [
                 until: { type: 'string', description: 'ISO 8601 end of on-call window (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_incident',
@@ -138,6 +145,7 @@ const TOOLS = [
             },
             required: ['title', 'service_id', 'from_email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_escalation_policies',
@@ -149,6 +157,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max results to return (default 25, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -2,7 +2,7 @@
 
 > Read and monitor any RSS or Atom feed. No API key required.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-rss`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-rss`
 
 ## What You Can Do
 

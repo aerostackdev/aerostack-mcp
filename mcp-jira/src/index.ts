@@ -27,6 +27,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Jira credentials by fetching the current user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_issues',
@@ -40,6 +41,7 @@ const TOOLS = [
             },
             required: ['jql'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_issue',
@@ -53,6 +55,7 @@ const TOOLS = [
             },
             required: ['issue_key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_issue',
@@ -70,6 +73,7 @@ const TOOLS = [
             },
             required: ['project', 'issue_type', 'summary'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_issue',
@@ -86,6 +90,7 @@ const TOOLS = [
             },
             required: ['issue_key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'add_comment',
@@ -98,6 +103,7 @@ const TOOLS = [
             },
             required: ['issue_key', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'transition_issue',
@@ -110,6 +116,7 @@ const TOOLS = [
             },
             required: ['issue_key', 'transition_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_projects',
@@ -120,6 +127,7 @@ const TOOLS = [
                 max_results: { type: 'number', description: 'Max projects to return (default 20, max 50)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_board_sprints',
@@ -132,6 +140,7 @@ const TOOLS = [
             },
             required: ['board_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_sprint_issues',
@@ -144,6 +153,7 @@ const TOOLS = [
             },
             required: ['sprint_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

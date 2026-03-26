@@ -14,6 +14,7 @@ const TOOLS = [
             },
             required: ['database', 'collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_databases',
@@ -25,6 +26,7 @@ const TOOLS = [
             },
             required: ['database'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_collections',
@@ -36,6 +38,7 @@ const TOOLS = [
             },
             required: ['database'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'find_one',
@@ -50,6 +53,7 @@ const TOOLS = [
             },
             required: ['database', 'collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'find',
@@ -67,6 +71,7 @@ const TOOLS = [
             },
             required: ['database', 'collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert_one',
@@ -80,6 +85,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'document'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'insert_many',
@@ -93,6 +99,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'documents'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_one',
@@ -108,6 +115,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'filter', 'update'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_many',
@@ -123,6 +131,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'filter', 'update'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_one',
@@ -136,6 +145,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'filter'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'delete_many',
@@ -149,6 +159,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'filter'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'aggregate',
@@ -162,6 +173,7 @@ const TOOLS = [
             },
             required: ['database', 'collection', 'pipeline'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

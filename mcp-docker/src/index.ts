@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Docker Hub connectivity by fetching the authenticated user profile. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_images',
@@ -27,6 +28,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_repository',
@@ -39,6 +41,7 @@ const TOOLS = [
             },
             required: ['repository'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tags',
@@ -53,6 +56,7 @@ const TOOLS = [
             },
             required: ['repository'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_tag',
@@ -66,6 +70,7 @@ const TOOLS = [
             },
             required: ['repository', 'tag'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_repos',
@@ -79,6 +84,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_dockerfile',
@@ -92,6 +98,7 @@ const TOOLS = [
             },
             required: ['repository'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_vulnerabilities',
@@ -105,6 +112,7 @@ const TOOLS = [
             },
             required: ['repository'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

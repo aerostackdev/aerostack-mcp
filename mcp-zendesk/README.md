@@ -4,7 +4,7 @@
 
 Zendesk is the enterprise support platform used by thousands of customer service teams to handle tickets, knowledge bases, and customer relationships. This MCP server exposes 26 tools across 6 functional groups — tickets, users, organizations, knowledge base, views and macros, and CSAT analytics — letting your AI agents handle everything from ticket creation and routing to CSAT trend analysis, all without logging into Zendesk.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-zendesk`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-zendesk`
 
 ---
 
@@ -77,7 +77,7 @@ Once added, every AI agent in your workspace can call Zendesk tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-zendesk \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-zendesk \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ZENDESK-SUBDOMAIN: your-subdomain' \
   -H 'X-Mcp-Secret-ZENDESK-EMAIL: admin@yourcompany.com' \

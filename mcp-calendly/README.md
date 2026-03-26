@@ -4,7 +4,7 @@
 
 Calendly is the leading scheduling automation platform used by millions of professionals. This MCP server exposes the complete Calendly v2 API to your agents: read and manage scheduled events, generate single-use scheduling links, subscribe to booking webhooks, and pull invitee data — all without manual intervention.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-calendly`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-calendly`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can manage Calendly scheduling auto
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-calendly \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-calendly \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CALENDLY-API-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_scheduled_events","arguments":{"status":"active"}}}'

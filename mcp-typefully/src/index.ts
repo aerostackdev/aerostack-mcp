@@ -14,11 +14,13 @@ const TOOLS = [
 		name: 'get_me',
 		description: 'Get authenticated user details.',
 		inputSchema: { type: 'object', properties: {} },
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'list_social_sets',
 		description: 'List all social sets (connected account groups). Each social set has platform connections (X, LinkedIn, Threads, Bluesky, Mastodon). Use the social_set_id for other operations.',
 		inputSchema: { type: 'object', properties: {} },
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_social_set',
@@ -30,6 +32,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'create_draft',
@@ -54,6 +57,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id', 'content'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'list_drafts',
@@ -72,6 +76,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_draft',
@@ -84,6 +89,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id', 'draft_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'update_draft',
@@ -103,6 +109,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id', 'draft_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'delete_draft',
@@ -115,6 +122,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id', 'draft_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: true },
 	},
 	{
 		name: 'get_queue',
@@ -126,6 +134,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_queue_schedule',
@@ -137,6 +146,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'list_tags',
@@ -148,6 +158,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_analytics',
@@ -165,6 +176,7 @@ const TOOLS = [
 			},
 			required: ['social_set_id', 'platform'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 ];
 

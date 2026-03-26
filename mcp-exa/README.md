@@ -4,7 +4,7 @@
 
 Exa is a search engine built for AI â€” it understands meaning, not just keywords. This MCP server lets your AI agents search the web semantically, scrape full page contents, and find similar pages to any URL. Perfect for RAG pipelines, research agents, competitive analysis, and content discovery workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-exa`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-exa`
 
 ---
 
@@ -55,7 +55,7 @@ Once added, every AI agent in your workspace can call Exa tools automatically â€
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-exa \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-exa \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-EXA-API-KEY: your-exa-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search","arguments":{"query":"best practices for RAG pipelines","num_results":5}}}'

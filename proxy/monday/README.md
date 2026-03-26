@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Boards, items, columns, groups, updates, subitems, workspaces via Monday.com's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-monday`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-monday`
 
 ---
 
@@ -52,7 +52,7 @@ Once added, every AI agent in your workspace can use Monday.com tools automatica
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-monday \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-monday \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-MONDAY-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_boards","arguments":{}}}'

@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Cloudinary. Search media assets, upload from URLs, generate transformation URLs for resizing/cropping/effects, browse folders, check usage stats, and manage your media library — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-cloudinary`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-cloudinary`
 
 ---
 
@@ -60,7 +60,7 @@ Give your AI agents full access to Cloudinary. Search media assets, upload from 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-cloudinary \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-cloudinary \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CLOUDINARY-CLOUD-NAME: mycloud' \
   -H 'X-Mcp-Secret-CLOUDINARY-API-KEY: 123456789' \

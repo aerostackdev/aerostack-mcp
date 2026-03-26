@@ -24,6 +24,10 @@
         "type": "object",
         "properties": {},
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -45,7 +49,13 @@
             "description": "Explicit key-value parameters for the action (alternative to natural language instructions)"
           }
         },
-        "required": ["action_id"]
+        "required": [
+          "action_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -59,7 +69,13 @@
             "description": "The ID of the action to get details for"
           }
         },
-        "required": ["action_id"]
+        "required": [
+          "action_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -74,6 +90,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -91,7 +111,14 @@
             "description": "Set to true to turn on, false to turn off"
           }
         },
-        "required": ["zap_id", "enabled"]
+        "required": [
+          "zap_id",
+          "enabled"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     }
   ],
@@ -101,5 +128,27 @@
     "integrations",
     "workflows",
     "no-code"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read"
+    ],
+    "data_types": [
+      "message",
+      "task"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "automation operations"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

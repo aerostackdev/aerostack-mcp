@@ -25,6 +25,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify AWS DynamoDB connectivity by listing tables. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -36,6 +37,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_table',
@@ -47,6 +49,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_item',
@@ -59,6 +62,7 @@ const TOOLS = [
             },
             required: ['table', 'key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'put_item',
@@ -71,6 +75,7 @@ const TOOLS = [
             },
             required: ['table', 'item'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'query',
@@ -89,6 +94,7 @@ const TOOLS = [
             },
             required: ['table', 'key_condition', 'expression_values'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'scan',
@@ -105,6 +111,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'update_item',
@@ -121,6 +128,7 @@ const TOOLS = [
             },
             required: ['table', 'key', 'update_expression', 'expression_values'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_item',
@@ -134,6 +142,7 @@ const TOOLS = [
             },
             required: ['table', 'key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 ];
 

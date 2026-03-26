@@ -4,7 +4,7 @@
 
 PagerDuty is the leading incident response platform for real-time operations. This MCP server lets your AI agents list and triage incidents, acknowledge or resolve alerts, check who's on-call, create new incidents, and inspect escalation policies — turning PagerDuty into a live operational data source for intelligent incident workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-pagerduty`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-pagerduty`
 
 ---
 
@@ -57,7 +57,7 @@ Once added, every AI agent in your workspace can call PagerDuty tools automatica
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-pagerduty \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-pagerduty \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PAGERDUTY-API-KEY: your-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_incidents","arguments":{"statuses":["triggered","acknowledged"]}}}'

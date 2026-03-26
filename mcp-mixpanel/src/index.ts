@@ -41,6 +41,7 @@ const TOOLS = [
             },
             required: ['distinct_id', 'event'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'set_user_properties',
@@ -53,6 +54,7 @@ const TOOLS = [
             },
             required: ['distinct_id', 'properties'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'increment_property',
@@ -66,6 +68,7 @@ const TOOLS = [
             },
             required: ['distinct_id', 'property'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_user_profile',
@@ -77,6 +80,7 @@ const TOOLS = [
             },
             required: ['distinct_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_insights_report',
@@ -90,6 +94,7 @@ const TOOLS = [
             },
             required: ['from_date', 'to_date', 'event'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_funnel',
@@ -103,6 +108,7 @@ const TOOLS = [
             },
             required: ['funnel_id', 'from_date', 'to_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'export_events',
@@ -116,6 +122,7 @@ const TOOLS = [
             },
             required: ['from_date', 'to_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

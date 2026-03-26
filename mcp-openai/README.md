@@ -4,7 +4,7 @@
 
 OpenAI's API powers the most widely-used AI capabilities in production: chat completions with GPT-4, image generation with DALL-E, text embeddings for semantic search, and content moderation. This MCP server wraps all of them in a single endpoint — letting your Aerostack agents use OpenAI's models as tools within multi-agent workflows, or expose them directly to end users.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-openai`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-openai`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call OpenAI tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-openai \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-openai \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-OPENAI-API-KEY: your-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"chat_completion","arguments":{"messages":[{"role":"user","content":"Say hello in one sentence."}]}}}'

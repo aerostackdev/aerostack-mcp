@@ -20,7 +20,31 @@
       "required": true,
       "secret": true,
       "description": "Shopify Admin API Access Token",
-      "how_to_set": "Shopify admin \u2192 Settings \u2192 Apps \u2192 Develop apps \u2192 Create app \u2192 Admin API access token"
+      "how_to_set": "Shopify admin → Settings → Apps → Develop apps → Create app → Admin API access token"
     }
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "general"
+    ],
+    "data_types": [
+      "order",
+      "customer",
+      "product"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "ecommerce operations"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)",
+      "complex multi-step workflows (limited tool set)"
+    ]
+  }
 }

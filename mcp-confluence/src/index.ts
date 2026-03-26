@@ -38,6 +38,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Confluence credentials by fetching the current user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_content',
@@ -50,6 +51,7 @@ const TOOLS = [
             },
             required: ['cql'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_page',
@@ -62,6 +64,7 @@ const TOOLS = [
             },
             required: ['page_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_page',
@@ -77,6 +80,7 @@ const TOOLS = [
             },
             required: ['space_id', 'title', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_page',
@@ -92,6 +96,7 @@ const TOOLS = [
             },
             required: ['page_id', 'title', 'body', 'version_number'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_spaces',
@@ -103,6 +108,7 @@ const TOOLS = [
                 type: { type: 'string', description: 'Filter by space type: "global" or "personal" (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_space',
@@ -114,6 +120,7 @@ const TOOLS = [
             },
             required: ['space_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_pages',
@@ -128,6 +135,7 @@ const TOOLS = [
             },
             required: ['space_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_comment',
@@ -140,6 +148,7 @@ const TOOLS = [
             },
             required: ['page_id', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_page_children',
@@ -152,6 +161,7 @@ const TOOLS = [
             },
             required: ['page_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

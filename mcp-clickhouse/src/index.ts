@@ -7,6 +7,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify ClickHouse connectivity by running SELECT 1. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'query',
@@ -18,11 +19,13 @@ const TOOLS = [
             },
             required: ['sql'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_databases',
         description: 'List all databases in the ClickHouse instance',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -34,6 +37,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_table',
@@ -46,6 +50,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert',
@@ -59,6 +64,7 @@ const TOOLS = [
             },
             required: ['table', 'rows'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'count',
@@ -72,6 +78,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'show_create',
@@ -84,11 +91,13 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'system_metrics',
         description: 'Retrieve current ClickHouse system metrics (useful for monitoring and diagnostics)',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'table_sizes',
@@ -100,6 +109,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

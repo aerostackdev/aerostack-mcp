@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Snowflake. Execute SQL with CTEs, window functions, semi-structured data, and time travel. Browse databases, schemas, and tables, inspect column definitions, and manage virtual warehouses.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-snowflake`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-snowflake`
 
 ---
 
@@ -61,7 +61,7 @@ Give your AI agents full access to Snowflake. Execute SQL with CTEs, window func
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-snowflake \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-snowflake \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SNOWFLAKE-ACCOUNT: xy12345.us-east-1' \
   -H 'X-Mcp-Secret-SNOWFLAKE-USERNAME: myuser' \

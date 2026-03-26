@@ -27,6 +27,7 @@ const TOOLS = [
 				start_cursor: { type: 'string', description: 'Pagination cursor from previous response' },
 			},
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_page',
@@ -38,6 +39,7 @@ const TOOLS = [
 			},
 			required: ['page_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'create_page',
@@ -62,6 +64,7 @@ const TOOLS = [
 			},
 			required: ['database_id', 'properties'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'update_page',
@@ -75,6 +78,7 @@ const TOOLS = [
 			},
 			required: ['page_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'query_database',
@@ -100,6 +104,7 @@ const TOOLS = [
 			},
 			required: ['database_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_database',
@@ -111,6 +116,7 @@ const TOOLS = [
 			},
 			required: ['database_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_page_content',
@@ -124,6 +130,7 @@ const TOOLS = [
 			},
 			required: ['page_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'append_blocks',
@@ -147,6 +154,7 @@ const TOOLS = [
 			},
 			required: ['page_id', 'blocks'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'list_databases',
@@ -158,6 +166,7 @@ const TOOLS = [
 				start_cursor: { type: 'string', description: 'Pagination cursor from previous response' },
 			},
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 ];
 

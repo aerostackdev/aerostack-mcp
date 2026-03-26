@@ -4,7 +4,7 @@
 
 Airtable is the flexible database-spreadsheet hybrid teams use to track projects, CRM pipelines, inventory, and more. This MCP server gives your AI agents full read/write access to any base you connect — querying, creating, and updating records without anyone opening the Airtable UI. Connect it once and every agent in your workspace can work with your Airtable data.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-airtable`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-airtable`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call Airtable tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-airtable \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-airtable \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AIRTABLE-API-KEY: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_bases","arguments":{}}}'

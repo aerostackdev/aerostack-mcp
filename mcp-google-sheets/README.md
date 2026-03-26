@@ -4,7 +4,7 @@
 
 Google Sheets is used by millions of teams as a lightweight database, reporting tool, and operational hub. This MCP server gives your agents full access to the Sheets API v4: reading and writing cell ranges, appending rows, searching data, managing sheet tabs, applying formatting, and creating new spreadsheets — making Sheets a fully programmable data store for AI-driven workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-sheets`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-google-sheets`
 
 ---
 
@@ -65,7 +65,7 @@ Once added, every AI agent in your workspace can read and write Google Sheets au
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-sheets \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-google-sheets \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-SHEETS-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"read_range","arguments":{"spreadsheet_id":"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms","range":"Sheet1!A1:D10"}}}'

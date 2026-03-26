@@ -20,6 +20,7 @@ const TOOLS = [
 			},
 			required: ['url'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'read_multiple_feeds',
@@ -36,6 +37,7 @@ const TOOLS = [
 			},
 			required: ['urls'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_new_items',
@@ -49,6 +51,7 @@ const TOOLS = [
 			},
 			required: ['url', 'since'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_feed_info',
@@ -60,6 +63,7 @@ const TOOLS = [
 			},
 			required: ['url'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'discover_feed',
@@ -71,6 +75,7 @@ const TOOLS = [
 			},
 			required: ['url'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 ];
 

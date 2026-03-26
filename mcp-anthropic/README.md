@@ -4,7 +4,7 @@
 
 Anthropic's API powers some of the world's most capable AI models. This MCP server exposes the full Anthropic API surface to your agents: from sending individual messages and tool-calling conversations to processing thousands of requests in efficient batches and administering your organization's workspaces and API keys.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-anthropic`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-anthropic`
 
 ---
 
@@ -60,7 +60,7 @@ Once added, every AI agent in your workspace can call Claude models automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-anthropic \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-anthropic \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ANTHROPIC-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_message","arguments":{"messages":[{"role":"user","content":"Hello!"}]}}}'

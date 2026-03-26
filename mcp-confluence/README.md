@@ -4,7 +4,7 @@
 
 Confluence is the knowledge management hub for teams using Atlassian. This MCP server gives your AI agents the ability to search across your wiki, read and create pages, manage spaces, and add comments — making Confluence a natural knowledge source and documentation target for automated workflows and AI-driven agents.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-confluence`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-confluence`
 
 ---
 
@@ -87,7 +87,7 @@ CQL (Confluence Query Language) is used with the `search_content` tool:
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-confluence \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-confluence \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CONFLUENCE-URL: https://yoursite.atlassian.net' \
   -H 'X-Mcp-Secret-CONFLUENCE-EMAIL: you@company.com' \

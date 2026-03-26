@@ -32,6 +32,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Twitch credentials by requesting an app access token. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group A: Channels & Search ──────────────────────────────────────────
@@ -47,6 +48,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_channel_info',
@@ -58,6 +60,7 @@ const TOOLS = [
             },
             required: ['broadcaster_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group B: Streams ────────────────────────────────────────────────────
@@ -75,6 +78,7 @@ const TOOLS = [
                 after: { type: 'string', description: 'Cursor for forward pagination' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group C: Games & Categories ─────────────────────────────────────────
@@ -89,6 +93,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_top_games',
@@ -100,6 +105,7 @@ const TOOLS = [
                 after: { type: 'string', description: 'Cursor for forward pagination' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group D: Clips ──────────────────────────────────────────────────────
@@ -117,6 +123,7 @@ const TOOLS = [
             },
             required: ['broadcaster_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group E: Videos ─────────────────────────────────────────────────────
@@ -142,6 +149,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group F: Schedule ───────────────────────────────────────────────────
@@ -157,6 +165,7 @@ const TOOLS = [
             },
             required: ['broadcaster_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

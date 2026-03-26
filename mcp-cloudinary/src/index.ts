@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Cloudinary connectivity by fetching account usage stats. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search',
@@ -27,6 +28,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_resource',
@@ -39,6 +41,7 @@ const TOOLS = [
             },
             required: ['public_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'upload_from_url',
@@ -54,6 +57,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'generate_url',
@@ -67,6 +71,7 @@ const TOOLS = [
             },
             required: ['public_id', 'transformation'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_folders',
@@ -78,6 +83,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'delete_resource',
@@ -90,11 +96,13 @@ const TOOLS = [
             },
             required: ['public_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_usage',
         description: 'Get Cloudinary account usage stats — storage, bandwidth, transformations, API calls used this month',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

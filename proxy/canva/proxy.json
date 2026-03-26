@@ -32,7 +32,13 @@
             "description": "Type of design: presentation, social_media, poster, logo, banner, invitation, flyer, infographic"
           }
         },
-        "required": ["prompt"]
+        "required": [
+          "prompt"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -55,6 +61,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -77,11 +87,20 @@
           },
           "pages": {
             "type": "array",
-            "items": { "type": "number" },
+            "items": {
+              "type": "number"
+            },
             "description": "Array of page numbers to export (1-indexed). Omit for all pages."
           }
         },
-        "required": ["design_id", "format"]
+        "required": [
+          "design_id",
+          "format"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -91,6 +110,10 @@
         "type": "object",
         "properties": {},
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -104,7 +127,13 @@
             "description": "The Canva design ID to retrieve"
           }
         },
-        "required": ["design_id"]
+        "required": [
+          "design_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -115,5 +144,29 @@
     "ai-generation",
     "branding",
     "export"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "page",
+      "folder"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "notion",
+      "github",
+      "webhook"
+    ],
+    "best_for": [
+      "searching and filtering pages"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

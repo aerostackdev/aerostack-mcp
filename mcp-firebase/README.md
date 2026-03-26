@@ -4,7 +4,7 @@
 
 Firebase is Google's app development platform powering millions of mobile and web apps. This MCP server covers three of its most-used services: Firestore (document database), Firebase Auth (user management), and FCM (push notifications) — letting your AI agents read live app data, manage user accounts, and push notifications directly without touching your app's backend code.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-firebase`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-firebase`
 
 ---
 
@@ -60,7 +60,7 @@ Once added, every AI agent in your workspace can call Firebase tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-firebase \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-firebase \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-FIREBASE-PROJECT-ID: your-project-id' \
   -H 'X-Mcp-Secret-FIREBASE-SERVICE-ACCOUNT-KEY: {"type":"service_account",...}' \

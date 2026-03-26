@@ -7,11 +7,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Qdrant connectivity by querying the collections endpoint. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_collections',
         description: 'List all collections in the Qdrant database',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_collection',
@@ -23,6 +25,7 @@ const TOOLS = [
             },
             required: ['collection_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_collection',
@@ -36,6 +39,7 @@ const TOOLS = [
             },
             required: ['collection_name', 'vector_size'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_collection',
@@ -47,6 +51,7 @@ const TOOLS = [
             },
             required: ['collection_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'upsert_points',
@@ -63,6 +68,7 @@ const TOOLS = [
             },
             required: ['collection_name', 'points'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'search',
@@ -80,6 +86,7 @@ const TOOLS = [
             },
             required: ['collection_name', 'vector'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_points',
@@ -94,6 +101,7 @@ const TOOLS = [
             },
             required: ['collection_name', 'ids'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'delete_points',
@@ -107,6 +115,7 @@ const TOOLS = [
             },
             required: ['collection_name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'scroll',
@@ -123,6 +132,7 @@ const TOOLS = [
             },
             required: ['collection_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'count',
@@ -136,6 +146,7 @@ const TOOLS = [
             },
             required: ['collection_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

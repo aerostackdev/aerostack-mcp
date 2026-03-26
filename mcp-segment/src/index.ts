@@ -39,6 +39,7 @@ const TOOLS = [
             },
             required: ['user_id', 'event'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'identify_user',
@@ -55,6 +56,7 @@ const TOOLS = [
             },
             required: ['user_id', 'traits'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'group_user',
@@ -71,6 +73,7 @@ const TOOLS = [
             },
             required: ['user_id', 'group_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'page_view',
@@ -86,6 +89,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'screen_view',
@@ -99,6 +103,7 @@ const TOOLS = [
             },
             required: ['user_id', 'name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'alias_user',
@@ -111,6 +116,7 @@ const TOOLS = [
             },
             required: ['user_id', 'previous_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'batch_track',
@@ -137,6 +143,7 @@ const TOOLS = [
             },
             required: ['events'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

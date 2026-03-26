@@ -39,6 +39,7 @@ const TOOLS = [
             },
             required: ['distinct_id', 'event'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'identify_user',
@@ -51,6 +52,7 @@ const TOOLS = [
             },
             required: ['distinct_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_feature_flags',
@@ -63,6 +65,7 @@ const TOOLS = [
             },
             required: ['distinct_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_persons',
@@ -74,6 +77,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Maximum number of persons to return (default 20)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_person',
@@ -85,6 +89,7 @@ const TOOLS = [
             },
             required: ['person_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_feature_flags',
@@ -95,6 +100,7 @@ const TOOLS = [
                 active: { type: 'boolean', description: 'Filter to only active flags (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_insights',
@@ -110,6 +116,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Maximum number of insights to return (default 10)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_cohorts',
@@ -118,6 +125,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_experiments',
@@ -126,6 +134,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

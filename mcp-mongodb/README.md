@@ -4,7 +4,7 @@
 
 MongoDB Atlas is the cloud-hosted version of MongoDB — the most popular document database, used by millions of developers to store flexible JSON-like documents at scale. This MCP server gives your AI agents full CRUD access plus aggregation pipeline support through the Atlas Data API: finding, inserting, updating, and deleting documents across any database and collection in your cluster — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-mongodb`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-mongodb`
 
 ---
 
@@ -61,7 +61,7 @@ Once added, every AI agent in your workspace can call MongoDB tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-mongodb \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-mongodb \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-MONGODB-APP-ID: your-app-id' \
   -H 'X-Mcp-Secret-MONGODB-API-KEY: your-api-key' \

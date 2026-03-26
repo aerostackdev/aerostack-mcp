@@ -9,11 +9,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Pinecone connectivity by listing indexes. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_indexes',
         description: 'List all Pinecone indexes with their status, dimension, metric, and host',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_index',
@@ -25,6 +27,7 @@ const TOOLS = [
             },
             required: ['index_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'query',
@@ -43,6 +46,7 @@ const TOOLS = [
             },
             required: ['index_host'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'upsert',
@@ -68,6 +72,7 @@ const TOOLS = [
             },
             required: ['index_host', 'vectors'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'fetch',
@@ -81,6 +86,7 @@ const TOOLS = [
             },
             required: ['index_host', 'ids'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'delete_vectors',
@@ -96,6 +102,7 @@ const TOOLS = [
             },
             required: ['index_host'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'describe_stats',
@@ -108,6 +115,7 @@ const TOOLS = [
             },
             required: ['index_host'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_vectors',
@@ -123,6 +131,7 @@ const TOOLS = [
             },
             required: ['index_host'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'update_vector',
@@ -138,6 +147,7 @@ const TOOLS = [
             },
             required: ['index_host', 'id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

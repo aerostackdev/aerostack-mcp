@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Firecrawl API connectivity and credits balance. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'scrape',
@@ -32,6 +33,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'crawl',
@@ -55,6 +57,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'crawl_status',
@@ -66,6 +69,7 @@ const TOOLS = [
             },
             required: ['job_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'map',
@@ -79,6 +83,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'extract',
@@ -95,6 +100,7 @@ const TOOLS = [
             },
             required: ['url'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search',
@@ -109,6 +115,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

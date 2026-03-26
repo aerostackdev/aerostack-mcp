@@ -41,6 +41,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -62,6 +66,10 @@
           "owner",
           "repo"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -106,6 +114,10 @@
           "repo",
           "title"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -135,6 +147,10 @@
           "owner",
           "repo"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -155,6 +171,10 @@
         "required": [
           "q"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -164,5 +184,34 @@
     "repos",
     "pull-requests",
     "code"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "user",
+      "issue",
+      "repo",
+      "pull_request",
+      "branch"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "notion",
+      "jira",
+      "linear"
+    ],
+    "best_for": [
+      "managing developer tools data",
+      "searching and filtering users"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

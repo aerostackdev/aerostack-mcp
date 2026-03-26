@@ -4,7 +4,7 @@
 
 n8n is the open-source workflow automation platform that connects hundreds of services. This MCP server gives your AI agents the ability to list workflows, trigger executions with input data, monitor execution status, and inspect credentials and tags — making n8n a powerful automation backend for any AI-driven workflow.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-n8n`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-n8n`
 
 ---
 
@@ -86,7 +86,7 @@ The API is enabled by default. Go to **Settings** → **API** to verify.
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-n8n \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-n8n \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-N8N-API-URL: https://n8n.example.com' \
   -H 'X-Mcp-Secret-N8N-API-KEY: n8n_api_your-key-here' \

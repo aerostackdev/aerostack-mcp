@@ -27,6 +27,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify n8n API connectivity by fetching instance owner info. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_workflows',
@@ -39,6 +40,7 @@ const TOOLS = [
                 cursor: { type: 'string', description: 'Pagination cursor from previous response' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_workflow',
@@ -50,6 +52,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'activate_workflow',
@@ -61,6 +64,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'deactivate_workflow',
@@ -72,6 +76,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'execute_workflow',
@@ -84,6 +89,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_executions',
@@ -97,6 +103,7 @@ const TOOLS = [
                 cursor: { type: 'string', description: 'Pagination cursor from previous response' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_execution',
@@ -108,6 +115,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_credentials',
@@ -119,6 +127,7 @@ const TOOLS = [
                 cursor: { type: 'string', description: 'Pagination cursor from previous response' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_tags',
@@ -130,6 +139,7 @@ const TOOLS = [
                 cursor: { type: 'string', description: 'Pagination cursor from previous response' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

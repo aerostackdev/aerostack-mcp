@@ -7,6 +7,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Turso database connectivity. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'execute',
@@ -19,6 +20,7 @@ const TOOLS = [
             },
             required: ['sql'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'batch',
@@ -34,11 +36,13 @@ const TOOLS = [
             },
             required: ['statements'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_tables',
         description: 'List all tables in the Turso database',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'describe_table',
@@ -50,6 +54,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'query',
@@ -66,6 +71,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert',
@@ -78,6 +84,7 @@ const TOOLS = [
             },
             required: ['table', 'rows'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update',
@@ -92,6 +99,7 @@ const TOOLS = [
             },
             required: ['table', 'values', 'where'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_rows',
@@ -105,6 +113,7 @@ const TOOLS = [
             },
             required: ['table', 'where'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'count',
@@ -118,6 +127,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

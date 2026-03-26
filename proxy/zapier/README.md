@@ -2,7 +2,7 @@
 
 > Official proxy MCP — 8,000+ app integrations, trigger Zaps, run actions across Gmail, Slack, Sheets, HubSpot via Zapier's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-zapier`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-zapier`
 
 ---
 
@@ -53,7 +53,7 @@ Once added, every AI agent in your workspace can trigger Zapier actions automati
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-zapier \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-zapier \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ZAPIER-MCP-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_available_actions","arguments":{}}}'

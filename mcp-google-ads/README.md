@@ -4,7 +4,7 @@
 
 Google Ads is the world's largest digital advertising platform, used by millions of businesses to reach customers through search, display, video, and shopping ads. This MCP server gives your agents complete access to the Google Ads API v17: listing and inspecting campaigns, ad groups, and ads, pulling keyword performance metrics, executing custom GAQL queries, and reviewing account budgets.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-google-ads`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-google-ads`
 
 ---
 
@@ -67,7 +67,7 @@ Once added, every AI agent in your workspace can manage Google Ads automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-google-ads \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-google-ads \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-ADS-DEVELOPER-TOKEN: your-dev-token' \
   -H 'X-Mcp-Secret-GOOGLE-ADS-CLIENT-ID: your-client-id' \

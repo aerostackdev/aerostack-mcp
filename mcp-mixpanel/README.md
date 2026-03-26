@@ -4,7 +4,7 @@
 
 Mixpanel is the product analytics platform built for understanding user behavior in depth. This MCP server lets your AI agents send events into Mixpanel, enrich user profiles with properties, and pull insights reports and funnel analysis on demand — turning your analytics data into live input for agent reasoning and reporting workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-mixpanel`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-mixpanel`
 
 ---
 
@@ -57,7 +57,7 @@ Once added, every AI agent in your workspace can call Mixpanel tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-mixpanel \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-mixpanel \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-MIXPANEL-TOKEN: your-project-token' \
   -H 'X-Mcp-Secret-MIXPANEL-SERVICE-ACCOUNT-USERNAME: your-sa-username' \

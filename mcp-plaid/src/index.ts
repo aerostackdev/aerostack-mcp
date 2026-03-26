@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Plaid API connectivity by fetching API categories. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_accounts',
@@ -24,6 +25,7 @@ const TOOLS = [
             },
             required: ['access_token'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_balance',
@@ -36,6 +38,7 @@ const TOOLS = [
             },
             required: ['access_token'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_transactions',
@@ -52,6 +55,7 @@ const TOOLS = [
             },
             required: ['access_token', 'start_date', 'end_date'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_institutions',
@@ -65,6 +69,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_institution',
@@ -77,6 +82,7 @@ const TOOLS = [
             },
             required: ['institution_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_identity',
@@ -88,6 +94,7 @@ const TOOLS = [
             },
             required: ['access_token'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_link_token',
@@ -102,6 +109,7 @@ const TOOLS = [
             },
             required: ['user_client_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

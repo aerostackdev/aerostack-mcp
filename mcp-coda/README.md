@@ -4,7 +4,7 @@
 
 Coda is the all-in-one doc that combines the flexibility of documents with the power of spreadsheets and databases. This MCP server gives your AI agents full read/write access to your Coda workspace â€” listing docs, querying table rows, inserting and updating data, and inspecting formulas and controls. Connect it once and every agent in your workspace can work with your Coda data.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-coda`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-coda`
 
 ---
 
@@ -59,7 +59,7 @@ Once added, every AI agent in your workspace can call Coda tools automatically â
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-coda \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-coda \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CODA-API-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_docs","arguments":{}}}'

@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify GitLab connectivity by fetching the authenticated user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_projects',
@@ -28,6 +29,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_project',
@@ -39,6 +41,7 @@ const TOOLS = [
             },
             required: ['project'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_issues',
@@ -55,6 +58,7 @@ const TOOLS = [
             },
             required: ['project'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_issue',
@@ -71,6 +75,7 @@ const TOOLS = [
             },
             required: ['project', 'title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_merge_requests',
@@ -87,6 +92,7 @@ const TOOLS = [
             },
             required: ['project'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_merge_request',
@@ -99,6 +105,7 @@ const TOOLS = [
             },
             required: ['project', 'mr_iid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_pipelines',
@@ -113,6 +120,7 @@ const TOOLS = [
             },
             required: ['project'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_branches',
@@ -125,6 +133,7 @@ const TOOLS = [
             },
             required: ['project'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_code',
@@ -138,6 +147,7 @@ const TOOLS = [
             },
             required: ['project', 'query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_file',
@@ -151,6 +161,7 @@ const TOOLS = [
             },
             required: ['project', 'file_path'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -4,7 +4,7 @@
 
 Typeform is a leading form and survey platform known for its conversational UX, used by millions of teams to collect leads, feedback, and research data. This MCP server gives your agents complete access to the Typeform API: listing and inspecting forms, reading and searching responses, managing webhook subscriptions for real-time triggers, and organizing forms across workspaces.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-typeform`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-typeform`
 
 ---
 
@@ -63,7 +63,7 @@ Once added, every AI agent in your workspace can read Typeform responses and man
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-typeform \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-typeform \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TYPEFORM-API-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_responses","arguments":{"form_id":"abc123","page_size":25,"completed":true}}}'

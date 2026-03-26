@@ -222,6 +222,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_message',
@@ -241,6 +242,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_messages',
@@ -259,6 +261,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_threads',
@@ -276,6 +279,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_thread',
@@ -295,6 +299,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 2 — Sending (4 tools) ───────────────────────────────────────────
@@ -345,6 +350,7 @@ const TOOLS = [
             },
             required: ['to', 'subject'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'reply_to_message',
@@ -374,6 +380,7 @@ const TOOLS = [
             },
             required: ['message_id', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'forward_message',
@@ -399,6 +406,7 @@ const TOOLS = [
             },
             required: ['message_id', 'to'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_draft',
@@ -442,6 +450,7 @@ const TOOLS = [
             },
             required: ['to', 'subject'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 3 — Labels (4 tools) ────────────────────────────────────────────
@@ -453,6 +462,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_label',
@@ -467,6 +477,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_label',
@@ -491,6 +502,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'modify_message_labels',
@@ -515,6 +527,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Management (4 tools) ────────────────────────────────────────
@@ -532,6 +545,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'delete_message',
@@ -546,6 +560,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'mark_as_read',
@@ -560,6 +575,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'mark_as_unread',
@@ -574,6 +590,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 5 — Profile & Settings (3 tools) ────────────────────────────────
@@ -585,6 +602,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_drafts',
@@ -598,6 +616,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_attachment',
@@ -616,6 +635,7 @@ const TOOLS = [
             },
             required: ['message_id', 'attachment_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

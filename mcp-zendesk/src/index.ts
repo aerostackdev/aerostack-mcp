@@ -206,6 +206,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_tickets',
@@ -234,6 +235,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_ticket',
@@ -248,6 +250,7 @@ const TOOLS = [
             },
             required: ['ticket_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_ticket',
@@ -300,6 +303,7 @@ const TOOLS = [
             },
             required: ['subject', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_ticket',
@@ -350,6 +354,7 @@ const TOOLS = [
             },
             required: ['ticket_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_ticket',
@@ -364,6 +369,7 @@ const TOOLS = [
             },
             required: ['ticket_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_ticket_comments',
@@ -382,6 +388,7 @@ const TOOLS = [
             },
             required: ['ticket_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_comment',
@@ -408,6 +415,7 @@ const TOOLS = [
             },
             required: ['ticket_id', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'merge_tickets',
@@ -434,6 +442,7 @@ const TOOLS = [
             },
             required: ['ticket_id', 'source_ticket_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 2 — Users (6 tools) ─────────────────────────────────────────────
@@ -460,6 +469,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_user',
@@ -474,6 +484,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_user_tickets',
@@ -492,6 +503,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_user',
@@ -532,6 +544,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_user',
@@ -556,6 +569,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_user_identities',
@@ -570,6 +584,7 @@ const TOOLS = [
             },
             required: ['user_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Organizations (4 tools) ────────────────────────────────────
@@ -591,6 +606,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_organization',
@@ -605,6 +621,7 @@ const TOOLS = [
             },
             required: ['organization_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_organization',
@@ -637,6 +654,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_organization',
@@ -664,6 +682,7 @@ const TOOLS = [
             },
             required: ['organization_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Knowledge Base (4 tools) ───────────────────────────────────
@@ -689,6 +708,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_articles',
@@ -710,6 +730,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_article',
@@ -724,6 +745,7 @@ const TOOLS = [
             },
             required: ['article_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_article',
@@ -755,6 +777,7 @@ const TOOLS = [
             },
             required: ['section_id', 'title', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 5 — Views & Macros (3 tools) ───────────────────────────────────
@@ -771,6 +794,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_view_tickets',
@@ -789,6 +813,7 @@ const TOOLS = [
             },
             required: ['view_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_macros',
@@ -806,6 +831,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 6 — Analytics (2 tools) ────────────────────────────────────────
@@ -831,6 +857,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_ticket_metrics',
@@ -845,6 +872,7 @@ const TOOLS = [
             },
             required: ['ticket_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

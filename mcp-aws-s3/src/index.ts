@@ -25,11 +25,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify AWS S3 connectivity by listing buckets. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_buckets',
         description: 'List all S3 buckets in the AWS account with name, region, and creation date',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_objects',
@@ -45,6 +47,7 @@ const TOOLS = [
             },
             required: ['bucket'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_object',
@@ -57,6 +60,7 @@ const TOOLS = [
             },
             required: ['bucket', 'key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'put_object',
@@ -72,6 +76,7 @@ const TOOLS = [
             },
             required: ['bucket', 'key', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_object',
@@ -84,6 +89,7 @@ const TOOLS = [
             },
             required: ['bucket', 'key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'copy_object',
@@ -98,6 +104,7 @@ const TOOLS = [
             },
             required: ['source_bucket', 'source_key', 'dest_bucket', 'dest_key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'head_object',
@@ -110,6 +117,7 @@ const TOOLS = [
             },
             required: ['bucket', 'key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'presign_url',
@@ -124,6 +132,7 @@ const TOOLS = [
             },
             required: ['bucket', 'key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_bucket',
@@ -135,6 +144,7 @@ const TOOLS = [
             },
             required: ['bucket'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

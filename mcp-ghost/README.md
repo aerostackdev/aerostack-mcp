@@ -4,7 +4,7 @@
 
 Ghost is the open-source publishing platform used by independent creators and media teams for newsletters, blogs, and membership sites. This MCP server connects your AI agents directly to your Ghost Admin API — enabling automated content creation, publishing workflows, and member management without logging into the Ghost dashboard.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-ghost`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-ghost`
 
 ---
 
@@ -57,7 +57,7 @@ Once added, every AI agent in your workspace can call Ghost tools automatically 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-ghost \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-ghost \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GHOST-URL: https://myblog.ghost.io' \
   -H 'X-Mcp-Secret-GHOST-ADMIN-API-KEY: your-id:your-secret' \

@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Google Analytics connectivity by fetching property metadata. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'run_report',
@@ -50,6 +51,7 @@ const TOOLS = [
             },
             required: ['metrics'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_realtime_report',
@@ -79,6 +81,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_metadata',
@@ -90,6 +93,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'run_funnel_report',
@@ -119,6 +123,7 @@ const TOOLS = [
             },
             required: ['steps'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'run_pivot_report',
@@ -155,6 +160,7 @@ const TOOLS = [
             },
             required: ['dimensions', 'metrics', 'pivots'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -194,6 +194,7 @@ const TOOLS = [
             },
             required: ['term'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_person',
@@ -208,6 +209,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_person',
@@ -241,6 +243,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_person',
@@ -268,6 +271,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_person_deals',
@@ -286,6 +290,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 2 — Deals (5 tools) ─────────────────────────────────────────────
@@ -307,6 +312,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_deal',
@@ -321,6 +327,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_deal',
@@ -363,6 +370,7 @@ const TOOLS = [
             },
             required: ['title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_deal',
@@ -389,6 +397,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_deal_stage',
@@ -407,6 +416,7 @@ const TOOLS = [
             },
             required: ['id', 'stage_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 3 — Organizations (4 tools) ─────────────────────────────────────
@@ -428,6 +438,7 @@ const TOOLS = [
             },
             required: ['term'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_organization',
@@ -442,6 +453,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_organization',
@@ -465,6 +477,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_organization_deals',
@@ -483,6 +496,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 4 — Activities (4 tools) ────────────────────────────────────────
@@ -507,6 +521,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_activity',
@@ -521,6 +536,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_activity',
@@ -571,6 +587,7 @@ const TOOLS = [
             },
             required: ['subject', 'type'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'complete_activity',
@@ -585,6 +602,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 5 — Pipeline & Stages (2 tools) ─────────────────────────────────
@@ -596,6 +614,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_stages',
@@ -610,6 +629,7 @@ const TOOLS = [
             },
             required: ['pipeline_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

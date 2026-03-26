@@ -37,6 +37,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -53,6 +57,10 @@
         "required": [
           "deployment_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -71,6 +79,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -87,6 +99,10 @@
         "required": [
           "project_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -111,6 +127,10 @@
         "required": [
           "name"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     }
   ],
@@ -120,5 +140,32 @@
     "hosting",
     "frontend",
     "ci-cd"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read"
+    ],
+    "data_types": [
+      "file",
+      "project",
+      "team",
+      "repo",
+      "branch",
+      "commit"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "managing cloud data"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

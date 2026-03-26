@@ -4,7 +4,7 @@
 
 ArangoDB is the multi-model database that combines documents, graphs, and key-value storage in a single engine — used by enterprises for fraud detection, knowledge graphs, recommendation engines, and supply chain management. This MCP server gives your AI agents direct access to your ArangoDB instance: querying collections, inserting and updating documents, running AQL queries, traversing named graphs, and managing databases — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-arangodb`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-arangodb`
 
 ---
 
@@ -61,7 +61,7 @@ Once added, every AI agent in your workspace can call ArangoDB tools automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-arangodb \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-arangodb \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-ARANGODB-URL: https://your-instance.arangodb.cloud:8529' \
   -H 'X-Mcp-Secret-ARANGODB-USERNAME: root' \

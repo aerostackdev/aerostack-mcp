@@ -183,6 +183,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_campaigns',
@@ -201,6 +202,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_campaign',
@@ -215,6 +217,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_ad_groups',
@@ -238,6 +241,7 @@ const TOOLS = [
             },
             required: ['campaign_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_ad_group_ads',
@@ -256,6 +260,7 @@ const TOOLS = [
             },
             required: ['ad_group_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_query',
@@ -270,6 +275,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_keyword_metrics',
@@ -293,6 +299,7 @@ const TOOLS = [
             },
             required: ['ad_group_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_account_budget',
@@ -301,6 +308,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

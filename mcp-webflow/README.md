@@ -4,7 +4,7 @@
 
 Webflow is the visual web development platform used by designers and marketers to build and manage content-rich websites without writing code. This MCP server exposes the Webflow API v2 — letting your AI agents create and update CMS items, publish sites, and manage collection content, making it possible to automate content operations that would otherwise require logging into Webflow and editing manually.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-webflow`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-webflow`
 
 ---
 
@@ -57,7 +57,7 @@ Once added, every AI agent in your workspace can call Webflow tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-webflow \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-webflow \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-WEBFLOW-API-TOKEN: your-api-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_sites","arguments":{}}}'

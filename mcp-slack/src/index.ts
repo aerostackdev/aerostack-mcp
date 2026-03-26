@@ -28,6 +28,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Slack bot token by calling auth.test. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_channels',
@@ -39,6 +40,7 @@ const TOOLS = [
                 exclude_archived: { type: 'boolean', description: 'Exclude archived channels (default true)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'post_message',
@@ -52,6 +54,7 @@ const TOOLS = [
             },
             required: ['channel', 'text'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_channel_history',
@@ -64,6 +67,7 @@ const TOOLS = [
             },
             required: ['channel'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_messages',
@@ -76,6 +80,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_user_info',
@@ -87,6 +92,7 @@ const TOOLS = [
             },
             required: ['user'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_users',
@@ -97,6 +103,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Number of users to return (default 20)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_reaction',
@@ -110,6 +117,7 @@ const TOOLS = [
             },
             required: ['channel', 'timestamp', 'name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

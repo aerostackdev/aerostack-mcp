@@ -4,7 +4,7 @@
 
 Upstash Kafka is a serverless Kafka service with a REST API — no brokers to manage, pay only for what you use. This MCP server lets your AI agents produce messages to topics, consume from consumer groups, create and delete topics, and check topic statistics, all through the Upstash Kafka REST interface.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-upstash-kafka`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-upstash-kafka`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can call Kafka tools automatically 
 
 ```bash
 # Produce a message
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-upstash-kafka \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-upstash-kafka \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-UPSTASH-KAFKA-REST-URL: https://your-cluster.upstash.io' \
   -H 'X-Mcp-Secret-UPSTASH-KAFKA-REST-USERNAME: your-username' \
@@ -70,7 +70,7 @@ curl -X POST https://mcp.aerostack.dev/s/navin/mcp-upstash-kafka \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"produce","arguments":{"topic":"user-signups","value":"{\"name\":\"Alice\",\"plan\":\"pro\"}"}}}'
 
 # Consume messages
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-upstash-kafka \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-upstash-kafka \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-UPSTASH-KAFKA-REST-URL: https://your-cluster.upstash.io' \
   -H 'X-Mcp-Secret-UPSTASH-KAFKA-REST-USERNAME: your-username' \

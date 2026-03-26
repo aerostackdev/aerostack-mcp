@@ -29,6 +29,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_events',
@@ -42,6 +43,7 @@ const TOOLS = [
                 maxResults: { type: 'number', description: 'Maximum number of events (default 10, max 50)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_event',
@@ -54,6 +56,7 @@ const TOOLS = [
             },
             required: ['eventId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_event',
@@ -72,6 +75,7 @@ const TOOLS = [
             },
             required: ['summary', 'startDateTime', 'endDateTime'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_event',
@@ -91,6 +95,7 @@ const TOOLS = [
             },
             required: ['eventId'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_event',
@@ -103,6 +108,7 @@ const TOOLS = [
             },
             required: ['eventId'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'quick_add',
@@ -115,6 +121,7 @@ const TOOLS = [
             },
             required: ['text'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

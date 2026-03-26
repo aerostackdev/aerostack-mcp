@@ -45,6 +45,7 @@ const TOOLS = [
 			},
 			required: ['post', 'platforms'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'get_post',
@@ -56,6 +57,7 @@ const TOOLS = [
 			},
 			required: ['post_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'delete_post',
@@ -67,6 +69,7 @@ const TOOLS = [
 			},
 			required: ['post_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: true },
 	},
 	{
 		name: 'delete_all_scheduled',
@@ -78,6 +81,7 @@ const TOOLS = [
 			},
 			required: ['confirm'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: true },
 	},
 	{
 		name: 'get_history',
@@ -98,6 +102,7 @@ const TOOLS = [
 				limit: { type: 'integer', description: 'Max results (default 20)' },
 			},
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_analytics',
@@ -114,6 +119,7 @@ const TOOLS = [
 			},
 			required: ['post_id', 'platforms'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'get_comments',
@@ -125,6 +131,7 @@ const TOOLS = [
 			},
 			required: ['post_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'post_comment',
@@ -142,6 +149,7 @@ const TOOLS = [
 			},
 			required: ['post_id', 'comment', 'platforms'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'auto_hashtags',
@@ -154,6 +162,7 @@ const TOOLS = [
 			},
 			required: ['post'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'shorten_link',
@@ -165,6 +174,7 @@ const TOOLS = [
 			},
 			required: ['url'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 ];
 

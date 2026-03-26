@@ -52,6 +52,10 @@
           "summary",
           "issue_type"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -68,6 +72,10 @@
         "required": [
           "issue_key"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -88,6 +96,10 @@
         "required": [
           "jql"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -109,6 +121,10 @@
           "issue_key",
           "fields"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -123,6 +139,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -139,6 +159,10 @@
         "required": [
           "page_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -148,5 +172,36 @@
     "atlassian",
     "project-management",
     "issues"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "update",
+      "search"
+    ],
+    "data_types": [
+      "user",
+      "project",
+      "issue",
+      "page",
+      "product",
+      "comment"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "calendar",
+      "webhook"
+    ],
+    "best_for": [
+      "managing productivity data",
+      "searching and filtering users"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

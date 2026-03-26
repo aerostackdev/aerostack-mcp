@@ -17,6 +17,7 @@ const TOOLS = [
 			type: 'object',
 			properties: {},
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'list_social_profiles',
@@ -28,6 +29,7 @@ const TOOLS = [
 			},
 			required: ['workspace_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'create_post',
@@ -55,6 +57,7 @@ const TOOLS = [
 			},
 			required: ['workspace_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'list_posts',
@@ -76,6 +79,7 @@ const TOOLS = [
 			},
 			required: ['workspace_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 	{
 		name: 'update_post',
@@ -88,6 +92,7 @@ const TOOLS = [
 			},
 			required: ['post_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: false },
 	},
 	{
 		name: 'delete_post',
@@ -99,6 +104,7 @@ const TOOLS = [
 			},
 			required: ['post_id'],
 		},
+		annotations: { readOnlyHint: false, destructiveHint: true },
 	},
 	{
 		name: 'list_automations',
@@ -110,6 +116,7 @@ const TOOLS = [
 			},
 			required: ['workspace_id'],
 		},
+		annotations: { readOnlyHint: true, destructiveHint: false },
 	},
 ];
 

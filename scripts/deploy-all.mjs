@@ -53,14 +53,28 @@ const API_BASE = process.env.AEROSTACK_API_BASE ?? 'https://api.aerostack.dev';
 
 function parseToml(content) {
   const result = {};
+  let currentSection = null;
   for (const line of content.split('\n')) {
+    // Section header: [capability_manifest]
+    const sectionMatch = line.match(/^\[(\w+)\]\s*$/);
+    if (sectionMatch) {
+      currentSection = sectionMatch[1];
+      result[currentSection] = result[currentSection] || {};
+      continue;
+    }
     // key = "value"
     const strMatch = line.match(/^(\w+)\s*=\s*"(.+?)"/);
-    if (strMatch) { result[strMatch[1]] = strMatch[2]; continue; }
+    if (strMatch) {
+      if (currentSection) result[currentSection][strMatch[1]] = strMatch[2];
+      else result[strMatch[1]] = strMatch[2];
+      continue;
+    }
     // tags = ["a", "b"]
     const arrMatch = line.match(/^(\w+)\s*=\s*\[(.+)\]/);
     if (arrMatch) {
-      result[arrMatch[1]] = arrMatch[2].match(/"([^"]+)"/g)?.map(s => s.replace(/"/g, '')) ?? [];
+      const arr = arrMatch[2].match(/"([^"]+)"/g)?.map(s => s.replace(/"/g, '')) ?? [];
+      if (currentSection) result[currentSection][arrMatch[1]] = arr;
+      else result[arrMatch[1]] = arr;
     }
   }
   return result;
@@ -80,7 +94,7 @@ async function patchMcpMeta(id, meta) {
 /** Convert API-returned URL to public aerostack.dev format */
 function publicUrl(slug) {
   // e.g. mcp-airtable → https://aerostack.dev/mcp/navin/mcp-airtable
-  const profile = process.env.AEROSTACK_PROFILE ?? 'navin';
+  const profile = process.env.AEROSTACK_PROFILE ?? 'aerostack';
   return `https://aerostack.dev/mcp/${profile}/${slug}`;
 }
 
@@ -138,6 +152,7 @@ async function registerProxy(proxy, readme) {
     ...(proxy.tools  && { tools: proxy.tools }),
     ...(proxy.tags   && { tags:  proxy.tags }),
     ...(readme       && { readme }),
+    ...(proxy.capability_manifest && { capability_manifest: proxy.capability_manifest }),
   };
 
   const res = await fetch(`${API_BASE}/api/community/mcp`, {
@@ -214,6 +229,7 @@ if (!PROXIES_ONLY || HOSTED_ONLY) {
         ...(toml.tags        && { tags:        toml.tags }),
         ...(toml.env         && { config_schema: { env: toml.env } }),
         ...(readme           && { readme }),
+        ...(toml.capability_manifest && { capability_manifest: toml.capability_manifest }),
       });
 
       process.stdout.write('\n');
@@ -274,6 +290,11 @@ if (existsSync(proxyRoot)) {
         process.stdout.write(' → publishing...');
 
         const pub = await publishMcp(reg.id);
+
+        // Ensure capability_manifest from proxy.json is persisted (publish auto-generates a weaker one)
+        if (proxy.capability_manifest) {
+          await patchMcpMeta(reg.id, { capability_manifest: proxy.capability_manifest }).catch(() => {});
+        }
         process.stdout.write('\n');
 
         if (pub.decision === 'auto_publish' || pub.status === 'published' || pub.error === 'Already published') {

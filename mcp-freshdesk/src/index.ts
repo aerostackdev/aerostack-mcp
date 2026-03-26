@@ -201,6 +201,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_ticket',
@@ -215,6 +216,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_ticket',
@@ -259,6 +261,7 @@ const TOOLS = [
             },
             required: ['subject', 'description', 'email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_ticket',
@@ -306,6 +309,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_ticket',
@@ -320,6 +324,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_ticket_conversations',
@@ -334,6 +339,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'add_reply',
@@ -362,6 +368,7 @@ const TOOLS = [
             },
             required: ['id', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'add_note',
@@ -389,6 +396,7 @@ const TOOLS = [
             },
             required: ['id', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_ticket_status',
@@ -408,6 +416,7 @@ const TOOLS = [
             },
             required: ['id', 'status'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 2 — Contacts (6 tools) ─────────────────────────────────────────
@@ -440,6 +449,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_contact',
@@ -454,6 +464,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_contact',
@@ -493,6 +504,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_contact',
@@ -536,6 +548,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'search_contacts',
@@ -550,6 +563,7 @@ const TOOLS = [
             },
             required: ['term'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'merge_contacts',
@@ -568,6 +582,7 @@ const TOOLS = [
             },
             required: ['id', 'target_contact_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 
     // ── Group 3 — Companies (4 tools) ────────────────────────────────────────
@@ -588,6 +603,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_company',
@@ -602,6 +618,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_company',
@@ -629,6 +646,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_company_contacts',
@@ -647,6 +665,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 4 — Agents (3 tools) ───────────────────────────────────────────
@@ -663,6 +682,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_agent',
@@ -677,6 +697,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_current_agent',
@@ -685,6 +706,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 5 — Groups (2 tools) ───────────────────────────────────────────
@@ -696,6 +718,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_group',
@@ -710,6 +733,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 6 — Reports (1 tool) ───────────────────────────────────────────
@@ -721,6 +745,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

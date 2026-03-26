@@ -4,7 +4,7 @@
 
 Mailchimp is one of the world's most popular email marketing platforms, used by millions of businesses to send billions of emails. This MCP server gives your agents complete access to the Mailchimp Marketing API v3: managing audiences and member subscriptions, creating and sending campaigns, applying tags for segmentation, and pulling audience statistics.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-mailchimp`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-mailchimp`
 
 ---
 
@@ -63,7 +63,7 @@ Once added, every AI agent in your workspace can manage Mailchimp marketing auto
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-mailchimp \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-mailchimp \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-MAILCHIMP-API-KEY: your-key-us6' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"add_member","arguments":{"list_id":"abc123","email_address":"alice@example.com","status":"subscribed"}}}'

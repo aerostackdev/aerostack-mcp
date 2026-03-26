@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Contacts, deals, companies, tickets, workflows via HubSpot's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-hubspot`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-hubspot`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use HubSpot tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-hubspot \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-hubspot \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-HUBSPOT-ACCESS-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_contact","arguments":{}}}'

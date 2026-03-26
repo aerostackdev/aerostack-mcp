@@ -4,7 +4,7 @@
 
 CircleCI is a leading continuous integration and delivery platform. This MCP server gives your AI agents the ability to list pipelines, inspect workflow and job status, retrieve build artifacts, trigger new pipelines, and cancel running workflows — enabling automated CI/CD observability and control from any agent.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-circleci`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-circleci`
 
 ---
 
@@ -73,7 +73,7 @@ Use this format for `project_slug` parameters in all tools.
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-circleci \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-circleci \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CIRCLECI-TOKEN: your-circleci-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_pipelines","arguments":{"project_slug":"gh/my-org/my-repo"}}}'

@@ -33,6 +33,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -54,7 +58,13 @@
             "description": "Filter items by group ID within the board"
           }
         },
-        "required": ["board_id"]
+        "required": [
+          "board_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -80,7 +90,14 @@
             "description": "JSON object mapping column IDs to their values"
           }
         },
-        "required": ["board_id", "item_name"]
+        "required": [
+          "board_id",
+          "item_name"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -102,7 +119,15 @@
             "description": "JSON object mapping column IDs to new values"
           }
         },
-        "required": ["board_id", "item_id", "column_values"]
+        "required": [
+          "board_id",
+          "item_id",
+          "column_values"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -120,7 +145,14 @@
             "description": "The text content of the update (supports HTML)"
           }
         },
-        "required": ["item_id", "body"]
+        "required": [
+          "item_id",
+          "body"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     }
   ],
@@ -130,5 +162,34 @@
     "boards",
     "project-management",
     "productivity"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "update"
+    ],
+    "data_types": [
+      "project",
+      "product",
+      "workspace",
+      "comment",
+      "board",
+      "item"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "calendar",
+      "webhook"
+    ],
+    "best_for": [
+      "managing productivity data"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

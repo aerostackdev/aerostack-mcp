@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Files, frames, components, comments, variables via Figma's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-figma`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-figma`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Figma tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-figma \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-figma \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-FIGMA-ACCESS-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_file","arguments":{}}}'

@@ -4,7 +4,7 @@
 
 Basecamp is the all-in-one project management and team communication platform. This MCP server gives your AI agents the ability to list and inspect projects, create and complete to-dos, post messages to message boards, and read schedule entries — making Basecamp a first-class integration for automated project management workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-basecamp`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-basecamp`
 
 ---
 
@@ -98,7 +98,7 @@ The same pattern applies for message boards (`message_board` in dock) and schedu
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-basecamp \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-basecamp \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-BASECAMP-ACCESS-TOKEN: your-oauth-token' \
   -H 'X-Mcp-Secret-BASECAMP-ACCOUNT-ID: 4567890' \

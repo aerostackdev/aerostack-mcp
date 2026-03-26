@@ -4,7 +4,7 @@
 
 Segment is the customer data platform that sits between your product and every analytics, marketing, and data warehouse tool you use. Every event sent through this MCP flows to all your connected Segment destinations — Amplitude, Mixpanel, Salesforce, BigQuery, and more — making it the highest-leverage place to send behavioral data from agent workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-segment`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-segment`
 
 ---
 
@@ -54,7 +54,7 @@ Once added, every AI agent in your workspace can call Segment tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-segment \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-segment \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SEGMENT-WRITE-KEY: your-write-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"track_event","arguments":{"userId":"u_12345","event":"Order Completed","properties":{"revenue":49.99}}}}'

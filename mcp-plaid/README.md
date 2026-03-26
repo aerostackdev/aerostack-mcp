@@ -4,7 +4,7 @@
 
 Give your AI agents access to financial data through Plaid. Retrieve bank account balances, search transactions by date range, look up financial institutions, verify account ownership, and initiate bank connections — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-plaid`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-plaid`
 
 ---
 
@@ -61,7 +61,7 @@ Give your AI agents access to financial data through Plaid. Retrieve bank accoun
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-plaid \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-plaid \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PLAID-CLIENT-ID: your-client-id' \
   -H 'X-Mcp-Secret-PLAID-SECRET: your-secret' \

@@ -4,7 +4,7 @@
 
 Microsoft Graph is the unified API for Microsoft 365 — covering Teams, Outlook, Calendar, and OneDrive from a single token. This MCP server exposes 14 tools across all four services, letting your AI agents operate across your Microsoft 365 environment: posting to Teams channels, reading emails, scheduling meetings, and finding files stored in OneDrive.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-microsoft-graph`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-microsoft-graph`
 
 ---
 
@@ -61,7 +61,7 @@ Once added, every AI agent in your workspace can call Microsoft 365 tools automa
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-microsoft-graph \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-microsoft-graph \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-MICROSOFT-ACCESS-TOKEN: your-oauth-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_teams","arguments":{}}}'

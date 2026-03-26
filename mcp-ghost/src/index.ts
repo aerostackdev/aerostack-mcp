@@ -37,6 +37,7 @@ const TOOLS = [
                 fields: { type: 'string', description: 'Comma-separated list of fields to return (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_post',
@@ -48,6 +49,7 @@ const TOOLS = [
             },
             required: ['post_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_post',
@@ -68,6 +70,7 @@ const TOOLS = [
             },
             required: ['title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_post',
@@ -83,6 +86,7 @@ const TOOLS = [
             },
             required: ['post_id', 'updated_at'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_post',
@@ -94,6 +98,7 @@ const TOOLS = [
             },
             required: ['post_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'publish_post',
@@ -106,6 +111,7 @@ const TOOLS = [
             },
             required: ['post_id', 'updated_at'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_pages',
@@ -121,6 +127,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_members',
@@ -132,6 +139,7 @@ const TOOLS = [
                 email: { type: 'string', description: 'Filter by email address (optional)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_member',
@@ -146,6 +154,7 @@ const TOOLS = [
             },
             required: ['email'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

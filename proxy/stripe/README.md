@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Payments, customers, subscriptions, invoices via Stripe's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-stripe`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-stripe`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Stripe tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-stripe \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-stripe \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-STRIPE-SECRET-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_payment_intent","arguments":{}}}'

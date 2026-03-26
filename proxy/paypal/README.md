@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Orders, payments, subscriptions, payouts via PayPal's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-paypal`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-paypal`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use PayPal tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-paypal \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-paypal \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PAYPAL-ACCESS-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_order","arguments":{}}}'

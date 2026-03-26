@@ -29,6 +29,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_project',
@@ -40,6 +41,7 @@ const TOOLS = [
             },
             required: ['id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_services',
@@ -51,6 +53,7 @@ const TOOLS = [
             },
             required: ['projectId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_deployments',
@@ -62,6 +65,7 @@ const TOOLS = [
             },
             required: ['serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_deployment_logs',
@@ -73,6 +77,7 @@ const TOOLS = [
             },
             required: ['deploymentId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_variables',
@@ -86,6 +91,7 @@ const TOOLS = [
             },
             required: ['projectId', 'environmentId', 'serviceId'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'redeploy_service',
@@ -98,6 +104,7 @@ const TOOLS = [
             },
             required: ['serviceId', 'environmentId'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

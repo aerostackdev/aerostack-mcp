@@ -121,6 +121,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_spreadsheet',
@@ -140,6 +141,7 @@ const TOOLS = [
             },
             required: ['title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_sheets',
@@ -154,6 +156,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 2 — Reading Data (4 tools) ─────────────────────────────────────
@@ -175,6 +178,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'range'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'read_multiple_ranges',
@@ -194,6 +198,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'ranges'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_all_values',
@@ -212,6 +217,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_name'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'find_row',
@@ -234,6 +240,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'range', 'search_term'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Writing Data (5 tools) ─────────────────────────────────────
@@ -260,6 +267,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'range', 'values'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'append_rows',
@@ -283,6 +291,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'range', 'values'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'clear_range',
@@ -301,6 +310,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'range'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'update_cell',
@@ -323,6 +333,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'cell', 'value'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'batch_update_values',
@@ -349,6 +360,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'data'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Sheet Operations (4 tools) ─────────────────────────────────
@@ -370,6 +382,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_sheet',
@@ -388,6 +401,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'rename_sheet',
@@ -410,6 +424,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_id', 'new_title'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'copy_sheet',
@@ -432,6 +447,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_id', 'destination_spreadsheet_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 5 — Formatting (2 tools) ───────────────────────────────────────
@@ -489,6 +505,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'auto_resize_columns',
@@ -515,6 +532,7 @@ const TOOLS = [
             },
             required: ['spreadsheet_id', 'sheet_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

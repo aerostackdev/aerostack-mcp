@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify Hugging Face connectivity by fetching the authenticated user. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_models',
@@ -29,6 +30,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_model',
@@ -40,6 +42,7 @@ const TOOLS = [
             },
             required: ['model_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_datasets',
@@ -54,6 +57,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_dataset',
@@ -65,6 +69,7 @@ const TOOLS = [
             },
             required: ['dataset_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'search_spaces',
@@ -78,6 +83,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'run_inference',
@@ -91,6 +97,7 @@ const TOOLS = [
             },
             required: ['model_id', 'inputs'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_model_files',
@@ -103,6 +110,7 @@ const TOOLS = [
             },
             required: ['model_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

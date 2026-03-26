@@ -4,7 +4,7 @@
 
 Give your AI agents access to the largest open-source AI model hub. Search 900K+ models and 200K+ datasets, inspect model cards and configs, browse Spaces, list repository files, and run serverless inference — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-huggingface`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-huggingface`
 
 ---
 
@@ -60,7 +60,7 @@ Give your AI agents access to the largest open-source AI model hub. Search 900K+
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-huggingface \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-huggingface \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-HUGGINGFACE-TOKEN: hf_xxxxxxxxxxxx' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_models","arguments":{"query":"text-generation","sort":"downloads","limit":10}}}'

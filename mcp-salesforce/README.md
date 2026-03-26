@@ -4,7 +4,7 @@
 
 Salesforce is the world's #1 CRM platform, used by enterprise sales and revenue operations teams globally. This MCP server gives your agents complete access to the Salesforce REST API: searching and creating leads, contacts, accounts, and opportunities; converting leads; logging tasks and activities; and running arbitrary SOQL queries for reporting and data extraction.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-salesforce`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-salesforce`
 
 ---
 
@@ -73,7 +73,7 @@ Once added, every AI agent in your workspace can manage Salesforce CRM data auto
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-salesforce \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-salesforce \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SALESFORCE-ACCESS-TOKEN: your-token' \
   -H 'X-Mcp-Secret-SALESFORCE-INSTANCE-URL: https://yourorg.my.salesforce.com' \

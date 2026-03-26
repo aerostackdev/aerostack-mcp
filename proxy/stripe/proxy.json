@@ -48,6 +48,10 @@
           "amount",
           "currency"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -70,6 +74,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -86,6 +94,10 @@
         "required": [
           "customer_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -114,6 +126,10 @@
         "required": [
           "customer"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -136,6 +152,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -145,5 +165,31 @@
     "subscriptions",
     "invoices",
     "billing"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read"
+    ],
+    "data_types": [
+      "payment",
+      "customer",
+      "invoice",
+      "subscription"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "notion",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "managing payments data"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

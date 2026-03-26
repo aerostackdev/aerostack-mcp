@@ -39,6 +39,10 @@
         "required": [
           "query"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -55,6 +59,10 @@
         "required": [
           "page_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -89,6 +97,10 @@
           "parent_type",
           "title"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -114,6 +126,10 @@
           "page_id",
           "properties"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -142,6 +158,10 @@
         "required": [
           "database_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -151,5 +171,35 @@
     "wiki",
     "database",
     "productivity"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read",
+      "update",
+      "search"
+    ],
+    "data_types": [
+      "page",
+      "database",
+      "product",
+      "workspace",
+      "block"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "calendar",
+      "webhook"
+    ],
+    "best_for": [
+      "managing productivity data",
+      "searching and filtering pages"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

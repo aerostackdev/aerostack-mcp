@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Files, folders, search, metadata, sharing, comments, collaborations via Box's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-box`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-box`
 
 ---
 
@@ -50,7 +50,7 @@ Once added, every AI agent in your workspace can use Box tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-box \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-box \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-BOX-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_content","arguments":{"query":"quarterly report"}}}'

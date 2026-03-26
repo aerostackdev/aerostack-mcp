@@ -64,6 +64,10 @@
           "currency",
           "description"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -80,6 +84,10 @@
         "required": [
           "payment_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -106,6 +114,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -135,6 +147,10 @@
           "amount",
           "currency"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -151,6 +167,10 @@
         "required": [
           "order_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -160,5 +180,31 @@
     "india",
     "billing",
     "subscriptions"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "create",
+      "read"
+    ],
+    "data_types": [
+      "payment",
+      "order",
+      "customer",
+      "subscription"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "notion",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "managing payments data"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

@@ -4,7 +4,7 @@
 
 Pusher Channels is the hosted WebSocket service that powers real-time features in thousands of web and mobile apps — live feeds, notifications, collaborative editing, presence indicators, and more. This MCP server lets your AI agents push events directly into any Pusher channel, inspect which channels are occupied, and generate authentication tokens for private and presence channels.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-pusher`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-pusher`
 
 ---
 
@@ -58,7 +58,7 @@ Once added, every AI agent in your workspace can call Pusher tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-pusher \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-pusher \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-PUSHER-APP-ID: your-app-id' \
   -H 'X-Mcp-Secret-PUSHER-KEY: your-app-key' \

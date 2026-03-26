@@ -13,6 +13,7 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify BigQuery connectivity by listing datasets. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object' as const, properties: {}, required: [] as string[] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_datasets',
@@ -24,6 +25,7 @@ const TOOLS = [
             },
             required: [] as string[],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
@@ -36,6 +38,7 @@ const TOOLS = [
             },
             required: ['dataset'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_table_schema',
@@ -48,6 +51,7 @@ const TOOLS = [
             },
             required: ['dataset', 'table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'query',
@@ -62,6 +66,7 @@ const TOOLS = [
             },
             required: ['sql'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'get_job',
@@ -73,6 +78,7 @@ const TOOLS = [
             },
             required: ['job_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

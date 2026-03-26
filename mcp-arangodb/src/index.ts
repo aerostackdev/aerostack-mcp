@@ -7,11 +7,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify ArangoDB connectivity by querying the server version. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_databases',
         description: 'List all databases accessible by the authenticated user',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_collections',
@@ -23,6 +25,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_collection',
@@ -36,6 +39,7 @@ const TOOLS = [
             },
             required: ['name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_document',
@@ -49,6 +53,7 @@ const TOOLS = [
             },
             required: ['collection', 'key'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert_document',
@@ -62,6 +67,7 @@ const TOOLS = [
             },
             required: ['collection', 'document'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update_document',
@@ -76,6 +82,7 @@ const TOOLS = [
             },
             required: ['collection', 'key', 'data'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete_document',
@@ -89,6 +96,7 @@ const TOOLS = [
             },
             required: ['collection', 'key'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'aql_query',
@@ -103,6 +111,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'list_graphs',
@@ -114,6 +123,7 @@ const TOOLS = [
             },
             required: [],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'traverse',
@@ -130,6 +140,7 @@ const TOOLS = [
             },
             required: ['startVertex', 'graphName'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'collection_count',
@@ -142,6 +153,7 @@ const TOOLS = [
             },
             required: ['collection'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

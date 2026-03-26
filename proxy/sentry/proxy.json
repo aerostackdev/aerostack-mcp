@@ -46,6 +46,10 @@
         "required": [
           "project_slug"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -62,6 +66,10 @@
         "required": [
           "issue_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -82,6 +90,10 @@
         "required": [
           "issue_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
       }
     },
     {
@@ -96,6 +108,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -117,6 +133,10 @@
           "issue_id",
           "event_id"
         ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -126,5 +146,32 @@
     "monitoring",
     "debugging",
     "alerts"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read",
+      "webhooks"
+    ],
+    "data_types": [
+      "user",
+      "project",
+      "issue",
+      "team",
+      "event",
+      "alert"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [
+      "webhook"
+    ],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "event-driven automations"
+    ],
+    "not_suitable_for": []
+  }
 }

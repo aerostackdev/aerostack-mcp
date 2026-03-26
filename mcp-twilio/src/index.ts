@@ -36,6 +36,7 @@ const TOOLS = [
             },
             required: ['to', 'from', 'body'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_messages',
@@ -48,6 +49,7 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max results (default 10, max 100)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_message',
@@ -59,6 +61,7 @@ const TOOLS = [
             },
             required: ['message_sid'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_phone_numbers',
@@ -69,11 +72,13 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max results (default 10)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_account_info',
         description: 'Get basic information about the Twilio account',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

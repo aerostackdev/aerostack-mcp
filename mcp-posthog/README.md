@@ -4,7 +4,7 @@
 
 PostHog is the open-source product analytics suite with built-in feature flags, A/B testing, and session recording. This MCP server lets your AI agents capture analytics events from server-side workflows, evaluate which feature flags are active for a user, and query insights, cohorts, and experiments — turning PostHog into a live data source for intelligent product workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-posthog`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-posthog`
 
 ---
 
@@ -58,7 +58,7 @@ Once added, every AI agent in your workspace can call PostHog tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-posthog \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-posthog \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-POSTHOG-API-KEY: your-personal-api-key' \
   -H 'X-Mcp-Secret-POSTHOG-PROJECT-ID: 12345' \

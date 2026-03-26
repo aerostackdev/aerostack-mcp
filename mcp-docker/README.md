@@ -4,7 +4,7 @@
 
 Give your AI agents access to Docker Hub. Search millions of container images, compare tags and architectures, inspect vulnerability reports, view Dockerfiles, and manage your repositories — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-docker`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-docker`
 
 ---
 
@@ -61,7 +61,7 @@ Give your AI agents access to Docker Hub. Search millions of container images, c
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-docker \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-docker \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-DOCKER-USERNAME: myuser' \
   -H 'X-Mcp-Secret-DOCKER-PASSWORD: dckr_pat_xxxx' \

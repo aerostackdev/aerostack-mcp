@@ -4,7 +4,7 @@
 
 Twilio is the communications platform that powers SMS, voice, and messaging for tens of thousands of businesses. This MCP server lets your AI agents send text messages, look up message delivery history, and inspect the phone numbers on your account — making it easy to add SMS notifications or two-way messaging to any agent-driven workflow.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-twilio`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-twilio`
 
 ---
 
@@ -53,7 +53,7 @@ Once added, every AI agent in your workspace can call Twilio tools automatically
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-twilio \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-twilio \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-TWILIO-ACCOUNT-SID: ACyour-account-sid' \
   -H 'X-Mcp-Secret-TWILIO-AUTH-TOKEN: your-auth-token' \

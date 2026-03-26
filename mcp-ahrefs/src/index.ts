@@ -30,6 +30,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_domain_rating',
@@ -41,6 +42,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_backlinks',
@@ -58,6 +60,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_organic_keywords',
@@ -76,6 +79,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_domain_overview',
@@ -88,6 +92,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_url_rating',
@@ -99,6 +104,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_referring_domains',
@@ -116,6 +122,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_keyword_difficulty',
@@ -128,6 +135,7 @@ const TOOLS = [
             },
             required: ['keyword'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_top_pages',
@@ -141,6 +149,7 @@ const TOOLS = [
             },
             required: ['target'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

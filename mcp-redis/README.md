@@ -4,7 +4,7 @@
 
 Redis is the world's most popular in-memory data store — used for caching, session management, rate limiting, queues, and real-time counters. [Upstash](https://upstash.com) provides a serverless Redis with a REST API that works anywhere, including Cloudflare Workers. This MCP server gives your AI agents full read/write access to your Redis instance: getting and setting keys, working with hashes and lists, managing TTLs, and incrementing counters — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-redis`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-redis`
 
 ---
 
@@ -65,7 +65,7 @@ Once added, every AI agent in your workspace can call Redis tools automatically 
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-redis \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-redis \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-UPSTASH-REDIS-URL: https://us1-xxx.upstash.io' \
   -H 'X-Mcp-Secret-UPSTASH-REDIS-TOKEN: your-token' \

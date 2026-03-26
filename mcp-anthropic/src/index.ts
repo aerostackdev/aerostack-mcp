@@ -115,6 +115,7 @@ const TOOLS = [
             },
             required: ['messages'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'create_message_with_tools',
@@ -181,6 +182,7 @@ const TOOLS = [
             },
             required: ['messages', 'tools'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'count_tokens',
@@ -216,6 +218,7 @@ const TOOLS = [
             },
             required: ['messages'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_message_batch',
@@ -259,6 +262,7 @@ const TOOLS = [
             },
             required: ['requests'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 2 — Models (2 tools) ────────────────────────────────────────────
@@ -270,6 +274,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_model',
@@ -284,6 +289,7 @@ const TOOLS = [
             },
             required: ['model_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 
     // ── Group 3 — Message Batches (3 tools) ───────────────────────────────────
@@ -304,6 +310,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_batch',
@@ -318,6 +325,7 @@ const TOOLS = [
             },
             required: ['message_batch_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'cancel_batch',
@@ -332,6 +340,7 @@ const TOOLS = [
             },
             required: ['message_batch_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 
     // ── Group 4 — Admin (3 tools) — requires Admin API key ───────────────────
@@ -348,6 +357,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_usage',
@@ -356,6 +366,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_api_keys',
@@ -369,6 +380,7 @@ const TOOLS = [
                 },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

@@ -4,7 +4,7 @@
 
 Render is a unified cloud platform for deploying web services, static sites, cron jobs, and background workers from Git. This MCP server connects your AI agents to the Render REST API — letting them list services, check deploy status, trigger new deploys, manage environment variables, inspect custom domains, and pull logs, all from natural language without opening the Render dashboard.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-render`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-render`
 
 ---
 
@@ -62,7 +62,7 @@ Once added, every AI agent in your workspace can manage your Render services aut
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-render \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-render \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-RENDER-API-KEY: rnd_your-api-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_services","arguments":{}}}'

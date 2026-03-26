@@ -4,7 +4,7 @@
 
 Slack is the real-time communication hub for modern teams. This MCP server gives your AI agents the ability to post messages to any channel, read message history, search across conversations, look up user profiles, and add emoji reactions — making Slack a natural output channel for automated workflows and AI-driven notifications.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-slack`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-slack`
 
 ---
 
@@ -99,7 +99,7 @@ If you skip this step, you'll get a `not_in_channel` error when trying to post m
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-slack \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-slack \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-SLACK-BOT-TOKEN: xoxb-your-bot-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"post_message","arguments":{"channel":"#general","text":"Hello from Aerostack!"}}}'

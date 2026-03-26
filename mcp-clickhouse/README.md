@@ -4,7 +4,7 @@
 
 ClickHouse is the fastest open-source columnar database for real-time analytics — used by teams processing billions of rows for dashboards, observability, and data pipelines. This MCP server gives your AI agents direct access to your ClickHouse instance: running arbitrary SQL, exploring database schemas, inserting data, and monitoring system health — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-clickhouse`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-clickhouse`
 
 ---
 
@@ -61,7 +61,7 @@ Once added, every AI agent in your workspace can call ClickHouse tools automatic
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-clickhouse \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-clickhouse \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CLICKHOUSE-URL: https://xxx.clickhouse.cloud:8443' \
   -H 'X-Mcp-Secret-CLICKHOUSE-USER: default' \

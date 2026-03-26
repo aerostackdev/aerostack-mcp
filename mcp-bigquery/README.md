@@ -4,7 +4,7 @@
 
 Give your AI agents full access to Google BigQuery. Execute standard SQL with CTEs, joins, window functions. Browse datasets and tables, inspect column schemas, estimate query costs with dry runs, and track long-running jobs.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-bigquery`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-bigquery`
 
 ---
 
@@ -58,7 +58,7 @@ Give your AI agents full access to Google BigQuery. Execute standard SQL with CT
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-bigquery \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-bigquery \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GOOGLE-SERVICE-ACCOUNT-JSON: {"type":"service_account",...}' \
   -H 'X-Mcp-Secret-GOOGLE-PROJECT-ID: my-project-123' \

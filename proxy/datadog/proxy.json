@@ -36,6 +36,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -49,7 +53,13 @@
             "description": "The ID of the dashboard to retrieve"
           }
         },
-        "required": ["dashboard_id"]
+        "required": [
+          "dashboard_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -75,7 +85,13 @@
             "description": "Maximum number of log entries to return (default 50, max 1000)"
           }
         },
-        "required": ["query"]
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -94,6 +110,10 @@
           }
         },
         "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     },
     {
@@ -115,7 +135,15 @@
             "description": "End time as UNIX epoch seconds"
           }
         },
-        "required": ["query", "from", "to"]
+        "required": [
+          "query",
+          "from",
+          "to"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
       }
     }
   ],
@@ -126,5 +154,30 @@
     "logs",
     "metrics",
     "apm"
-  ]
+  ],
+  "capability_manifest": {
+    "capabilities": [
+      "read",
+      "search"
+    ],
+    "data_types": [
+      "alert",
+      "metric",
+      "dashboard",
+      "board"
+    ],
+    "auth_required": "bearer",
+    "triggers_available": [],
+    "pairs_with": [
+      "slack",
+      "email",
+      "webhook"
+    ],
+    "best_for": [
+      "searching and filtering alerts"
+    ],
+    "not_suitable_for": [
+      "real-time event streaming (no webhook support)"
+    ]
+  }
 }

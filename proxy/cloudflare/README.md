@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Cloudflare Workers, KV, R2, D1, Pages, DNS via Cloudflare's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-cloudflare`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-cloudflare`
 
 ---
 
@@ -51,7 +51,7 @@ Once added, every AI agent in your workspace can use Cloudflare tools automatica
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-cloudflare \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-cloudflare \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CLOUDFLARE-API-TOKEN: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_zones","arguments":{}}}'

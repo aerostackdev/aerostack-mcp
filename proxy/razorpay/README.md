@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Payments, orders, subscriptions, payouts via Razorpay's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-razorpay`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-razorpay`
 
 ---
 
@@ -51,7 +51,7 @@ Once added, every AI agent in your workspace can use Razorpay tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-razorpay \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-razorpay \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-RAZORPAY-KEY-ID: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_payment_link","arguments":{}}}'

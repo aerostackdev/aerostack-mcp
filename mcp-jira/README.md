@@ -4,7 +4,7 @@
 
 Jira is the industry-standard issue tracker and agile project management tool for software teams. This MCP server gives your AI agents the ability to search issues with JQL, create and update tickets, manage sprint workflows, transition issue statuses, and add comments — turning Jira into an AI-native agile command center.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-jira`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-jira`
 
 ---
 
@@ -81,7 +81,7 @@ Your Jira Cloud URL looks like `https://yourteam.atlassian.net`. You can find it
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-jira \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-jira \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-JIRA-URL: https://yourteam.atlassian.net' \
   -H 'X-Mcp-Secret-JIRA-EMAIL: you@example.com' \

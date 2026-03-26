@@ -4,7 +4,7 @@
 
 Gmail is the world's most widely used email platform. This MCP server gives your agents complete access to the Gmail API: searching and reading messages, sending emails and replies, managing labels and folders, forwarding threads, drafting emails, and downloading attachments — enabling fully automated email workflows without human intervention.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-gmail`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-gmail`
 
 ---
 
@@ -67,7 +67,7 @@ Once added, every AI agent in your workspace can read and send Gmail automatical
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-gmail \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-gmail \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-GMAIL-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_messages","arguments":{"query":"is:unread from:boss@example.com"}}}'

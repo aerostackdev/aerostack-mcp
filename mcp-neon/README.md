@@ -4,7 +4,7 @@
 
 Neon is a serverless Postgres platform with branching, autoscaling, and a native HTTP SQL API. This MCP server gives your AI agents direct read/write access to your Neon database: selecting rows, inserting records, updating data, deleting rows, and running raw parameterized SQL — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-neon`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-neon`
 
 ---
 
@@ -59,7 +59,7 @@ Once added, every AI agent in your workspace can query your Neon database automa
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-neon \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-neon \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-DATABASE-URL: postgresql://user:pass@ep-xxx.neon.tech/dbname' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_tables","arguments":{}}}'

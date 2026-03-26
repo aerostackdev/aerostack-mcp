@@ -29,11 +29,13 @@ const TOOLS = [
         name: '_ping',
         description: 'Verify database connectivity by running SELECT 1. Used internally by Aerostack to validate credentials.',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_tables',
         description: 'List all user tables in the Neon PostgreSQL database with their column names and types',
         inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'select',
@@ -50,6 +52,7 @@ const TOOLS = [
             },
             required: ['table'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'insert',
@@ -66,6 +69,7 @@ const TOOLS = [
             },
             required: ['table', 'rows'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'update',
@@ -79,6 +83,7 @@ const TOOLS = [
             },
             required: ['table', 'values', 'where'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'delete',
@@ -91,6 +96,7 @@ const TOOLS = [
             },
             required: ['table', 'where'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
     {
         name: 'run_sql',
@@ -107,6 +113,7 @@ const TOOLS = [
             },
             required: ['query'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: true },
     },
 ];
 

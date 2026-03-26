@@ -2,7 +2,7 @@
 
 > Schedule and manage social media posts across all platforms from your AI agents.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-ocoya`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-ocoya`
 
 ## What You Can Do
 
@@ -63,7 +63,7 @@ Combine with the Notion MCP to automate social publishing:
 ## Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-ocoya \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-ocoya \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-OCOYA-API-KEY: your-ocoya-api-key' \
   -d '{

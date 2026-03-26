@@ -41,6 +41,7 @@ const TOOLS = [
             },
             required: ['from', 'to', 'subject'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_email',
@@ -52,6 +53,7 @@ const TOOLS = [
             },
             required: ['email_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_emails',
@@ -62,11 +64,13 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Max emails to return (default 10)' },
             },
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_domains',
         description: 'List sending domains configured in the Resend account',
         inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'cancel_email',
@@ -78,6 +82,7 @@ const TOOLS = [
             },
             required: ['email_id'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

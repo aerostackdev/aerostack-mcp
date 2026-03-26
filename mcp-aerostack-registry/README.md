@@ -4,7 +4,7 @@
 
 The Aerostack Registry is the central catalog for the Aerostack community marketplace. This MCP server gives AI agents a unified interface to search all 640+ cataloged MCP servers, 200+ edge functions, and skills — and invoke them directly without switching contexts. It's the "meta-MCP" that makes the rest of the marketplace instantly accessible.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-aerostack-registry`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-aerostack-registry`
 
 ---
 
@@ -51,7 +51,7 @@ Once added, every AI agent in your workspace can search and call any marketplace
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-aerostack-registry \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-aerostack-registry \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-AEROSTACK-API-KEY: your-key' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'

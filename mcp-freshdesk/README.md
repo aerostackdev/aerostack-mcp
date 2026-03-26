@@ -4,7 +4,7 @@
 
 Freshdesk is a leading cloud-based customer support platform used by over 60,000 businesses. This MCP server gives your agents complete access to Freshdesk's support infrastructure: creating and triaging tickets, managing contacts and companies, posting replies and internal notes, and pulling performance statistics — enabling fully automated support workflows.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-freshdesk`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-freshdesk`
 
 ---
 
@@ -73,7 +73,7 @@ Once added, every AI agent in your workspace can manage Freshdesk support ticket
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-freshdesk \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-freshdesk \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-FRESHDESK-API-KEY: your-key' \
   -H 'X-Mcp-Secret-FRESHDESK-DOMAIN: acme' \

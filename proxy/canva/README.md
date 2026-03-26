@@ -2,7 +2,7 @@
 
 > Official proxy MCP — Design creation, AI generation, editing, export, assets, brand kits, folders via Canva's official MCP
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-canva`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-canva`
 
 ---
 
@@ -51,7 +51,7 @@ Once added, every AI agent in your workspace can use Canva tools automatically.
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-canva \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-canva \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-CANVA-ACCESS-TOKEN: your-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"generate_design","arguments":{"prompt":"A minimalist tech conference poster"}}}'

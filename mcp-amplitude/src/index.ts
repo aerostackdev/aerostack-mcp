@@ -39,6 +39,7 @@ const TOOLS = [
             },
             required: ['user_id', 'event_type'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'identify_user',
@@ -51,6 +52,7 @@ const TOOLS = [
             },
             required: ['user_id', 'user_properties'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'get_user_activity',
@@ -63,6 +65,7 @@ const TOOLS = [
             },
             required: ['user'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_cohorts',
@@ -71,6 +74,7 @@ const TOOLS = [
             type: 'object',
             properties: {},
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_cohort_members',
@@ -82,6 +86,7 @@ const TOOLS = [
             },
             required: ['cohort_id'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_chart_data',
@@ -100,6 +105,7 @@ const TOOLS = [
             },
             required: ['event_type', 'start', 'end'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_funnel_data',
@@ -114,6 +120,7 @@ const TOOLS = [
             },
             required: ['e', 'start', 'end'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'export_events',
@@ -126,6 +133,7 @@ const TOOLS = [
             },
             required: ['start', 'end'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
 ];
 

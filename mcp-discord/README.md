@@ -4,7 +4,7 @@
 
 Discord is where developer communities, gaming teams, and businesses build real-time communities. This MCP server exposes 23 tools covering the full Discord REST API v10 — letting your AI agents send messages, moderate members, manage channels, and work with threads, all without a WebSocket bot running 24/7.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-discord`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-discord`
 
 ---
 
@@ -70,7 +70,7 @@ Once added, every AI agent in your workspace can call Discord tools automaticall
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-discord \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-discord \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-DISCORD-BOT-TOKEN: your-bot-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_guilds","arguments":{}}}'

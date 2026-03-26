@@ -33,6 +33,7 @@ const TOOLS = [
             },
             required: ['org'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_database',
@@ -45,6 +46,7 @@ const TOOLS = [
             },
             required: ['org', 'database'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_branches',
@@ -57,6 +59,7 @@ const TOOLS = [
             },
             required: ['org', 'database'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'get_branch',
@@ -70,6 +73,7 @@ const TOOLS = [
             },
             required: ['org', 'database', 'branch'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_branch',
@@ -84,6 +88,7 @@ const TOOLS = [
             },
             required: ['org', 'database', 'name'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
     {
         name: 'list_deploy_requests',
@@ -96,6 +101,7 @@ const TOOLS = [
             },
             required: ['org', 'database'],
         },
+        annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'create_deploy_request',
@@ -110,6 +116,7 @@ const TOOLS = [
             },
             required: ['org', 'database', 'branch'],
         },
+        annotations: { readOnlyHint: false, destructiveHint: false },
     },
 ];
 

@@ -4,7 +4,7 @@
 
 Loom is an async video messaging platform for screen recordings and team communication. This MCP server gives your AI agents access to your Loom workspace: listing videos, searching by keyword, fetching full transcripts, retrieving engagement analytics, and browsing folders — all through natural language.
 
-**Live endpoint:** `https://mcp.aerostack.dev/s/navin/mcp-loom`
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-loom`
 
 ---
 
@@ -58,7 +58,7 @@ Once added, every AI agent in your workspace can access your Loom videos automat
 ### Direct API Call
 
 ```bash
-curl -X POST https://mcp.aerostack.dev/s/navin/mcp-loom \
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-loom \
   -H 'Content-Type: application/json' \
   -H 'X-Mcp-Secret-LOOM-ACCESS-TOKEN: your-loom-access-token' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_videos","arguments":{"per_page":5}}}'
