@@ -1,0 +1,12 @@
+name = "mcp-twitter"
+description = "Post tweets, search content, manage followers, and monitor engagement metrics on Twitter/X — full v2 API coverage for social automation."
+category = "Social Media"
+tags = ["twitter", "x", "social", "tweets", "social-media", "marketing"]
+env = ["TWITTER_BEARER_TOKEN", "TWITTER_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+TWITTER_BEARER_TOKEN = "Twitter/X App-only Bearer Token for read operations. Get it from https://developer.twitter.com/en/portal/projects → your app → Keys and tokens → Bearer Token."
+TWITTER_ACCESS_TOKEN = "Twitter/X OAuth 2.0 User Access Token for write operations (posting, liking, retweeting, bookmarks). Generate via OAuth 2.0 PKCE flow in the Twitter Developer Portal."

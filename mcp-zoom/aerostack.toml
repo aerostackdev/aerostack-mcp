@@ -1,0 +1,13 @@
+name = "mcp-zoom"
+description = "Schedule meetings, manage webinars, list participants, and access cloud recordings in Zoom — full Server-to-Server OAuth for enterprise automation."
+category = "Productivity"
+tags = ["zoom", "meetings", "video", "webinars", "conferencing", "recordings"]
+env = ["ZOOM_ACCOUNT_ID", "ZOOM_CLIENT_ID", "ZOOM_CLIENT_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ZOOM_ACCOUNT_ID = "Your Zoom account ID (found in Zoom Marketplace app credentials)"
+ZOOM_CLIENT_ID = "Your Zoom Server-to-Server OAuth app client ID"
+ZOOM_CLIENT_SECRET = "Your Zoom Server-to-Server OAuth app client secret"

@@ -1,0 +1,11 @@
+name = "mcp-greenhouse"
+description = "Full Greenhouse ATS integration — manage jobs, candidates, applications, interviews, offers, and hiring reports for recruiting automation."
+category = "HR & Recruiting"
+tags = ["ats", "greenhouse", "recruiting", "hr", "hiring", "candidates"]
+env = ["GREENHOUSE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GREENHOUSE_API_KEY = "Your Greenhouse Harvest API key (generate in Greenhouse → Settings → Dev Center → API Credential Management)"

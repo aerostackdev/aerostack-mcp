@@ -1,0 +1,11 @@
+name = "mcp-reddit"
+description = "Search posts, read and post to subreddits, manage comments, vote, and look up user profiles across Reddit."
+category = "Social Media"
+tags = ["reddit", "social-media", "community", "posts", "comments", "voting"]
+env = ["REDDIT_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+REDDIT_ACCESS_TOKEN = "OAuth 2.0 User Access Token with identity, read, submit, vote, edit scopes. Obtain via Reddit's OAuth2 flow: https://github.com/reddit-archive/reddit/wiki/OAuth2."

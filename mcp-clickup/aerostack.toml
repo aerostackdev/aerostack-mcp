@@ -1,0 +1,11 @@
+name = "mcp-clickup"
+description = "Manage ClickUp workspaces, spaces, folders, lists, tasks, comments, and time tracking from any AI agent."
+category = "Project Management"
+tags = ["project-management", "clickup", "tasks", "time-tracking", "productivity"]
+env = ["CLICKUP_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+CLICKUP_API_TOKEN = "Your ClickUp personal API token from Settings → Apps → API Token"

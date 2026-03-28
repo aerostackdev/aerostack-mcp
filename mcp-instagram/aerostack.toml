@@ -1,0 +1,12 @@
+name = "mcp-instagram"
+description = "Manage your Instagram Business Account — publish posts, reels, carousels, reply to comments, pull engagement analytics, and discover trending hashtags."
+category = "Social Media"
+tags = ["instagram", "social-media", "content", "analytics", "meta", "reels"]
+env = ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_BUSINESS_ACCOUNT_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+INSTAGRAM_ACCESS_TOKEN = "Meta User Access Token with instagram_basic, instagram_content_publish, instagram_manage_comments, instagram_manage_insights permissions. Get it from the Meta for Developers App Dashboard → Tools → Graph API Explorer."
+INSTAGRAM_BUSINESS_ACCOUNT_ID = "Your Instagram Business Account ID (numeric). Find it via the Meta Graph API: GET /me/accounts → then GET /{page-id}?fields=instagram_business_account."

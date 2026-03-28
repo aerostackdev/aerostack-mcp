@@ -1,0 +1,11 @@
+name = "mcp-tiktok"
+description = "Manage TikTok creator accounts — browse and query videos, pull analytics, discover trending content and hashtags, manage followers."
+category = "Social Media"
+tags = ["tiktok", "social-media", "video", "analytics", "creators", "trending"]
+env = ["TIKTOK_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+TIKTOK_ACCESS_TOKEN = "TikTok OAuth 2.0 Access Token with user.info.basic, video.list, video.upload, research.video.query scopes. Obtain it via the TikTok for Developers OAuth flow at https://developers.tiktok.com/doc/oauth-user-access-token-management."

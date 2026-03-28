@@ -1,0 +1,13 @@
+name = "mcp-docusign"
+description = "Send envelopes, collect signatures, manage templates, and audit signing workflows with DocuSign eSignature REST API v2.1."
+category = "Documents"
+tags = ["docusign", "esignature", "contracts", "documents", "legal", "signing"]
+env = ["DOCUSIGN_ACCESS_TOKEN", "DOCUSIGN_ACCOUNT_ID", "DOCUSIGN_BASE_URL"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+DOCUSIGN_ACCESS_TOKEN = "Your DocuSign OAuth 2.0 access token (JWT or Authorization Code flow)"
+DOCUSIGN_ACCOUNT_ID = "Your DocuSign account ID (UUID — found in DocuSign Admin → Account Profile)"
+DOCUSIGN_BASE_URL = "Your DocuSign base URL (e.g. https://na4.docusign.net — found in your account settings)"

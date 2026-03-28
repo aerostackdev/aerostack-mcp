@@ -1,0 +1,12 @@
+name = "mcp-activecampaign"
+description = "Full ActiveCampaign integration — manage contacts, lists, automations, campaigns, and CRM deals for email marketing and sales automation."
+category = "Email Marketing"
+tags = ["email", "activecampaign", "crm", "marketing", "automation", "contacts", "campaigns"]
+env = ["ACTIVECAMPAIGN_API_URL", "ACTIVECAMPAIGN_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ACTIVECAMPAIGN_API_URL = "Your ActiveCampaign account API URL (e.g. https://youraccount.api-us1.com) — found in Settings → Developer"
+ACTIVECAMPAIGN_API_KEY = "Your ActiveCampaign API key — found in Settings → Developer"

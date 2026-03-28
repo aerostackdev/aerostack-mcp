@@ -1,0 +1,11 @@
+name = "mcp-linkedin"
+description = "Manage LinkedIn profiles, post content, search jobs, engage with company pages, and send messages — full REST API coverage for professional network automation."
+category = "Social Media"
+tags = ["linkedin", "social", "professional", "jobs", "recruiting", "b2b", "marketing"]
+env = ["LINKEDIN_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+LINKEDIN_ACCESS_TOKEN = "LinkedIn OAuth 2.0 Access Token with r_liteprofile, r_emailaddress, w_member_social, and rw_organization_admin scopes. Generate via LinkedIn Developer Portal at https://www.linkedin.com/developers/apps → your app → Auth tab → OAuth 2.0 Tools."

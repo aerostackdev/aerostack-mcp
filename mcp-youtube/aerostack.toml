@@ -1,0 +1,12 @@
+name = "mcp-youtube"
+description = "Search videos, manage playlists, read comments, and pull analytics from YouTube Data API v3."
+category = "Video"
+tags = ["youtube", "video", "analytics", "playlists", "channels", "google"]
+env = ["YOUTUBE_API_KEY", "YOUTUBE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+YOUTUBE_API_KEY = "Your YouTube Data API v3 key (for read operations — search, get video, list channels)"
+YOUTUBE_ACCESS_TOKEN = "Your YouTube OAuth 2.0 access token (for write operations — rate, subscribe, create playlists, analytics)"

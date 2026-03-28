@@ -1,0 +1,11 @@
+name = "mcp-google-meet"
+description = "Create and manage Google Meet spaces, schedule meetings via Google Calendar, list participants, access recordings and transcripts."
+category = "Productivity"
+tags = ["google", "meet", "video", "calendar", "conferencing", "recordings", "transcripts"]
+env = ["GOOGLE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GOOGLE_ACCESS_TOKEN = "Your Google OAuth 2.0 access token with Meet and Calendar API scopes"

@@ -1,0 +1,12 @@
+name = "mcp-bamboohr"
+description = "Manage employees, time off, org structure, and HR reports in BambooHR — complete HR automation for AI agents."
+category = "HR"
+tags = ["hr", "bamboohr", "employees", "time-off", "hrms"]
+env = ["BAMBOOHR_API_KEY", "BAMBOOHR_SUBDOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+BAMBOOHR_API_KEY = "Your BambooHR API key (generate in BambooHR → Account → API Keys)"
+BAMBOOHR_SUBDOMAIN = "Your BambooHR company subdomain (e.g. 'mycompany' from mycompany.bamboohr.com)"
