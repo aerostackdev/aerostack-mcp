@@ -1,10 +1,72 @@
 # Aerostack MCP Catalog
 
-Community-built MCP servers on Cloudflare's edge — one endpoint, every tool, no local processes.
+**100+ MCP servers on Cloudflare's edge** — one endpoint, every tool, no local processes.
 
 Connect any combination to Claude, Cursor, Windsurf, or your own AI agent. Your API keys stay encrypted in Aerostack's vault. Tools appear automatically namespaced: `discord__send_message`, `stripe__create_invoice`, `hubspot__search_contacts`.
 
-**40 servers total: 26 built Workers + 14 proxy entries.**
+**85+ hosted Workers + 21 proxy entries. All edge-deployed, sub-50ms globally.**
+
+---
+
+## Quick Start — AI Agent Discovery
+
+Any AI agent can discover and use all 100+ servers through the **Aerostack Registry MCP**. No browsing, no manual config — your agent searches and calls tools directly.
+
+### Connect the Registry
+
+Add this to your MCP client config (Claude Desktop, Cursor, Windsurf, etc.):
+
+```json
+{
+  "mcpServers": {
+    "aerostack-registry": {
+      "url": "https://mcp.aerostack.dev",
+      "transport": "streamable-http"
+    }
+  }
+}
+```
+
+No API key needed for discovery. Your agent now has access to 3 meta-tools:
+
+| Tool | What It Does |
+|------|-------------|
+| `search_registry` | Semantic search across all MCPs, functions, skills, and agents. Ask "send Slack message" or "process payments" and get ranked matches. |
+| `get_tool_schema` | Get full parameter documentation for any tool — input schema, descriptions, examples. |
+| `call_function` | Execute any published community function directly (requires Bearer token). |
+
+### Example: Agent Discovers Tools On Its Own
+
+```
+Agent: "I need to send a Slack message and create a Stripe invoice"
+  ↓
+search_registry("send slack message") → mcp-slack (post_message, 3 params)
+search_registry("create stripe invoice") → mcp-stripe (create_invoice, 4 params)
+  ↓
+get_tool_schema("mcp-slack") → full parameter docs
+get_tool_schema("mcp-stripe") → full parameter docs
+  ↓
+Agent now knows exactly how to call both tools
+```
+
+### Connect a Full Workspace
+
+To actually call the tools (not just discover them), create a workspace at [aerostack.dev](https://aerostack.dev) and connect:
+
+```json
+{
+  "mcpServers": {
+    "my-workspace": {
+      "url": "https://mcp.aerostack.dev/s/YOUR_USERNAME/YOUR_WORKSPACE",
+      "headers": {
+        "Authorization": "Bearer mwt_YOUR_WORKSPACE_TOKEN"
+      }
+    }
+  }
+}
+```
+
+All tools from all your servers appear automatically. Claude sees `discord__send_message`, `stripe__create_invoice`, `hubspot__search_contacts` — and chains them together.
 
 ---
 
