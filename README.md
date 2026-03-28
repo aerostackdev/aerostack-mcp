@@ -669,7 +669,7 @@ If you work at one of the companies in this catalog — claim the server and tak
 
 You get: verified company profile on Aerostack Hub, full code control, your branding, and option to add paid tiers.
 
-Email **mcp@aerostack.dev** with your company domain. Verified and transferred in 48h.
+Email **hello@aerostack.dev** with your company domain. Verified and transferred in 48h.
 
 ---
 
