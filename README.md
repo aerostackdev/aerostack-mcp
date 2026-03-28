@@ -91,6 +91,35 @@ Without Aerostack, an AI agent with a Database MCP can `DROP TABLE users`. With 
 
 **With Aerostack, you choose exactly which tools the agent can call.**
 
+```
+Workspace: "production-bot"
+┌─────────────────────────────────────────────────────────┐
+│  mcp-slack                                              │
+│  ┌──────────────────────────┬────────────┬────────────┐ │
+│  │ Tool                     │ Type       │ Access     │ │
+│  ├──────────────────────────┼────────────┼────────────┤ │
+│  │ list_channels            │ read-only  │ ✅ enabled │ │
+│  │ post_message             │ write      │ ✅ enabled │ │
+│  │ search_messages          │ read-only  │ ✅ enabled │ │
+│  │ get_channel_history      │ read-only  │ ✅ enabled │ │
+│  │ delete_message           │ destructive│ ❌ disabled│ │
+│  │ kick_user                │ destructive│ ❌ disabled│ │
+│  └──────────────────────────┴────────────┴────────────┘ │
+│                                                         │
+│  mcp-stripe                                             │
+│  ┌──────────────────────────┬────────────┬────────────┐ │
+│  │ list_customers           │ read-only  │ ✅ enabled │ │
+│  │ get_invoice              │ read-only  │ ✅ enabled │ │
+│  │ create_payment_link      │ write      │ ✅ enabled │ │
+│  │ delete_customer          │ destructive│ ❌ disabled│ │
+│  │ issue_refund             │ destructive│ ❌ disabled│ │
+│  └──────────────────────────┴────────────┴────────────┘ │
+└─────────────────────────────────────────────────────────┘
+
+AI agent sees: 6 tools (only the enabled ones)
+AI agent cannot: call delete_message, kick_user, delete_customer, issue_refund
+```
+
 See the full breakdown with real examples: **[Agent Security →](https://aerostack.dev/agent-security)**
 
 ### Full Control Summary
