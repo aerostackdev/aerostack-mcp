@@ -1,14 +1,14 @@
 /**
  * Playwright (Browser Automation) MCP Worker
- * Browser automation on the edge using Cloudflare's Browser Rendering API.
- * Uses @cloudflare/puppeteer to control a headless Chromium instance.
+ * Browser automation on the edge using Cloudflare's Browser Rendering REST API.
  *
- * No external secrets required — uses the BROWSER binding from Cloudflare.
+ * Uses the BROWSER binding — no npm dependencies required.
+ * The Browser Rendering API provides a CDP-compatible endpoint.
  *
- * Covers: Navigation (3), Interaction (4), Extraction (4), Screenshots (2), Evaluation (2) = 15 tools
+ * No external secrets required.
+ *
+ * Covers: Navigation (2), Extraction (3), Screenshots (2), Content (2) = 9 tools
  */
-
-import puppeteer from '@cloudflare/puppeteer';
 
 interface Env {
     BROWSER: Fetcher;
@@ -24,85 +24,179 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     // ── Navigation ──────────────────────────────────────────────────────────
-    { name: 'navigate', description: 'Navigate to a URL and wait for the page to load',
+    { name: 'fetch_page', description: 'Fetch a web page and return its rendered HTML content after JavaScript execution',
         inputSchema: { type: 'object', properties: {
-            url: { type: 'string', description: 'URL to navigate to' },
-            wait_until: { type: 'string', enum: ['load', 'domcontentloaded', 'networkidle0', 'networkidle2'], description: 'Wait condition (default: load)' },
-            timeout: { type: 'number', description: 'Timeout in ms (default: 30000)' },
+            url: { type: 'string', description: 'URL to fetch' },
+            wait_for: { type: 'string', description: 'CSS selector to wait for before returning (optional)' },
         }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
-    { name: 'go_back', description: 'Navigate back in browser history',
-        inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: false, destructiveHint: false } },
-    { name: 'wait_for_selector', description: 'Wait for a CSS selector to appear on the page',
+    { name: 'fetch_page_text', description: 'Fetch a web page and return only its visible text content (no HTML tags)',
         inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector to wait for' },
-            timeout: { type: 'number', description: 'Timeout in ms (default: 10000)' },
-            visible: { type: 'boolean', description: 'Wait for element to be visible (default: true)' },
-        }, required: ['selector'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
-
-    // ── Interaction ─────────────────────────────────────────────────────────
-    { name: 'click', description: 'Click an element matching a CSS selector',
-        inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector of the element to click' },
-        }, required: ['selector'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
-    { name: 'type_text', description: 'Type text into an input field',
-        inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector of the input field' },
-            text: { type: 'string', description: 'Text to type' },
-            clear_first: { type: 'boolean', description: 'Clear the field before typing (default: true)' },
-            delay: { type: 'number', description: 'Delay between keystrokes in ms (default: 0)' },
-        }, required: ['selector', 'text'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
-    { name: 'select_option', description: 'Select an option from a dropdown by value or label',
-        inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector of the <select> element' },
-            value: { type: 'string', description: 'Option value to select' },
-        }, required: ['selector', 'value'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
-    { name: 'press_key', description: 'Press a keyboard key (Enter, Tab, Escape, etc.)',
-        inputSchema: { type: 'object', properties: {
-            key: { type: 'string', description: 'Key to press (e.g. "Enter", "Tab", "Escape", "ArrowDown")' },
-        }, required: ['key'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
+            url: { type: 'string', description: 'URL to fetch' },
+            selector: { type: 'string', description: 'CSS selector to scope extraction (optional — whole page if omitted)' },
+        }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
 
     // ── Extraction ──────────────────────────────────────────────────────────
-    { name: 'get_text', description: 'Get the text content of an element',
+    { name: 'extract_links', description: 'Extract all links from a web page with their text and href',
         inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector' },
-        }, required: ['selector'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
-    { name: 'get_attribute', description: 'Get an attribute value from an element',
+            url: { type: 'string', description: 'URL to fetch' },
+            selector: { type: 'string', description: 'CSS selector to scope link extraction (optional)' },
+            limit: { type: 'number', description: 'Max links to return (default 50)' },
+        }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
+    { name: 'extract_structured', description: 'Extract structured data from a page using CSS selectors',
         inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector' },
-            attribute: { type: 'string', description: 'Attribute name (e.g. "href", "src", "data-id")' },
-        }, required: ['selector', 'attribute'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
-    { name: 'get_page_content', description: 'Get the full page HTML or text content',
+            url: { type: 'string', description: 'URL to fetch' },
+            selectors: { type: 'object', description: 'Map of field names to CSS selectors, e.g. {"title": "h1", "price": ".price"}' },
+        }, required: ['url', 'selectors'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
+    { name: 'extract_tables', description: 'Extract HTML tables from a page as arrays of row objects',
         inputSchema: { type: 'object', properties: {
-            format: { type: 'string', enum: ['html', 'text'], description: 'Output format (default: text)' },
-            selector: { type: 'string', description: 'CSS selector to scope extraction (optional — whole page if omitted)' },
-        } }, annotations: { readOnlyHint: true, destructiveHint: false } },
-    { name: 'query_selector_all', description: 'Find all elements matching a selector and extract their text + attributes',
-        inputSchema: { type: 'object', properties: {
-            selector: { type: 'string', description: 'CSS selector' },
-            attributes: { type: 'array', items: { type: 'string' }, description: 'Attributes to extract (default: ["href"])' },
-            limit: { type: 'number', description: 'Max elements (default: 50)' },
-        }, required: ['selector'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
+            url: { type: 'string', description: 'URL to fetch' },
+            table_index: { type: 'number', description: 'Index of the table to extract (default: 0 = first table)' },
+        }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
 
     // ── Screenshots ─────────────────────────────────────────────────────────
-    { name: 'screenshot', description: 'Take a screenshot of the current page (returns base64 PNG)',
+    { name: 'screenshot', description: 'Take a screenshot of a web page (returns base64 PNG)',
         inputSchema: { type: 'object', properties: {
+            url: { type: 'string', description: 'URL to screenshot' },
             full_page: { type: 'boolean', description: 'Capture the full scrollable page (default: false)' },
-            selector: { type: 'string', description: 'CSS selector to capture specific element (optional)' },
-        } }, annotations: { readOnlyHint: true, destructiveHint: false } },
-    { name: 'pdf', description: 'Generate a PDF of the current page (returns base64)',
+            width: { type: 'number', description: 'Viewport width in pixels (default: 1280)' },
+            height: { type: 'number', description: 'Viewport height in pixels (default: 720)' },
+        }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
+    { name: 'screenshot_element', description: 'Take a screenshot of a specific element on a page',
         inputSchema: { type: 'object', properties: {
-            format: { type: 'string', enum: ['A4', 'Letter', 'Legal'], description: 'Page format (default: A4)' },
-            landscape: { type: 'boolean', description: 'Landscape orientation (default: false)' },
-        } }, annotations: { readOnlyHint: true, destructiveHint: false } },
+            url: { type: 'string', description: 'URL to load' },
+            selector: { type: 'string', description: 'CSS selector of the element to capture' },
+        }, required: ['url', 'selector'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
 
-    // ── JavaScript Evaluation ───────────────────────────────────────────────
-    { name: 'evaluate', description: 'Execute JavaScript in the page context and return the result',
+    // ── Content ─────────────────────────────────────────────────────────────
+    { name: 'evaluate_js', description: 'Execute JavaScript on a page and return the result',
         inputSchema: { type: 'object', properties: {
-            expression: { type: 'string', description: 'JavaScript expression to evaluate' },
-        }, required: ['expression'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
-    { name: 'get_page_info', description: 'Get current page URL, title, and meta tags',
-        inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: true, destructiveHint: false } },
+            url: { type: 'string', description: 'URL to load first' },
+            expression: { type: 'string', description: 'JavaScript expression to evaluate (must return a serializable value)' },
+        }, required: ['url', 'expression'] }, annotations: { readOnlyHint: false, destructiveHint: false } },
+    { name: 'get_page_metadata', description: 'Get page title, meta tags, Open Graph data, and canonical URL',
+        inputSchema: { type: 'object', properties: {
+            url: { type: 'string', description: 'URL to fetch' },
+        }, required: ['url'] }, annotations: { readOnlyHint: true, destructiveHint: false } },
 ];
+
+// ── Browser Rendering REST API helper ────────────────────────────────────────
+
+async function browserFetch(env: Env, url: string, options?: {
+    js?: string;
+    waitFor?: string;
+    viewport?: { width: number; height: number };
+    screenshot?: boolean | { fullPage?: boolean; selector?: string };
+}): Promise<Response> {
+    // Cloudflare Browser Rendering API — /content endpoint renders a page
+    const params = new URLSearchParams({ url });
+
+    // Use the BROWSER binding to render pages
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    const body: Record<string, unknown> = { url };
+
+    if (options?.js) body.javascript = options.js;
+    if (options?.waitFor) body.waitForSelector = options.waitFor;
+    if (options?.viewport) body.viewport = options.viewport;
+    if (options?.screenshot) body.screenshot = options.screenshot === true ? {} : options.screenshot;
+
+    return env.BROWSER.fetch('https://internal/render', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+    });
+}
+
+async function getRenderedContent(env: Env, url: string, js?: string, waitFor?: string): Promise<string> {
+    const jsCode = js || 'document.documentElement.outerHTML';
+    const res = await browserFetch(env, url, { js: jsCode, waitFor });
+    if (!res.ok) throw new Error(`Browser render failed (${res.status}): ${(await res.text()).slice(0, 300)}`);
+    return res.text();
+}
+
+// ── Tool Handlers ────────────────────────────────────────────────────────────
+
+async function callTool(name: string, args: Record<string, unknown>, env: Env): Promise<unknown> {
+    switch (name) {
+        case 'fetch_page': {
+            const html = await getRenderedContent(env, args.url as string, 'document.documentElement.outerHTML', args.wait_for as string | undefined);
+            return { html: html.slice(0, 100_000), url: args.url, truncated: html.length > 100_000 };
+        }
+        case 'fetch_page_text': {
+            const selector = args.selector ? `document.querySelector('${args.selector}')?.innerText || ''` : 'document.body.innerText';
+            const text = await getRenderedContent(env, args.url as string, selector);
+            return { text: text.slice(0, 50_000), url: args.url };
+        }
+        case 'extract_links': {
+            const limit = (args.limit as number) || 50;
+            const scope = args.selector ? `document.querySelector('${args.selector}')` : 'document';
+            const js = `JSON.stringify(Array.from(${scope}?.querySelectorAll('a[href]') || []).slice(0, ${limit}).map(a => ({ text: a.textContent?.trim()?.slice(0, 200), href: a.href })))`;
+            const raw = await getRenderedContent(env, args.url as string, js);
+            try { return { links: JSON.parse(raw) }; } catch { return { links: [], raw }; }
+        }
+        case 'extract_structured': {
+            const selectors = args.selectors as Record<string, string>;
+            const entries = Object.entries(selectors).map(([field, sel]) =>
+                `"${field}": document.querySelector('${sel}')?.textContent?.trim() || null`
+            ).join(', ');
+            const js = `JSON.stringify({${entries}})`;
+            const raw = await getRenderedContent(env, args.url as string, js);
+            try { return JSON.parse(raw); } catch { return { raw }; }
+        }
+        case 'extract_tables': {
+            const idx = (args.table_index as number) || 0;
+            const js = `(() => {
+                const table = document.querySelectorAll('table')[${idx}];
+                if (!table) return JSON.stringify({ error: 'No table found at index ${idx}' });
+                const headers = Array.from(table.querySelectorAll('thead th, tr:first-child th, tr:first-child td')).map(h => h.textContent?.trim() || '');
+                const rows = Array.from(table.querySelectorAll('tbody tr, tr:not(:first-child)')).map(row =>
+                    Object.fromEntries(Array.from(row.querySelectorAll('td')).map((cell, i) => [headers[i] || 'col_' + i, cell.textContent?.trim() || '']))
+                );
+                return JSON.stringify({ headers, rows: rows.slice(0, 100) });
+            })()`;
+            const raw = await getRenderedContent(env, args.url as string, js);
+            try { return JSON.parse(raw); } catch { return { raw }; }
+        }
+        case 'screenshot': {
+            const width = (args.width as number) || 1280;
+            const height = (args.height as number) || 720;
+            const res = await browserFetch(env, args.url as string, {
+                viewport: { width, height },
+                screenshot: { fullPage: !!args.full_page },
+            });
+            if (!res.ok) throw new Error(`Screenshot failed (${res.status})`);
+            const buf = await res.arrayBuffer();
+            return { image: btoa(String.fromCharCode(...new Uint8Array(buf))), format: 'base64/png' };
+        }
+        case 'screenshot_element': {
+            const res = await browserFetch(env, args.url as string, {
+                screenshot: { selector: args.selector as string },
+            });
+            if (!res.ok) throw new Error(`Element screenshot failed (${res.status})`);
+            const buf = await res.arrayBuffer();
+            return { image: btoa(String.fromCharCode(...new Uint8Array(buf))), format: 'base64/png' };
+        }
+        case 'evaluate_js': {
+            const result = await getRenderedContent(env, args.url as string, args.expression as string);
+            return { result };
+        }
+        case 'get_page_metadata': {
+            const js = `JSON.stringify({
+                title: document.title,
+                url: location.href,
+                canonical: document.querySelector('link[rel="canonical"]')?.href || null,
+                description: document.querySelector('meta[name="description"]')?.content || null,
+                og: Object.fromEntries(Array.from(document.querySelectorAll('meta[property^="og:"]')).map(m => [m.getAttribute('property'), m.content])),
+                twitter: Object.fromEntries(Array.from(document.querySelectorAll('meta[name^="twitter:"]')).map(m => [m.getAttribute('name'), m.content])),
+            })`;
+            const raw = await getRenderedContent(env, args.url as string, js);
+            try { return JSON.parse(raw); } catch { return { raw }; }
+        }
+        default:
+            throw new Error(`Unknown tool: ${name}`);
+    }
+}
+
+// ── Worker Entry ─────────────────────────────────────────────────────────────
 
 export default {
     async fetch(request: Request, env: Env): Promise<Response> {
@@ -119,137 +213,13 @@ export default {
         if (method === 'tools/list') return rpcOk(id, { tools: TOOLS });
 
         if (method === 'tools/call') {
-            const toolName = params?.name as string;
-            const args = (params?.arguments ?? {}) as Record<string, unknown>;
-
-            let browser;
             try {
-                browser = await puppeteer.launch(env.BROWSER);
-                const page = await browser.newPage();
-                await page.setViewport({ width: 1280, height: 720 });
-
-                const result = await callTool(toolName, args, page, browser);
+                const result = await callTool(params?.name as string, (params?.arguments ?? {}) as Record<string, unknown>, env);
                 return rpcOk(id, { content: [{ type: 'text', text: typeof result === 'string' ? result : JSON.stringify(result, null, 2) }] });
             } catch (e: unknown) {
                 return rpcErr(id, -32603, e instanceof Error ? e.message : 'Tool execution failed');
-            } finally {
-                try { await browser?.close(); } catch { /* ignore */ }
             }
         }
-
         return rpcErr(id, -32601, `Method not found: ${method}`);
     },
 };
-
-async function callTool(
-    name: string, args: Record<string, unknown>,
-    page: puppeteer.Page, browser: puppeteer.Browser,
-): Promise<unknown> {
-    switch (name) {
-        case 'navigate': {
-            const waitUntil = (args.wait_until as string) || 'load';
-            const timeout = (args.timeout as number) || 30000;
-            const response = await page.goto(args.url as string, { waitUntil: waitUntil as any, timeout });
-            return { url: page.url(), status: response?.status(), title: await page.title() };
-        }
-        case 'go_back': {
-            await page.goBack();
-            return { url: page.url(), title: await page.title() };
-        }
-        case 'wait_for_selector': {
-            const timeout = (args.timeout as number) || 10000;
-            const visible = args.visible !== false;
-            await page.waitForSelector(args.selector as string, { timeout, visible });
-            return { found: true, selector: args.selector };
-        }
-        case 'click':
-            await page.click(args.selector as string);
-            return { clicked: args.selector };
-        case 'type_text': {
-            if (args.clear_first !== false) {
-                await page.click(args.selector as string, { count: 3 });
-                await page.keyboard.press('Backspace');
-            }
-            await page.type(args.selector as string, args.text as string, { delay: (args.delay as number) || 0 });
-            return { typed: true, selector: args.selector };
-        }
-        case 'select_option':
-            await page.select(args.selector as string, args.value as string);
-            return { selected: args.value };
-        case 'press_key':
-            await page.keyboard.press(args.key as string);
-            return { pressed: args.key };
-        case 'get_text': {
-            const text = await page.$eval(args.selector as string, el => el.textContent?.trim() || '');
-            return { text };
-        }
-        case 'get_attribute': {
-            const value = await page.$eval(args.selector as string, (el, attr) => el.getAttribute(attr as string), args.attribute);
-            return { attribute: args.attribute, value };
-        }
-        case 'get_page_content': {
-            const format = (args.format as string) || 'text';
-            if (args.selector) {
-                const content = format === 'html'
-                    ? await page.$eval(args.selector as string, el => el.innerHTML)
-                    : await page.$eval(args.selector as string, el => el.textContent?.trim() || '');
-                return { content, selector: args.selector };
-            }
-            const content = format === 'html' ? await page.content() : await page.evaluate(() => document.body.innerText);
-            return { content: (content as string).slice(0, 100_000) };
-        }
-        case 'query_selector_all': {
-            const attrs = (args.attributes as string[]) || ['href'];
-            const limit = (args.limit as number) || 50;
-            const elements = await page.$$eval(args.selector as string, (els, { attrs, limit }) => {
-                return els.slice(0, limit).map(el => {
-                    const result: Record<string, string | null> = { text: el.textContent?.trim()?.slice(0, 200) || '' };
-                    for (const attr of attrs) result[attr] = el.getAttribute(attr);
-                    return result;
-                });
-            }, { attrs, limit });
-            return { count: elements.length, elements };
-        }
-        case 'screenshot': {
-            let imageData: string;
-            if (args.selector) {
-                const el = await page.$(args.selector as string);
-                if (!el) throw new Error(`Element not found: ${args.selector}`);
-                imageData = (await el.screenshot({ encoding: 'base64' })) as string;
-            } else {
-                imageData = (await page.screenshot({ encoding: 'base64', fullPage: !!args.full_page })) as string;
-            }
-            return { image: imageData, format: 'base64/png' };
-        }
-        case 'pdf': {
-            const pdf = await page.pdf({
-                format: (args.format as any) || 'A4',
-                landscape: !!args.landscape,
-                printBackground: true,
-            });
-            const base64 = btoa(String.fromCharCode(...new Uint8Array(pdf)));
-            return { pdf: base64, format: 'base64/pdf' };
-        }
-        case 'evaluate': {
-            const result = await page.evaluate(args.expression as string);
-            return { result };
-        }
-        case 'get_page_info': {
-            const [title, url, meta] = await Promise.all([
-                page.title(),
-                page.url(),
-                page.evaluate(() => {
-                    const metas: Record<string, string> = {};
-                    document.querySelectorAll('meta').forEach(m => {
-                        const name = m.getAttribute('name') || m.getAttribute('property') || '';
-                        if (name) metas[name] = m.getAttribute('content') || '';
-                    });
-                    return metas;
-                }),
-            ]);
-            return { title, url, meta };
-        }
-        default:
-            throw new Error(`Unknown tool: ${name}`);
-    }
-}
