@@ -1,0 +1,13 @@
+name = "mcp-aws"
+description = "Manage AWS resources — S3 buckets, EC2 instances, Lambda functions, IAM policies, and CloudWatch metrics via the AWS API."
+category = "Cloud"
+tags = ["aws", "s3", "ec2", "lambda", "iam", "cloudwatch", "amazon", "cloud"]
+env = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+AWS_ACCESS_KEY_ID = "Your AWS Access Key ID (IAM → Users → Security credentials → Access keys)"
+AWS_SECRET_ACCESS_KEY = "Your AWS Secret Access Key (shown once when creating the access key)"
+AWS_REGION = "AWS region (e.g. us-east-1, eu-west-1)"

@@ -1,0 +1,8 @@
+name = "mcp-playwright"
+description = "Automate browsers on the edge — navigate pages, fill forms, capture screenshots, extract content, and run end-to-end test flows."
+category = "Developer Tools"
+tags = ["playwright", "browser", "automation", "testing", "scraping", "screenshots"]
+env = []
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

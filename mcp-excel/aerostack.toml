@@ -1,0 +1,11 @@
+name = "mcp-excel"
+description = "Read, write, and analyze Excel workbooks — cell operations, formulas, pivot tables, charts, and worksheet management via Microsoft Graph."
+category = "Productivity"
+tags = ["excel", "spreadsheets", "microsoft", "office365", "data", "enterprise", "workbooks"]
+env = ["MICROSOFT_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+MICROSOFT_ACCESS_TOKEN = "Microsoft OAuth 2.0 access token (requires Files.ReadWrite scope for OneDrive/SharePoint access)"

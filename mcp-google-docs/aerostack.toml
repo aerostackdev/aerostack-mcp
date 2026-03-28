@@ -1,0 +1,11 @@
+name = "mcp-google-docs"
+description = "Create, read, edit, and format Google Docs — paragraph styling, tables, images, comments, and real-time collaboration via Google Docs API."
+category = "Productivity"
+tags = ["google", "docs", "documents", "productivity", "drive", "collaboration"]
+env = ["GOOGLE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GOOGLE_ACCESS_TOKEN = "Google OAuth 2.0 access token (requires docs.googleapis.com and drive.googleapis.com scopes)"

@@ -1,0 +1,11 @@
+name = "mcp-outlook"
+description = "Manage Outlook email at scale — inbox rules, focused inbox, folders, message search, attachments, and mail flow automation via Microsoft Graph."
+category = "Communication"
+tags = ["outlook", "email", "microsoft", "office365", "enterprise", "inbox", "mail"]
+env = ["MICROSOFT_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+MICROSOFT_ACCESS_TOKEN = "Microsoft OAuth 2.0 access token (requires Mail.ReadWrite, Mail.Send, MailboxSettings.ReadWrite scopes)"
