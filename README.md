@@ -591,40 +591,6 @@ All tools from all your servers appear automatically. Claude sees `discord__send
 
 ---
 
-## What's Coming Next
-
-### In Build Now
-| MCP | Why |
-|-----|-----|
-| `mcp-freshdesk` | Zendesk alternative, 60K+ businesses, strong in SMB |
-| `mcp-anthropic` | Use Claude as a tool inside your own Claude agents |
-| `mcp-google-sheets` | The most-used "database" in the world |
-| `mcp-mongodb-atlas` | Document DB via Data API (no TCP needed) |
-
-### High Priority
-| MCP | Why |
-|-----|-----|
-| `mcp-mixpanel` | Analytics — what are users actually doing? |
-| `mcp-posthog` | Open-source product analytics |
-| `mcp-firebase` | Mobile apps — auth, Firestore, FCM push |
-| `mcp-twilio-sendgrid` | Already built both halves; SMS + email in one |
-| `mcp-klaviyo` | E-commerce email/SMS automation |
-| `mcp-typeform` | Form responses → trigger workflows |
-| `mcp-google-drive` | Files, Docs, Sheets all in one |
-| `mcp-dropbox` | File storage for non-Google shops |
-
-### The Bot Brain (Phase 4)
-The next major build is the **Bot Brain** — a Cloudflare Worker that:
-1. Receives webhooks from any messaging channel
-2. Resolves user identity via CRM
-3. Loads conversation memory from KV
-4. Calls Claude with all workspace MCPs as tools
-5. Routes the response back to the correct channel
-
-This isn't an MCP. It's the orchestrator that makes all the MCPs above feel like one intelligent agent.
-
----
-
 ## Architecture
 
 Each server is a Cloudflare Worker that:
