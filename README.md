@@ -70,6 +70,48 @@ All tools from all your servers appear automatically. Claude sees `discord__send
 
 ---
 
+## Security & Access Control
+
+The registry is **discovery-only** — searching and browsing is open, but executing tools requires explicit authorization from the workspace owner.
+
+### How It Works
+
+```
+Discovery (open)          Execution (gated)
+─────────────────         ─────────────────
+search_registry ✅         tools/call ❌ without token
+get_tool_schema ✅         tools/call ✅ with workspace token
+```
+
+### What the Workspace Owner Controls
+
+| Control | How |
+|---------|-----|
+| **Which MCPs are exposed** | Add/remove servers from your workspace — only added servers are callable |
+| **Which tools are visible** | Per-server tool allowlist — expose `list_channels` but hide `delete_channel` |
+| **Who can call** | Workspace tokens (`mwt_`) — generate, revoke, rotate anytime |
+| **What secrets are shared** | Per-workspace encrypted secrets — your Stripe key is never shared with the Slack MCP |
+| **Rate limits** | Per-token rate limiting — prevent abuse from any single consumer |
+| **Access tiers** | Public (open), Key-required (token gated), or Paid (subscription) |
+
+### Secrets Are Never Exposed
+
+- API keys are encrypted at rest in Aerostack's vault
+- Injected as `X-Mcp-Secret-*` headers at runtime — never in the request body, never in logs
+- Each MCP server only receives the secrets it needs — Slack gets `SLACK_BOT_TOKEN`, never your Stripe key
+- Workspace owners can rotate secrets without reconfiguring clients
+
+### For AI Agents Calling Your Workspace
+
+An agent connecting to your workspace can only:
+- See tools you've explicitly enabled
+- Call tools with the permissions you've granted
+- Use secrets you've configured for that workspace
+
+They **cannot**: access other workspaces, see your secret values, bypass tool allowlists, or call MCPs you haven't added.
+
+---
+
 ## Folder Structure
 
 | Folder | Type | Maintained by |
