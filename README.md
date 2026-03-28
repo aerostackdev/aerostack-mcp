@@ -83,12 +83,45 @@ search_registry ✅         tools/call ❌ without token
 get_tool_schema ✅         tools/call ✅ with workspace token
 ```
 
-### What the Workspace Owner Controls
+### Per-Tool Access Control
+
+Every tool in your workspace has a toggle. Enable what you need, disable what's dangerous.
+
+```
+Workspace: "production-bot"
+┌─────────────────────────────────────────────────────────┐
+│  mcp-slack                                              │
+│  ┌──────────────────────────┬────────────┬────────────┐ │
+│  │ Tool                     │ Type       │ Access     │ │
+│  ├──────────────────────────┼────────────┼────────────┤ │
+│  │ list_channels            │ read-only  │ ✅ enabled │ │
+│  │ post_message             │ write      │ ✅ enabled │ │
+│  │ search_messages          │ read-only  │ ✅ enabled │ │
+│  │ get_channel_history      │ read-only  │ ✅ enabled │ │
+│  │ delete_message           │ destructive│ ❌ disabled│ │
+│  │ kick_user                │ destructive│ ❌ disabled│ │
+│  └──────────────────────────┴────────────┴────────────┘ │
+│                                                         │
+│  mcp-stripe                                             │
+│  ┌──────────────────────────┬────────────┬────────────┐ │
+│  │ list_customers           │ read-only  │ ✅ enabled │ │
+│  │ get_invoice              │ read-only  │ ✅ enabled │ │
+│  │ create_payment_link      │ write      │ ✅ enabled │ │
+│  │ delete_customer          │ destructive│ ❌ disabled│ │
+│  │ issue_refund             │ destructive│ ❌ disabled│ │
+│  └──────────────────────────┴────────────┴────────────┘ │
+└─────────────────────────────────────────────────────────┘
+
+AI agent sees: 6 tools (only the enabled ones)
+AI agent cannot: call delete_message, kick_user, delete_customer, issue_refund
+```
+
+### Full Control Summary
 
 | Control | How |
 |---------|-----|
 | **Which MCPs are exposed** | Add/remove servers from your workspace — only added servers are callable |
-| **Which tools are visible** | Per-server tool allowlist — expose `list_channels` but hide `delete_channel` |
+| **Which tools are visible** | Per-tool toggles — expose `list_channels` but hide `delete_channel` |
 | **Who can call** | Workspace tokens (`mwt_`) — generate, revoke, rotate anytime |
 | **What secrets are shared** | Per-workspace encrypted secrets — your Stripe key is never shared with the Slack MCP |
 | **Rate limits** | Per-token rate limiting — prevent abuse from any single consumer |
