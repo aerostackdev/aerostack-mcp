@@ -1,18 +1,16 @@
 {
-  "name": "aerostack-mcp-confluence",
-  "description": "MCP server for Confluence — search pages, manage spaces, and create documentation",
+  "name": "mcp-confluence",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "aerostack dev",
-    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --minify --external:node:* --external:cloudflare:*",
-    "deploy": "aerostack deploy mcp confluence",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241112.0",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.0"
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.5.2",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.91.0"
   }
 }

@@ -1,0 +1,8 @@
+name = "mcp-clockify"
+description = "Track time with Clockify — manage projects, clients, tasks, and generate summary reports via the Clockify API."
+category = "Productivity"
+tags = ["clockify", "time-tracking", "productivity", "reports"]
+env = ["CLOCKIFY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

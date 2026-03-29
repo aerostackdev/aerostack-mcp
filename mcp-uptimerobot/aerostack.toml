@@ -1,0 +1,11 @@
+name = "mcp-uptimerobot"
+description = "Full UptimeRobot integration — manage monitors, alert contacts, and public status pages for website uptime monitoring."
+category = "Monitoring"
+tags = ["uptimerobot", "monitoring", "uptime", "alerts", "status"]
+env = ["UPTIMEROBOT_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+UPTIMEROBOT_API_KEY = "Your UptimeRobot API key — found in My Settings → API Settings in your UptimeRobot dashboard"

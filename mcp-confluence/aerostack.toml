@@ -1,8 +1,8 @@
 name = "mcp-confluence"
-description = "Search pages, manage spaces, and create documentation in Confluence — connect AI agents to your team wiki."
+description = "Read and write Confluence pages, spaces, comments, and blog posts — your AI-powered wiki assistant."
 category = "Productivity"
-tags = ["confluence", "wiki", "documentation", "atlassian", "knowledge-base", "pages"]
-env = ["CONFLUENCE_URL", "CONFLUENCE_EMAIL", "CONFLUENCE_API_TOKEN"]
+tags = ["confluence", "wiki", "documentation", "atlassian", "collaboration"]
+env = ["CONFLUENCE_EMAIL", "CONFLUENCE_API_TOKEN", "CONFLUENCE_DOMAIN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

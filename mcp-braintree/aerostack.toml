@@ -1,0 +1,13 @@
+name = "mcp-braintree"
+description = "Full Braintree integration — manage transactions, refunds, customers, and generate client tokens via the Braintree GraphQL API."
+category = "Payments"
+tags = ["braintree", "payments", "paypal", "payment-processing"]
+env = ["BRAINTREE_PUBLIC_KEY", "BRAINTREE_PRIVATE_KEY", "BRAINTREE_ENVIRONMENT"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+BRAINTREE_PUBLIC_KEY = "Your Braintree public key — found in the Braintree Control Panel under Settings → API Keys"
+BRAINTREE_PRIVATE_KEY = "Your Braintree private key — found in the Braintree Control Panel under Settings → API Keys"
+BRAINTREE_ENVIRONMENT = "Target environment: 'sandbox' (default) or 'production'"

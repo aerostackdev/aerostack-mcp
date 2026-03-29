@@ -1,0 +1,11 @@
+name = "mcp-together-ai"
+description = "Run open-source LLMs, generate embeddings, create images, and fine-tune models using Together AI's inference platform."
+category = "AI"
+tags = ["ai", "llm", "open-source", "together", "inference", "fine-tuning", "embeddings"]
+env = ["TOGETHER_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+TOGETHER_API_KEY = "Together AI API key from https://api.together.xyz/settings/api-keys"

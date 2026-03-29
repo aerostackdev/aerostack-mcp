@@ -1,13 +1,8 @@
 name = "mcp-trello"
-description = "Manage Trello boards, lists, cards, and checklists — automate your entire Kanban workflow from any AI agent."
-category = "Project Management"
-tags = ["project-management", "trello", "kanban", "tasks", "boards"]
+description = "Manage Trello boards, lists, cards, and members — create, update, move cards and collaborate with AI."
+category = "Productivity"
+tags = ["trello", "project-management", "kanban", "boards", "tasks"]
 env = ["TRELLO_API_KEY", "TRELLO_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
-
-[secrets]
-TRELLO_API_KEY = "Your Trello Power-Up / developer API key from https://trello.com/power-ups/admin"
-TRELLO_TOKEN = "Your Trello OAuth user token (grants access to your boards and cards)"
-

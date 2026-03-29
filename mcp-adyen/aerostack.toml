@@ -1,0 +1,11 @@
+name = "mcp-adyen"
+description = "Full Adyen integration — manage merchants, stores, payment links, payment methods, orders, and webhooks for enterprise payment processing."
+category = "Payments"
+tags = ["adyen", "payments", "payment-processing", "enterprise", "checkout"]
+env = ["ADYEN_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ADYEN_API_KEY = "Your Adyen API key — found in the Adyen Customer Area under Developers → API credentials"

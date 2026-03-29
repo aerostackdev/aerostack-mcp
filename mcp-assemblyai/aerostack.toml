@@ -1,0 +1,8 @@
+name = "mcp-assemblyai"
+description = "Transcribe audio, run LeMUR AI analysis, extract action items, and search transcripts with AssemblyAI's audio intelligence platform."
+category = "Audio"
+tags = ["audio", "speech-to-text", "transcription", "ai", "llm", "lemur", "speaker-diarization"]
+env = ["ASSEMBLYAI_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

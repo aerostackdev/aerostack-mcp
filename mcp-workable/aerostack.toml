@@ -1,0 +1,8 @@
+name = "mcp-workable"
+description = "Manage jobs, candidates, interviews, ratings, and hiring pipelines in Workable ATS."
+category = "ATS"
+tags = ["ats", "workable", "recruiting", "hiring", "candidates", "jobs"]
+env = ["WORKABLE_API_KEY", "WORKABLE_SUBDOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

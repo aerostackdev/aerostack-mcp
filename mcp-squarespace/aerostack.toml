@@ -1,0 +1,8 @@
+name = "mcp-squarespace"
+description = "Connect your Squarespace website to AI — manage products, orders, inventory, pages, and blog posts with natural language."
+category = "E-Commerce"
+tags = ["squarespace", "ecommerce", "website", "commerce", "blog"]
+env = ["SQUARESPACE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

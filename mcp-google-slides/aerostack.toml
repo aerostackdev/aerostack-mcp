@@ -1,0 +1,8 @@
+name = "mcp-google-slides"
+description = "Create and edit Google Slides presentations — add slides, text boxes, images, and run batch updates programmatically."
+category = "Productivity"
+tags = ["google", "slides", "presentations", "google-workspace"]
+env = ["GOOGLE_SLIDES_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

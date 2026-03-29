@@ -1,0 +1,11 @@
+name = "mcp-coinbase"
+description = "Full Coinbase integration — manage crypto accounts, transactions, addresses, send money, and get real-time prices and exchange rates."
+category = "Finance"
+tags = ["coinbase", "crypto", "bitcoin", "payments", "web3"]
+env = ["COINBASE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+COINBASE_API_KEY = "Your Coinbase API key — create one in your Coinbase account under Settings → API"

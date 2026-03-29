@@ -1,0 +1,11 @@
+name = "mcp-mistral"
+description = "Chat with Mistral's frontier models, embed text, fill in code with Codestral, and manage fine-tuning jobs to train custom models on your data."
+category = "AI"
+tags = ["ai", "llm", "mistral", "embeddings", "code-completion", "fine-tuning"]
+env = ["MISTRAL_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+MISTRAL_API_KEY = "Your Mistral API key — found at console.mistral.ai/api-keys"

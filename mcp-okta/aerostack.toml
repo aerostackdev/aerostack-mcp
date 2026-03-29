@@ -1,0 +1,12 @@
+name = "mcp-okta"
+description = "Full Okta integration — manage users, groups, applications, and sessions for enterprise identity and access management."
+category = "Identity"
+tags = ["okta", "identity", "sso", "authentication", "user-management"]
+env = ["OKTA_API_TOKEN", "OKTA_DOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+OKTA_API_TOKEN = "Your Okta API token — create one in the Okta Admin Console under Security → API → Tokens"
+OKTA_DOMAIN = "Your Okta domain (e.g. dev-12345.okta.com) — found in the top of your Okta Admin Console"

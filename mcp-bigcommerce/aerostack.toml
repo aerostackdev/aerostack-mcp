@@ -1,0 +1,8 @@
+name = "mcp-bigcommerce"
+description = "Connect your BigCommerce store to AI — manage products, orders, customers, categories, and coupons with natural language."
+category = "E-Commerce"
+tags = ["bigcommerce", "ecommerce", "products", "orders", "customers"]
+env = ["BIGCOMMERCE_ACCESS_TOKEN", "BIGCOMMERCE_STORE_HASH"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

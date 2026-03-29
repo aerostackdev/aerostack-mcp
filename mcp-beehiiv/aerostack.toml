@@ -1,0 +1,11 @@
+name = "mcp-beehiiv"
+description = "Full Beehiiv integration — manage newsletter publications, posts, subscriptions, segments, and get publication statistics."
+category = "Email Marketing"
+tags = ["beehiiv", "newsletter", "email-marketing", "subscriptions"]
+env = ["BEEHIIV_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+BEEHIIV_API_KEY = "Your Beehiiv API key — found in your Beehiiv account under Settings → API"

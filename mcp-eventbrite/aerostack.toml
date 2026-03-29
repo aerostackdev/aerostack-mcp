@@ -1,0 +1,10 @@
+name = "mcp-eventbrite"
+description = "Full Eventbrite integration — manage events, organizations, attendees, orders, and venues for event ticketing and management."
+category = "Events"
+tags = ["eventbrite", "events", "ticketing", "attendees"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+EVENTBRITE_TOKEN = "Your Eventbrite private OAuth token — found in Account Settings → Developer Links → API Keys"

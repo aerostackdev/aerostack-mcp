@@ -1,0 +1,11 @@
+name = "mcp-square"
+description = "Full Square integration — manage locations, catalog items, customers, orders, payments, and invoices for your Square merchant account."
+category = "Payments"
+tags = ["square", "payments", "pos", "ecommerce", "invoicing"]
+env = ["SQUARE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+SQUARE_ACCESS_TOKEN = "Your Square access token — found in the Square Developer Dashboard under your application credentials"

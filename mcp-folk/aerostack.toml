@@ -1,0 +1,8 @@
+name = "mcp-folk"
+description = "Manage people, groups, companies, notes, and pipelines in Folk CRM for modern relationship management."
+category = "CRM"
+tags = ["crm", "folk", "contacts", "groups", "pipelines", "relationships"]
+env = ["FOLK_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

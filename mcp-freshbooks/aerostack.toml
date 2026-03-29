@@ -1,0 +1,8 @@
+name = "mcp-freshbooks"
+description = "Manage freelance invoicing and accounting with FreshBooks — clients, invoices, payments, expenses, and P&L reports from AI."
+category = "Finance"
+tags = ["invoicing", "accounting", "freelance", "payments", "expenses"]
+env = ["FRESHBOOKS_ACCESS_TOKEN", "FRESHBOOKS_ACCOUNT_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

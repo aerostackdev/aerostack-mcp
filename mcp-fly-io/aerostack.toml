@@ -1,0 +1,8 @@
+name = "mcp-fly-io"
+description = "Deploy and manage Fly.io apps and machines — create, start, stop, restart containers at the edge."
+category = "Cloud Infrastructure"
+tags = ["fly-io", "deployment", "containers", "edge", "infrastructure"]
+env = ["FLY_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

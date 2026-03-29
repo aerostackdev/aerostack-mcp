@@ -1,0 +1,8 @@
+name = "mcp-ashby"
+description = "Manage job postings, candidates, applications, interview stages, and hiring workflows in Ashby ATS."
+category = "ATS"
+tags = ["ats", "ashby", "recruiting", "hiring", "candidates", "applications"]
+env = ["ASHBY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

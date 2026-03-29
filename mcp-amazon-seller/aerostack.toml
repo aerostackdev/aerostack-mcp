@@ -1,0 +1,8 @@
+name = "mcp-amazon-seller"
+description = "Connect your Amazon Seller account to AI — manage catalog, FBA inventory, orders, reports, pricing, and financial events with natural language."
+category = "E-Commerce"
+tags = ["amazon", "seller", "marketplace", "fba", "ecommerce"]
+env = ["AMAZON_SP_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

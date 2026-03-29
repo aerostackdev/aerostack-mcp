@@ -1,0 +1,8 @@
+name = "mcp-etsy"
+description = "Connect your Etsy shop to AI — browse listings, manage orders, view transactions, and search the Etsy marketplace with natural language."
+category = "E-Commerce"
+tags = ["etsy", "marketplace", "ecommerce", "handmade", "shop"]
+env = ["ETSY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

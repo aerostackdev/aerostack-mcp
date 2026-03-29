@@ -1,0 +1,8 @@
+name = "mcp-zoho-crm"
+description = "Manage leads, contacts, deals, accounts, and tasks in Zoho CRM with full CRUD operations and lead conversion."
+category = "CRM"
+tags = ["crm", "zoho", "leads", "contacts", "deals", "sales"]
+env = ["ZOHO_CRM_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

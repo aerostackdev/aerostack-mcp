@@ -1,0 +1,8 @@
+name = "mcp-perplexity"
+description = "Search the web, do deep research, and get AI-synthesized answers with citations using Perplexity AI's sonar models."
+category = "Search"
+tags = ["search", "web", "research", "ai", "rag", "citations", "news"]
+env = ["PERPLEXITY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

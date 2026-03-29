@@ -1,0 +1,8 @@
+name = "mcp-omnisend"
+description = "Drive ecommerce growth with Omnisend — manage contacts, campaigns, automations, segments, and track events from AI."
+category = "Email"
+tags = ["email", "sms", "ecommerce", "marketing", "automation"]
+env = ["OMNISEND_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

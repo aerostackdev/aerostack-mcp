@@ -1,0 +1,8 @@
+name = "mcp-freshsales"
+description = "Manage contacts, leads, deals, and accounts in Freshsales CRM with search and note capabilities."
+category = "CRM"
+tags = ["crm", "freshsales", "freshworks", "leads", "contacts", "deals"]
+env = ["FRESHSALES_API_KEY", "FRESHSALES_DOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

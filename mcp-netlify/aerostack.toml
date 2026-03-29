@@ -1,0 +1,8 @@
+name = "mcp-netlify"
+description = "Deploy and manage Netlify sites, triggers deploys, manages forms and environment variables."
+category = "Developer Tools"
+tags = ["netlify", "deployment", "cdn", "jamstack", "hosting"]
+env = ["NETLIFY_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
