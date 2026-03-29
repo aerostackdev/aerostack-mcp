@@ -1,0 +1,8 @@
+name = "mcp-wandb"
+description = "ML experiment tracking via Weights & Biases — list runs, log metrics, compare experiments, and manage model artifacts."
+category = "AI / ML"
+tags = ["wandb", "mlops", "experiment-tracking", "ml", "training"]
+env = ["WANDB_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

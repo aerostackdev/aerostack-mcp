@@ -1,0 +1,8 @@
+name = "mcp-e2b"
+description = "Secure cloud sandboxes for AI code execution via E2B — create sandboxes, run code, manage files in isolated environments."
+category = "Developer Tools"
+tags = ["e2b", "sandbox", "code-execution", "ai", "cloud"]
+env = ["E2B_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

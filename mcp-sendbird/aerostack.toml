@@ -1,0 +1,8 @@
+name = "mcp-sendbird"
+description = "Sendbird in-app messaging MCP — manage channels, messages, and users via the Sendbird platform API"
+category = "Messaging"
+tags = ["sendbird", "messaging", "chat", "in-app", "sdk"]
+env = ["SENDBIRD_API_TOKEN", "SENDBIRD_APP_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-pipedream"
+description = "Event-driven automation via Pipedream — trigger workflows, manage sources, inspect event logs, and deploy components."
+category = "Automation"
+tags = ["pipedream", "automation", "workflows", "events", "integrations"]
+env = ["PIPEDREAM_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

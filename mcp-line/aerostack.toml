@@ -1,0 +1,8 @@
+name = "mcp-line"
+description = "LINE messaging API — send messages, broadcast to followers, manage chatbots, and access user profiles."
+category = "Communication"
+tags = ["line", "messaging", "chat", "bot", "asia"]
+env = ["LINE_CHANNEL_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

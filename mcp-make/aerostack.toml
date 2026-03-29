@@ -1,0 +1,8 @@
+name = "mcp-make"
+description = "No-code automation via Make (Integromat) — list scenarios, execute runs, manage connections and data stores."
+category = "Automation"
+tags = ["make", "integromat", "automation", "no-code", "workflows"]
+env = ["MAKE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

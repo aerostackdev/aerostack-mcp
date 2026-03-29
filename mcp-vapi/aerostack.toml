@@ -1,0 +1,8 @@
+name = "mcp-vapi"
+description = "AI voice agent infrastructure via Vapi — create assistants, manage calls, configure phone numbers, and build voice apps."
+category = "AI / ML"
+tags = ["vapi", "voice", "ai-agents", "phone", "speech"]
+env = ["VAPI_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

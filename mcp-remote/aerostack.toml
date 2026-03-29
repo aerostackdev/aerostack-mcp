@@ -1,0 +1,8 @@
+name = "mcp-remote"
+description = "Global employment and contractor management via Remote — manage employees, contractors, payroll, and compliance globally."
+category = "HR & Payroll"
+tags = ["remote", "hr", "global-employment", "payroll", "contractors"]
+env = ["REMOTE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

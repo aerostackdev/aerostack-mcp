@@ -1,0 +1,8 @@
+name = "mcp-crisp"
+description = "Crisp customer support MCP — manage conversations, messages, and operators via the Crisp REST API"
+category = "Support"
+tags = ["crisp", "customer-chat", "support", "live-chat", "helpdesk"]
+env = ["CRISP_IDENTIFIER", "CRISP_KEY", "CRISP_WEBSITE_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

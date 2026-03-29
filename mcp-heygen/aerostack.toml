@@ -1,0 +1,11 @@
+name = "mcp-heygen"
+description = "HeyGen AI video generation — create avatar videos, check generation status, manage voices, and track quota."
+category = "AI"
+tags = ["heygen", "ai-video", "avatars", "text-to-video", "synthetic-media"]
+env = ["HEYGEN_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+HEYGEN_API_KEY = "Your HeyGen API key — found in HeyGen Dashboard → Account → API Token"

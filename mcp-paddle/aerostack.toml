@@ -1,0 +1,8 @@
+name = "mcp-paddle"
+description = "Subscription billing and payments via Paddle — manage products, prices, subscriptions, customers, and transactions."
+category = "Finance"
+tags = ["paddle", "billing", "payments", "subscriptions", "saas"]
+env = ["PADDLE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

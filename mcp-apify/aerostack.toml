@@ -1,0 +1,8 @@
+name = "mcp-apify"
+description = "Run web scraping and automation actors on Apify — trigger runs, get results, manage datasets and key-value stores."
+category = "Developer Tools"
+tags = ["apify", "scraping", "automation", "crawler", "web"]
+env = ["APIFY_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

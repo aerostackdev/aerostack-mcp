@@ -1,0 +1,11 @@
+name = "mcp-gumroad"
+description = "Gumroad creator economy platform — manage digital products, sales, subscribers, and offer codes."
+category = "Payments"
+tags = ["gumroad", "creator-economy", "digital-products", "payments", "subscriptions"]
+env = ["GUMROAD_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+GUMROAD_ACCESS_TOKEN = "Your Gumroad access token — obtained via Gumroad OAuth or from Settings → Advanced"

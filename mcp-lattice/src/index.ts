@@ -1,0 +1,301 @@
+/**
+ * Lattice MCP Worker
+ * Implements MCP protocol over HTTP for Lattice performance management operations.
+ *
+ * Secrets required:
+ *   LATTICE_API_KEY → X-Mcp-Secret-LATTICE-API-KEY
+ *
+ * Auth: Authorization: Bearer {api_key}
+ * Base URL: https://api.us.lattice.com
+ */
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function rpcOk(id: number | string, result: unknown) {
+    return new Response(JSON.stringify({ jsonrpc: '2.0', id, result }), {
+        headers: { 'Content-Type': 'application/json' },
+    });
+}
+
+function rpcErr(id: number | string | null, code: number, message: string) {
+    return new Response(JSON.stringify({ jsonrpc: '2.0', id, error: { code, message } }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+    });
+}
+
+function toolOk(data: unknown) {
+    return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+}
+
+function validateRequired(args: Record<string, unknown>, fields: string[]): void {
+    for (const field of fields) {
+        if (args[field] === undefined || args[field] === null || args[field] === '') {
+            throw new Error(`Missing required parameter: ${field}`);
+        }
+    }
+}
+
+const BASE_URL = 'https://api.us.lattice.com';
+
+async function latticeFetch(
+    path: string,
+    apiKey: string,
+    options: RequestInit = {},
+): Promise<unknown> {
+    const url = `${BASE_URL}${path}`;
+    const res = await fetch(url, {
+        ...options,
+        headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            ...(options.headers as Record<string, string> || {}),
+        },
+    });
+
+    if (res.status === 204) return { success: true };
+
+    const text = await res.text();
+    let data: unknown;
+    try {
+        data = JSON.parse(text);
+    } catch {
+        throw { code: -32603, message: `Lattice HTTP ${res.status}: ${text}` };
+    }
+
+    if (!res.ok) {
+        let msg = res.statusText;
+        if (data && typeof data === 'object' && 'message' in data) {
+            msg = String((data as { message: unknown }).message) || msg;
+        }
+        throw { code: -32603, message: `Lattice API error ${res.status}: ${msg}` };
+    }
+
+    return data;
+}
+
+// ── Tool definitions ──────────────────────────────────────────────────────────
+
+const TOOLS = [
+    {
+        name: 'list_users',
+        description: 'List all users in the Lattice organization.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of users to return (default 20)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_user',
+        description: 'Get user profile details by user ID from Lattice.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                user_id: { type: 'string', description: 'Lattice user ID' },
+            },
+            required: ['user_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'list_goals',
+        description: 'List goals in Lattice with pagination.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of goals to return (default 20)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_goal',
+        description: 'Get detailed information about a specific goal by ID.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                goal_id: { type: 'string', description: 'Lattice goal ID' },
+            },
+            required: ['goal_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'create_goal',
+        description: 'Create a new goal in Lattice.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                name: { type: 'string', description: 'Goal name/title (required)' },
+                description: { type: 'string', description: 'Goal description' },
+                dueDate: { type: 'string', description: 'Goal due date in ISO 8601 format (e.g. 2026-06-30)' },
+                ownerId: { type: 'string', description: 'User ID of the goal owner (required)' },
+            },
+            required: ['name', 'ownerId'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'update_goal',
+        description: 'Update an existing goal in Lattice. Provide only the fields to change.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                goal_id: { type: 'string', description: 'Lattice goal ID to update (required)' },
+                name: { type: 'string', description: 'Updated goal name' },
+                description: { type: 'string', description: 'Updated goal description' },
+                status: { type: 'string', description: 'Updated goal status (e.g. on_track, at_risk, behind, completed)' },
+                progress: { type: 'number', description: 'Updated goal progress percentage (0-100)' },
+            },
+            required: ['goal_id'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'list_review_cycles',
+        description: 'List performance review cycles in Lattice.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of review cycles to return (default 20)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+];
+
+// ── Tool execution ─────────────────────────────────────────────────────────────
+
+async function callTool(
+    name: string,
+    args: Record<string, unknown>,
+    apiKey: string,
+): Promise<unknown> {
+    switch (name) {
+        case 'list_users': {
+            const params = new URLSearchParams();
+            params.set('limit', String(args.limit ?? 20));
+            return latticeFetch(`/v1/users?${params.toString()}`, apiKey);
+        }
+
+        case 'get_user': {
+            validateRequired(args, ['user_id']);
+            return latticeFetch(`/v1/users/${args.user_id}`, apiKey);
+        }
+
+        case 'list_goals': {
+            const params = new URLSearchParams();
+            params.set('limit', String(args.limit ?? 20));
+            return latticeFetch(`/v1/goals?${params.toString()}`, apiKey);
+        }
+
+        case 'get_goal': {
+            validateRequired(args, ['goal_id']);
+            return latticeFetch(`/v1/goals/${args.goal_id}`, apiKey);
+        }
+
+        case 'create_goal': {
+            validateRequired(args, ['name', 'ownerId']);
+            const body: Record<string, unknown> = {
+                name: args.name,
+                ownerId: args.ownerId,
+            };
+            if (args.description !== undefined) body.description = args.description;
+            if (args.dueDate !== undefined) body.dueDate = args.dueDate;
+            return latticeFetch('/v1/goals', apiKey, {
+                method: 'POST',
+                body: JSON.stringify(body),
+            });
+        }
+
+        case 'update_goal': {
+            validateRequired(args, ['goal_id']);
+            const { goal_id, ...rest } = args;
+            const body: Record<string, unknown> = {};
+            for (const key of ['name', 'description', 'status', 'progress']) {
+                if (rest[key] !== undefined) body[key] = rest[key];
+            }
+            return latticeFetch(`/v1/goals/${goal_id}`, apiKey, {
+                method: 'PATCH',
+                body: JSON.stringify(body),
+            });
+        }
+
+        case 'list_review_cycles': {
+            const params = new URLSearchParams();
+            params.set('limit', String(args.limit ?? 20));
+            return latticeFetch(`/v1/review-cycles?${params.toString()}`, apiKey);
+        }
+
+        default:
+            throw { code: -32601, message: `Unknown tool: ${name}` };
+    }
+}
+
+// ── Worker entry point ────────────────────────────────────────────────────────
+
+export default {
+    async fetch(request: Request): Promise<Response> {
+        if (request.method === 'GET') {
+            return new Response(
+                JSON.stringify({ status: 'ok', server: 'mcp-lattice', tools: TOOLS.length }),
+                { headers: { 'Content-Type': 'application/json' } },
+            );
+        }
+
+        if (request.method !== 'POST') {
+            return new Response('Method Not Allowed', { status: 405 });
+        }
+
+        let body: { jsonrpc: string; id: number | string; method: string; params?: unknown };
+        try {
+            body = await request.json() as typeof body;
+        } catch {
+            return rpcErr(null, -32700, 'Parse error');
+        }
+
+        const { id, method, params } = body;
+
+        if (method === 'initialize') {
+            return rpcOk(id, {
+                protocolVersion: '2024-11-05',
+                capabilities: { tools: {} },
+                serverInfo: { name: 'mcp-lattice', version: '1.0.0' },
+            });
+        }
+
+        if (method === 'tools/list') {
+            return rpcOk(id, { tools: TOOLS });
+        }
+
+        if (method === 'tools/call') {
+            const p = params as { name: string; arguments?: Record<string, unknown> };
+            const toolName = p?.name;
+            const args = p?.arguments ?? {};
+
+            const apiKey = request.headers.get('X-Mcp-Secret-LATTICE-API-KEY');
+            if (!apiKey) {
+                return rpcErr(id, -32001, 'Missing required secret: LATTICE_API_KEY (header: X-Mcp-Secret-LATTICE-API-KEY)');
+            }
+
+            try {
+                const result = await callTool(toolName, args, apiKey);
+                return rpcOk(id, toolOk(result));
+            } catch (err: unknown) {
+                if (err && typeof err === 'object' && 'code' in err) {
+                    const e = err as { code: number; message: string };
+                    return rpcErr(id, e.code, e.message);
+                }
+                if (err instanceof Error) {
+                    return rpcErr(id, -32603, err.message);
+                }
+                return rpcErr(id, -32603, 'Internal error');
+            }
+        }
+
+        return rpcErr(id, -32601, `Method not found: ${method}`);
+    },
+};

@@ -1,0 +1,8 @@
+name = "mcp-mattermost"
+description = "Open-source team messaging via Mattermost — send messages, manage channels, list users, post to teams."
+category = "Communication"
+tags = ["mattermost", "messaging", "team-chat", "open-source", "collaboration"]
+env = ["MATTERMOST_URL", "MATTERMOST_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

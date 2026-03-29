@@ -1,0 +1,8 @@
+name = "mcp-stream"
+description = "GetStream.io chat MCP — manage channels, messages, and users via the Stream Chat API"
+category = "Messaging"
+tags = ["stream", "chat", "activity-feed", "getstream", "real-time"]
+env = ["STREAM_API_KEY", "STREAM_API_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-agora"
+description = "Real-time voice and video calling via Agora — manage apps, query usage, and build communication features."
+category = "Communication"
+tags = ["agora", "video", "voice", "realtime", "webrtc"]
+env = ["AGORA_CUSTOMER_ID", "AGORA_CUSTOMER_SECRET", "AGORA_APP_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

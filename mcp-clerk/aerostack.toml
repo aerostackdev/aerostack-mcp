@@ -1,0 +1,11 @@
+name = "mcp-clerk"
+description = "Clerk identity platform — manage users, organizations, bans, and invitations for your application."
+category = "Identity/Auth"
+tags = ["clerk", "auth", "user-management", "authentication", "identity"]
+env = ["CLERK_SECRET_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+CLERK_SECRET_KEY = "Your Clerk secret key — starts with sk_test_ or sk_live_, found in Clerk Dashboard → API Keys"

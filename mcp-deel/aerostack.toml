@@ -1,0 +1,8 @@
+name = "mcp-deel"
+description = "Global HR and payroll operations via Deel — manage contracts, employees, payments, and compliance."
+category = "HR & Payroll"
+tags = ["deel", "hr", "payroll", "contracts", "global"]
+env = ["DEEL_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

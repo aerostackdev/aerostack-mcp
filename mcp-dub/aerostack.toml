@@ -1,0 +1,8 @@
+name = "mcp-dub"
+description = "Link management and analytics via Dub — create short links, track clicks, manage domains and workspaces."
+category = "Marketing"
+tags = ["dub", "links", "url-shortener", "analytics", "marketing"]
+env = ["DUB_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

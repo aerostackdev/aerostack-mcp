@@ -1,0 +1,8 @@
+name = "mcp-mux"
+description = "Video infrastructure via Mux — upload videos, manage assets, create live streams, and get playback IDs."
+category = "Media"
+tags = ["mux", "video", "streaming", "media", "cdn"]
+env = ["MUX_TOKEN_ID", "MUX_TOKEN_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
