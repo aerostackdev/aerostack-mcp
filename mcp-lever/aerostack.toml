@@ -1,0 +1,8 @@
+name = "mcp-lever"
+description = "Manage job postings, candidate opportunities, pipeline stages, tags, and hiring workflows in Lever ATS."
+category = "ATS"
+tags = ["ats", "lever", "recruiting", "hiring", "candidates", "jobs"]
+env = ["LEVER_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

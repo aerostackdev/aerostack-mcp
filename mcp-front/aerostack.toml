@@ -1,0 +1,10 @@
+name = "mcp-front"
+description = "Full Front integration — manage shared inboxes, conversations, messages, contacts, and teammate assignments for collaborative customer support."
+category = "Customer Support"
+tags = ["front", "customer-support", "inbox", "email", "messaging"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+FRONT_API_TOKEN = "Your Front API token — found in Settings → Developers → API Tokens"

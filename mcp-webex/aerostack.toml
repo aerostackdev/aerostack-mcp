@@ -1,0 +1,8 @@
+name = "mcp-webex"
+description = "Collaborate with Cisco Webex — send messages, manage rooms, add members, and schedule meetings via the Webex API."
+category = "Communication"
+tags = ["webex", "messaging", "meetings", "collaboration", "cisco"]
+env = ["WEBEX_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

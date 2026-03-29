@@ -1,0 +1,11 @@
+name = "mcp-elevenlabs"
+description = "Convert text to speech, clone voices, generate sound effects, and manage your ElevenLabs voice library — the leading AI voice platform."
+category = "AI"
+tags = ["ai", "voice", "text-to-speech", "tts", "audio", "speech", "elevenlabs"]
+env = ["ELEVENLABS_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ELEVENLABS_API_KEY = "Your ElevenLabs API key — found at elevenlabs.io → Profile → API Keys"

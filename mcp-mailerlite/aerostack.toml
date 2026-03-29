@@ -1,0 +1,8 @@
+name = "mcp-mailerlite"
+description = "Manage email marketing with MailerLite — subscribers, groups, campaigns, automations, and custom fields from AI."
+category = "Email"
+tags = ["email", "marketing", "newsletter", "automation", "subscribers"]
+env = ["MAILERLITE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

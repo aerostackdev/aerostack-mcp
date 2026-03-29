@@ -1,0 +1,12 @@
+name = "mcp-jira-cloud"
+description = "Full Jira Cloud integration — manage projects, issues, sprints, boards, comments, transitions, and user assignments for agile project management."
+category = "Project Management"
+tags = ["jira", "project-management", "issue-tracking", "atlassian", "agile"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+JIRA_EMAIL = "Your Atlassian account email address"
+JIRA_API_TOKEN = "Your Jira API token — found in Atlassian Account Settings → Security → API tokens"
+JIRA_DOMAIN = "Your Jira subdomain (e.g. 'mycompany' for mycompany.atlassian.net)"

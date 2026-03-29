@@ -1,460 +1,415 @@
 /**
  * Confluence MCP Worker
- * Implements MCP protocol over HTTP for Confluence Cloud REST API (v2).
+ * Implements MCP protocol over HTTP for Confluence API operations.
  * Receives secrets via X-Mcp-Secret-* headers from the Aerostack gateway.
  *
  * Secrets:
- *   CONFLUENCE_URL       → header: X-Mcp-Secret-CONFLUENCE-URL
- *   CONFLUENCE_EMAIL     → header: X-Mcp-Secret-CONFLUENCE-EMAIL
- *   CONFLUENCE_API_TOKEN → header: X-Mcp-Secret-CONFLUENCE-API-TOKEN
- *
- * Auth: Basic (email:api_token base64-encoded)
- * API base: {CONFLUENCE_URL}/wiki/api/v2
+ *   CONFLUENCE_EMAIL      → header: X-Mcp-Secret-CONFLUENCE-EMAIL
+ *   CONFLUENCE_API_TOKEN  → header: X-Mcp-Secret-CONFLUENCE-API-TOKEN
+ *   CONFLUENCE_DOMAIN     → header: X-Mcp-Secret-CONFLUENCE-DOMAIN
  */
 
-function rpcOk(id: number | string, result: unknown) {
-    return new Response(JSON.stringify({ jsonrpc: '2.0', id, result }), {
-        headers: { 'Content-Type': 'application/json' },
-    });
+function rpcOk(id: string | number | null, result: unknown): Response {
+  return new Response(JSON.stringify({ jsonrpc: '2.0', id, result }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
-function rpcErr(id: number | string | null, code: number, message: string) {
-    return new Response(JSON.stringify({ jsonrpc: '2.0', id, error: { code, message } }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-    });
+function rpcErr(id: string | number | null, code: number, message: string): Response {
+  return new Response(JSON.stringify({ jsonrpc: '2.0', id, error: { code, message } }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
-function text(value: string) {
-    return { content: [{ type: 'text', text: value }] };
+function toolOk(data: unknown) {
+  return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
 }
 
-function json(value: unknown) {
-    return { content: [{ type: 'text', text: JSON.stringify(value, null, 2) }] };
+function validateRequired(args: Record<string, unknown>, fields: string[]): void {
+  const missing = fields.filter(f => args[f] === undefined || args[f] === null || args[f] === '');
+  if (missing.length > 0) throw new Error(`Missing required fields: ${missing.join(', ')}`);
+}
+
+interface ConfluenceSecrets {
+  email: string;
+  apiToken: string;
+  domain: string;
+}
+
+function getSecrets(request: Request): ConfluenceSecrets | null {
+  const email = request.headers.get('X-Mcp-Secret-CONFLUENCE-EMAIL');
+  const apiToken = request.headers.get('X-Mcp-Secret-CONFLUENCE-API-TOKEN');
+  const domain = request.headers.get('X-Mcp-Secret-CONFLUENCE-DOMAIN');
+  if (!email || !apiToken || !domain) return null;
+  return { email, apiToken, domain };
+}
+
+function getApiBase(domain: string): string {
+  return `https://${domain}.atlassian.net/wiki/rest/api`;
+}
+
+async function apiGet(path: string, secrets: ConfluenceSecrets, params?: Record<string, string>): Promise<unknown> {
+  const apiBase = getApiBase(secrets.domain);
+  const url = new URL(`${apiBase}${path}`);
+  if (params) Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+  const credentials = btoa(`${secrets.email}:${secrets.apiToken}`);
+  const res = await fetch(url.toString(), {
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+async function apiPost(path: string, secrets: ConfluenceSecrets, body: unknown): Promise<unknown> {
+  const apiBase = getApiBase(secrets.domain);
+  const credentials = btoa(`${secrets.email}:${secrets.apiToken}`);
+  const res = await fetch(`${apiBase}${path}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+async function apiPut(path: string, secrets: ConfluenceSecrets, body: unknown): Promise<unknown> {
+  const apiBase = getApiBase(secrets.domain);
+  const credentials = btoa(`${secrets.email}:${secrets.apiToken}`);
+  const res = await fetch(`${apiBase}${path}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+async function apiDelete(path: string, secrets: ConfluenceSecrets): Promise<unknown> {
+  const apiBase = getApiBase(secrets.domain);
+  const credentials = btoa(`${secrets.email}:${secrets.apiToken}`);
+  const res = await fetch(`${apiBase}${path}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+  return { deleted: true };
 }
 
 const TOOLS = [
-    {
-        name: '_ping',
-        description: 'Verify Confluence credentials by fetching the current user. Used internally by Aerostack to validate credentials.',
-        inputSchema: { type: 'object', properties: {}, required: [] },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+  {
+    name: 'list_spaces',
+    description: 'List all Confluence spaces',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        limit: { type: 'number', description: 'Maximum results (default: 25)' },
+        start: { type: 'number', description: 'Start index for pagination (default: 0)' },
+      },
+      required: [],
     },
-    {
-        name: 'search_content',
-        description: 'Search Confluence content using CQL (Confluence Query Language)',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                cql: { type: 'string', description: 'CQL query string (e.g. \'type=page AND text~"deploy guide"\')' },
-                limit: { type: 'number', description: 'Max results to return (default 10, max 50)' },
-            },
-            required: ['cql'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_space',
+    description: 'Get details of a specific Confluence space',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        spaceKey: { type: 'string', description: 'Space key' },
+      },
+      required: ['spaceKey'],
     },
-    {
-        name: 'get_page',
-        description: 'Get a Confluence page by ID, including its body content',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                page_id: { type: 'string', description: 'The page ID' },
-                body_format: { type: 'string', description: 'Body format: "storage" (HTML), "atlas_doc_format" (ADF JSON), or "view" (rendered). Default: storage' },
-            },
-            required: ['page_id'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_pages',
+    description: 'List pages in a Confluence space',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        spaceKey: { type: 'string', description: 'Space key' },
+        limit: { type: 'number', description: 'Maximum results (default: 25)' },
+      },
+      required: ['spaceKey'],
     },
-    {
-        name: 'create_page',
-        description: 'Create a new Confluence page in a space',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                space_id: { type: 'string', description: 'Space ID to create the page in' },
-                title: { type: 'string', description: 'Page title' },
-                body: { type: 'string', description: 'Page body in Confluence storage format (XHTML)' },
-                parent_id: { type: 'string', description: 'Parent page ID (optional — creates as child page)' },
-                status: { type: 'string', description: 'Page status: "current" (published) or "draft". Default: current' },
-            },
-            required: ['space_id', 'title', 'body'],
-        },
-        annotations: { readOnlyHint: false, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_page',
+    description: 'Get a specific Confluence page with body content',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID' },
+      },
+      required: ['pageId'],
     },
-    {
-        name: 'update_page',
-        description: 'Update an existing Confluence page',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                page_id: { type: 'string', description: 'The page ID to update' },
-                title: { type: 'string', description: 'New page title' },
-                body: { type: 'string', description: 'New page body in Confluence storage format (XHTML)' },
-                version_number: { type: 'number', description: 'Current version number (required — fetch the page first to get it)' },
-                status: { type: 'string', description: 'Page status: "current" or "draft". Default: current' },
-            },
-            required: ['page_id', 'title', 'body', 'version_number'],
-        },
-        annotations: { readOnlyHint: false, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_page',
+    description: 'Create a new Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        spaceKey: { type: 'string', description: 'Space key to create page in' },
+        title: { type: 'string', description: 'Page title' },
+        body: { type: 'string', description: 'Page body in Confluence storage format (HTML)' },
+        parentId: { type: 'string', description: 'Parent page ID (optional)' },
+      },
+      required: ['spaceKey', 'title', 'body'],
     },
-    {
-        name: 'list_spaces',
-        description: 'List all spaces in the Confluence instance',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                limit: { type: 'number', description: 'Max spaces to return (default 25, max 100)' },
-                type: { type: 'string', description: 'Filter by space type: "global" or "personal" (optional)' },
-            },
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'update_page',
+    description: 'Update an existing Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID to update' },
+        title: { type: 'string', description: 'New page title' },
+        body: { type: 'string', description: 'New page body in Confluence storage format' },
+        version: { type: 'number', description: 'Current version number (required for optimistic locking)' },
+      },
+      required: ['pageId', 'title', 'body', 'version'],
     },
-    {
-        name: 'get_space',
-        description: 'Get details for a specific Confluence space',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                space_id: { type: 'string', description: 'The space ID' },
-            },
-            required: ['space_id'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_page',
+    description: 'Delete a Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID to delete' },
+      },
+      required: ['pageId'],
     },
-    {
-        name: 'list_pages',
-        description: 'List pages in a Confluence space',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                space_id: { type: 'string', description: 'Space ID to list pages from' },
-                limit: { type: 'number', description: 'Max pages to return (default 25, max 100)' },
-                sort: { type: 'string', description: 'Sort order: "created-date", "-created-date", "modified-date", "-modified-date", "title". Default: -modified-date' },
-                status: { type: 'string', description: 'Filter by status: "current" or "draft". Default: current' },
-            },
-            required: ['space_id'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'search_content',
+    description: 'Search Confluence content using CQL (Confluence Query Language)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        cql: { type: 'string', description: 'CQL query string (e.g. type=page AND space=DEV)' },
+        limit: { type: 'number', description: 'Maximum results (default: 20)' },
+      },
+      required: ['cql'],
     },
-    {
-        name: 'add_comment',
-        description: 'Add a comment to a Confluence page',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                page_id: { type: 'string', description: 'The page ID to comment on' },
-                body: { type: 'string', description: 'Comment body in Confluence storage format (XHTML)' },
-            },
-            required: ['page_id', 'body'],
-        },
-        annotations: { readOnlyHint: false, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_children',
+    description: 'List child pages of a Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Parent page ID' },
+      },
+      required: ['pageId'],
     },
-    {
-        name: 'get_page_children',
-        description: 'Get child pages of a Confluence page',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                page_id: { type: 'string', description: 'The parent page ID' },
-                limit: { type: 'number', description: 'Max child pages to return (default 25, max 100)' },
-            },
-            required: ['page_id'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_page_history',
+    description: 'Get version history of a Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID' },
+      },
+      required: ['pageId'],
     },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'add_comment',
+    description: 'Add a comment to a Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID to comment on' },
+        body: { type: 'string', description: 'Comment body in Confluence storage format' },
+      },
+      required: ['pageId', 'body'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'list_comments',
+    description: 'List comments on a Confluence page',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        pageId: { type: 'string', description: 'Page ID' },
+      },
+      required: ['pageId'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_blog_posts',
+    description: 'List blog posts in a Confluence space',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        spaceKey: { type: 'string', description: 'Space key' },
+      },
+      required: ['spaceKey'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_current_user',
+    description: 'Get the current authenticated Confluence user',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      required: [],
+    },
+    annotations: { readOnlyHint: true },
+  },
 ];
 
-interface ConfluenceAuth {
-    baseUrl: string;
-    authHeader: string;
-}
-
-async function confluence(
-    auth: ConfluenceAuth,
-    path: string,
-    method: string = 'GET',
-    body?: unknown,
-): Promise<unknown> {
-    const url = `${auth.baseUrl}/wiki/api/v2${path}`;
-    const opts: RequestInit = {
-        method,
-        headers: {
-            Authorization: auth.authHeader,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-    };
-    if (body && (method === 'POST' || method === 'PUT')) {
-        opts.body = JSON.stringify(body);
+async function callTool(name: string, args: Record<string, unknown>, secrets: ConfluenceSecrets): Promise<unknown> {
+  switch (name) {
+    case 'list_spaces': {
+      return apiGet('/space', secrets, {
+        limit: String(args.limit ?? 25),
+        start: String(args.start ?? 0),
+      });
     }
-
-    const res = await fetch(url, opts);
-    if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Confluence HTTP ${res.status}: ${errText}`);
+    case 'get_space': {
+      validateRequired(args, ['spaceKey']);
+      return apiGet(`/space/${args.spaceKey}`, secrets);
     }
-
-    const contentType = res.headers.get('Content-Type') ?? '';
-    if (contentType.includes('application/json')) {
-        return res.json();
+    case 'list_pages': {
+      validateRequired(args, ['spaceKey']);
+      return apiGet('/content', secrets, {
+        type: 'page',
+        spaceKey: String(args.spaceKey),
+        limit: String(args.limit ?? 25),
+      });
     }
-    return res.text();
-}
-
-async function confluenceV1(
-    auth: ConfluenceAuth,
-    path: string,
-    method: string = 'GET',
-    body?: unknown,
-): Promise<unknown> {
-    const url = `${auth.baseUrl}/wiki/rest/api${path}`;
-    const opts: RequestInit = {
-        method,
-        headers: {
-            Authorization: auth.authHeader,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-    };
-    if (body && (method === 'POST' || method === 'PUT')) {
-        opts.body = JSON.stringify(body);
+    case 'get_page': {
+      validateRequired(args, ['pageId']);
+      return apiGet(`/content/${args.pageId}`, secrets, { expand: 'body.storage,version,space' });
     }
-
-    const res = await fetch(url, opts);
-    if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Confluence HTTP ${res.status}: ${errText}`);
+    case 'create_page': {
+      validateRequired(args, ['spaceKey', 'title', 'body']);
+      const pageBody: Record<string, unknown> = {
+        type: 'page',
+        title: args.title,
+        space: { key: args.spaceKey },
+        body: { storage: { value: args.body, representation: 'storage' } },
+      };
+      if (args.parentId) pageBody.ancestors = [{ id: args.parentId }];
+      return apiPost('/content', secrets, pageBody);
     }
-    return res.json();
-}
-
-async function callTool(name: string, args: Record<string, unknown>, auth: ConfluenceAuth): Promise<unknown> {
-    switch (name) {
-        case '_ping': {
-            const data = await confluence(auth, '/users/me') as any;
-            return text(`Connected to Confluence as "${data.displayName}" (${data.email ?? data.accountId})`);
-        }
-
-        case 'search_content': {
-            const limit = Math.min(Number(args.limit ?? 10), 50);
-            const cql = encodeURIComponent(String(args.cql));
-            const data = await confluenceV1(auth, `/search?cql=${cql}&limit=${limit}`) as any;
-            const results = data.results?.map((r: any) => ({
-                id: r.content?.id,
-                title: r.content?.title ?? r.title,
-                type: r.content?.type,
-                space: r.content?.space?.key ?? r.resultGlobalContainer?.title,
-                url: r.url,
-                lastModified: r.lastModified,
-                excerpt: r.excerpt,
-            })) ?? [];
-            return json(results);
-        }
-
-        case 'get_page': {
-            const format = String(args.body_format ?? 'storage');
-            const data = await confluence(auth, `/pages/${args.page_id}?body-format=${format}`) as any;
-            return json({
-                id: data.id,
-                title: data.title,
-                status: data.status,
-                spaceId: data.spaceId,
-                version: data.version?.number,
-                createdAt: data.createdAt,
-                body: data.body?.[format]?.value ?? data.body,
-                _links: data._links,
-            });
-        }
-
-        case 'create_page': {
-            const payload: Record<string, unknown> = {
-                spaceId: args.space_id,
-                title: args.title,
-                status: args.status ?? 'current',
-                body: {
-                    representation: 'storage',
-                    value: args.body,
-                },
-            };
-            if (args.parent_id) {
-                payload.parentId = args.parent_id;
-            }
-            const data = await confluence(auth, '/pages', 'POST', payload) as any;
-            return json({
-                id: data.id,
-                title: data.title,
-                status: data.status,
-                spaceId: data.spaceId,
-                version: data.version?.number,
-                _links: data._links,
-            });
-        }
-
-        case 'update_page': {
-            const payload = {
-                id: args.page_id,
-                title: args.title,
-                status: args.status ?? 'current',
-                body: {
-                    representation: 'storage',
-                    value: args.body,
-                },
-                version: {
-                    number: Number(args.version_number) + 1,
-                    message: 'Updated via Aerostack MCP',
-                },
-            };
-            const data = await confluence(auth, `/pages/${args.page_id}`, 'PUT', payload) as any;
-            return json({
-                id: data.id,
-                title: data.title,
-                status: data.status,
-                version: data.version?.number,
-                _links: data._links,
-            });
-        }
-
-        case 'list_spaces': {
-            const limit = Math.min(Number(args.limit ?? 25), 100);
-            let path = `/spaces?limit=${limit}`;
-            if (args.type) path += `&type=${args.type}`;
-            const data = await confluence(auth, path) as any;
-            const spaces = data.results?.map((s: any) => ({
-                id: s.id,
-                key: s.key,
-                name: s.name,
-                type: s.type,
-                status: s.status,
-                description: s.description?.plain?.value ?? '',
-            })) ?? [];
-            return json(spaces);
-        }
-
-        case 'get_space': {
-            const data = await confluence(auth, `/spaces/${args.space_id}`) as any;
-            return json({
-                id: data.id,
-                key: data.key,
-                name: data.name,
-                type: data.type,
-                status: data.status,
-                description: data.description?.plain?.value ?? '',
-                homepageId: data.homepageId,
-            });
-        }
-
-        case 'list_pages': {
-            const limit = Math.min(Number(args.limit ?? 25), 100);
-            const sort = args.sort ?? '-modified-date';
-            const status = args.status ?? 'current';
-            const data = await confluence(auth, `/spaces/${args.space_id}/pages?limit=${limit}&sort=${sort}&status=${status}`) as any;
-            const pages = data.results?.map((p: any) => ({
-                id: p.id,
-                title: p.title,
-                status: p.status,
-                createdAt: p.createdAt,
-                version: p.version?.number,
-            })) ?? [];
-            return json(pages);
-        }
-
-        case 'add_comment': {
-            const payload = {
-                pageId: args.page_id,
-                body: {
-                    representation: 'storage',
-                    value: args.body,
-                },
-            };
-            const data = await confluence(auth, '/footer-comments', 'POST', payload) as any;
-            return json({
-                id: data.id,
-                pageId: data.pageId,
-                createdAt: data.createdAt,
-            });
-        }
-
-        case 'get_page_children': {
-            const limit = Math.min(Number(args.limit ?? 25), 100);
-            const data = await confluence(auth, `/pages/${args.page_id}/children?limit=${limit}`) as any;
-            const children = data.results?.map((p: any) => ({
-                id: p.id,
-                title: p.title,
-                status: p.status,
-                childPosition: p.childPosition,
-            })) ?? [];
-            return json(children);
-        }
-
-        default:
-            throw new Error(`Unknown tool: ${name}`);
+    case 'update_page': {
+      validateRequired(args, ['pageId', 'title', 'body', 'version']);
+      return apiPut(`/content/${args.pageId}`, secrets, {
+        type: 'page',
+        title: args.title,
+        version: { number: args.version },
+        body: { storage: { value: args.body, representation: 'storage' } },
+      });
     }
+    case 'delete_page': {
+      validateRequired(args, ['pageId']);
+      return apiDelete(`/content/${args.pageId}`, secrets);
+    }
+    case 'search_content': {
+      validateRequired(args, ['cql']);
+      return apiGet('/content/search', secrets, {
+        cql: String(args.cql),
+        limit: String(args.limit ?? 20),
+      });
+    }
+    case 'list_children': {
+      validateRequired(args, ['pageId']);
+      return apiGet(`/content/${args.pageId}/child/page`, secrets);
+    }
+    case 'get_page_history': {
+      validateRequired(args, ['pageId']);
+      return apiGet(`/content/${args.pageId}/history`, secrets);
+    }
+    case 'add_comment': {
+      validateRequired(args, ['pageId', 'body']);
+      return apiPost('/content', secrets, {
+        type: 'comment',
+        container: { id: args.pageId, type: 'page' },
+        body: { storage: { value: args.body, representation: 'storage' } },
+      });
+    }
+    case 'list_comments': {
+      validateRequired(args, ['pageId']);
+      return apiGet(`/content/${args.pageId}/child/comment`, secrets, { expand: 'body.storage' });
+    }
+    case 'list_blog_posts': {
+      validateRequired(args, ['spaceKey']);
+      return apiGet('/content', secrets, { type: 'blogpost', spaceKey: String(args.spaceKey) });
+    }
+    case 'get_current_user': {
+      return apiGet('/user/current', secrets);
+    }
+    default:
+      throw new Error(`Unknown tool: ${name}`);
+  }
 }
 
 export default {
-    async fetch(request: Request): Promise<Response> {
-        if (request.method === 'GET' && new URL(request.url).pathname === '/health') {
-            return new Response(JSON.stringify({ status: 'ok', server: 'confluence-mcp', version: '1.0.0' }), {
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-
-        if (request.method !== 'POST') {
-            return new Response('Method Not Allowed', { status: 405 });
-        }
-
-        let body: { jsonrpc: string; id: number | string; method: string; params?: Record<string, unknown> };
-        try {
-            body = await request.json();
-        } catch {
-            return rpcErr(null, -32700, 'Parse error');
-        }
-
-        const { id, method, params } = body;
-
-        if (method === 'initialize') {
-            return rpcOk(id, {
-                protocolVersion: '2024-11-05',
-                capabilities: { tools: {} },
-                serverInfo: { name: 'confluence-mcp', version: '1.0.0' },
-            });
-        }
-
-        if (method === 'tools/list') {
-            return rpcOk(id, { tools: TOOLS });
-        }
-
-        if (method === 'tools/call') {
-            const toolName = params?.name as string;
-            const toolArgs = (params?.arguments ?? {}) as Record<string, unknown>;
-
-            const confluenceUrl = request.headers.get('X-Mcp-Secret-CONFLUENCE-URL');
-            const email = request.headers.get('X-Mcp-Secret-CONFLUENCE-EMAIL');
-            const apiToken = request.headers.get('X-Mcp-Secret-CONFLUENCE-API-TOKEN');
-
-            if (!confluenceUrl) {
-                return rpcErr(id, -32001, 'Missing CONFLUENCE_URL secret — add it to your workspace secrets (e.g. https://yoursite.atlassian.net)');
-            }
-            if (!email) {
-                return rpcErr(id, -32001, 'Missing CONFLUENCE_EMAIL secret — add it to your workspace secrets');
-            }
-            if (!apiToken) {
-                return rpcErr(id, -32001, 'Missing CONFLUENCE_API_TOKEN secret — add it to your workspace secrets');
-            }
-
-            const baseUrl = confluenceUrl.replace(/\/+$/, '');
-            const authHeader = `Basic ${btoa(`${email}:${apiToken}`)}`;
-            const auth: ConfluenceAuth = { baseUrl, authHeader };
-
-            try {
-                const result = await callTool(toolName, toolArgs, auth);
-                return rpcOk(id, result);
-            } catch (e: any) {
-                return rpcErr(id, -32603, e.message ?? 'Tool execution failed');
-            }
-        }
-
-        return rpcErr(id, -32601, `Method not found: ${method}`);
-    },
+  async fetch(request: Request): Promise<Response> {
+    if (request.method === 'GET') {
+      return new Response(JSON.stringify({ name: 'mcp-confluence', version: '1.0.0' }), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    if (request.method !== 'POST') {
+      return new Response('Method Not Allowed', { status: 405 });
+    }
+    let body: { jsonrpc?: string; id?: string | number | null; method?: string; params?: { name?: string; arguments?: Record<string, unknown> } };
+    try {
+      body = await request.json();
+    } catch {
+      return rpcErr(null, -32700, 'Parse error');
+    }
+    const { id = null, method, params } = body;
+    if (method === 'initialize') {
+      return rpcOk(id, {
+        protocolVersion: '2024-11-05',
+        capabilities: { tools: {} },
+        serverInfo: { name: 'mcp-confluence', version: '1.0.0' },
+      });
+    }
+    if (method === 'tools/list') {
+      return rpcOk(id, { tools: TOOLS });
+    }
+    if (method === 'tools/call') {
+      const secrets = getSecrets(request);
+      if (!secrets) return rpcErr(id, -32001, 'Missing secrets: CONFLUENCE_EMAIL, CONFLUENCE_API_TOKEN, and CONFLUENCE_DOMAIN are required');
+      try {
+        const result = await callTool(params?.name ?? '', (params?.arguments ?? {}) as Record<string, unknown>, secrets);
+        return rpcOk(id, toolOk(result));
+      } catch (err) {
+        return rpcErr(id, -32603, err instanceof Error ? err.message : 'Internal error');
+      }
+    }
+    return rpcErr(id, -32601, 'Method not found');
+  },
 };

@@ -1,0 +1,8 @@
+name = "mcp-lemlist"
+description = "Automate cold email outreach with Lemlist — manage campaigns, leads, sequences, and track engagement metrics from AI."
+category = "Email"
+tags = ["email", "outreach", "cold-email", "sales", "leads"]
+env = ["LEMLIST_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-pulumi"
+description = "Manage Pulumi stacks, resources, organizations, webhooks, and policy packs from your AI agent."
+category = "Developer Tools"
+tags = ["pulumi", "infrastructure-as-code", "devops", "cloud"]
+env = ["PULUMI_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

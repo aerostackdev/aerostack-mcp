@@ -1,0 +1,12 @@
+{
+  "name": "mcp-height",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "test": "vitest run", "dev": "wrangler dev", "deploy": "wrangler deploy" },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.5.2",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.91.0"
+  }
+}

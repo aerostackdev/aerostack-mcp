@@ -1,0 +1,8 @@
+name = "mcp-toggl"
+description = "Track time with Toggl — manage projects, start/stop timers, and generate summary reports via the Toggl Track API."
+category = "Productivity"
+tags = ["toggl", "time-tracking", "productivity", "reports"]
+env = ["TOGGL_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

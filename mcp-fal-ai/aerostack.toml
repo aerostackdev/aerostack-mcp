@@ -1,0 +1,11 @@
+name = "mcp-fal-ai"
+description = "Generate images with FLUX, create videos, remove backgrounds, upscale images, transcribe audio, and generate music using Fal.ai's fast inference platform."
+category = "AI"
+tags = ["ai", "image-generation", "video", "fal", "flux", "stable-diffusion", "audio", "generative"]
+env = ["FAL_AI_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+FAL_AI_API_KEY = "Fal.ai API key from https://fal.ai/dashboard/keys"

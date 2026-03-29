@@ -1,0 +1,8 @@
+name = "mcp-copper"
+description = "Manage people, companies, opportunities, activities, and tasks in Copper CRM — built for Google Workspace."
+category = "CRM"
+tags = ["crm", "copper", "google-workspace", "contacts", "opportunities", "sales"]
+env = ["COPPER_API_KEY", "COPPER_USER_EMAIL"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

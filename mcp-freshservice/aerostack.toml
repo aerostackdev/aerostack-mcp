@@ -1,0 +1,11 @@
+name = "mcp-freshservice"
+description = "Full Freshservice integration — manage IT tickets, assets, agents, departments, requesters, and service desk workflows."
+category = "Customer Support"
+tags = ["freshservice", "it-service-management", "helpdesk", "itsm"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+FRESHSERVICE_API_KEY = "Your Freshservice API key — found in Profile Settings → API Key"
+FRESHSERVICE_DOMAIN = "Your Freshservice subdomain (e.g. 'mycompany' for mycompany.freshservice.com)"

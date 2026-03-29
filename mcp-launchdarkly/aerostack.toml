@@ -1,0 +1,8 @@
+name = "mcp-launchdarkly"
+description = "Manage LaunchDarkly feature flags, environments, segments, and audit logs with natural language."
+category = "Developer Tools"
+tags = ["launchdarkly", "feature-flags", "ab-testing", "experimentation"]
+env = ["LAUNCHDARKLY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

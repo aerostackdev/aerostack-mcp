@@ -1,0 +1,8 @@
+name = "mcp-wordpress"
+description = "Connect your WordPress site to AI — manage posts, pages, categories, comments, and media with natural language using the WordPress REST API."
+category = "CMS"
+tags = ["wordpress", "cms", "blog", "content-management", "website"]
+env = ["WORDPRESS_USERNAME", "WORDPRESS_APP_PASSWORD", "WORDPRESS_DOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

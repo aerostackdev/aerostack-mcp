@@ -1,0 +1,8 @@
+name = "mcp-deepgram"
+description = "Transcribe audio, detect sentiment, topics, and intent, and generate speech with Deepgram's audio intelligence API."
+category = "Audio"
+tags = ["audio", "speech-to-text", "transcription", "diarization", "tts", "voice"]
+env = ["DEEPGRAM_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

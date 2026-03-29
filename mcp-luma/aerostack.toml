@@ -1,0 +1,10 @@
+name = "mcp-luma"
+description = "Full Luma integration — manage events, calendars, guests, and community people for modern event management."
+category = "Events"
+tags = ["luma", "events", "community", "calendar"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+LUMA_API_KEY = "Your Luma API key — found in Settings → Integrations → API"

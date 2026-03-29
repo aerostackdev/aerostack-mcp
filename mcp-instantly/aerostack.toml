@@ -1,0 +1,8 @@
+name = "mcp-instantly"
+description = "Automate cold email campaigns with Instantly.ai — manage campaigns, leads, verify emails, and track analytics from AI."
+category = "Email"
+tags = ["email", "cold-email", "outreach", "sales", "leads"]
+env = ["INSTANTLY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

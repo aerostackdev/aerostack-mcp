@@ -1,0 +1,12 @@
+name = "mcp-auth0"
+description = "Full Auth0 Management API integration — manage users, connections, applications, roles, and logs for authentication and identity management."
+category = "Identity"
+tags = ["auth0", "authentication", "identity", "sso", "oauth"]
+env = ["AUTH0_MANAGEMENT_TOKEN", "AUTH0_DOMAIN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+AUTH0_MANAGEMENT_TOKEN = "Your Auth0 Management API token — create one in the Auth0 Dashboard under Applications → APIs → Auth0 Management API → Test"
+AUTH0_DOMAIN = "Your Auth0 domain (e.g. myapp.auth0.com) — found in the Auth0 Dashboard settings"

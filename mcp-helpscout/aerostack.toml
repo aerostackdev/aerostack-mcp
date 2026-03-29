@@ -1,0 +1,10 @@
+name = "mcp-helpscout"
+description = "Full Help Scout integration — manage conversations, mailboxes, customers, and tags for customer support operations."
+category = "Customer Support"
+tags = ["helpscout", "customer-support", "help-desk", "email"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+HELPSCOUT_ACCESS_TOKEN = "Your Help Scout OAuth access token — found in Settings → API & Integrations"

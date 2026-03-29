@@ -1,0 +1,8 @@
+name = "mcp-wrike"
+description = "Manage Wrike projects and tasks — create folders, tasks, comments, and track time logs via the Wrike API."
+category = "Productivity"
+tags = ["wrike", "project-management", "tasks", "collaboration"]
+env = ["WRIKE_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

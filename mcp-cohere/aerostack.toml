@@ -1,0 +1,11 @@
+name = "mcp-cohere"
+description = "Generate text, embed documents for semantic search, rerank results, classify inputs, summarize content, and detect language using Cohere's enterprise AI platform."
+category = "AI"
+tags = ["ai", "embeddings", "reranking", "nlp", "llm", "cohere", "semantic-search"]
+env = ["COHERE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+COHERE_API_KEY = "Your Cohere API key — found at dashboard.cohere.com/api-keys"

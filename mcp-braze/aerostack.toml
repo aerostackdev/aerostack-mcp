@@ -1,0 +1,8 @@
+name = "mcp-braze"
+description = "Orchestrate enterprise customer engagement with Braze — track users, send messages, manage campaigns, and analyze segments from AI."
+category = "Email"
+tags = ["crm", "email", "push", "sms", "marketing", "enterprise"]
+env = ["BRAZE_API_KEY", "BRAZE_INSTANCE_URL"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,10 @@
+name = "mcp-height"
+description = "Full Height integration — manage task lists, tasks, custom fields, groups, users, and activity logs for collaborative project management."
+category = "Project Management"
+tags = ["height", "project-management", "tasks", "collaboration"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+HEIGHT_API_KEY = "Your Height API key — found in Settings → API"

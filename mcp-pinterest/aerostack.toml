@@ -1,0 +1,11 @@
+name = "mcp-pinterest"
+description = "Full Pinterest integration — manage boards, pins, and get user analytics for your Pinterest business account."
+category = "Social Media"
+tags = ["pinterest", "social-media", "pins", "boards", "visual"]
+env = ["PINTEREST_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+PINTEREST_ACCESS_TOKEN = "Your Pinterest access token — create one in the Pinterest Developer Portal under My Apps"

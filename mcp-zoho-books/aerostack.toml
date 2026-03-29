@@ -1,0 +1,8 @@
+name = "mcp-zoho-books"
+description = "Manage business accounting with Zoho Books — contacts, invoices, bills, expenses, payments, and financial reports from AI."
+category = "Finance"
+tags = ["accounting", "invoicing", "finance", "expenses", "reports"]
+env = ["ZOHO_BOOKS_ACCESS_TOKEN", "ZOHO_BOOKS_ORGANIZATION_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

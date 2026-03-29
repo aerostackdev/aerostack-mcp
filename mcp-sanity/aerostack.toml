@@ -1,0 +1,8 @@
+name = "mcp-sanity"
+description = "Connect your Sanity.io CMS to AI — run GROQ queries, manage documents, explore schemas, and administer projects with natural language."
+category = "CMS"
+tags = ["sanity", "cms", "headless-cms", "groq", "content"]
+env = ["SANITY_API_TOKEN", "SANITY_PROJECT_ID", "SANITY_DATASET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,10 @@
+name = "mcp-surveymonkey"
+description = "Full SurveyMonkey integration — create surveys, manage pages and questions, distribute via collectors, and analyze responses."
+category = "Surveys"
+tags = ["surveymonkey", "surveys", "forms", "feedback"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+SURVEYMONKEY_ACCESS_TOKEN = "Your SurveyMonkey OAuth access token — found in Developer Portal → My Apps → Access Token"

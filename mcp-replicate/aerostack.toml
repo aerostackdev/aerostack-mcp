@@ -1,0 +1,11 @@
+name = "mcp-replicate"
+description = "Run any AI model on Replicate — image generation, video, audio, language models — and manage predictions, deployments, and your model library."
+category = "AI"
+tags = ["ai", "models", "inference", "image-generation", "replicate", "ml"]
+env = ["REPLICATE_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+REPLICATE_API_TOKEN = "Your Replicate API token — found at replicate.com/account/api-tokens"

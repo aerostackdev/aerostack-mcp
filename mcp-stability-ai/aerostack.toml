@@ -1,0 +1,11 @@
+name = "mcp-stability-ai"
+description = "Generate images, upscale photos, remove backgrounds, run inpainting, and create videos from images using Stable Diffusion 3.5 and Stability AI's Stable Image API."
+category = "AI"
+tags = ["ai", "image-generation", "stable-diffusion", "image-editing", "video", "upscaling"]
+env = ["STABILITY_AI_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+STABILITY_AI_API_KEY = "Your Stability AI API key — found at platform.stability.ai/account/keys"

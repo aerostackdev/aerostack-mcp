@@ -1,0 +1,8 @@
+name = "mcp-convertkit"
+description = "Grow your creator audience with ConvertKit (Kit) — manage subscribers, broadcasts, sequences, tags, and forms from AI."
+category = "Email"
+tags = ["email", "creator", "newsletter", "subscribers", "sequences"]
+env = ["CONVERTKIT_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
