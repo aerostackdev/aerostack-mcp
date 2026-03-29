@@ -1,16 +1,16 @@
 # Aerostack MCP Catalog
 
-**100+ MCP servers on Cloudflare's edge** — one endpoint, every tool, no local processes.
+**200+ MCP servers on Cloudflare's edge** — one endpoint, every tool, no local processes.
 
 Connect any combination to Claude, Cursor, Windsurf, or your own AI agent. Your API keys stay encrypted in Aerostack's vault. Tools appear automatically namespaced: `discord__send_message`, `stripe__create_invoice`, `hubspot__search_contacts`.
 
-**85+ hosted Workers + 21 proxy entries. All edge-deployed, sub-50ms globally.**
+**200+ hosted Workers + 50 proxy entries. All edge-deployed, sub-50ms globally.**
 
 ---
 
 ## Quick Start — AI Agent Discovery
 
-Any AI agent can discover and use all 100+ servers through the **Aerostack Registry MCP**. No browsing, no manual config — your agent searches and calls tools directly.
+Any AI agent can discover and use all 200+ servers through the **Aerostack Registry MCP**. No browsing, no manual config — your agent searches and calls tools directly.
 
 ### Connect the Registry
 
