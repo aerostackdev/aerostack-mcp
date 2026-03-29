@@ -5,7 +5,7 @@
  *
  * Secret: MICROSOFT_ACCESS_TOKEN → header: X-Mcp-Secret-MICROSOFT-ACCESS-TOKEN
  *
- * Covers: Teams messaging, Outlook email, Calendar, and OneDrive.
+ * Covers: Teams messaging, Outlook email, Calendar, OneDrive, and Users/Directory.
  */
 
 const GRAPH_API = 'https://graph.microsoft.com/v1.0';
@@ -232,6 +232,307 @@ const TOOLS = [
                 limit: { type: 'number', description: 'Number of results to return (default: 20)' },
             },
             required: ['query'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_drive_item',
+        description: 'Get metadata for a specific OneDrive file or folder by ID',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                item_id: { type: 'string', description: 'The OneDrive item ID' },
+            },
+            required: ['item_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'create_folder',
+        description: 'Create a new folder in OneDrive',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                name: { type: 'string', description: 'Name of the new folder' },
+                parent_id: { type: 'string', description: 'Parent folder item ID (optional — defaults to OneDrive root)' },
+            },
+            required: ['name'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'delete_drive_item',
+        description: 'Delete a file or folder from OneDrive',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                item_id: { type: 'string', description: 'The OneDrive item ID to delete' },
+            },
+            required: ['item_id'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: true },
+    },
+    {
+        name: 'share_drive_item',
+        description: 'Create a sharing link for a OneDrive file or folder',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                item_id: { type: 'string', description: 'The OneDrive item ID to share' },
+                type: {
+                    type: 'string',
+                    enum: ['view', 'edit', 'embed'],
+                    description: 'Permission type for the sharing link (default: view)',
+                },
+                scope: {
+                    type: 'string',
+                    enum: ['anonymous', 'organization'],
+                    description: 'Scope of the sharing link (default: anonymous)',
+                },
+            },
+            required: ['item_id'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+
+    // ── Teams (extended) ─────────────────────────────────────────────────────
+    {
+        name: 'create_team_channel',
+        description: 'Create a new channel in a Microsoft Teams team',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                team_id: { type: 'string', description: 'The Microsoft Teams team ID' },
+                display_name: { type: 'string', description: 'Display name for the new channel' },
+                description: { type: 'string', description: 'Description for the channel (optional)' },
+                membership_type: {
+                    type: 'string',
+                    enum: ['standard', 'private'],
+                    description: 'Channel membership type (default: standard)',
+                },
+            },
+            required: ['team_id', 'display_name'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'reply_to_teams_message',
+        description: 'Reply to a specific message in a Microsoft Teams channel',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                team_id: { type: 'string', description: 'The Microsoft Teams team ID' },
+                channel_id: { type: 'string', description: 'The channel ID' },
+                message_id: { type: 'string', description: 'The message ID to reply to' },
+                content: { type: 'string', description: 'Reply content' },
+                content_type: {
+                    type: 'string',
+                    enum: ['text', 'html'],
+                    description: 'Content type of the reply body (default: text)',
+                },
+            },
+            required: ['team_id', 'channel_id', 'message_id', 'content'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'list_chats',
+        description: 'List all 1:1 and group chats for the authenticated user in Microsoft Teams',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of chats to return (default: 20)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'list_chat_messages',
+        description: 'List recent messages from a Microsoft Teams 1:1 or group chat',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                chat_id: { type: 'string', description: 'The Teams chat ID' },
+                limit: { type: 'number', description: 'Number of messages to return (default: 20)' },
+            },
+            required: ['chat_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'send_chat_message',
+        description: 'Send a message to a Microsoft Teams 1:1 or group chat',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                chat_id: { type: 'string', description: 'The Teams chat ID' },
+                content: { type: 'string', description: 'Message content to send' },
+                content_type: {
+                    type: 'string',
+                    enum: ['text', 'html'],
+                    description: 'Content type of the message body (default: text)',
+                },
+            },
+            required: ['chat_id', 'content'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'list_team_members',
+        description: 'List all members of a Microsoft Teams team',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                team_id: { type: 'string', description: 'The Microsoft Teams team ID' },
+            },
+            required: ['team_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
+    // ── Email (extended) ─────────────────────────────────────────────────────
+    {
+        name: 'forward_email',
+        description: 'Forward an Outlook email message to one or more recipients',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                message_id: { type: 'string', description: 'The Outlook message ID to forward' },
+                to: { type: 'string', description: 'Recipient email addresses to forward to, comma-separated' },
+                comment: { type: 'string', description: 'Optional comment to include with the forwarded message' },
+            },
+            required: ['message_id', 'to'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'mark_email_read',
+        description: 'Mark an Outlook email as read or unread',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                message_id: { type: 'string', description: 'The Outlook message ID' },
+                is_read: { type: 'boolean', description: 'Set to true to mark as read, false to mark as unread (default: true)' },
+            },
+            required: ['message_id'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'delete_email',
+        description: 'Delete an Outlook email message',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                message_id: { type: 'string', description: 'The Outlook message ID to delete' },
+            },
+            required: ['message_id'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: true },
+    },
+    {
+        name: 'create_draft',
+        description: 'Create a draft email in Outlook without sending it',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                to: { type: 'string', description: 'Recipient email addresses, comma-separated' },
+                subject: { type: 'string', description: 'Email subject line' },
+                body: { type: 'string', description: 'Email body content' },
+                body_type: {
+                    type: 'string',
+                    enum: ['text', 'html'],
+                    description: 'Content type of the email body (default: text)',
+                },
+                cc: { type: 'string', description: 'CC email addresses, comma-separated (optional)' },
+            },
+            required: ['to', 'subject', 'body'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'list_contacts',
+        description: 'List contacts from the user\'s Outlook contacts',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of contacts to return (default: 20)' },
+                search: { type: 'string', description: 'Optional search query to filter contacts by name or email (optional)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
+    // ── Calendar (extended) ──────────────────────────────────────────────────
+    {
+        name: 'get_calendar_event',
+        description: 'Get full details of a specific calendar event by ID',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                event_id: { type: 'string', description: 'The calendar event ID' },
+            },
+            required: ['event_id'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'respond_to_event',
+        description: 'Accept, decline, or tentatively accept a calendar event invitation',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                event_id: { type: 'string', description: 'The calendar event ID' },
+                response: {
+                    type: 'string',
+                    enum: ['accept', 'decline', 'tentativelyAccept'],
+                    description: 'Your response to the event invitation',
+                },
+                comment: { type: 'string', description: 'Optional comment to include with your response' },
+                send_response: { type: 'boolean', description: 'Whether to send the response to the organizer (default: true)' },
+            },
+            required: ['event_id', 'response'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'list_calendars',
+        description: 'List all calendars in the user\'s Outlook account',
+        inputSchema: {
+            type: 'object',
+            properties: {},
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
+    // ── Users / Directory ────────────────────────────────────────────────────
+    {
+        name: 'get_current_user',
+        description: 'Get the profile of the currently authenticated Microsoft 365 user',
+        inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'list_org_users',
+        description: 'List users in the Microsoft 365 organization directory',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'number', description: 'Number of users to return (default: 20)' },
+                search: { type: 'string', description: 'Optional search query to filter users by name or email (optional)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_user',
+        description: 'Get the profile of a specific Microsoft 365 user by user ID or email',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                user_id: { type: 'string', description: 'The user ID or UPN (email address) of the user to look up' },
+            },
+            required: ['user_id'],
         },
         annotations: { readOnlyHint: true, destructiveHint: false },
     },
@@ -544,6 +845,343 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
                 webUrl: item.webUrl ?? null,
                 type: item.file ? 'file' : item.folder ? 'folder' : 'unknown',
             }));
+        }
+
+        case 'get_drive_item': {
+            const data = await graph('GET', `/me/drive/items/${encodeURIComponent(String(args.item_id))}`, token) as any;
+            return {
+                id: data.id,
+                name: data.name,
+                size: data.size ?? null,
+                createdDateTime: data.createdDateTime,
+                lastModifiedDateTime: data.lastModifiedDateTime,
+                webUrl: data.webUrl ?? null,
+                downloadUrl: data['@microsoft.graph.downloadUrl'] ?? null,
+                type: data.file ? 'file' : data.folder ? 'folder' : 'unknown',
+                mimeType: data.file?.mimeType ?? null,
+                childCount: data.folder?.childCount ?? null,
+            };
+        }
+
+        case 'create_folder': {
+            const parentPath = args.parent_id
+                ? `/me/drive/items/${encodeURIComponent(String(args.parent_id))}/children`
+                : '/me/drive/root/children';
+            const data = await graph('POST', parentPath, token, {
+                name: String(args.name),
+                folder: {},
+                '@microsoft.graph.conflictBehavior': 'rename',
+            }) as any;
+            return {
+                id: data.id,
+                name: data.name,
+                webUrl: data.webUrl ?? null,
+                createdDateTime: data.createdDateTime,
+            };
+        }
+
+        case 'delete_drive_item': {
+            await graph('DELETE', `/me/drive/items/${encodeURIComponent(String(args.item_id))}`, token);
+            return { success: true, deleted_item_id: args.item_id };
+        }
+
+        case 'share_drive_item': {
+            const shareType = String(args.type ?? 'view');
+            const shareScope = String(args.scope ?? 'anonymous');
+            const data = await graph(
+                'POST',
+                `/me/drive/items/${encodeURIComponent(String(args.item_id))}/createLink`,
+                token,
+                { type: shareType, scope: shareScope },
+            ) as any;
+            return {
+                webUrl: data.link?.webUrl ?? null,
+                type: data.link?.type ?? null,
+                scope: data.link?.scope ?? null,
+                expirationDateTime: data.expirationDateTime ?? null,
+            };
+        }
+
+        // ── Teams (extended) ─────────────────────────────────────────────────
+
+        case 'create_team_channel': {
+            const membershipType = String(args.membership_type ?? 'standard');
+            const body: Record<string, unknown> = {
+                displayName: String(args.display_name),
+                membershipType,
+            };
+            if (args.description) body.description = String(args.description);
+            const data = await graph('POST', `/teams/${args.team_id}/channels`, token, body) as any;
+            return {
+                id: data.id,
+                displayName: data.displayName,
+                description: data.description ?? null,
+                webUrl: data.webUrl ?? null,
+                membershipType: data.membershipType,
+            };
+        }
+
+        case 'reply_to_teams_message': {
+            const contentType = String(args.content_type ?? 'text');
+            const data = await graph(
+                'POST',
+                `/teams/${args.team_id}/channels/${args.channel_id}/messages/${args.message_id}/replies`,
+                token,
+                { body: { contentType, content: String(args.content) } },
+            ) as any;
+            return {
+                id: data.id,
+                createdDateTime: data.createdDateTime,
+                webUrl: data.webUrl ?? null,
+            };
+        }
+
+        case 'list_chats': {
+            const limit = Number(args.limit ?? 20);
+            const data = await graph('GET', `/me/chats?$top=${limit}&$expand=members`, token) as any;
+            const chats = data.value ?? [];
+            return chats.map((c: any) => ({
+                id: c.id,
+                topic: c.topic ?? null,
+                chatType: c.chatType,
+                createdDateTime: c.createdDateTime,
+                lastUpdatedDateTime: c.lastUpdatedDateTime,
+                webUrl: c.webUrl ?? null,
+            }));
+        }
+
+        case 'list_chat_messages': {
+            const limit = Number(args.limit ?? 20);
+            const data = await graph('GET', `/me/chats/${args.chat_id}/messages?$top=${limit}`, token) as any;
+            const messages = data.value ?? [];
+            return messages.map((m: any) => ({
+                id: m.id,
+                body: m.body ?? null,
+                from: m.from ?? null,
+                createdDateTime: m.createdDateTime,
+                lastModifiedDateTime: m.lastModifiedDateTime,
+            }));
+        }
+
+        case 'send_chat_message': {
+            const contentType = String(args.content_type ?? 'text');
+            const data = await graph(
+                'POST',
+                `/me/chats/${args.chat_id}/messages`,
+                token,
+                { body: { contentType, content: String(args.content) } },
+            ) as any;
+            return {
+                id: data.id,
+                createdDateTime: data.createdDateTime,
+                webUrl: data.webUrl ?? null,
+            };
+        }
+
+        case 'list_team_members': {
+            const data = await graph('GET', `/teams/${args.team_id}/members`, token) as any;
+            const members = data.value ?? [];
+            return members.map((m: any) => ({
+                id: m.id,
+                displayName: m.displayName,
+                email: m.email ?? null,
+                roles: m.roles ?? [],
+            }));
+        }
+
+        // ── Email (extended) ─────────────────────────────────────────────────
+
+        case 'forward_email': {
+            const toRecipients = String(args.to).split(',').map((a: string) => ({
+                emailAddress: { address: a.trim() },
+            }));
+            const body: Record<string, unknown> = { toRecipients };
+            if (args.comment) body.comment = String(args.comment);
+            await graph('POST', `/me/messages/${args.message_id}/forward`, token, body);
+            return { success: true, forwarded_message_id: args.message_id, to: args.to };
+        }
+
+        case 'mark_email_read': {
+            const isRead = args.is_read !== false;
+            await graph('PATCH', `/me/messages/${args.message_id}`, token, { isRead });
+            return { success: true, message_id: args.message_id, isRead };
+        }
+
+        case 'delete_email': {
+            await graph('DELETE', `/me/messages/${args.message_id}`, token);
+            return { success: true, deleted_message_id: args.message_id };
+        }
+
+        case 'create_draft': {
+            const toAddresses = String(args.to).split(',').map((a: string) => ({
+                emailAddress: { address: a.trim() },
+            }));
+            const bodyType = String(args.body_type ?? 'text');
+            const message: Record<string, unknown> = {
+                subject: args.subject,
+                body: { contentType: bodyType, content: args.body },
+                toRecipients: toAddresses,
+            };
+            if (args.cc) {
+                message.ccRecipients = String(args.cc).split(',').map((a: string) => ({
+                    emailAddress: { address: a.trim() },
+                }));
+            }
+            const data = await graph('POST', '/me/messages', token, message) as any;
+            return {
+                id: data.id,
+                subject: data.subject,
+                to: args.to,
+                createdDateTime: data.createdDateTime,
+                isDraft: true,
+            };
+        }
+
+        case 'list_contacts': {
+            const limit = Number(args.limit ?? 20);
+            const params = new URLSearchParams({ $top: String(limit) });
+            if (args.search) params.set('$search', `"${args.search}"`);
+            const data = await graph('GET', `/me/contacts?${params}`, token) as any;
+            const contacts = data.value ?? [];
+            return contacts.map((c: any) => ({
+                id: c.id,
+                displayName: c.displayName,
+                emailAddresses: c.emailAddresses ?? [],
+                mobilePhone: c.mobilePhone ?? null,
+                jobTitle: c.jobTitle ?? null,
+                companyName: c.companyName ?? null,
+            }));
+        }
+
+        // ── Calendar (extended) ──────────────────────────────────────────────
+
+        case 'get_calendar_event': {
+            const data = await graph('GET', `/me/events/${encodeURIComponent(String(args.event_id))}`, token) as any;
+            return {
+                id: data.id,
+                subject: data.subject,
+                start: data.start,
+                end: data.end,
+                location: data.location?.displayName ?? null,
+                body: data.body ?? null,
+                organizer: data.organizer?.emailAddress ?? null,
+                attendees: data.attendees?.map((a: any) => ({
+                    emailAddress: a.emailAddress,
+                    status: a.status,
+                    type: a.type,
+                })) ?? [],
+                isAllDay: data.isAllDay ?? false,
+                isCancelled: data.isCancelled ?? false,
+                webLink: data.webLink ?? null,
+                onlineMeeting: data.onlineMeeting ?? null,
+            };
+        }
+
+        case 'respond_to_event': {
+            const response = String(args.response);
+            const VALID_RESPONSES = ['accept', 'decline', 'tentativelyAccept'] as const;
+            if (!VALID_RESPONSES.includes(response as typeof VALID_RESPONSES[number])) {
+                throw new Error(`Invalid response value: "${response}" — must be one of: accept, decline, tentativelyAccept`);
+            }
+            const sendResponse = args.send_response !== false;
+            const body: Record<string, unknown> = { sendResponse };
+            if (args.comment) body.comment = String(args.comment);
+            await graph('POST', `/me/events/${encodeURIComponent(String(args.event_id))}/${response}`, token, body);
+            return { success: true, event_id: args.event_id, response };
+        }
+
+        case 'list_calendars': {
+            const data = await graph('GET', '/me/calendars', token) as any;
+            const calendars = data.value ?? [];
+            return calendars.map((c: any) => ({
+                id: c.id,
+                name: c.name,
+                color: c.color ?? null,
+                isDefaultCalendar: c.isDefaultCalendar ?? false,
+                canEdit: c.canEdit ?? false,
+                owner: c.owner ?? null,
+            }));
+        }
+
+        // ── Users / Directory ────────────────────────────────────────────────
+
+        case 'get_current_user': {
+            const data = await graph('GET', '/me', token) as any;
+            return {
+                id: data.id,
+                displayName: data.displayName,
+                mail: data.mail ?? null,
+                userPrincipalName: data.userPrincipalName,
+                jobTitle: data.jobTitle ?? null,
+                department: data.department ?? null,
+                officeLocation: data.officeLocation ?? null,
+                mobilePhone: data.mobilePhone ?? null,
+                businessPhones: data.businessPhones ?? [],
+            };
+        }
+
+        case 'list_org_users': {
+            const limit = Number(args.limit ?? 20);
+            const params = new URLSearchParams({
+                $top: String(limit),
+                $select: 'id,displayName,mail,userPrincipalName,jobTitle,department',
+            });
+            if (args.search) params.set('$search', `"displayName:${args.search}" OR "mail:${args.search}"`);
+            const headers: Record<string, string> = args.search
+                ? { ConsistencyLevel: 'eventual' }
+                : {};
+            const url = `/users?${params}`;
+            // For search queries we need to pass ConsistencyLevel header via a workaround
+            // Graph helper doesn't support extra headers, so we call fetch directly
+            const opts: RequestInit = {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'AerostackMCP/1.0 (https://aerostack.dev)',
+                    ...headers,
+                },
+            };
+            const res = await fetch(`${GRAPH_API}${url}`, opts);
+            const text = await res.text();
+            if (!res.ok) {
+                let errMsg = text;
+                try {
+                    const errBody = JSON.parse(text) as Record<string, unknown>;
+                    const errObj = errBody.error as Record<string, unknown> | undefined;
+                    errMsg = (errObj?.message as string) ?? text;
+                } catch { /* use raw text */ }
+                if (res.status === 401) throw new Error('Invalid or expired access token — check MICROSOFT_ACCESS_TOKEN in your workspace secrets');
+                if (res.status === 403) throw new Error(`Missing Microsoft 365 permission — ${errMsg}`);
+                throw new Error(`Microsoft Graph API error ${res.status}: ${errMsg}`);
+            }
+            const data = JSON.parse(text) as any;
+            const users = data.value ?? [];
+            return users.map((u: any) => ({
+                id: u.id,
+                displayName: u.displayName,
+                mail: u.mail ?? null,
+                userPrincipalName: u.userPrincipalName,
+                jobTitle: u.jobTitle ?? null,
+                department: u.department ?? null,
+            }));
+        }
+
+        case 'get_user': {
+            const userId = encodeURIComponent(String(args.user_id));
+            const data = await graph('GET', `/users/${userId}`, token) as any;
+            return {
+                id: data.id,
+                displayName: data.displayName,
+                mail: data.mail ?? null,
+                userPrincipalName: data.userPrincipalName,
+                jobTitle: data.jobTitle ?? null,
+                department: data.department ?? null,
+                officeLocation: data.officeLocation ?? null,
+                mobilePhone: data.mobilePhone ?? null,
+                businessPhones: data.businessPhones ?? [],
+                accountEnabled: data.accountEnabled ?? null,
+            };
         }
 
         default:

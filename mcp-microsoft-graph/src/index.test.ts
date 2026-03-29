@@ -98,7 +98,7 @@ describe('Protocol', () => {
         const body = await res.json() as any;
         expect(body.status).toBe('ok');
         expect(body.server).toBe('mcp-microsoft-graph');
-        expect(body.tools).toBe(14);
+        expect(body.tools).toBe(35);
     });
 
     it('initialize returns protocol info', async () => {
@@ -107,14 +107,22 @@ describe('Protocol', () => {
         expect(data.result.serverInfo.name).toBe('mcp-microsoft-graph');
     });
 
-    it('tools/list returns exactly 14 tools', async () => {
+    it('tools/list returns exactly 35 tools', async () => {
         const data = await rpc({ jsonrpc: '2.0', id: 1, method: 'tools/list' });
-        expect(data.result.tools).toHaveLength(14);
+        expect(data.result.tools).toHaveLength(35);
         const names = data.result.tools.map((t: any) => t.name);
         expect(names).toContain('list_teams');
         expect(names).toContain('send_email');
         expect(names).toContain('create_calendar_event');
         expect(names).toContain('search_drive_files');
+        // New tools
+        expect(names).toContain('create_team_channel');
+        expect(names).toContain('send_chat_message');
+        expect(names).toContain('forward_email');
+        expect(names).toContain('mark_email_read');
+        expect(names).toContain('get_current_user');
+        expect(names).toContain('list_org_users');
+        expect(names).toContain('get_user');
     });
 
     it('unknown method returns -32601', async () => {
@@ -600,6 +608,443 @@ describe('Error cases', () => {
         });
         expect(data.error.code).toBe(-32603);
         expect(data.error.message).toContain('Unknown tool');
+    });
+});
+
+// ── Tool: get_drive_item ──────────────────────────────────────────────────────
+
+describe('Tool: get_drive_item', () => {
+    it('returns full item metadata', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ ...mockDriveItem, '@microsoft.graph.downloadUrl': 'https://download.example.com/file' }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'get_drive_item', arguments: { item_id: 'item1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('item1');
+        expect(result.name).toBe('report.pdf');
+        expect(result.type).toBe('file');
+        expect(result.mimeType).toBe('application/pdf');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/drive/items/item1');
+    });
+});
+
+// ── Tool: create_folder ───────────────────────────────────────────────────────
+
+describe('Tool: create_folder', () => {
+    it('creates folder in root by default', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'newFolder1', name: 'NewFolder', webUrl: 'https://onedrive.live.com/new', createdDateTime: '2025-01-01T10:00:00Z' }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'create_folder', arguments: { name: 'NewFolder' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('newFolder1');
+        expect(result.name).toBe('NewFolder');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/drive/root/children');
+        const body = JSON.parse(opts.body);
+        expect(body.name).toBe('NewFolder');
+        expect(body.folder).toBeDefined();
+    });
+
+    it('creates folder inside parent when parent_id provided', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'newFolder2', name: 'Sub', webUrl: 'https://onedrive.live.com/sub', createdDateTime: '2025-01-01T10:00:00Z' }));
+        await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'create_folder', arguments: { name: 'Sub', parent_id: 'folder1' } }
+        });
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/drive/items/folder1/children');
+    });
+});
+
+// ── Tool: delete_drive_item ───────────────────────────────────────────────────
+
+describe('Tool: delete_drive_item', () => {
+    it('returns success on 204', async () => {
+        mockFetch.mockReturnValueOnce(api204());
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'delete_drive_item', arguments: { item_id: 'item1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.success).toBe(true);
+        expect(result.deleted_item_id).toBe('item1');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/drive/items/item1');
+    });
+});
+
+// ── Tool: share_drive_item ────────────────────────────────────────────────────
+
+describe('Tool: share_drive_item', () => {
+    it('creates view link by default', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ link: { webUrl: 'https://onedrive.live.com/share', type: 'view', scope: 'anonymous' } }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'share_drive_item', arguments: { item_id: 'item1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.webUrl).toBe('https://onedrive.live.com/share');
+        expect(result.type).toBe('view');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/drive/items/item1/createLink');
+        const body = JSON.parse(opts.body);
+        expect(body.type).toBe('view');
+    });
+});
+
+// ── Tool: create_team_channel ─────────────────────────────────────────────────
+
+describe('Tool: create_team_channel', () => {
+    it('creates a standard channel', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'ch2', displayName: 'Dev Talk', description: null, webUrl: 'https://teams.microsoft.com/ch2', membershipType: 'standard' }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'create_team_channel', arguments: { team_id: 'team1', display_name: 'Dev Talk' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('ch2');
+        expect(result.displayName).toBe('Dev Talk');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/teams/team1/channels');
+        const body = JSON.parse(opts.body);
+        expect(body.displayName).toBe('Dev Talk');
+        expect(body.membershipType).toBe('standard');
+    });
+});
+
+// ── Tool: reply_to_teams_message ──────────────────────────────────────────────
+
+describe('Tool: reply_to_teams_message', () => {
+    it('posts reply to channel message', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'reply1', createdDateTime: '2025-01-01T11:00:00Z', webUrl: null }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'reply_to_teams_message', arguments: { team_id: 'team1', channel_id: 'ch1', message_id: 'msg1', content: 'Got it!' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('reply1');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/teams/team1/channels/ch1/messages/msg1/replies');
+        const body = JSON.parse(opts.body);
+        expect(body.body.content).toBe('Got it!');
+    });
+});
+
+// ── Tool: list_chats ──────────────────────────────────────────────────────────
+
+describe('Tool: list_chats', () => {
+    it('returns chat list', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'chat1', topic: null, chatType: 'oneOnOne', createdDateTime: '2025-01-01T09:00:00Z', lastUpdatedDateTime: '2025-01-01T10:00:00Z', webUrl: null }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_chats', arguments: {} }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('chat1');
+        expect(result[0].chatType).toBe('oneOnOne');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/chats');
+    });
+});
+
+// ── Tool: list_chat_messages ──────────────────────────────────────────────────
+
+describe('Tool: list_chat_messages', () => {
+    it('returns messages in a chat', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'cmsg1', body: { content: 'Hi!' }, from: { user: { displayName: 'Alice' } }, createdDateTime: '2025-01-01T10:00:00Z', lastModifiedDateTime: '2025-01-01T10:00:00Z' }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_chat_messages', arguments: { chat_id: 'chat1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('cmsg1');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/chats/chat1/messages');
+    });
+});
+
+// ── Tool: send_chat_message ───────────────────────────────────────────────────
+
+describe('Tool: send_chat_message', () => {
+    it('sends message to chat', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'cmsg2', createdDateTime: '2025-01-01T11:00:00Z', webUrl: null }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'send_chat_message', arguments: { chat_id: 'chat1', content: 'Hello!' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('cmsg2');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/chats/chat1/messages');
+        const body = JSON.parse(opts.body);
+        expect(body.body.content).toBe('Hello!');
+        expect(body.body.contentType).toBe('text');
+    });
+});
+
+// ── Tool: list_team_members ───────────────────────────────────────────────────
+
+describe('Tool: list_team_members', () => {
+    it('returns team members', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'mem1', displayName: 'Alice', email: 'alice@example.com', roles: ['owner'] }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_team_members', arguments: { team_id: 'team1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('mem1');
+        expect(result[0].roles).toContain('owner');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/teams/team1/members');
+    });
+});
+
+// ── Tool: forward_email ───────────────────────────────────────────────────────
+
+describe('Tool: forward_email', () => {
+    it('forwards email and returns success', async () => {
+        mockFetch.mockReturnValueOnce(api204());
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'forward_email', arguments: { message_id: 'email1', to: 'carol@example.com', comment: 'FYI' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.success).toBe(true);
+        expect(result.forwarded_message_id).toBe('email1');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/messages/email1/forward');
+        const body = JSON.parse(opts.body);
+        expect(body.toRecipients[0].emailAddress.address).toBe('carol@example.com');
+        expect(body.comment).toBe('FYI');
+    });
+});
+
+// ── Tool: mark_email_read ─────────────────────────────────────────────────────
+
+describe('Tool: mark_email_read', () => {
+    it('marks email as read by default', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'email1', isRead: true }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'mark_email_read', arguments: { message_id: 'email1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.isRead).toBe(true);
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/messages/email1');
+        expect(JSON.parse(opts.body).isRead).toBe(true);
+    });
+
+    it('marks email as unread when is_read=false', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'email1', isRead: false }));
+        await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'mark_email_read', arguments: { message_id: 'email1', is_read: false } }
+        });
+        const [, opts] = mockFetch.mock.calls[0];
+        expect(JSON.parse(opts.body).isRead).toBe(false);
+    });
+});
+
+// ── Tool: delete_email ────────────────────────────────────────────────────────
+
+describe('Tool: delete_email', () => {
+    it('deletes email and returns success', async () => {
+        mockFetch.mockReturnValueOnce(api204());
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'delete_email', arguments: { message_id: 'email1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.success).toBe(true);
+        expect(result.deleted_message_id).toBe('email1');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/messages/email1');
+    });
+});
+
+// ── Tool: create_draft ────────────────────────────────────────────────────────
+
+describe('Tool: create_draft', () => {
+    it('creates draft and returns id', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'draft1', subject: 'Draft Subject', createdDateTime: '2025-01-01T10:00:00Z' }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'create_draft', arguments: { to: 'bob@example.com', subject: 'Draft Subject', body: 'Hello draft' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('draft1');
+        expect(result.isDraft).toBe(true);
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/messages');
+    });
+});
+
+// ── Tool: list_contacts ───────────────────────────────────────────────────────
+
+describe('Tool: list_contacts', () => {
+    it('returns contacts list', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'c1', displayName: 'Alice', emailAddresses: [{ address: 'alice@example.com' }], mobilePhone: null, jobTitle: 'Engineer', companyName: 'Acme' }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_contacts', arguments: {} }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('c1');
+        expect(result[0].displayName).toBe('Alice');
+        expect(result[0].jobTitle).toBe('Engineer');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/contacts');
+    });
+});
+
+// ── Tool: get_calendar_event ──────────────────────────────────────────────────
+
+describe('Tool: get_calendar_event', () => {
+    it('returns full event details with attendees', async () => {
+        const fullEvent = {
+            ...mockCalendarEvent,
+            body: { contentType: 'text', content: 'Team sync' },
+            attendees: [{ emailAddress: { name: 'Bob', address: 'bob@example.com' }, status: { response: 'accepted' }, type: 'required' }],
+            isCancelled: false,
+            onlineMeeting: null,
+        };
+        mockFetch.mockReturnValueOnce(apiOk(fullEvent));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'get_calendar_event', arguments: { event_id: 'event1' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('event1');
+        expect(result.attendees).toHaveLength(1);
+        expect(result.attendees[0].emailAddress.address).toBe('bob@example.com');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/events/event1');
+    });
+});
+
+// ── Tool: respond_to_event ────────────────────────────────────────────────────
+
+describe('Tool: respond_to_event', () => {
+    it('accepts event and returns success', async () => {
+        mockFetch.mockReturnValueOnce(api204());
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'respond_to_event', arguments: { event_id: 'event1', response: 'accept', comment: 'See you there!' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.success).toBe(true);
+        expect(result.response).toBe('accept');
+        const [url, opts] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/events/event1/accept');
+        const body = JSON.parse(opts.body);
+        expect(body.comment).toBe('See you there!');
+        expect(body.sendResponse).toBe(true);
+    });
+
+    it('declines event', async () => {
+        mockFetch.mockReturnValueOnce(api204());
+        await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'respond_to_event', arguments: { event_id: 'event1', response: 'decline' } }
+        });
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/events/event1/decline');
+    });
+
+    it('rejects invalid response value', async () => {
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'respond_to_event', arguments: { event_id: 'event1', response: '../../../users' } }
+        });
+        expect(data.error.code).toBe(-32603);
+        expect(data.error.message).toContain('Invalid response value');
+    });
+});
+
+// ── Tool: list_calendars ──────────────────────────────────────────────────────
+
+describe('Tool: list_calendars', () => {
+    it('returns list of calendars', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'cal1', name: 'Calendar', color: 'auto', isDefaultCalendar: true, canEdit: true, owner: { name: 'Alice', address: 'alice@example.com' } }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_calendars', arguments: {} }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('cal1');
+        expect(result[0].isDefaultCalendar).toBe(true);
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me/calendars');
+    });
+});
+
+// ── Tool: get_current_user ────────────────────────────────────────────────────
+
+describe('Tool: get_current_user', () => {
+    it('returns authenticated user profile', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'user1', displayName: 'Alice Smith', mail: 'alice@example.com', userPrincipalName: 'alice@example.com', jobTitle: 'Engineer', department: 'Engineering', officeLocation: 'HQ', mobilePhone: null, businessPhones: ['+1234567890'] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'get_current_user', arguments: {} }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('user1');
+        expect(result.displayName).toBe('Alice Smith');
+        expect(result.mail).toBe('alice@example.com');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/me');
+    });
+});
+
+// ── Tool: list_org_users ──────────────────────────────────────────────────────
+
+describe('Tool: list_org_users', () => {
+    it('returns users list from directory', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ value: [{ id: 'user2', displayName: 'Bob Jones', mail: 'bob@example.com', userPrincipalName: 'bob@example.com', jobTitle: 'PM', department: 'Product' }] }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_org_users', arguments: {} }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result[0].id).toBe('user2');
+        expect(result[0].displayName).toBe('Bob Jones');
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/users');
+    });
+
+    it('surfaces graph error when 403 returned', async () => {
+        mockFetch.mockReturnValueOnce(Promise.resolve(new Response(
+            JSON.stringify({ error: { code: 'Authorization_RequestDenied', message: 'Insufficient privileges' } }),
+            { status: 403, headers: { 'Content-Type': 'application/json' } }
+        )));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'list_org_users', arguments: {} }
+        });
+        expect(data.error.code).toBe(-32603);
+        expect(data.error.message).toContain('Missing Microsoft 365 permission');
+    });
+});
+
+// ── Tool: get_user ────────────────────────────────────────────────────────────
+
+describe('Tool: get_user', () => {
+    it('returns specific user by ID', async () => {
+        mockFetch.mockReturnValueOnce(apiOk({ id: 'user2', displayName: 'Bob Jones', mail: 'bob@example.com', userPrincipalName: 'bob@example.com', jobTitle: 'PM', department: 'Product', officeLocation: null, mobilePhone: null, businessPhones: [], accountEnabled: true }));
+        const data = await rpc({
+            jsonrpc: '2.0', id: 1, method: 'tools/call',
+            params: { name: 'get_user', arguments: { user_id: 'user2' } }
+        });
+        const result = JSON.parse(data.result.content[0].text);
+        expect(result.id).toBe('user2');
+        expect(result.accountEnabled).toBe(true);
+        const [url] = mockFetch.mock.calls[0];
+        expect(url).toContain('/users/user2');
     });
 });
 

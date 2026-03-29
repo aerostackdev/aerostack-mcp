@@ -1,7 +1,7 @@
 name = "mcp-microsoft-graph"
-description = "Access Microsoft 365 from one API — Teams messages, Outlook email, Calendar events, and OneDrive files."
+description = "Access Microsoft 365 from one API — Teams messages & chats, Outlook email, Calendar events, OneDrive files, and user directory. 35 tools."
 category = "Productivity"
-tags = ["microsoft", "office365", "teams", "outlook", "enterprise"]
+tags = ["microsoft", "office365", "teams", "outlook", "onedrive", "enterprise"]
 env = ["MICROSOFT_ACCESS_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
