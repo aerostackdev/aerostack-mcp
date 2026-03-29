@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 ATTIO_ACCESS_TOKEN = "Your Attio API access token (from Workspace Settings → API → Access tokens)"
+

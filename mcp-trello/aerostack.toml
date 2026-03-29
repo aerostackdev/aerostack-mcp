@@ -10,3 +10,4 @@ compatibility_flags = ["nodejs_compat"]
 [secrets]
 TRELLO_API_KEY = "Your Trello Power-Up / developer API key from https://trello.com/power-ups/admin"
 TRELLO_TOKEN = "Your Trello OAuth user token (grants access to your boards and cards)"
+

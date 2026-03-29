@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 APOLLO_API_KEY = "Apollo.io API Key — found in your Apollo account under Settings → Integrations → API. Provides access to people search, enrichment, and sequences."
+

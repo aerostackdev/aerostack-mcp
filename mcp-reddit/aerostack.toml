@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 REDDIT_ACCESS_TOKEN = "OAuth 2.0 User Access Token with identity, read, submit, vote, edit scopes. Obtain via Reddit's OAuth2 flow: https://github.com/reddit-archive/reddit/wiki/OAuth2."
+

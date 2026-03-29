@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 BREVO_API_KEY = "Brevo API key. Generate in Brevo dashboard → SMTP & API → API Keys → Generate a new API key."
+

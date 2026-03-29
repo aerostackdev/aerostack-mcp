@@ -10,3 +10,4 @@ compatibility_flags = ["nodejs_compat"]
 [secrets]
 FACEBOOK_PAGE_ACCESS_TOKEN = "Your Facebook Page Access Token — generated from Facebook Developer console for the target page"
 FACEBOOK_PAGE_ID = "Your Facebook Page ID — numeric ID of the page you want to manage (e.g. 123456789012345)"
+

@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 TIKTOK_ACCESS_TOKEN = "TikTok OAuth 2.0 Access Token with user.info.basic, video.list, video.upload, research.video.query scopes. Obtain it via the TikTok for Developers OAuth flow at https://developers.tiktok.com/doc/oauth-user-access-token-management."
+

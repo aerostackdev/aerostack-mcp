@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 CLOSE_API_KEY = "Your Close CRM API key (from Close Settings → API Keys)"
+

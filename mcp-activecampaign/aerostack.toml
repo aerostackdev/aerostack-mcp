@@ -10,3 +10,4 @@ compatibility_flags = ["nodejs_compat"]
 [secrets]
 ACTIVECAMPAIGN_API_URL = "Your ActiveCampaign account API URL (e.g. https://youraccount.api-us1.com) — found in Settings → Developer"
 ACTIVECAMPAIGN_API_KEY = "Your ActiveCampaign API key — found in Settings → Developer"
+

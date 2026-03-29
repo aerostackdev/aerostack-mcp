@@ -10,3 +10,4 @@ compatibility_flags = ["nodejs_compat"]
 [secrets]
 GUSTO_ACCESS_TOKEN = "Your Gusto OAuth 2.0 Bearer access token — generated via Gusto Developer OAuth flow"
 GUSTO_COMPANY_ID = "Your Gusto company UUID — found in the Gusto API response for /v1/me or in the company settings"
+

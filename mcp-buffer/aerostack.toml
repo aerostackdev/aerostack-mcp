@@ -9,3 +9,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [secrets]
 BUFFER_ACCESS_TOKEN = "Buffer OAuth 2.0 Bearer access token. Obtain it via Buffer's OAuth flow at https://buffer.com/developers/api/oauth — scopes needed: publish, analytics."
+
