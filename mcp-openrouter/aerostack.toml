@@ -1,0 +1,8 @@
+name = "mcp-openrouter"
+description = "Unified LLM routing via OpenRouter — access 200+ models from one API with automatic fallbacks and cost controls."
+category = "AI / ML"
+tags = ["openrouter", "llm", "routing", "multi-model", "ai-gateway"]
+env = ["OPENROUTER_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

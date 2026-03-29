@@ -1,0 +1,8 @@
+name = "mcp-chroma"
+description = "Vector database operations on Chroma — create collections, upsert documents, query by similarity for RAG pipelines."
+category = "AI / ML"
+tags = ["chroma", "vector", "embeddings", "rag", "semantic-search"]
+env = ["CHROMA_URL", "CHROMA_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-hookdeck"
+description = "Webhook infrastructure via Hookdeck — manage sources, connections, destinations, and retry failed deliveries."
+category = "Developer Tools"
+tags = ["hookdeck", "webhooks", "events", "queues", "reliability"]
+env = ["HOOKDECK_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

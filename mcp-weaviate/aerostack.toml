@@ -1,0 +1,8 @@
+name = "mcp-weaviate"
+description = "Vector database operations via Weaviate — create schemas, add objects, run semantic search, and build RAG pipelines."
+category = "AI / ML"
+tags = ["weaviate", "vector-database", "embeddings", "rag", "semantic-search"]
+env = ["WEAVIATE_URL", "WEAVIATE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

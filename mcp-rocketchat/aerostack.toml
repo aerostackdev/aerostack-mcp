@@ -1,0 +1,8 @@
+name = "mcp-rocketchat"
+description = "Open-source team chat via Rocket.Chat — send messages, manage channels, list rooms and users."
+category = "Communication"
+tags = ["rocketchat", "team-chat", "messaging", "open-source", "collaboration"]
+env = ["ROCKETCHAT_URL", "ROCKETCHAT_AUTH_TOKEN", "ROCKETCHAT_USER_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

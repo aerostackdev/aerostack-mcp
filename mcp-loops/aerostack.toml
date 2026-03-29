@@ -1,0 +1,8 @@
+name = "mcp-loops"
+description = "Email marketing for SaaS via Loops — manage contacts, send transactional emails, trigger event flows."
+category = "Marketing"
+tags = ["loops", "email", "marketing", "saas", "transactional"]
+env = ["LOOPS_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

@@ -1,0 +1,8 @@
+name = "mcp-gemini"
+description = "Google Gemini AI — generate content, embed text, count tokens, and run system-instructed completions."
+category = "AI / ML"
+tags = ["gemini", "google", "llm", "generative-ai", "embeddings"]
+env = ["GEMINI_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

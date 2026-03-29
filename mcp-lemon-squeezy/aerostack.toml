@@ -1,0 +1,8 @@
+name = "mcp-lemon-squeezy"
+description = "Digital product sales via Lemon Squeezy — manage stores, products, orders, subscriptions, and license keys."
+category = "Finance"
+tags = ["lemon-squeezy", "ecommerce", "payments", "subscriptions", "digital-products"]
+env = ["LEMONSQUEEZY_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

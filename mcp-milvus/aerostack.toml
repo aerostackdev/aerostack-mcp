@@ -1,0 +1,8 @@
+name = "mcp-milvus"
+description = "Vector database operations via Milvus — create collections, insert vectors, run similarity search for AI applications."
+category = "AI / ML"
+tags = ["milvus", "vector-database", "embeddings", "rag", "semantic-search"]
+env = ["MILVUS_ENDPOINT", "MILVUS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

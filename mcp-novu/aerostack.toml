@@ -1,0 +1,8 @@
+name = "mcp-novu"
+description = "Multi-channel notification infrastructure via Novu — trigger workflows, manage subscribers, and send notifications."
+category = "Communication"
+tags = ["novu", "notifications", "multi-channel", "email", "sms"]
+env = ["NOVU_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

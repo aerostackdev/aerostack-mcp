@@ -1,0 +1,8 @@
+name = "mcp-courier"
+description = "Multi-channel notification delivery via Courier — send notifications across email, SMS, push, Slack, and more."
+category = "Communication"
+tags = ["courier", "notifications", "email", "sms", "push"]
+env = ["COURIER_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

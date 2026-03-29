@@ -1,0 +1,8 @@
+name = "mcp-runpod"
+description = "GPU cloud compute via RunPod — deploy pods, manage GPU instances, start and stop workloads for AI training and inference."
+category = "Infrastructure"
+tags = ["runpod", "gpu", "cloud", "ai-training", "inference"]
+env = ["RUNPOD_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
