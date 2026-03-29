@@ -1,0 +1,11 @@
+name = "mcp-outreach"
+description = "Outreach sales engagement platform — manage prospects, accounts, sequences, and sequence states for enterprise sales automation."
+category = "CRM"
+tags = ["outreach", "sales-engagement", "crm", "sequences", "enterprise-sales"]
+env = ["OUTREACH_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+OUTREACH_ACCESS_TOKEN = "Your Outreach OAuth2 access token — obtained via Outreach OAuth flow"

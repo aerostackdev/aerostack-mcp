@@ -1,0 +1,8 @@
+name = "mcp-vonage"
+description = "Vonage (Nexmo) communication MCP — send SMS, verify phone numbers, manage account via the Vonage REST API"
+category = "Communication"
+tags = ["vonage", "sms", "voice", "nexmo", "messaging"]
+env = ["VONAGE_API_KEY", "VONAGE_API_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

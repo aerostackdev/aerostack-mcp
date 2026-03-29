@@ -1,0 +1,8 @@
+name = "mcp-messagebird"
+description = "MessageBird omnichannel messaging MCP — send SMS, manage messages and contacts via the MessageBird REST API"
+category = "Communication"
+tags = ["messagebird", "sms", "messaging", "omnichannel", "whatsapp"]
+env = ["MESSAGEBIRD_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
