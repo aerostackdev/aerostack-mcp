@@ -1,0 +1,11 @@
+name = "mcp-miro"
+description = "Create and manage Miro boards, add sticky notes, cards, shapes and connectors — visual collaboration for AI agents."
+category = "Collaboration"
+tags = ["miro", "whiteboard", "collaboration", "diagrams", "visual"]
+env = ["MIRO_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+MIRO_ACCESS_TOKEN = "Miro OAuth Access Token. Create an app at developers.miro.com, authorize it with your Miro account to get an access token. Requires scopes: boards:read, boards:write, identity:read."

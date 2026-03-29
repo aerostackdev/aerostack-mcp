@@ -1,0 +1,12 @@
+name = "mcp-customer-io"
+description = "Track customer events, manage profiles and segments, trigger campaigns and broadcasts with Customer.io."
+category = "Marketing"
+tags = ["customer.io", "email", "automation", "behavioral", "segments"]
+env = ["CUSTOMER_IO_SITE_ID", "CUSTOMER_IO_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+CUSTOMER_IO_SITE_ID = "Customer.io Site ID. Found in Customer.io Settings → API Credentials → Track API section."
+CUSTOMER_IO_API_KEY = "Customer.io API Key. Found in Settings → API Credentials. Used for both Track and App APIs."

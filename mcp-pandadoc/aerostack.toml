@@ -1,0 +1,11 @@
+name = "mcp-pandadoc"
+description = "Create, send, and track document signatures — proposals, contracts, and agreements with PandaDoc."
+category = "Documents"
+tags = ["pandadoc", "documents", "esignature", "contracts", "proposals"]
+env = ["PANDADOC_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+PANDADOC_API_KEY = "PandaDoc API key. Generate in PandaDoc → Settings → Integrations → API → Generate API Key. Use Production key for live documents."

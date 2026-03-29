@@ -1,0 +1,12 @@
+name = "mcp-facebook-pages"
+description = "Manage Facebook Page posts, comments, insights, and inbox conversations."
+category = "Social Media"
+tags = ["facebook", "social-media", "pages", "posts", "insights", "meta"]
+env = ["FACEBOOK_PAGE_ACCESS_TOKEN", "FACEBOOK_PAGE_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+FACEBOOK_PAGE_ACCESS_TOKEN = "Your Facebook Page Access Token — generated from Facebook Developer console for the target page"
+FACEBOOK_PAGE_ID = "Your Facebook Page ID — numeric ID of the page you want to manage (e.g. 123456789012345)"

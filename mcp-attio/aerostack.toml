@@ -1,0 +1,11 @@
+name = "mcp-attio"
+description = "Manage people, companies, deals, notes, and tasks in Attio CRM — full workspace automation for modern revenue teams."
+category = "CRM"
+tags = ["attio", "crm", "contacts", "deals", "pipeline"]
+env = ["ATTIO_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+ATTIO_ACCESS_TOKEN = "Your Attio API access token (from Workspace Settings → API → Access tokens)"

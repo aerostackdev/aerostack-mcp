@@ -1,0 +1,11 @@
+name = "mcp-brevo"
+description = "Send transactional emails/SMS, manage contacts, and run marketing campaigns with Brevo (formerly Sendinblue)."
+category = "Marketing"
+tags = ["brevo", "email", "sms", "marketing", "transactional"]
+env = ["BREVO_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+BREVO_API_KEY = "Brevo API key. Generate in Brevo dashboard → SMTP & API → API Keys → Generate a new API key."

@@ -1,0 +1,11 @@
+name = "mcp-newrelic"
+description = "Query APM metrics, infrastructure data, run NRQL queries, manage dashboards and alerts with New Relic."
+category = "DevOps"
+tags = ["newrelic", "observability", "monitoring", "apm", "nrql"]
+env = ["NEW_RELIC_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+NEW_RELIC_API_KEY = "New Relic User API Key. Generate in New Relic → Profile → API Keys → Create a key (type: User). Not the License key."

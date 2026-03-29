@@ -1,0 +1,11 @@
+name = "mcp-close"
+description = "Manage leads, contacts, opportunities, and activities in Close CRM."
+category = "CRM"
+tags = ["close", "crm", "sales", "leads", "opportunities"]
+env = ["CLOSE_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+CLOSE_API_KEY = "Your Close CRM API key (from Close Settings → API Keys)"

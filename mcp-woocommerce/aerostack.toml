@@ -1,0 +1,13 @@
+name = "mcp-woocommerce"
+description = "Manage products, orders, customers, and coupons for your WooCommerce store — full e-commerce automation for AI agents."
+category = "E-Commerce"
+tags = ["woocommerce", "ecommerce", "wordpress", "orders", "products"]
+env = ["WOOCOMMERCE_CONSUMER_KEY", "WOOCOMMERCE_CONSUMER_SECRET", "WOOCOMMERCE_STORE_URL"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+WOOCOMMERCE_CONSUMER_KEY = "WooCommerce REST API Consumer Key. Generate in WooCommerce → Settings → Advanced → REST API → Add Key."
+WOOCOMMERCE_CONSUMER_SECRET = "WooCommerce REST API Consumer Secret. Shown once when generating the key above."
+WOOCOMMERCE_STORE_URL = "Your WooCommerce store URL (e.g. https://mystore.com). Must be HTTPS."

@@ -1,0 +1,11 @@
+name = "mcp-rippling"
+description = "Access employee data, org structure, departments, and compensation from Rippling — the all-in-one HR, IT, and Finance platform."
+category = "HR"
+tags = ["rippling", "hr", "employees", "payroll", "it"]
+env = ["RIPPLING_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+RIPPLING_API_TOKEN = "Rippling API token. Generate in Rippling → Settings → API & Integrations → API Tokens. Token expires after 30 days of inactivity."

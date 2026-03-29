@@ -1,0 +1,12 @@
+name = "mcp-xero"
+description = "Manage invoices, contacts, payments, and financial reports in Xero accounting."
+category = "Finance"
+tags = ["xero", "accounting", "invoices", "finance", "payments"]
+env = ["XERO_ACCESS_TOKEN", "XERO_TENANT_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+XERO_ACCESS_TOKEN = "Your Xero OAuth 2.0 access token (from Xero OAuth 2.0 app or xero-node SDK)"
+XERO_TENANT_ID = "Your Xero organisation tenant ID (from GET https://api.xero.com/connections)"
