@@ -1,0 +1,11 @@
+name = "mcp-buffer"
+description = "Schedule and publish social media posts across Twitter, Facebook, Instagram, LinkedIn, and Pinterest — full Buffer content calendar automation."
+category = "Social Media"
+tags = ["buffer", "social-media", "scheduling", "publishing", "content-calendar", "twitter", "linkedin", "instagram"]
+env = ["BUFFER_ACCESS_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+BUFFER_ACCESS_TOKEN = "Buffer OAuth 2.0 Bearer access token. Obtain it via Buffer's OAuth flow at https://buffer.com/developers/api/oauth — scopes needed: publish, analytics."

@@ -1,0 +1,11 @@
+name = "mcp-apollo"
+description = "Search people and companies, enrich contact data, manage sequences, and access sales intelligence data via Apollo.io."
+category = "CRM"
+tags = ["apollo", "sales", "crm", "leads", "prospecting", "enrichment", "sequences"]
+env = ["APOLLO_API_KEY"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+APOLLO_API_KEY = "Apollo.io API Key — found in your Apollo account under Settings → Integrations → API. Provides access to people search, enrichment, and sequences."
