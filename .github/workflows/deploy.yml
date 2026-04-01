@@ -10,11 +10,11 @@ on:
       env:
         description: 'Target environment'
         required: true
-        default: 'staging'
+        default: 'production'
         type: choice
         options:
-          - staging
           - production
+          - staging
       only:
         description: 'Deploy specific MCPs only (comma-separated, e.g. mcp-airtable,mcp-slack)'
         required: false
@@ -52,10 +52,9 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "DEPLOY_ENV=${{ github.event.inputs.env }}" >> $GITHUB_ENV
-          elif [ "${{ github.ref_name }}" = "production" ]; then
-            echo "DEPLOY_ENV=production" >> $GITHUB_ENV
           else
-            echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
+            # Both main and production branches deploy to prod marketplace → always use production
+            echo "DEPLOY_ENV=production" >> $GITHUB_ENV
           fi
 
       - name: Detect changed MCP dirs
@@ -100,10 +99,10 @@ jobs:
 
       - name: Set deploy env
         run: |
-          if [ "${{ github.ref_name }}" = "production" ] || [ "${{ github.event.inputs.env }}" = "production" ]; then
-            echo "DEPLOY_ENV=production" >> $GITHUB_ENV
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "DEPLOY_ENV=${{ github.event.inputs.env }}" >> $GITHUB_ENV
           else
-            echo "DEPLOY_ENV=staging" >> $GITHUB_ENV
+            echo "DEPLOY_ENV=production" >> $GITHUB_ENV
           fi
 
       - name: Sync all proxy MCPs to prod
