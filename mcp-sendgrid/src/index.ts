@@ -88,6 +88,12 @@ async function sendgridFetch(path: string, token: string, options: RequestInit =
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify SendGrid credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Email Sending (4 tools) ────────────────────────────────────
 
     {
@@ -606,6 +612,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await sendgridFetch('/user/profile', token);
+            return { content: [{ type: 'text', text: 'Connected to SendGrid' }] };
+        }
+
         // ── Email Sending ─────────────────────────────────────────────────────
 
         case 'send_email': {

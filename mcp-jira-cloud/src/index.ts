@@ -75,6 +75,12 @@ function adfText(text: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Jira Cloud credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_projects',
         description: 'List all projects in the Jira account.',
         inputSchema: {
@@ -332,6 +338,11 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(email: string, token: string, domain: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await jiraFetch(email, token, domain, '/myself');
+            return toolOk(data);
+        }
         case 'list_projects': {
             const max = (args.maxResults as number) ?? 50;
             const data = await jiraFetch(email, token, domain, `/project/search?maxResults=${max}`);

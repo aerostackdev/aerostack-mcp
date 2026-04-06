@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Hookdeck credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_connections',
         description: 'List webhook connections in Hookdeck',
         inputSchema: {
@@ -139,6 +145,13 @@ async function hdApi(path: string, apiKey: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await hdApi('/workspaces', apiKey) as { models?: Array<{ name?: string }> };
+            const ws = Array.isArray(data.models) ? data.models[0] : null;
+            return { content: [{ type: 'text', text: `Connected to Hookdeck${ws?.name ? ` — workspace: ${ws.name}` : ''}` }] };
+        }
+
         case 'list_connections': {
             const limit = Math.min(Number(args.limit ?? 25), 250);
             const data = await hdApi(`/connections?limit=${limit}`, apiKey) as any;

@@ -4,6 +4,12 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Vimeo credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_me',
         description: 'Get the authenticated Vimeo user profile and account details',
         inputSchema: { type: 'object', properties: {}, required: [] },
@@ -138,6 +144,12 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            const res = await fetch(`${base}/me`, { headers });
+            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
+            return text('Connected to Vimeo');
+        }
+
         case 'get_me': {
             const res = await fetch(`${base}/me`, { headers });
             if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);

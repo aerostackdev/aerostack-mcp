@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Ghost credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_posts',
         description: 'List posts from the Ghost blog',
         inputSchema: {
@@ -266,6 +272,12 @@ async function callTool(name: string, args: Record<string, unknown>, secrets: Gh
     const token = await getGhostToken(adminApiKey);
 
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await ghostApi('users/me/?fields=id,name,email', ghostUrl, token) as any;
+            return { content: [{ type: 'text', text: `Connected to Ghost` }] };
+        }
+
         case 'list_posts': {
             const limit = Number(args.limit ?? 15);
             const status = String(args.status ?? 'published');

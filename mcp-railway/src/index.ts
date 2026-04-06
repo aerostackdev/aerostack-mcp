@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Railway credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_projects',
         description: 'List all Railway projects for the authenticated user',
         inputSchema: {
@@ -125,6 +131,11 @@ async function gql(query: string, variables: Record<string, unknown>, token: str
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await gql('query { me { id name } }', {}, token);
+            return { content: [{ type: 'text', text: 'Connected to Railway' }] };
+        }
+
         case 'list_projects': {
             const data = await gql(
                 `query { me { projects { edges { node { id name description createdAt updatedAt } } } } }`,

@@ -26,6 +26,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Segment credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'track_event',
         description: 'Track a user action or event in Segment (e.g. "Button Clicked", "Order Completed")',
         inputSchema: {
@@ -185,6 +191,11 @@ async function segment(
 
 async function callTool(name: string, args: Record<string, unknown>, writeKey: string): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            return { content: [{ type: 'text', text: `Connected to Segment` }] };
+        }
 
         case 'track_event': {
             const body: Record<string, unknown> = {

@@ -25,6 +25,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Airtable credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_bases',
         description: 'List all Airtable bases the authenticated user has access to',
         inputSchema: { type: 'object', properties: {} },
@@ -138,6 +144,11 @@ async function at(path: string, key: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, key: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await at('/meta/bases?maxRecords=1', key) as any;
+            return { connected: true, first_base: data.bases?.[0]?.name ?? 'none' };
+        }
+
         case 'list_bases': {
             const data = await at('/meta/bases', key) as any;
             return data.bases?.map((b: any) => ({

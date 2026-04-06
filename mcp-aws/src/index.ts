@@ -98,6 +98,12 @@ async function awsXmlFetch(
 // ── Tools ────────────────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify AWS credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── S3 ──────────────────────────────────────────────────────────────────
     {
         name: 'list_s3_buckets', description: 'List all S3 buckets in the AWS account',
@@ -297,6 +303,17 @@ async function callTool(
     accessKey: string, secretKey: string, region: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Verify credentials using STS GetCallerIdentity — lightweight, no permissions required
+            const stsBody = 'Action=GetCallerIdentity&Version=2011-06-15';
+            const stsHeaders = await signRequest('POST', 'https://sts.amazonaws.com/', stsBody, accessKey, secretKey, region, 'sts', { 'content-type': 'application/x-www-form-urlencoded' });
+            const stsRes = await fetch('https://sts.amazonaws.com/', { method: 'POST', headers: stsHeaders, body: stsBody });
+            const stsText = await stsRes.text();
+            if (!stsRes.ok) throw new Error(`AWS STS error (${stsRes.status}): ${stsText.slice(0, 300)}`);
+            const accountId = stsText.match(/<Account>([^<]+)<\/Account>/)?.[1] ?? 'unknown';
+            const arn = stsText.match(/<Arn>([^<]+)<\/Arn>/)?.[1] ?? 'unknown';
+            return `Connected to AWS — Account: ${accountId}, ARN: ${arn}`;
+        }
         // ── S3 ──
         case 'list_s3_buckets': {
             const xml = await awsXmlFetch('GET', `https://s3.${region}.amazonaws.com/`, '', accessKey, secretKey, region, 's3');

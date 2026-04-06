@@ -81,6 +81,12 @@ async function graphqlRequest(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Braintree credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'search_transactions',
     description: 'Search for settled transactions in Braintree',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -199,6 +205,13 @@ async function handleTool(
   environment: string | null = null,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      const pingQuery = `query { clientConfiguration { analyticsUrl } }`;
+      await graphqlRequest(pingQuery, {}, auth, environment);
+      return toolOk({ connected: true });
+    }
+
     case 'search_transactions': {
       const query = `query { search { transactions(input: { status: { is: SETTLED } }) { edges { node { id amount { value currencyIsoCode } status createdAt } } } } }`;
       return toolOk(await graphqlRequest(query, {}, auth, environment));

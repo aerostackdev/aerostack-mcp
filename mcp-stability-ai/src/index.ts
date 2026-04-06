@@ -106,6 +106,12 @@ async function stabilityGet(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Stability AI credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'generate_image',
         description: 'Generate an image from a text prompt using Stable Diffusion 3.5. Returns base64-encoded PNG/JPEG image',
         inputSchema: {
@@ -418,6 +424,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await stabilityGet('/v1/user/balance', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Stability AI' }] };
+        }
+
         case 'generate_image': {
             validateRequired(args, ['prompt']);
             const outputFormat = String(args.output_format ?? 'png');

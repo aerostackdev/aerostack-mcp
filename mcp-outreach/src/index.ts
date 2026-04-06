@@ -84,6 +84,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Outreach credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_prospects',
         description: 'List prospects in Outreach. Returns emails, name, title, and sequence membership.',
         inputSchema: {
@@ -198,6 +204,11 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await apiFetch('/users/me', token);
+            return { content: [{ type: 'text', text: 'Connected to Outreach' }] };
+        }
+
         case 'list_prospects': {
             const limit = args.limit ?? 25;
             return apiFetch(`/prospects?page[size]=${limit}`, token);

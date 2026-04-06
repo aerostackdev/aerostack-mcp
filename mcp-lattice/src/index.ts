@@ -78,6 +78,12 @@ async function latticeFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Lattice credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_users',
         description: 'List all users in the Lattice organization.',
         inputSchema: {
@@ -175,6 +181,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await latticeFetch('/v1/profile', apiKey) as { name?: string; email?: string };
+            return { connected: true, name: data.name ?? data.email ?? 'unknown' };
+        }
+
         case 'list_users': {
             const params = new URLSearchParams();
             params.set('limit', String(args.limit ?? 20));

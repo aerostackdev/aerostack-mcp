@@ -18,6 +18,12 @@ const ALL_PLATFORMS = [
 
 const TOOLS = [
 	{
+		name: '_ping',
+		description: 'Verify Ayrshare credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+		inputSchema: { type: 'object', properties: {}, required: [] },
+		annotations: { readOnlyHint: true, destructiveHint: false },
+	},
+	{
 		name: 'create_post',
 		description: 'Create and publish or schedule a social media post across up to 13 platforms simultaneously. Supports text, images, and videos.',
 		inputSchema: {
@@ -221,6 +227,11 @@ async function ayrshare(path: string, apiKey: string, opts: RequestInit = {}): P
 
 async function callTool(name: string, args: Record<string, any>, apiKey: string): Promise<any> {
 	switch (name) {
+		case '_ping': {
+			const data = await ayrshare('/profiles', apiKey) as any;
+			return { connected: true, profile: data.title ?? data.displayName ?? 'unknown' };
+		}
+
 		case 'create_post': {
 			const body: Record<string, any> = {
 				post: args.post,

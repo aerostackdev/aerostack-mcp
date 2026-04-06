@@ -65,6 +65,12 @@ async function runpodGraphQL(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify RunPod credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_gpu_types',
         description: 'List all available GPU types on RunPod with memory, pricing (spot and on-demand), and availability in secure vs community cloud.',
         inputSchema: {
@@ -191,6 +197,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await runpodGraphQL(apiKey, '{ myself { id } }');
+            return toolOk({ connected: true, service: 'RunPod' });
+        }
+
         case 'list_gpu_types': {
             return runpodGraphQL(apiKey, `{
                 gpuTypes {

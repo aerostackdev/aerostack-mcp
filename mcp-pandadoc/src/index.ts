@@ -105,6 +105,12 @@ async function pandaFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify PandaDoc credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Documents (6 tools) ─────────────────────────────────────────
 
     {
@@ -545,6 +551,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await pandaFetch('/templates?count=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to PandaDoc' }] };
+        }
+
         // ── Documents ───────────────────────────────────────────────────────────
 
         case 'list_documents': {

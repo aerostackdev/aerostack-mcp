@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Harvest credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_time_entries',
         description: 'List time entries with optional filters',
         inputSchema: {
@@ -248,6 +254,12 @@ async function harvestFetch(path: string, token: string, accountId: string, opti
 
 async function callTool(name: string, args: Record<string, unknown>, token: string, accountId: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await harvestFetch('/users/me', token, accountId) as { first_name?: string; last_name?: string; email?: string };
+            return { content: [{ type: 'text', text: `Connected to Harvest as ${data.email ?? `${data.first_name ?? ''} ${data.last_name ?? ''}`.trim() || 'unknown'}` }] };
+        }
+
         case 'list_time_entries': {
             const params = new URLSearchParams();
             if (args.user_id) params.set('user_id', String(args.user_id));

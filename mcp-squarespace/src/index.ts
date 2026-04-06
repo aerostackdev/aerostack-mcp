@@ -31,6 +31,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Squarespace credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_products',
         description: 'List products in the Squarespace store',
         inputSchema: {
@@ -201,6 +207,11 @@ async function ssFetch(path: string, apiKey: string, opts: RequestInit = {}): Pr
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await ssFetch('/website', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Squarespace' }] };
+        }
+
         case 'list_products': {
             let url = '/commerce/products';
             const qs: string[] = [];

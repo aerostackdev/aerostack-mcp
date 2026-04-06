@@ -33,6 +33,9 @@ async function graphFetch(method: string, path: string, token: string, body?: un
 function wb(itemId: string) { return `/me/drive/items/${itemId}/workbook`; }
 
 const TOOLS = [
+    { name: '_ping', description: 'Verify Microsoft credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] }, annotations: { readOnlyHint: true, destructiveHint: false } },
+
     // ── Workbooks ───────────────────────────────────────────────────────────
     { name: 'list_excel_files', description: 'List Excel files (.xlsx) in OneDrive root or a specific folder',
         inputSchema: { type: 'object', properties: {
@@ -140,6 +143,9 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return graphFetch('GET', '/me', token);
+        }
         case 'list_excel_files': {
             const folder = args.folder_path ? `/me/drive/root:/${args.folder_path}:/children` : '/me/drive/root/children';
             const data = await graphFetch('GET', `${folder}?$filter=file/mimeType eq 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'&$select=id,name,size,lastModifiedDateTime,webUrl`, token) as any;

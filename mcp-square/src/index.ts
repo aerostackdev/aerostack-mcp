@@ -68,6 +68,12 @@ async function squareFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Square credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_locations',
     description: 'List all Square locations for the merchant account',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -222,6 +228,9 @@ async function handleTool(
   token: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping':
+      return toolOk(await squareFetch('/locations', token));
+
     case 'list_locations':
       return toolOk(await squareFetch('/locations', token));
 

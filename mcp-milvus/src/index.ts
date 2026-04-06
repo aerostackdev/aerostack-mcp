@@ -4,6 +4,12 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Milvus credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_collections',
         description: 'List all collections in the Milvus/Zilliz database',
         inputSchema: {
@@ -157,6 +163,17 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch(`${base}/v2/vectordb/collections/list`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({ dbName: 'default' }),
+            });
+            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
+            return text(`Connected to Milvus — ${base}`);
+        }
+
         case 'list_collections': {
             const body: Record<string, unknown> = { dbName: (args.dbName as string) || 'default' };
             const res = await fetch(`${base}/v2/vectordb/collections/list`, {

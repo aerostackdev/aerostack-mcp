@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Dub credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'create_link',
         description: 'Create a new short link in Dub',
         inputSchema: {
@@ -136,6 +142,10 @@ async function dubApi(path: string, apiKey: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return dubApi('/workspaces', apiKey);
+        }
+
         case 'create_link': {
             const body: Record<string, unknown> = { url: args.url };
             if (args.key) body.key = args.key;

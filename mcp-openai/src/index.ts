@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify OpenAI credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'chat_completion',
         description: 'Create a chat completion using OpenAI models',
         inputSchema: {
@@ -139,6 +145,11 @@ async function oai(path: string, token: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await oai('/models', token);
+            return { content: [{ type: 'text', text: 'Connected to OpenAI' }] };
+        }
+
         case 'chat_completion': {
             const model = (args.model as string) ?? 'gpt-4o-mini';
             const messages = args.messages as Array<{ role: string; content: string }>;

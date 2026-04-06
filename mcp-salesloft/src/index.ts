@@ -79,6 +79,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Salesloft credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_people',
         description: 'List people/contacts in Salesloft with their email, name, title, and account.',
         inputSchema: {
@@ -171,6 +177,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await apiFetch('/me', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Salesloft' }] };
+        }
+
         case 'list_people': {
             const limit = args.limit ?? 25;
             return apiFetch(`/people?per_page=${limit}`, apiKey);

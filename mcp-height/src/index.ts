@@ -62,6 +62,12 @@ async function heightFetch(apiKey: string, path: string, options: RequestInit = 
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Height credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_lists',
         description: 'List all task lists in the workspace.',
         inputSchema: { type: 'object', properties: {} },
@@ -278,6 +284,11 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(apiKey: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await heightFetch(apiKey, '/me');
+            return toolOk({ connected: true, service: 'Height' });
+        }
+
         case 'list_lists': {
             const data = await heightFetch(apiKey, '/lists');
             return toolOk(data);

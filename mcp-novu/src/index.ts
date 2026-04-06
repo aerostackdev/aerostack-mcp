@@ -78,6 +78,12 @@ async function novuFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Novu credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'trigger_event',
         description: 'Trigger a Novu workflow/notification event for a subscriber. Specify the workflow ID, recipient subscriber, and event payload.',
         inputSchema: {
@@ -208,6 +214,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await novuFetch('/environments/me', apiKey);
+            return toolOk({ connected: true, service: 'Novu' });
+        }
+
         case 'trigger_event': {
             validateRequired(args, ['name', 'subscriberId']);
             const body: Record<string, unknown> = {

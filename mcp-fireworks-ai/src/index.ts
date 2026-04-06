@@ -66,6 +66,12 @@ async function fireworksFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Fireworks AI credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'chat_completion',
         description: 'Fast chat completion using Fireworks AI. Supports Llama, Mixtral, and other open-source models with OpenAI-compatible API. Default model: llama-v3p1-8b-instruct.',
         inputSchema: {
@@ -195,6 +201,9 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return fireworksFetch('/models', apiKey);
+        }
         case 'chat_completion': {
             const body: Record<string, unknown> = {
                 model: (args.model as string) || DEFAULT_CHAT_MODEL,

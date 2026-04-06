@@ -90,6 +90,12 @@ async function rcFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Rocket.Chat credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_me',
         description: 'Get current user info including id, name, username, email, and status.',
         inputSchema: { type: 'object', properties: {} },
@@ -196,6 +202,12 @@ async function callTool(
     rcUserId: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // GET /api/v1/me — validates auth token + user ID
+            const data = (await rcFetch(rcUrl, '/me', rcToken, rcUserId)) as any;
+            return { connected: true, username: data?.username ?? 'unknown', name: data?.name ?? 'unknown' };
+        }
+
         case 'get_me':
             return rcFetch(rcUrl, '/me', rcToken, rcUserId);
 

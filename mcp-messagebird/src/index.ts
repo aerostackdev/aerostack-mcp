@@ -20,6 +20,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify MessageBird credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'send_message',
         description: 'Send an SMS message',
         inputSchema: {
@@ -130,6 +136,11 @@ async function callApi(method: string, path: string, apiKey: string, body?: unkn
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await callApi('GET', '/balance', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to MessageBird' }] };
+        }
+
         case 'send_message': {
             return callApi('POST', '/messages', apiKey, {
                 originator: args.originator,

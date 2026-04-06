@@ -26,6 +26,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Lever credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_postings',
         description: 'List job postings in Lever',
         inputSchema: {
@@ -259,6 +265,12 @@ function buildQuery(params: Record<string, unknown>): string {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await leverFetch('/postings?limit=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Lever' }] };
+        }
+
         case 'list_postings': {
             const q = buildQuery({
                 state: args.state ?? 'published',

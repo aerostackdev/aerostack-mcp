@@ -94,6 +94,12 @@ async function replicateDelete(path: string, apiToken: string): Promise<void> {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Replicate credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'run_model',
         description: 'Run a Replicate model with a specific version and inputs. Returns prediction output or a prediction ID for async polling',
         inputSchema: {
@@ -289,6 +295,11 @@ async function callTool(
     apiToken: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await replicateGet('/account', apiToken);
+            return { content: [{ type: 'text', text: 'Connected to Replicate' }] };
+        }
+
         case 'run_model': {
             validateRequired(args, ['model', 'input']);
 

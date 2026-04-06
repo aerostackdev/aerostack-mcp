@@ -79,6 +79,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Trigger.dev credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_runs',
         description: 'List task runs in Trigger.dev with their status, task ID, and output.',
         inputSchema: {
@@ -173,6 +179,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await apiFetch('/runs?limit=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Trigger.dev' }] };
+        }
+
         case 'list_runs': {
             const limit = args.limit ?? 25;
             return apiFetch(`/runs?limit=${limit}`, apiKey);

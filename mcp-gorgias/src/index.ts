@@ -68,6 +68,12 @@ async function gorgiasFetch(email: string, apiKey: string, domain: string, path:
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Gorgias credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_tickets',
         description: 'List support tickets with pagination and status filter.',
         inputSchema: {
@@ -273,6 +279,11 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(email: string, apiKey: string, domain: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await gorgiasFetch(email, apiKey, domain, '/account');
+            return toolOk(data);
+        }
         case 'list_tickets': {
             const limit = (args.limit as number) ?? 25;
             const page = (args.page as number) ?? 1;

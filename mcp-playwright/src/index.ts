@@ -23,6 +23,10 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 }
 
 const TOOLS = [
+    { name: '_ping',
+        description: 'Verify Playwright browser automation is ready. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false } },
     // ── Navigation ──────────────────────────────────────────────────────────
     { name: 'fetch_page', description: 'Fetch a web page and return its rendered HTML content after JavaScript execution',
         inputSchema: { type: 'object', properties: {
@@ -117,6 +121,9 @@ async function getRenderedContent(env: Env, url: string, js?: string, waitFor?: 
 
 async function callTool(name: string, args: Record<string, unknown>, env: Env): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return 'Playwright browser automation ready';
+        }
         case 'fetch_page': {
             const html = await getRenderedContent(env, args.url as string, 'document.documentElement.outerHTML', args.wait_for as string | undefined);
             return { html: html.slice(0, 100_000), url: args.url, truncated: html.length > 100_000 };

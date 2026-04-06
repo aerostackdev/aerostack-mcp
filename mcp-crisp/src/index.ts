@@ -22,6 +22,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Crisp credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_conversations',
         description: 'List open conversations for the website',
         inputSchema: {
@@ -141,6 +147,11 @@ async function callTool(
     websiteId: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await callApi('GET', '/user/me', identifier, key);
+            return { content: [{ type: 'text', text: 'Connected to Crisp' }] };
+        }
         case 'list_conversations': {
             return callApi('GET', `/website/${websiteId}/conversations/1?filter_resolved=false`, identifier, key);
         }

@@ -79,6 +79,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Mollie credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_payments',
         description: 'List payments in Mollie with status, amount, and payment method details.',
         inputSchema: {
@@ -202,6 +208,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await apiFetch('/organizations/me', apiKey) as { name?: string; email?: string };
+            return { connected: true, name: data.name ?? data.email ?? 'unknown' };
+        }
+
         case 'list_payments': {
             const limit = args.limit ?? 25;
             return apiFetch(`/payments?limit=${limit}`, apiKey);

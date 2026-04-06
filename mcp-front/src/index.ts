@@ -62,6 +62,12 @@ async function frontFetch(token: string, path: string, options: RequestInit = {}
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Front credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'list_conversations',
         description: 'List conversations in Front with optional status filters.',
         inputSchema: {
@@ -276,6 +282,10 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(token: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await frontFetch(token, '/me');
+            return toolOk(data);
+        }
         case 'list_conversations': {
             const limit = (args.limit as number) ?? 25;
             const data = await frontFetch(token, `/conversations?q[statuses][]=assigned&q[statuses][]=unassigned&limit=${limit}`);

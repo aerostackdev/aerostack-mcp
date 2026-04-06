@@ -53,6 +53,12 @@ async function apiFetch(path: string, token: string, options: RequestInit = {}):
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Google Chat credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_spaces',
     description: 'List Google Chat spaces the user is a member of',
     inputSchema: { type: 'object', properties: {} },
@@ -206,6 +212,16 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`Google API ${res.status}: ${await res.text()}`);
+      const data = await res.json() as { email?: string };
+      return { connected: true, email: data.email ?? 'unknown' };
+    }
+
     case 'list_spaces':
       return apiFetch('/spaces?pageSize=100', token);
 

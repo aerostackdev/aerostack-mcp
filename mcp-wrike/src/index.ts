@@ -53,6 +53,12 @@ async function apiFetch(path: string, token: string, options: RequestInit = {}):
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Wrike credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'get_current_user',
     description: 'Get the current authenticated Wrike user',
     inputSchema: { type: 'object', properties: {} },
@@ -218,6 +224,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await apiFetch('/contacts?me=true', token);
+      return { content: [{ type: 'text', text: 'Connected to Wrike' }] };
+    }
+
     case 'get_current_user':
       return apiFetch('/contacts?me=true', token);
 

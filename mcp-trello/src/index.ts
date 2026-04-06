@@ -99,6 +99,12 @@ async function apiDelete(path: string, secrets: TrelloSecrets): Promise<unknown>
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Trello credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_boards',
     description: 'List all boards for the authenticated Trello member',
     inputSchema: {
@@ -282,6 +288,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, secrets: TrelloSecrets): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await apiGet('/members/me', secrets, { fields: 'id,username' });
+      return toolOk({ connected: true, service: 'Trello' });
+    }
+
     case 'list_boards': {
       return apiGet('/members/me/boards', secrets, { fields: 'id,name,desc,closed,url' });
     }

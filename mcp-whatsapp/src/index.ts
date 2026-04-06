@@ -210,6 +210,12 @@ function rpcErr(id: unknown, code: number, message: string): Response {
 // ── Tool definitions ─────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify WhatsApp credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // Group 1 — Account & Profile
     {
         name: 'get_business_profile',
@@ -688,6 +694,11 @@ async function callTool(
 ): Promise<Response> {
     try {
         switch (name) {
+
+            case '_ping': {
+                await metaDirect(`/${phoneNumberId}?fields=id,display_phone_number`, token);
+                return rpcOk(id, { content: [{ type: 'text', text: 'Connected to WhatsApp' }] });
+            }
 
             // ── Group 1 — Account & Profile ──────────────────────────────────
 

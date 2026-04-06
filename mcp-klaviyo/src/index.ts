@@ -71,6 +71,13 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Klaviyo credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
     // ── Profiles (5) ──────────────────────────────────────────────────────────
 
     {
@@ -433,6 +440,11 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            await klaviyoFetch('/accounts', token);
+            return toolOk({ connected: true, service: 'Klaviyo' });
+        }
 
         // ── Profiles ──────────────────────────────────────────────────────────
 

@@ -101,6 +101,12 @@ const POPULAR_MODELS = [
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Fal.ai credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'generate_image',
         description: 'Generate images from text prompts using FLUX.1 Schnell — ultra-fast 4-step generation',
         inputSchema: {
@@ -299,6 +305,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await falGet(`${FAL_QUEUE_BASE}/fal-ai/flux/schnell/requests?page=1`, apiKey);
+            return toolOk({ connected: true, service: 'Fal.ai' });
+        }
+
         case 'generate_image': {
             validateRequired(args, ['prompt']);
 

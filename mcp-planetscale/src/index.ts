@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify PlanetScale credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_databases',
         description: 'List all databases in a PlanetScale organization',
         inputSchema: {
@@ -143,6 +149,12 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
     const database = args.database as string;
 
     switch (name) {
+        case '_ping': {
+            // GET /v1/organizations — verifies Bearer token is valid
+            const data = (await ps('/organizations', token)) as any;
+            const orgs = (data.data ?? []).map((o: any) => o.name);
+            return { connected: true, organizations: orgs };
+        }
         case 'list_databases': {
             const data = (await ps(`/organizations/${org}/databases`, token)) as any;
             return (data.data ?? []).map((db: any) => ({

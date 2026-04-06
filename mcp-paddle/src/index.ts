@@ -80,6 +80,12 @@ async function paddleFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Paddle credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_products',
         description: 'List all products in your Paddle catalog.',
         inputSchema: {
@@ -197,6 +203,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await paddleFetch('/products?per_page=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Paddle' }] };
+        }
+
         case 'list_products': {
             const limit = args.limit ?? 10;
             return paddleFetch(`/products?per_page=${limit}`, apiKey);

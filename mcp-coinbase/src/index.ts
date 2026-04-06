@@ -66,6 +66,12 @@ async function coinbaseFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Coinbase credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
     name: 'get_current_user',
     description: 'Get the current authenticated Coinbase user',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -199,6 +205,9 @@ async function handleTool(
   apiKey: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping':
+      return toolOk(await coinbaseFetch('/user', apiKey));
+
     case 'get_current_user':
       return toolOk(await coinbaseFetch('/user', apiKey));
 

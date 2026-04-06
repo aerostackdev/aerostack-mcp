@@ -67,6 +67,12 @@ async function pinterestFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Pinterest credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'get_current_user',
     description: 'Get the current authenticated Pinterest user account',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -211,6 +217,9 @@ async function handleTool(
   token: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping':
+      return toolOk(await pinterestFetch('/user_account', token));
+
     case 'get_current_user':
       return toolOk(await pinterestFetch('/user_account', token));
 

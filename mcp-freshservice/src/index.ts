@@ -63,6 +63,12 @@ async function fsFetch(apiKey: string, domain: string, path: string, options: Re
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Freshservice credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_tickets',
         description: 'List tickets with pagination.',
         inputSchema: {
@@ -288,6 +294,11 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(apiKey: string, domain: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await fsFetch(apiKey, domain, '/agents/me');
+            return toolOk(data);
+        }
         case 'list_tickets': {
             const page = (args.page as number) ?? 1;
             const per_page = (args.per_page as number) ?? 30;

@@ -67,6 +67,12 @@ async function beehiivFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Beehiiv credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
     name: 'list_publications',
     description: 'List all Beehiiv publications for the authenticated account',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -220,6 +226,9 @@ async function handleTool(
   apiKey: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping':
+      return toolOk(await beehiivFetch('/publications?limit=1&page=1', apiKey));
+
     case 'list_publications':
       return toolOk(await beehiivFetch('/publications?limit=10&page=1', apiKey));
 

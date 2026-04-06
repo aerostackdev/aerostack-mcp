@@ -62,6 +62,12 @@ async function smFetch(token: string, path: string, options: RequestInit = {}): 
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify SurveyMonkey credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_surveys',
         description: 'List all surveys in the account with pagination.',
         inputSchema: {
@@ -272,6 +278,9 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(token: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping':
+            return toolOk(await smFetch(token, '/users/me'));
+
         case 'list_surveys': {
             const per_page = (args.per_page as number) ?? 25;
             const page = (args.page as number) ?? 1;

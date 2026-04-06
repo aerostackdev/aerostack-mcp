@@ -30,6 +30,8 @@ async function graphFetch(method: string, path: string, token: string, body?: un
 }
 
 const TOOLS = [
+    { name: '_ping', description: 'Verify Microsoft Outlook credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] }, annotations: { readOnlyHint: true, destructiveHint: false } },
     // ── Messages ────────────────────────────────────────────────────────────
     { name: 'list_messages', description: 'List emails with filtering by folder, subject, sender, read status',
         inputSchema: { type: 'object', properties: {
@@ -140,6 +142,8 @@ function toRecipients(emails: string[]) {
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping':
+            return graphFetch('GET', '/me', token);
         case 'list_messages': {
             const folder = (args.folder_id as string) || 'inbox';
             const top = Math.min((args.top as number) || 20, 50);

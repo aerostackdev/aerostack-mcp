@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Wave credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_invoices',
         description: 'List invoices for the business',
         inputSchema: {
@@ -220,6 +226,12 @@ async function waveGql(query: string, variables: Record<string, unknown>, token:
 
 async function callTool(name: string, args: Record<string, unknown>, token: string, businessId: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const query = `query { user { id name email } }`;
+            await waveGql(query, {}, token);
+            return { content: [{ type: 'text', text: 'Connected to Wave' }] };
+        }
+
         case 'list_invoices': {
             const query = `
                 query($businessId: ID!, $first: Int, $after: String, $status: InvoiceStatus) {

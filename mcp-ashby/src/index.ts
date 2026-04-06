@@ -27,6 +27,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Ashby credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_job_postings',
         description: 'List job postings in Ashby',
         inputSchema: {
@@ -250,6 +256,12 @@ async function ashbyFetch(endpoint: string, apiKey: string, body: Record<string,
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await ashbyFetch('/whoami', apiKey, {});
+            return { content: [{ type: 'text', text: 'Connected to Ashby' }] };
+        }
+
         case 'list_job_postings': {
             const body: Record<string, unknown> = { limit: args.limit ?? 25 };
             if (args.cursor) body.cursor = args.cursor;

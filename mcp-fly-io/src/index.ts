@@ -66,6 +66,12 @@ async function apiDelete(path: string, apiKey: string, params?: Record<string, s
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Fly.io credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
     name: 'list_apps',
     description: 'List all Fly.io apps for an organization',
     inputSchema: {
@@ -228,6 +234,9 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      return apiGet('/apps', apiKey, { org_slug: '' });
+    }
     case 'list_apps': {
       validateRequired(args, ['org_slug']);
       return apiGet('/apps', apiKey, { org_slug: String(args.org_slug) });

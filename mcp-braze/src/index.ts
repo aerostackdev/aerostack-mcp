@@ -22,6 +22,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Braze credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'track_users',
         description: 'Track user attributes, events, and purchases in Braze',
         inputSchema: {
@@ -234,6 +240,10 @@ async function brazeFetch(path: string, apiKey: string, instanceUrl: string, opt
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string, instanceUrl: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return brazeFetch('/app_group/info', apiKey, instanceUrl);
+        }
+
         case 'track_users': {
             const body: Record<string, unknown> = {};
             if (args.attributes) body.attributes = args.attributes;

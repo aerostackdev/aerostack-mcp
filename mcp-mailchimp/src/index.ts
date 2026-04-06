@@ -295,6 +295,12 @@ async function mcApi(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Mailchimp credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Audiences / Lists (4 tools) ────────────────────────────────
 
     {
@@ -706,6 +712,12 @@ async function callTool(
     baseUrl: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await mcApi('/', authHeader, baseUrl);
+            return { content: [{ type: 'text', text: 'Connected to Mailchimp' }] };
+        }
 
         // ── Audiences / Lists ─────────────────────────────────────────────────
 

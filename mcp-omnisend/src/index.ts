@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Omnisend credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_contacts',
         description: 'List contacts with optional filters',
         inputSchema: {
@@ -216,6 +222,11 @@ async function omFetch(path: string, apiKey: string, options: RequestInit = {}):
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await omFetch('/contacts?limit=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Omnisend' }] };
+        }
+
         case 'list_contacts': {
             const params = new URLSearchParams();
             if (args.limit) params.set('limit', String(args.limit));

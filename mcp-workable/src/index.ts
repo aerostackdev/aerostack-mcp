@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Workable credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_jobs',
         description: 'List jobs in Workable',
         inputSchema: {
@@ -277,6 +283,11 @@ function buildQuery(params: Record<string, unknown>): string {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string, subdomain: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await workableFetch('/members?limit=1', apiKey, subdomain);
+            return { content: [{ type: 'text', text: 'Connected to Workable' }] };
+        }
+
         case 'list_jobs': {
             const q = buildQuery({ state: args.state, limit: args.limit ?? 25, since_id: args.since_id });
             const data = await workableFetch(`/jobs${q}`, apiKey, subdomain) as any;

@@ -80,6 +80,12 @@ async function groqGet(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Groq credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'chat',
         description: 'Send messages to a Groq-hosted model and receive an ultra-fast response. Supports multi-turn conversations, system prompts, and JSON mode',
         inputSchema: {
@@ -278,6 +284,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await groqGet('/models', apiKey) as { data?: Array<{ id: string }> };
+            return `Connected to Groq — ${data.data?.length ?? 0} models available`;
+        }
+
         case 'chat': {
             validateRequired(args, ['messages']);
             if (!Array.isArray(args.messages) || args.messages.length === 0) {

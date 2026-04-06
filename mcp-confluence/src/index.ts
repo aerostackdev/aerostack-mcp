@@ -109,6 +109,12 @@ async function apiDelete(path: string, secrets: ConfluenceSecrets): Promise<unkn
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Confluence credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_spaces',
     description: 'List all Confluence spaces',
     inputSchema: {
@@ -288,6 +294,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, secrets: ConfluenceSecrets): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      await apiGet('/user/current', secrets);
+      return toolOk({ connected: true });
+    }
     case 'list_spaces': {
       return apiGet('/space', secrets, {
         limit: String(args.limit ?? 25),

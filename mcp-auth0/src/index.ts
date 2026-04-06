@@ -71,6 +71,12 @@ async function auth0Fetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Auth0 credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_users',
     description: 'List users in the Auth0 tenant',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -218,6 +224,11 @@ async function handleTool(
   domain: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await auth0Fetch('/clients?per_page=1&fields=client_id', token, domain);
+      return toolOk({ connected: true, domain });
+    }
+
     case 'list_users':
       return toolOk(await auth0Fetch('/users?per_page=25&page=0&include_totals=true', token, domain));
 

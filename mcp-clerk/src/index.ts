@@ -82,6 +82,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Clerk credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_users',
         description: 'List all users in your Clerk application.',
         inputSchema: {
@@ -220,6 +226,9 @@ async function callTool(
     secretKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return apiFetch('/users?limit=1', secretKey);
+        }
         case 'list_users': {
             const limit = args.limit ?? 10;
             return apiFetch(`/users?limit=${limit}`, secretKey);

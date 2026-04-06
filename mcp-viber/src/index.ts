@@ -85,6 +85,12 @@ async function viberFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Viber credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_account_info',
         description: 'Get the bot account info including name, uri, category, and subscribers count.',
         inputSchema: { type: 'object', properties: {} },
@@ -159,6 +165,12 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // POST /get_account_info — validates auth token
+            const data = (await viberFetch('/get_account_info', token, {})) as any;
+            return { connected: true, name: data?.name ?? 'unknown', uri: data?.uri ?? 'unknown' };
+        }
+
         case 'get_account_info':
             return viberFetch('/get_account_info', token, {});
 

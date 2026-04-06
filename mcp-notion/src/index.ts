@@ -12,6 +12,12 @@ const NOTION_VERSION = '2022-06-28';
 
 const TOOLS = [
 	{
+		name: '_ping',
+		description: 'Verify Notion credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+		inputSchema: { type: 'object', properties: {}, required: [] },
+		annotations: { readOnlyHint: true, destructiveHint: false },
+	},
+	{
 		name: 'search',
 		description: 'Search across all pages and databases shared with your integration. Returns matching pages and databases by title or content.',
 		inputSchema: {
@@ -253,6 +259,13 @@ function extractPageTitle(page: any): string {
 
 async function callTool(name: string, args: Record<string, any>, apiKey: string): Promise<any> {
 	switch (name) {
+		case '_ping': {
+			// Call a lightweight read endpoint to verify credentials
+			const data = await notion('/users/me', apiKey) as { name?: string; type?: string; person?: { email?: string } };
+			const identifier = data.person?.email ?? data.name ?? 'unknown';
+			return { content: [{ type: 'text', text: `Connected to Notion as ${identifier}` }] };
+		}
+
 		case 'search': {
 			const body: Record<string, any> = {};
 			if (args.query) body.query = args.query;

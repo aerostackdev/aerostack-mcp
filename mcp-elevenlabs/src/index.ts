@@ -111,6 +111,12 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify ElevenLabs credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_voices',
         description: 'List all available voices including pre-made and your custom cloned voices',
         inputSchema: {
@@ -396,6 +402,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await elevenLabsGet('/user', apiKey);
+            return toolOk({ connected: true });
+        }
+
         case 'list_voices': {
             const data = await elevenLabsGet('/voices', apiKey, {
                 show_legacy: String(args.show_legacy ?? false),

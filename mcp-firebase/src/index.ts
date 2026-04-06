@@ -31,6 +31,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 // ── Tools definition ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Firebase credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Firestore ────────────────────────────────────────────────────────────
     {
         name: 'get_document',
@@ -445,6 +451,14 @@ async function callTool(
     const fcmBase = `https://fcm.googleapis.com/v1/projects/${projectId}`;
 
     switch (name) {
+
+        case '_ping': {
+            const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases`, {
+                headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+            });
+            if (!res.ok) throw new Error(`Firebase API ${res.status}: ${await res.text()}`);
+            return { connected: true, project: projectId };
+        }
 
         // ── Firestore ─────────────────────────────────────────────────────────
 

@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify MailerLite credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_subscribers',
         description: 'List subscribers with optional status filter',
         inputSchema: {
@@ -255,6 +261,13 @@ async function mlFetch(path: string, apiKey: string, options: RequestInit = {}):
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await mlFetch('/me', apiKey) as { data?: { email?: string; username?: string } };
+            const account = data.data;
+            return { content: [{ type: 'text', text: `Connected to MailerLite as ${account?.email ?? account?.username ?? 'unknown'}` }] };
+        }
+
         case 'list_subscribers': {
             const params = new URLSearchParams();
             if (args.limit) params.set('limit', String(args.limit));

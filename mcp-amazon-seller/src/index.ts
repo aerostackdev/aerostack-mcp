@@ -31,6 +31,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Amazon Seller credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_catalog_items',
         description: 'Search the Amazon catalog for items by keywords',
         inputSchema: {
@@ -202,6 +208,11 @@ async function spFetch(path: string, token: string, opts: RequestInit = {}): Pro
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // GET /reports/2021-06-30/reports?pageSize=1 — lightweight read to verify SP-API access token
+            const data = (await spFetch('/reports/2021-06-30/reports?pageSize=1', token)) as any;
+            return { connected: true, reports_count: data?.reports?.length ?? 0 };
+        }
         case 'list_catalog_items': {
             validateRequired(args, ['marketplaceId', 'keywords']);
             return spFetch(

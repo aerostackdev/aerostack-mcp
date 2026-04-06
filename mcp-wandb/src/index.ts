@@ -87,6 +87,12 @@ async function wandbGraphQL(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Weights & Biases credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_projects',
         description: 'List all W&B projects for the configured entity (user or organization). Uses GraphQL API.',
         inputSchema: {
@@ -209,6 +215,11 @@ async function callTool(
     entity: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await wandbFetch('/api/v1/user', apiKey);
+            return toolOk({ connected: true, service: 'W&B' });
+        }
+
         case 'list_projects': {
             return wandbGraphQL(apiKey, `
                 query ListProjects($entityName: String!) {

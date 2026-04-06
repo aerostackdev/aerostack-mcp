@@ -81,6 +81,12 @@ async function lineFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify LINE credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'send_push_message',
         description: 'Send a push message to a specific user by userId.',
         inputSchema: {
@@ -177,6 +183,12 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await lineFetch('/bot/info', token) as { displayName?: string; userId?: string };
+            return { connected: true, displayName: data.displayName ?? 'unknown', userId: data.userId ?? 'unknown' };
+        }
+
         case 'send_push_message': {
             validateRequired(args, ['to', 'text']);
             return lineFetch('/bot/message/push', token, {

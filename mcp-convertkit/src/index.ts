@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify ConvertKit credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_subscribers',
         description: 'List subscribers with optional filters',
         inputSchema: {
@@ -266,6 +272,10 @@ async function ckFetch(path: string, apiKey: string, options: RequestInit = {}):
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return ckFetch('/account', apiKey);
+        }
+
         case 'list_subscribers': {
             const params = new URLSearchParams();
             if (args.per_page) params.set('per_page', String(args.per_page));

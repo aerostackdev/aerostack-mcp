@@ -55,6 +55,12 @@ async function apiPost(path: string, apiKey: string, body: unknown): Promise<unk
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Bitbucket credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
     name: 'list_repositories',
     description: 'List repositories in a Bitbucket workspace',
     inputSchema: {
@@ -258,6 +264,9 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      return apiGet('/user', apiKey);
+    }
     case 'list_repositories': {
       validateRequired(args, ['workspace']);
       const params: Record<string, string> = {};

@@ -62,6 +62,12 @@ async function ebFetch(token: string, path: string, options: RequestInit = {}): 
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Eventbrite credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'list_organizations',
         description: 'List all organizations the authenticated user belongs to.',
         inputSchema: { type: 'object', properties: {} },
@@ -264,6 +270,10 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(token: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await ebFetch(token, '/users/me/');
+            return toolOk(data);
+        }
         case 'list_organizations': {
             const data = await ebFetch(token, '/users/me/organizations/');
             return toolOk(data);
