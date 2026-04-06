@@ -257,7 +257,8 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
         case '_ping': {
             // Call a lightweight read endpoint to verify credentials
             const data = await harvestFetch('/users/me', token, accountId) as { first_name?: string; last_name?: string; email?: string };
-            return { content: [{ type: 'text', text: `Connected to Harvest as ${data.email ?? `${data.first_name ?? ''} ${data.last_name ?? ''}`.trim() || 'unknown'}` }] };
+            const name = (data.email ?? (`${data.first_name ?? ''} ${data.last_name ?? ''}`.trim() || 'unknown'));
+            return { content: [{ type: 'text', text: `Connected to Harvest as ${name}` }] };
         }
 
         case 'list_time_entries': {

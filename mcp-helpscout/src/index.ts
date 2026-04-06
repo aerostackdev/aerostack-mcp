@@ -291,7 +291,8 @@ async function dispatchTool(token: string, name: string, args: Record<string, un
         case '_ping': {
             // Call a lightweight read endpoint to verify credentials
             const data = await hsFetch(token, '/users/me') as { firstName?: string; lastName?: string; email?: string };
-            return toolOk({ connected: true, email: data.email ?? `${data.firstName ?? ''} ${data.lastName ?? ''}`.trim() || 'unknown' });
+            const identity = (data.email ?? (`${data.firstName ?? ''} ${data.lastName ?? ''}`.trim() || 'unknown'));
+            return toolOk({ connected: true, email: identity });
         }
 
         case 'list_conversations': {
