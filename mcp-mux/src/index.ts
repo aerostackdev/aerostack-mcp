@@ -4,6 +4,12 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Mux credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_assets',
         description: 'List video assets in your Mux environment',
         inputSchema: {
@@ -148,6 +154,13 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch(`${base}/video/v1/assets?limit=1`, { headers });
+            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
+            return text('Connected to Mux');
+        }
+
         case 'list_assets': {
             const limit = (args.limit as number) || 25;
             const res = await fetch(`${base}/video/v1/assets?limit=${limit}`, { headers });

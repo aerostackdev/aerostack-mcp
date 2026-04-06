@@ -37,6 +37,12 @@ function getSanityUrl(projectId: string, dataset: string, path: string): string 
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Sanity credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'query',
         description: 'Run a GROQ query against the Sanity dataset',
         inputSchema: {
@@ -220,6 +226,11 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            await sanityFetch(`${SANITY_MGMT}/projects`, token);
+            return { content: [{ type: 'text', text: 'Connected to Sanity' }] };
+        }
+
         case 'query': {
             validateRequired(args, ['groqQuery']);
             requireProject();

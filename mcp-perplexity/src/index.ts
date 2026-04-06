@@ -91,6 +91,12 @@ function extractThinking(content: string): { thinking: string | null; answer: st
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Perplexity credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'search',
         description: 'Search the web with Perplexity AI and get a synthesized answer with citations',
         inputSchema: {
@@ -266,6 +272,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await perplexityChat(apiKey, { model: 'sonar', messages: [{ role: 'user', content: 'ping' }], max_tokens: 1, temperature: 0 });
+            return { content: [{ type: 'text', text: 'Connected to Perplexity' }] };
+        }
+
         case 'search': {
             validateRequired(args, ['query']);
             const model = String(args.model ?? 'sonar');

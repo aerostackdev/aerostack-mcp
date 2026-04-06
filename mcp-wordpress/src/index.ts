@@ -31,6 +31,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify WordPress credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_posts',
         description: 'List published posts from a WordPress site',
         inputSchema: {
@@ -244,6 +250,11 @@ async function callTool(
     appPassword: string
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await wpFetch('/users/me', domain, username, appPassword);
+            return toolOk({ connected: true });
+        }
         case 'list_posts': {
             const perPage = args.per_page ?? 20;
             const page = args.page ?? 1;

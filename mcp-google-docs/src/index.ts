@@ -29,6 +29,8 @@ async function gFetch(url: string, token: string, method = 'GET', body?: unknown
 }
 
 const TOOLS = [
+    { name: '_ping', description: 'Verify Google Docs credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] }, annotations: { readOnlyHint: true, destructiveHint: false } },
     // ── Documents ───────────────────────────────────────────────────────────
     { name: 'create_document', description: 'Create a new blank Google Doc with a title',
         inputSchema: { type: 'object', properties: {
@@ -137,6 +139,15 @@ function hexToRgb(hex: string): { red: number; green: number; blue: number } {
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) throw new Error(`Google API ${res.status}: ${await res.text()}`);
+            const data = await res.json() as { email?: string };
+            return { content: [{ type: 'text', text: `Connected to Google Docs as ${data.email ?? 'unknown'}` }] };
+        }
         case 'create_document':
             return gFetch(`${DOCS_API}/documents`, token, 'POST', { title: args.title });
         case 'get_document':

@@ -64,6 +64,12 @@ async function geminiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Gemini credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'generate_content',
         description: 'Generate content using a Gemini model. Supports text generation with optional temperature and token controls. Default model is gemini-2.0-flash.',
         inputSchema: {
@@ -189,6 +195,9 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return geminiFetch('/models', apiKey);
+        }
         case 'generate_content': {
             const model = (args.model as string) || DEFAULT_MODEL;
             const body: Record<string, unknown> = {

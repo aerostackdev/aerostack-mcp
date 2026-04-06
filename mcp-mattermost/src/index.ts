@@ -86,6 +86,12 @@ async function mmFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Mattermost credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_me',
         description: 'Get the current user profile including id, username, email, and roles.',
         inputSchema: { type: 'object', properties: {} },
@@ -189,6 +195,12 @@ async function callTool(
     mmToken: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await mmFetch(mmUrl, '/users/me', mmToken) as { username?: string; email?: string };
+            return { connected: true, username: data.username ?? data.email ?? 'unknown' };
+        }
+
         case 'get_me':
             return mmFetch(mmUrl, '/users/me', mmToken);
 

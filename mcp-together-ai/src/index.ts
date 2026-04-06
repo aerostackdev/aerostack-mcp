@@ -95,6 +95,12 @@ async function togetherDelete(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Together AI credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'chat',
         description: 'Send messages to any Together AI chat model (Llama, Mistral, Qwen, etc.) and receive a response. OpenAI-compatible interface',
         inputSchema: {
@@ -296,6 +302,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await togetherGet('/models', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Together AI' }] };
+        }
+
         case 'chat': {
             validateRequired(args, ['messages', 'model']);
             if (!Array.isArray(args.messages) || args.messages.length === 0) {

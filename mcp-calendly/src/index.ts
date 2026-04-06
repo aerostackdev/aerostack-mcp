@@ -244,6 +244,13 @@ async function getOrgUri(token: string): Promise<string> {
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Calendly credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
     // ── Group 1 — User & Organization (2 tools) ───────────────────────────────
 
     {
@@ -554,6 +561,10 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            return calendlyFetch('/users/me', token);
+        }
 
         // ── User & Organization ───────────────────────────────────────────────
 

@@ -31,6 +31,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Etsy credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_shop',
         description: 'Get details about an Etsy shop by shop ID',
         inputSchema: {
@@ -202,6 +208,11 @@ async function etsyFetch(path: string, apiKey: string): Promise<unknown> {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await etsyFetch('/application/openapi-ping', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Etsy' }] };
+        }
+
         case 'get_shop': {
             validateRequired(args, ['shop_id']);
             return etsyFetch(`/application/shops/${args.shop_id}`, apiKey);

@@ -62,6 +62,12 @@ async function hsFetch(token: string, path: string, options: RequestInit = {}): 
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Help Scout credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_conversations',
         description: 'List active conversations. Returns paginated conversation summaries.',
         inputSchema: {
@@ -282,6 +288,12 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(token: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await hsFetch(token, '/users/me') as { firstName?: string; lastName?: string; email?: string };
+            return toolOk({ connected: true, email: data.email ?? `${data.firstName ?? ''} ${data.lastName ?? ''}`.trim() || 'unknown' });
+        }
+
         case 'list_conversations': {
             const status = (args.status as string) ?? 'active';
             const page = (args.page as number) ?? 1;

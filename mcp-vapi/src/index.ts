@@ -63,6 +63,12 @@ async function vapiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Vapi credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_assistants',
         description: 'List all voice assistants in your Vapi account with their configurations, voices, and models.',
         inputSchema: {
@@ -248,6 +254,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await vapiFetch('/assistant?limit=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Vapi' }] };
+        }
+
         case 'list_assistants': {
             const limit = (args.limit as number) ?? 10;
             return vapiFetch(`/assistant?limit=${limit}`, apiKey);

@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Google Drive credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_files',
         description: 'List files in Google Drive, optionally filtered by folder or MIME type',
         inputSchema: {
@@ -183,6 +189,16 @@ async function driveRequest(
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) throw new Error(`Google API ${res.status}: ${await res.text()}`);
+            const data = await res.json() as { email?: string };
+            return { content: [{ type: 'text', text: `Connected to Google Drive as ${data.email ?? 'unknown'}` }] };
+        }
+
         case 'list_files': {
             const limit = Math.min(Number(args.limit ?? 20), 100);
             const parts: string[] = [];

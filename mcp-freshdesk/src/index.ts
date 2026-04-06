@@ -175,6 +175,12 @@ async function freshdeskFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Freshdesk credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Tickets (9 tools) ──────────────────────────────────────────
 
     {
@@ -758,6 +764,12 @@ async function callTool(
     domain: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await freshdeskFetch('/agents/me', apiKey, domain);
+            return toolOk(data);
+        }
 
         // ── Tickets ───────────────────────────────────────────────────────────
 

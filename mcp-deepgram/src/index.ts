@@ -100,6 +100,12 @@ async function deepgramFetchBinary(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Deepgram credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'transcribe_url',
         description: 'Transcribe audio from a URL using Deepgram speech-to-text',
         inputSchema: {
@@ -276,6 +282,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await deepgramFetch('/projects', apiKey);
+            return toolOk({ connected: true });
+        }
+
         case 'transcribe_url': {
             validateRequired(args, ['url']);
             const model = String(args.model ?? 'nova-2');

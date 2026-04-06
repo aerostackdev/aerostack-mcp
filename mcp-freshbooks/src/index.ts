@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify FreshBooks credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'get_account_info',
         description: 'Get authenticated user info including business memberships',
         inputSchema: { type: 'object', properties: {} },
@@ -269,6 +275,9 @@ async function callTool(name: string, args: Record<string, unknown>, token: stri
     const base = `/accounting/account/${accountId}`;
 
     switch (name) {
+        case '_ping':
+            return fbFetch('/auth/api/v1/users/me', token);
+
         case 'get_account_info':
             return fbFetch('/auth/api/v1/users/me', token);
 

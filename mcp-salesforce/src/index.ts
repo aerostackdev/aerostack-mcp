@@ -97,6 +97,12 @@ async function sfFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Salesforce credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Leads (5 tools) ─────────────────────────────────────────────
 
     {
@@ -588,6 +594,11 @@ async function callTool(
     instanceUrl: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await sfFetch(instanceUrl, '/sobjects', token);
+            return { content: [{ type: 'text', text: 'Connected to Salesforce' }] };
+        }
+
         // ── Leads ───────────────────────────────────────────────────────────────
 
         case 'search_leads': {

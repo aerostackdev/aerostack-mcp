@@ -93,6 +93,12 @@ async function nrFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify New Relic credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Entities (5 tools) ─────────────────────────────────────────
 
     {
@@ -481,6 +487,14 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const query = `{ actor { user { name email } } }`;
+            const data = await nrFetch(query, {}, apiKey) as { actor?: { user?: { name?: string; email?: string } } };
+            const user = data.actor?.user;
+            return { connected: true, name: user?.name ?? user?.email ?? 'unknown' };
+        }
+
         // ── Entities ────────────────────────────────────────────────────────────
 
         case 'list_entities': {

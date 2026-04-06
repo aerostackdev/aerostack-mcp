@@ -78,6 +78,12 @@ async function deelFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Deel credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'list_contracts',
         description: 'List all contracts in your Deel organization with pagination.',
         inputSchema: {
@@ -166,6 +172,10 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return deelFetch('/contracts?limit=1', apiKey);
+        }
+
         case 'list_contracts': {
             const params = new URLSearchParams();
             params.set('limit', String(args.limit ?? 20));

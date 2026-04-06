@@ -83,6 +83,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Gumroad credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_products',
         description: 'List all products on your Gumroad account.',
         inputSchema: {
@@ -179,6 +185,13 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await apiFetch('/user', token) as { user?: { name?: string; email?: string } };
+            const user = data.user;
+            return { connected: true, name: user?.name ?? 'unknown', email: user?.email ?? 'unknown' };
+        }
+
         case 'list_products': {
             return apiFetch('/products', token);
         }

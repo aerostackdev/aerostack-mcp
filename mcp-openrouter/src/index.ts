@@ -64,6 +64,12 @@ async function openrouterFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify OpenRouter credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'chat_completion',
         description: 'Send a chat completion request through OpenRouter. Routes to the specified model across 100+ LLM providers. OpenAI-compatible format.',
         inputSchema: {
@@ -156,6 +162,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await openrouterFetch('/models', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to OpenRouter' }] };
+        }
+
         case 'chat_completion': {
             const body: Record<string, unknown> = {
                 model: args.model,

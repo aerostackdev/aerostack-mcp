@@ -26,6 +26,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Amplitude credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'track_event',
         description: 'Track a custom event in Amplitude for a specific user',
         inputSchema: {
@@ -171,6 +177,12 @@ async function callTool(
     secretKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await amplitudeApi('/projects', apiKey, secretKey, { limit: '1' });
+            return { content: [{ type: 'text', text: 'Connected to Amplitude' }] };
+        }
+
         case 'track_event': {
             if (!args.user_id) throw new Error('user_id is required');
             if (!args.event_type) throw new Error('event_type is required');

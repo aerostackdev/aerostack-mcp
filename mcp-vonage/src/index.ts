@@ -25,6 +25,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Vonage credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'send_sms',
         description: 'Send an SMS message',
         inputSchema: {
@@ -152,6 +158,11 @@ async function callTool(
     apiSecret: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await callGetApi(`${REST_BASE}/account/get-balance?api_key=${encodeURIComponent(apiKey)}&api_secret=${encodeURIComponent(apiSecret)}`);
+            return { content: [{ type: 'text', text: 'Connected to Vonage' }] };
+        }
+
         case 'send_sms': {
             return callFormApi(`${REST_BASE}/sms/json`, {
                 api_key: apiKey,

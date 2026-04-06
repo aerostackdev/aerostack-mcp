@@ -80,6 +80,12 @@ async function cohereGet(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Cohere credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'chat',
         description: 'Send a message to a Cohere model and get a response. Supports multi-turn conversation history and optional grounding with documents',
         inputSchema: {
@@ -420,6 +426,9 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return cohereGet('/models?page_size=1', apiKey);
+        }
         case 'chat': {
             validateRequired(args, ['message']);
 

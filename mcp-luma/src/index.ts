@@ -62,6 +62,12 @@ async function lumaFetch(apiKey: string, path: string, options: RequestInit = {}
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Luma credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_events',
         description: 'List upcoming events in the account.',
         inputSchema: {
@@ -271,6 +277,11 @@ async function handleRequest(request: Request): Promise<Response> {
 
 async function dispatchTool(apiKey: string, name: string, args: Record<string, unknown>): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await lumaFetch(apiKey, '/user/me');
+            return toolOk({ connected: true, service: 'Luma' });
+        }
+
         case 'list_events': {
             const limit = (args.pagination_limit as number) ?? 25;
             const data = await lumaFetch(apiKey, `/event/list?pagination_limit=${limit}`);

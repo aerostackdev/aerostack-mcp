@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Chargebee credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_customers',
         description: 'List customers in the Chargebee account with optional email filter',
         inputSchema: {
@@ -210,6 +216,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await cbApi(site, apiKey, '/subscriptions?limit=1');
+            return { content: [{ type: 'text', text: 'Connected to Chargebee' }] };
+        }
+
         case 'list_customers': {
             const params = new URLSearchParams();
             params.set('limit', String(Number(args.limit ?? 20)));

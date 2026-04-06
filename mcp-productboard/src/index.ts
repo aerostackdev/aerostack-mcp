@@ -68,6 +68,12 @@ async function pbFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Productboard credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_features',
     description: 'List features from Productboard with optional filters',
     inputSchema: {
@@ -203,6 +209,9 @@ async function handleTool(
   token: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping':
+      return toolOk(await pbFetch('/me', token));
+
     case 'list_features': {
       const params = new URLSearchParams();
       if (args.statusId) params.set('status.id', String(args.statusId));

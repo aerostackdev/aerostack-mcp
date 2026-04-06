@@ -72,6 +72,12 @@ async function oktaFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Okta credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_users',
     description: 'List users in the Okta organization with optional search',
     inputSchema: {
@@ -253,6 +259,12 @@ async function handleTool(
   domain: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // GET /api/v1/users/me — validates API token + domain
+      const data = (await oktaFetch('/users/me', token, domain)) as any;
+      return toolOk({ connected: true, login: data?.profile?.login ?? data?.login ?? 'unknown', status: data?.status ?? 'unknown' });
+    }
+
     case 'list_users': {
       const q = args.q ? `?limit=25&q=${encodeURIComponent(String(args.q))}` : '?limit=25';
       return toolOk(await oktaFetch(`/users${q}`, token, domain));

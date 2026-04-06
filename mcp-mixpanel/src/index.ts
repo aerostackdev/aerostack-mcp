@@ -29,6 +29,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Mixpanel credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'track_event',
         description: 'Track a custom event in Mixpanel for a specific user',
         inputSchema: {
@@ -183,6 +189,12 @@ async function callTool(name: string, args: Record<string, unknown>, secrets: Se
     const { token, username, secret, projectId } = secrets;
 
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await queryApi('/projects', username, secret, { project_id: projectId });
+            return { content: [{ type: 'text', text: 'Connected to Mixpanel' }] };
+        }
+
         case 'track_event': {
             if (!args.distinct_id) throw new Error('distinct_id is required');
             if (!args.event) throw new Error('event is required');

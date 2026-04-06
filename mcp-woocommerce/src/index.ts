@@ -189,6 +189,12 @@ function paginationParams(args: Record<string, unknown>): string {
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify WooCommerce credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Products (6 tools) ──────────────────────────────────────────
 
     {
@@ -688,6 +694,12 @@ async function callTool(
     authHeader: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            validateStoreUrl(storeUrl);
+            await wcFetch(storeUrl, '/system_status', authHeader);
+            return toolOk({ connected: true });
+        }
         // ── Products ────────────────────────────────────────────────────────────
 
         case 'list_products': {

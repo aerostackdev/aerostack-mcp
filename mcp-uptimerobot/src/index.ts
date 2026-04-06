@@ -65,6 +65,12 @@ async function uptimeFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify UptimeRobot credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'get_account_details',
     description: 'Get UptimeRobot account details including plan and limits',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -198,6 +204,11 @@ async function handleTool(
   apiKey: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await uptimeFetch('getAccountDetails', { api_key: apiKey, format: 'json' });
+      return toolOk({ connected: true, service: 'UptimeRobot' });
+    }
+
     case 'get_account_details':
       return toolOk(await uptimeFetch('getAccountDetails', { api_key: apiKey, format: 'json' }));
 

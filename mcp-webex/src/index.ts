@@ -53,6 +53,12 @@ async function apiFetch(path: string, token: string, options: RequestInit = {}):
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Webex credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'get_current_user',
     description: 'Get the current authenticated Webex user',
     inputSchema: { type: 'object', properties: {} },
@@ -222,6 +228,11 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await apiFetch('/people/me', token);
+      return { content: [{ type: 'text', text: 'Connected to Webex' }] };
+    }
+
     case 'get_current_user':
       return apiFetch('/people/me', token);
 

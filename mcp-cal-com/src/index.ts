@@ -81,6 +81,15 @@ async function calFetch(path: string, token: string, options: RequestInit = {}):
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    // ── _ping ─────────────────────────────────────────────────────────────────
+
+    {
+        name: '_ping',
+        description: 'Verify Cal.com credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
     // ── Group 1 — Event Types (4 tools) ──────────────────────────────────────
 
     {
@@ -416,6 +425,10 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            return calFetch('/me', token);
+        }
 
         // ── Event Types ───────────────────────────────────────────────────────
 

@@ -106,6 +106,12 @@ async function sheetsFetch(path: string, token: string, options: RequestInit = {
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Google Sheets credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Spreadsheet Management (3 tools) ───────────────────────────
 
     {
@@ -544,6 +550,16 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) throw new Error(`Google API ${res.status}: ${await res.text()}`);
+            const data = await res.json() as { email?: string };
+            return { connected: true, email: data.email ?? 'unknown' };
+        }
 
         // ── Spreadsheet Management ────────────────────────────────────────────
 

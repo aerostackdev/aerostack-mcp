@@ -25,6 +25,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Resend credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'send_email',
         description: 'Send a transactional email via Resend',
         inputSchema: {
@@ -104,6 +110,11 @@ async function resend(path: string, key: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, key: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await resend('/domains', key);
+            return { content: [{ type: 'text', text: 'Connected to Resend' }] };
+        }
+
         case 'send_email': {
             if (!args.html && !args.text) {
                 throw new Error('Either html or text is required for send_email');

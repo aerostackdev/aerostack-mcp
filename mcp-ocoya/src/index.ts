@@ -11,6 +11,12 @@ const OCOYA_API = 'https://app.ocoya.com/api/_public/v1';
 
 const TOOLS = [
 	{
+		name: '_ping',
+		description: 'Verify Ocoya credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+		inputSchema: { type: 'object', properties: {}, required: [] },
+		annotations: { readOnlyHint: true, destructiveHint: false },
+	},
+	{
 		name: 'list_workspaces',
 		description: 'List all Ocoya workspaces you have access to. Use this first to get a workspace ID for other operations.',
 		inputSchema: {
@@ -166,6 +172,11 @@ async function ocoya(path: string, apiKey: string, opts: RequestInit = {}): Prom
 
 async function callTool(name: string, args: Record<string, any>, apiKey: string): Promise<any> {
 	switch (name) {
+		case '_ping': {
+			await ocoya('/workspaces', apiKey);
+			return { content: [{ type: 'text', text: 'Connected to Ocoya' }] };
+		}
+
 		case 'list_workspaces': {
 			const data = await ocoya('/workspaces', apiKey);
 			return Array.isArray(data)

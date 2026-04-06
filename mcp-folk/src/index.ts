@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Folk credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_people',
         description: 'List people in Folk CRM',
         inputSchema: {
@@ -257,6 +263,10 @@ function buildQuery(params: Record<string, unknown>): string {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return folkFetch('/people?limit=1', apiKey);
+        }
+
         case 'list_people': {
             const q = buildQuery({ limit: args.limit ?? 25, cursor: args.cursor, query: args.query });
             const data = await folkFetch(`/people${q}`, apiKey) as any;

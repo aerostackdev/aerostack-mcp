@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Instantly credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_campaigns',
         description: 'List all Instantly campaigns',
         inputSchema: {
@@ -219,6 +225,13 @@ async function instantlyFetch(path: string, apiKey: string, options: RequestInit
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await instantlyFetch('/accounts?limit=1', apiKey) as { data?: Array<{ email?: string }> };
+            const account = Array.isArray(data.data) ? data.data[0] : null;
+            return { content: [{ type: 'text', text: `Connected to Instantly${account?.email ? ` as ${account.email}` : ''}` }] };
+        }
+
         case 'list_campaigns': {
             const params = new URLSearchParams();
             if (args.limit) params.set('limit', String(args.limit));

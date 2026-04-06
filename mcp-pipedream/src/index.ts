@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Pipedream credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_sources',
         description: 'List event sources for the authenticated Pipedream user',
         inputSchema: {
@@ -107,6 +113,11 @@ async function pdApi(path: string, apiKey: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await pdApi('/users/me', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to Pipedream' }] };
+        }
+
         case 'list_sources': {
             const limit = Math.min(Number(args.limit ?? 10), 100);
             const data = await pdApi(`/users/me/sources?limit=${limit}`, apiKey) as any;

@@ -32,6 +32,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Contentful credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'list_spaces',
         description: 'List all Contentful spaces accessible with the current token',
         inputSchema: { type: 'object', properties: {} },
@@ -239,6 +245,9 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            return cfFetch('/spaces', token);
+        }
         case 'list_spaces': {
             return cfFetch('/spaces', token);
         }

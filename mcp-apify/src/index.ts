@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Apify credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_actors',
         description: "List user's Apify actors",
         inputSchema: {
@@ -138,6 +144,11 @@ async function apifyApi(path: string, token: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await apifyApi('/users/me', token) as any;
+            return { connected: true, username: data.data?.username ?? data.username ?? 'unknown' };
+        }
+
         case 'list_actors': {
             const limit = Math.min(Number(args.limit ?? 20), 100);
             const data = await apifyApi(`/acts?my=true&limit=${limit}`, token) as any;

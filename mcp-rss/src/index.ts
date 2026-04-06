@@ -10,6 +10,12 @@
 
 const TOOLS = [
 	{
+		name: '_ping',
+		description: 'Verify RSS feed reader is ready. Used internally by Aerostack to validate credentials.',
+		inputSchema: { type: 'object', properties: {}, required: [] },
+		annotations: { readOnlyHint: true, destructiveHint: false },
+	},
+	{
 		name: 'read_feed',
 		description: 'Fetch and parse an RSS or Atom feed. Returns the latest items with title, link, description, and publish date.',
 		inputSchema: {
@@ -211,6 +217,11 @@ async function fetchFeed(url: string): Promise<string> {
 
 async function callTool(name: string, args: Record<string, any>): Promise<any> {
 	switch (name) {
+		case '_ping': {
+			// No credentials needed — RSS is a public protocol
+			return 'RSS feed reachable';
+		}
+
 		case 'read_feed': {
 			const xml = await fetchFeed(args.url);
 			const { items } = parseRSS(xml);

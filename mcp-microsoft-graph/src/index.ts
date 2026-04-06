@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 }
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Microsoft Graph credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Teams ────────────────────────────────────────────────────────────────
     {
         name: 'list_teams',
@@ -595,6 +601,12 @@ async function graph(
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await graph('GET', '/me', token) as any;
+            return { content: [{ type: 'text', text: `Connected to Microsoft Graph as ${data.mail ?? data.userPrincipalName ?? data.displayName ?? 'unknown'}` }] };
+        }
 
         // ── Teams ───────────────────────────────────────────────────────────
 

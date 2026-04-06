@@ -62,6 +62,12 @@ async function langsmithFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify LangSmith credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_projects',
         description: 'List LangSmith projects (repos/tracing sessions) in your workspace. Each project groups related LLM runs for observability.',
         inputSchema: {
@@ -217,6 +223,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await langsmithFetch('/api/v1/orgs', apiKey);
+            return toolOk({ connected: true, service: 'LangSmith' });
+        }
+
         case 'list_projects': {
             const limit = (args.limit as number) ?? 20;
             return langsmithFetch(`/api/v1/repos?limit=${limit}`, apiKey);

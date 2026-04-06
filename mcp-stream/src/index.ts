@@ -21,6 +21,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Stream credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_channels',
         description: 'List all channels',
         inputSchema: {
@@ -157,6 +163,12 @@ async function callTool(
     apiSecret: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const payload = encodeURIComponent(JSON.stringify({ filter_conditions: {}, limit: 1 }));
+            await callApi('GET', `/channels?payload=${payload}`, apiKey, apiSecret);
+            return { content: [{ type: 'text', text: 'Connected to Stream' }] };
+        }
         case 'list_channels': {
             const limit = (args.limit as number | undefined) ?? 10;
             const payload = encodeURIComponent(JSON.stringify({ filter_conditions: {}, limit }));

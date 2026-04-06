@@ -93,6 +93,12 @@ async function todoistFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Todoist credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Tasks (6 tools) ─────────────────────────────────────────────
 
     {
@@ -586,6 +592,11 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await todoistFetch('/user', token);
+            return { content: [{ type: 'text', text: 'Connected to Todoist' }] };
+        }
+
         // ── Tasks ───────────────────────────────────────────────────────────────
 
         case 'list_tasks': {

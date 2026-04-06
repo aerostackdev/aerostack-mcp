@@ -11,6 +11,12 @@ const TYPEFULLY_API = 'https://api.typefully.com/v2';
 
 const TOOLS = [
 	{
+		name: '_ping',
+		description: 'Verify Typefully credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+		inputSchema: { type: 'object', properties: {}, required: [] },
+		annotations: { readOnlyHint: true, destructiveHint: false },
+	},
+	{
 		name: 'get_me',
 		description: 'Get authenticated user details.',
 		inputSchema: { type: 'object', properties: {} },
@@ -223,6 +229,9 @@ async function typefully(path: string, apiKey: string, opts: RequestInit = {}): 
 
 async function callTool(name: string, args: Record<string, any>, apiKey: string): Promise<any> {
 	switch (name) {
+		case '_ping':
+			return typefully('/me', apiKey);
+
 		case 'get_me':
 			return typefully('/me', apiKey);
 

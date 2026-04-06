@@ -67,6 +67,13 @@ async function anthropicFetch(
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Anthropic credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
     // ── Group 1 — Messages (4 tools) ─────────────────────────────────────────
 
     {
@@ -392,6 +399,11 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            await anthropicFetch('/models', token);
+            return toolOk({ connected: true, service: 'Anthropic' });
+        }
 
         // ── Messages ──────────────────────────────────────────────────────────
 

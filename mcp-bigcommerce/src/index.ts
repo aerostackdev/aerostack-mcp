@@ -30,6 +30,12 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify BigCommerce credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_products',
         description: 'List products in the BigCommerce store',
         inputSchema: {
@@ -239,6 +245,11 @@ async function callTool(
     const v3 = `https://api.bigcommerce.com/stores/${storeHash}/v3`;
 
     switch (name) {
+        case '_ping': {
+            // GET /v2/store — validates API key + store hash
+            const data = await bcFetch(`https://api.bigcommerce.com/stores/${storeHash}/v2/store`, token) as any;
+            return { connected: true, store: data?.name ?? storeHash, domain: data?.domain ?? 'unknown' };
+        }
         case 'list_products': {
             const limit = args.limit ?? 20;
             const page = args.page ?? 1;

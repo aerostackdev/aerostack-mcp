@@ -19,6 +19,12 @@ const TYPEFORM_API_BASE = 'https://api.typeform.com';
 // ── Tool definitions ───────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Typeform credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // Forms
     {
         name: 'list_forms',
@@ -292,6 +298,11 @@ async function typeformFetch(path: string, token: string, options: RequestInit =
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await typeformFetch('/me', token);
+            return { content: [{ type: 'text', text: 'Connected to Typeform' }] };
+        }
+
         // ── Forms ──────────────────────────────────────────────────────────────
         case 'list_forms': {
             const params = new URLSearchParams({

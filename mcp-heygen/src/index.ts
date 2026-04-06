@@ -86,6 +86,12 @@ async function apiFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify HeyGen credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_avatars',
         description: 'List all available avatars in HeyGen.',
         inputSchema: {
@@ -179,6 +185,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await apiFetch('/v2/user/remaining_quota', apiKey) as { data?: { remaining_quota?: number } };
+            return { connected: true, remaining_quota: data.data?.remaining_quota ?? null };
+        }
+
         case 'list_avatars': {
             return apiFetch('/v2/avatars', apiKey);
         }

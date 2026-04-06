@@ -78,6 +78,12 @@ async function remoteFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Remote credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_employments',
         description: 'List all employments in your Remote organization with pagination.',
         inputSchema: {
@@ -160,6 +166,11 @@ async function callTool(
     accessToken: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await remoteFetch('/employments?page_size=1', accessToken);
+            return { content: [{ type: 'text', text: 'Connected to Remote' }] };
+        }
+
         case 'list_employments': {
             const params = new URLSearchParams();
             params.set('page', String(args.page ?? 1));

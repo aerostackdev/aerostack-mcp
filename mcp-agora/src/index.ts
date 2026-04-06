@@ -4,6 +4,12 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Agora credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'query_channel_user_list',
         description: 'List all users currently in an Agora channel',
         inputSchema: {
@@ -121,6 +127,16 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const res = await fetch(
+                `${base}/dev/v1/channel/${encodeURIComponent(appId)}?page_no=1&page_size=1`,
+                { headers },
+            );
+            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
+            return text('Connected to Agora');
+        }
+
         case 'query_channel_user_list': {
             const channelName = args.channel_name as string;
             if (!channelName) return text('Error: "channel_name" is required');

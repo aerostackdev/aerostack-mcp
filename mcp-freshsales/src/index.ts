@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Freshsales credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_contacts',
         description: 'List contacts in Freshsales',
         inputSchema: {
@@ -311,6 +317,11 @@ function buildQuery(params: Record<string, unknown>): string {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string, domain: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await freshsalesFetch('/settings/sales_accounts/fields', apiKey, domain);
+            return { content: [{ type: 'text', text: 'Connected to Freshsales' }] };
+        }
+
         case 'list_contacts': {
             const q = buildQuery({
                 per_page: args.per_page ?? 25,

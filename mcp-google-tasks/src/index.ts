@@ -53,6 +53,12 @@ async function apiFetch(path: string, token: string, options: RequestInit = {}):
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Google Tasks credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_task_lists',
     description: 'List all task lists for the authenticated user',
     inputSchema: { type: 'object', properties: {} },
@@ -208,6 +214,16 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`Google API ${res.status}: ${await res.text()}`);
+      const data = await res.json() as { email?: string };
+      return { connected: true, email: data.email ?? 'unknown' };
+    }
+
     case 'list_task_lists':
       return apiFetch('/users/@me/lists?maxResults=100', token);
 

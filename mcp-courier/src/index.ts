@@ -78,6 +78,12 @@ async function courierFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Courier credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true },
+    },
+    {
         name: 'send',
         description: 'Send a notification via Courier. Supports email, push, SMS, and other channels through templates or inline content.',
         inputSchema: {
@@ -179,6 +185,10 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            return courierFetch('/messages?limit=1', apiKey);
+        }
+
         case 'send': {
             const to: Record<string, unknown> = {};
             if (args.to_email) to.email = args.to_email;

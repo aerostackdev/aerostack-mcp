@@ -78,6 +78,12 @@ async function loopsFetch(
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Loops credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'create_contact',
         description: 'Create a new contact in Loops. Email is required. You can also set custom properties.',
         inputSchema: {
@@ -181,6 +187,12 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await loopsFetch('/api-key', apiKey) as { success?: boolean; teamName?: string };
+            return { connected: true, teamName: data.teamName ?? 'unknown' };
+        }
+
         case 'create_contact': {
             validateRequired(args, ['email']);
             const body: Record<string, unknown> = { email: args.email };

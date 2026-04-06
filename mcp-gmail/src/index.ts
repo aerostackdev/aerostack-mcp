@@ -200,6 +200,12 @@ function getHeader(headers: GmailMessageHeader[] | undefined, name: string): str
 // ── Tool definitions ──────────────────────────────────────────────────────────
 
 const TOOLS = [
+    {
+        name: '_ping',
+        description: 'Verify Gmail credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
     // ── Group 1 — Reading Messages (5 tools) ─────────────────────────────────
 
     {
@@ -647,6 +653,12 @@ async function callTool(
     token: string,
 ): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            const data = await gmailFetch('/users/me/profile', token) as { emailAddress?: string };
+            return `Connected to Gmail as ${data.emailAddress ?? 'unknown'}`;
+        }
 
         // ── Reading Messages ───────────────────────────────────────────────────
 

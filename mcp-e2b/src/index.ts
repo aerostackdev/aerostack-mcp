@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify E2B credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_templates',
         description: 'List available E2B sandbox templates',
         inputSchema: {
@@ -104,6 +110,11 @@ async function e2bApi(path: string, apiKey: string, opts: RequestInit = {}) {
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await e2bApi('/sandboxes?limit=1', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to E2B' }] };
+        }
+
         case 'list_templates': {
             const limit = Math.min(Number(args.limit ?? 20), 100);
             const data = await e2bApi(`/sandboxes/templates?limit=${limit}`, apiKey) as any;

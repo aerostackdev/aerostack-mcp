@@ -74,6 +74,12 @@ async function apiDelete(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Netlify credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_sites',
     description: 'List all Netlify sites in your account',
     inputSchema: {
@@ -229,6 +235,12 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      const data = await apiGet('/user', apiKey) as { email?: string; full_name?: string };
+      return { connected: true, email: data.email ?? data.full_name ?? 'unknown' };
+    }
+
     case 'list_sites': {
       const filter = args.filter ? String(args.filter) : 'all';
       return apiGet('/sites', apiKey, { filter });

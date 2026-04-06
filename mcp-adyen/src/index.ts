@@ -67,6 +67,12 @@ async function adyenFetch(
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Adyen credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'list_merchants',
     description: 'List all merchant accounts in the Adyen management API',
     inputSchema: { type: 'object', properties: {}, required: [] },
@@ -217,6 +223,11 @@ async function handleTool(
   apiKey: string,
 ): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      await adyenFetch(`${MGMT_BASE}/merchants?pageSize=1`, apiKey);
+      return toolOk({ connected: true, service: 'Adyen' });
+    }
+
     case 'list_merchants':
       return toolOk(await adyenFetch(`${MGMT_BASE}/merchants?pageSize=50`, apiKey));
 

@@ -4,6 +4,12 @@
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Weaviate credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_collections',
         description: 'List all collections/classes in the Weaviate schema',
         inputSchema: { type: 'object', properties: {}, required: [] },
@@ -157,6 +163,12 @@ async function callTool(
     };
 
     switch (name) {
+        case '_ping': {
+            const res = await fetch(`${base}/v1/meta`, { headers });
+            if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);
+            return text('Connected to Weaviate');
+        }
+
         case 'list_collections': {
             const res = await fetch(`${base}/v1/schema`, { headers });
             if (!res.ok) return text(`Error: ${res.status} ${await res.text()}`);

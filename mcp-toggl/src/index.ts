@@ -57,6 +57,12 @@ async function apiFetch(url: string, token: string, options: RequestInit = {}): 
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify Toggl credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true, destructiveHint: false },
+  },
+  {
     name: 'get_current_user',
     description: 'Get the current authenticated Toggl user',
     inputSchema: { type: 'object', properties: {} },
@@ -229,6 +235,12 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      // Call a lightweight read endpoint to verify credentials
+      await apiFetch(`${TOGGL_API}/me`, token);
+      return toolOk({ connected: true });
+    }
+
     case 'get_current_user':
       return apiFetch(`${TOGGL_API}/me`, token);
 

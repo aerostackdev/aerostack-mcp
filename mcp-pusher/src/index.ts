@@ -27,6 +27,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Pusher credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'trigger_event',
         description: 'Trigger a real-time event on a Pusher channel. Optionally exclude a socket from receiving the event.',
         inputSchema: {
@@ -351,6 +357,12 @@ function md5(data: Uint8Array): string {
 
 async function callTool(name: string, args: Record<string, unknown>, creds: PusherCreds): Promise<unknown> {
     switch (name) {
+
+        case '_ping': {
+            // List channels — lightweight GET that validates app_id + key + secret via HMAC
+            await pusherGet('/channels', {}, creds);
+            return { connected: true, app_id: creds.appId, cluster: creds.cluster };
+        }
 
         case 'trigger_event': {
             const body: Record<string, unknown> = {

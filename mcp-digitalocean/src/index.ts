@@ -64,6 +64,12 @@ async function apiDelete(path: string, apiKey: string): Promise<unknown> {
 
 const TOOLS = [
   {
+    name: '_ping',
+    description: 'Verify DigitalOcean credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
     name: 'list_droplets',
     description: 'List all Droplets in your DigitalOcean account',
     inputSchema: {
@@ -238,6 +244,9 @@ const TOOLS = [
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
   switch (name) {
+    case '_ping': {
+      return apiGet('/account', apiKey);
+    }
     case 'list_droplets': {
       const params: Record<string, string> = {
         page: String(args.page ?? 1),

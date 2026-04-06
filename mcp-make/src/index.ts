@@ -24,6 +24,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Make credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_scenarios',
         description: 'List automation scenarios for the configured team',
         inputSchema: {
@@ -128,6 +134,11 @@ async function makeApi(path: string, apiKey: string, region: string, opts: Reque
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string, region: string, teamId: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await makeApi(`/users/me`, apiKey, region);
+            return { content: [{ type: 'text', text: 'Connected to Make' }] };
+        }
+
         case 'list_scenarios': {
             const limit = Math.min(Number(args.limit ?? 20), 100);
             const data = await makeApi(`/scenarios?teamId=${teamId}&limit=${limit}`, apiKey, region) as any;

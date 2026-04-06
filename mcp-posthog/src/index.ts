@@ -27,6 +27,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify PostHog credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'capture_event',
         description: 'Capture a custom event in PostHog for a specific user',
         inputSchema: {
@@ -183,6 +189,11 @@ async function callTool(
     projectApiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await phApi('/users/@me/', apiKey);
+            return { content: [{ type: 'text', text: 'Connected to PostHog' }] };
+        }
+
         case 'capture_event': {
             if (!args.distinct_id) throw new Error('distinct_id is required');
             if (!args.event) throw new Error('event is required');

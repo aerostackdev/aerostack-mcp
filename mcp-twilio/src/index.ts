@@ -25,6 +25,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Twilio credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'send_sms',
         description: 'Send an SMS message via Twilio',
         inputSchema: {
@@ -105,6 +111,12 @@ async function twilio(path: string, accountSid: string, authToken: string, opts:
 
 async function callTool(name: string, args: Record<string, unknown>, accountSid: string, authToken: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            // Call a lightweight read endpoint to verify credentials
+            await twilio('.json', accountSid, authToken);
+            return { content: [{ type: 'text', text: 'Connected to Twilio' }] };
+        }
+
         case 'send_sms': {
             const body = new URLSearchParams({
                 To: String(args.to),

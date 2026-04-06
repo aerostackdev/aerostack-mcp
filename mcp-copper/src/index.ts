@@ -25,6 +25,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Copper credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_people',
         description: 'List people (contacts) in Copper CRM',
         inputSchema: {
@@ -288,6 +294,11 @@ async function copperFetch(
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string, userEmail: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            await copperFetch('/account', apiKey, userEmail);
+            return { content: [{ type: 'text', text: 'Connected to Copper' }] };
+        }
+
         case 'list_people': {
             const body = {
                 page_size: args.page_size ?? 25,

@@ -23,6 +23,12 @@ function rpcErr(id: number | string | null, code: number, message: string) {
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify Webflow credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'list_sites',
         description: 'List all Webflow sites accessible to the authenticated user',
         inputSchema: {
@@ -184,6 +190,12 @@ async function webflowRequest(
 
 async function callTool(name: string, args: Record<string, unknown>, token: string): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const res = await webflowRequest('GET', '/sites', token);
+            if (!res.ok) throw new Error(`Webflow API error ${res.status}: ${await res.text()}`);
+            return 'Connected to Webflow';
+        }
+
         case 'list_sites': {
             const res = await webflowRequest('GET', '/sites', token);
             if (!res.ok) throw new Error(`Webflow API error ${res.status}: ${await res.text()}`);

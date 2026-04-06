@@ -116,6 +116,12 @@ async function aaiPostBinary(path: string, apiKey: string, body: Uint8Array, con
 
 const TOOLS = [
     {
+        name: '_ping',
+        description: 'Verify AssemblyAI credentials by calling a lightweight read endpoint. Used internally by Aerostack to validate credentials.',
+        inputSchema: { type: 'object', properties: {}, required: [] },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
         name: 'transcribe_url',
         description: 'Submit an audio URL for transcription with AssemblyAI',
         inputSchema: {
@@ -368,6 +374,11 @@ async function callTool(
     apiKey: string,
 ): Promise<unknown> {
     switch (name) {
+        case '_ping': {
+            const data = await aaiGet('/transcript', apiKey, { limit: '1' }) as any;
+            return { connected: true, transcript_count: data.page_details?.total_count ?? 0 };
+        }
+
         case 'transcribe_url': {
             validateRequired(args, ['audio_url']);
             const body: Record<string, unknown> = {
