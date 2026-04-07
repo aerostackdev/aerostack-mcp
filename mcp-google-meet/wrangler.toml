@@ -1,7 +1,7 @@
-name = "as-mcp-platform-aerostackmcp-gmeet-production"
+name = "as-mcp-platform-aerostackmcp-google-meet-production"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
 [env.production]
-name = "as-mcp-platform-aerostackmcp-gmeet-production"
+name = "as-mcp-platform-aerostackmcp-google-meet-production"
