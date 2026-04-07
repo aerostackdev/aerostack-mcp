@@ -3,6 +3,7 @@ description = "Create, read, edit, and format Google Docs — paragraph styling,
 category = "Productivity"
 tags = ["google", "docs", "documents", "productivity", "drive", "collaboration"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/documents", "https://www.googleapis.com/auth/drive.file"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

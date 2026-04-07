@@ -3,6 +3,7 @@ description = "Manage Google Tasks — create, update, and organize task lists a
 category = "Productivity"
 tags = ["google", "tasks", "todo", "productivity", "gtasks"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/tasks"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

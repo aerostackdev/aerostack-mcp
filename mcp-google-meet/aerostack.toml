@@ -3,6 +3,7 @@ description = "Create and manage Google Meet spaces, schedule meetings via Googl
 category = "Productivity"
 tags = ["google", "meet", "video", "calendar", "conferencing", "recordings", "transcripts"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/calendar"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

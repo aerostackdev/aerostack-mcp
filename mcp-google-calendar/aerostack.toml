@@ -3,6 +3,7 @@ description = "Create events, check availability, and manage calendars across Go
 category = "Scheduling"
 tags = ["calendar", "google", "scheduling", "events", "meetings"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/calendar"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

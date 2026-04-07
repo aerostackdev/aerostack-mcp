@@ -3,6 +3,7 @@ description = "List, search, upload, share, and organize files in Google Drive â
 category = "File Storage"
 tags = ["google", "storage", "files", "documents", "drive"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/drive"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

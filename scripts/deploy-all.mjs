@@ -238,7 +238,7 @@ if (!PROXIES_ONLY || HOSTED_ONLY) {
         ...(toml.description && { description: toml.description }),
         ...(toml.category    && { category:    toml.category }),
         ...(toml.tags        && { tags:        toml.tags }),
-        ...(toml.env         && { config_schema: { env: toml.env } }),
+        ...(toml.env         && { config_schema: { env: toml.env, ...(toml.scopes && { scopes: toml.scopes }) } }),
         ...(readme           && { readme }),
         ...(toml.capability_manifest && { capability_manifest: toml.capability_manifest }),
       });

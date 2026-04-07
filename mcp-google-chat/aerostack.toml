@@ -3,6 +3,7 @@ description = "Collaborate with Google Chat — send messages, manage spaces, ad
 category = "Communication"
 tags = ["google-chat", "messaging", "google-workspace", "collaboration"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/chat.spaces", "https://www.googleapis.com/auth/chat.messages"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]

@@ -3,6 +3,7 @@ description = "Read, write, and format Google Sheets data — use your spreadshe
 category = "Database"
 tags = ["google", "spreadsheet", "data", "sheets", "database"]
 env = ["GOOGLE_ACCESS_TOKEN"]
+scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
