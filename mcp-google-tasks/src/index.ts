@@ -3,7 +3,7 @@
  * Implements MCP protocol over HTTP for Google Tasks API operations.
  * Receives secrets via X-Mcp-Secret-* headers from the Aerostack gateway.
  *
- * Secret: GOOGLE_TASKS_ACCESS_TOKEN → header: X-Mcp-Secret-GOOGLE-TASKS-ACCESS-TOKEN
+ * Secret: GOOGLE_ACCESS_TOKEN → header: X-Mcp-Secret-GOOGLE-ACCESS-TOKEN
  */
 
 const TASKS_API = 'https://tasks.googleapis.com/tasks/v1';
@@ -30,7 +30,7 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 }
 
 function getApiKey(request: Request): string | null {
-  return request.headers.get('X-Mcp-Secret-GOOGLE-TASKS-ACCESS-TOKEN');
+  return request.headers.get('X-Mcp-Secret-GOOGLE-ACCESS-TOKEN');
 }
 
 async function apiFetch(path: string, token: string, options: RequestInit = {}): Promise<unknown> {

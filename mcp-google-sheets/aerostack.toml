@@ -2,10 +2,10 @@ name = "mcp-google-sheets"
 description = "Read, write, and format Google Sheets data — use your spreadsheets as a live AI-accessible data source."
 category = "Database"
 tags = ["google", "spreadsheet", "data", "sheets", "database"]
-env = ["GOOGLE_SHEETS_ACCESS_TOKEN"]
+env = ["GOOGLE_ACCESS_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
 [secrets]
-GOOGLE_SHEETS_ACCESS_TOKEN = "Your Google OAuth 2.0 access token (requires spreadsheets scope)"
+GOOGLE_ACCESS_TOKEN = "Your Google OAuth 2.0 access token (requires spreadsheets scope)"

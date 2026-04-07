@@ -4,7 +4,7 @@
  * Receives secrets via X-Mcp-Secret-* headers from the Aerostack gateway.
  *
  * Secrets required:
- *   GOOGLE_SHEETS_ACCESS_TOKEN → X-Mcp-Secret-GOOGLE-SHEETS-ACCESS-TOKEN
+ *   GOOGLE_ACCESS_TOKEN → X-Mcp-Secret-GOOGLE-ACCESS-TOKEN
  *   (OAuth 2.0 access token with spreadsheets scope)
  *
  * Covers:
@@ -48,7 +48,7 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 }
 
 function getToken(request: Request): string | null {
-    return request.headers.get('X-Mcp-Secret-GOOGLE-SHEETS-ACCESS-TOKEN');
+    return request.headers.get('X-Mcp-Secret-GOOGLE-ACCESS-TOKEN');
 }
 
 async function sheetsFetch(path: string, token: string, options: RequestInit = {}): Promise<unknown> {
@@ -81,7 +81,7 @@ async function sheetsFetch(path: string, token: string, options: RequestInit = {
                 throw new Error(`Bad request — ${msg}`);
             case 401:
                 throw new Error(
-                    'Authentication failed — verify GOOGLE_SHEETS_ACCESS_TOKEN is a valid OAuth 2.0 access token with spreadsheets scope',
+                    'Authentication failed — verify GOOGLE_ACCESS_TOKEN is a valid OAuth 2.0 access token with spreadsheets scope',
                 );
             case 403:
                 throw new Error(
@@ -1061,7 +1061,7 @@ export default {
             return rpcErr(
                 id,
                 -32001,
-                'Missing required secret — add GOOGLE_SHEETS_ACCESS_TOKEN to workspace secrets. This should be an OAuth 2.0 access token with the spreadsheets scope.',
+                'Missing required secret — add GOOGLE_ACCESS_TOKEN to workspace secrets. This should be an OAuth 2.0 access token with the spreadsheets scope.',
             );
         }
 

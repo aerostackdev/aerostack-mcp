@@ -3,7 +3,7 @@
  * Implements MCP protocol over HTTP for Google Forms API operations.
  * Receives secrets via X-Mcp-Secret-* headers from the Aerostack gateway.
  *
- * Secret: GOOGLE_FORMS_ACCESS_TOKEN → header: X-Mcp-Secret-GOOGLE-FORMS-ACCESS-TOKEN
+ * Secret: GOOGLE_ACCESS_TOKEN → header: X-Mcp-Secret-GOOGLE-ACCESS-TOKEN
  */
 
 const FORMS_API = 'https://forms.googleapis.com/v1';
@@ -31,7 +31,7 @@ function validateRequired(args: Record<string, unknown>, fields: string[]): void
 }
 
 function getApiKey(request: Request): string | null {
-  return request.headers.get('X-Mcp-Secret-GOOGLE-FORMS-ACCESS-TOKEN');
+  return request.headers.get('X-Mcp-Secret-GOOGLE-ACCESS-TOKEN');
 }
 
 async function apiFetch(url: string, token: string, options: RequestInit = {}): Promise<unknown> {
