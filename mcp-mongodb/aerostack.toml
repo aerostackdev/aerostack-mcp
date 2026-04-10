@@ -4,5 +4,5 @@ category = "Database"
 tags = ["database", "mongodb", "nosql", "document", "atlas"]
 env = ["MONGODB_APP_ID", "MONGODB_API_KEY", "MONGODB_CLUSTER"]
 main = "src/index.ts"
-compatibility_date = "2024-11-01"
+compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]

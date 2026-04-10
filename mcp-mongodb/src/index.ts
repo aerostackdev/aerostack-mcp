@@ -1,36 +1,27 @@
 // mcp-mongodb — Aerostack MCP Server
-// Wraps the MongoDB Atlas Data API (REST)
+// Uses MongoDB Atlas Data API (REST, no native driver needed)
 // Secrets: X-Mcp-Secret-MONGODB-APP-ID, X-Mcp-Secret-MONGODB-API-KEY, X-Mcp-Secret-MONGODB-CLUSTER
+//
+// Setup: https://www.mongodb.com/docs/atlas/app-services/data-api/
+// App ID: found in Atlas App Services → your app → App ID
+// API Key: Atlas App Services → Authentication → API Keys
 
 const TOOLS = [
     {
         name: '_ping',
-        description: 'Verify MongoDB Atlas connectivity by running a findOne. Used internally by Aerostack to validate credentials.',
+        description: 'Verify MongoDB Atlas connectivity. Used internally by Aerostack to validate credentials.',
         inputSchema: {
             type: 'object',
             properties: {
-                database: { type: 'string', description: 'Database name to ping' },
-                collection: { type: 'string', description: 'Collection name to ping' },
+                database: { type: 'string', description: 'Optional: database name to test against (default: test)' },
+                collection: { type: 'string', description: 'Optional: collection name to test against (default: _ping)' },
             },
-            required: ['database', 'collection'],
-        },
-        annotations: { readOnlyHint: true, destructiveHint: false },
-    },
-    {
-        name: 'list_databases',
-        description: 'List all databases in the MongoDB Atlas cluster',
-        inputSchema: {
-            type: 'object',
-            properties: {
-                database: { type: 'string', description: 'Any existing database name to run the listDatabases command against' },
-            },
-            required: ['database'],
         },
         annotations: { readOnlyHint: true, destructiveHint: false },
     },
     {
         name: 'list_collections',
-        description: 'List all collections in a MongoDB database',
+        description: 'List all collections in a MongoDB database using $listCatalog (requires MongoDB 6.0+)',
         inputSchema: {
             type: 'object',
             properties: {
@@ -57,7 +48,7 @@ const TOOLS = [
     },
     {
         name: 'find',
-        description: 'Find multiple documents in a collection with filter, sort, limit, skip, and projection',
+        description: 'Find multiple documents with optional filter, sort, limit, skip, and projection',
         inputSchema: {
             type: 'object',
             properties: {
@@ -65,7 +56,7 @@ const TOOLS = [
                 collection: { type: 'string', description: 'Collection name' },
                 filter: { type: 'object', description: 'MongoDB query filter (default: {})' },
                 sort: { type: 'object', description: 'Sort order, e.g. {"createdAt": -1}' },
-                limit: { type: 'number', description: 'Maximum documents to return (default: 100)' },
+                limit: { type: 'number', description: 'Maximum documents to return (default: 100, max: 500)' },
                 skip: { type: 'number', description: 'Number of documents to skip for pagination' },
                 projection: { type: 'object', description: 'Fields to include or exclude' },
             },
@@ -103,7 +94,7 @@ const TOOLS = [
     },
     {
         name: 'update_one',
-        description: 'Update a single document in a collection matching a filter',
+        description: 'Update a single document matching a filter',
         inputSchema: {
             type: 'object',
             properties: {
@@ -111,7 +102,7 @@ const TOOLS = [
                 collection: { type: 'string', description: 'Collection name' },
                 filter: { type: 'object', description: 'MongoDB query filter to match the document' },
                 update: { type: 'object', description: 'Update operations, e.g. {"$set": {"status": "active"}}' },
-                upsert: { type: 'boolean', description: 'If true, insert a document if none match the filter' },
+                upsert: { type: 'boolean', description: 'Insert if no document matches the filter' },
             },
             required: ['database', 'collection', 'filter', 'update'],
         },
@@ -119,7 +110,7 @@ const TOOLS = [
     },
     {
         name: 'update_many',
-        description: 'Update multiple documents in a collection matching a filter',
+        description: 'Update all documents matching a filter',
         inputSchema: {
             type: 'object',
             properties: {
@@ -127,7 +118,7 @@ const TOOLS = [
                 collection: { type: 'string', description: 'Collection name' },
                 filter: { type: 'object', description: 'MongoDB query filter to match documents' },
                 update: { type: 'object', description: 'Update operations, e.g. {"$set": {"archived": true}}' },
-                upsert: { type: 'boolean', description: 'If true, insert a document if none match the filter' },
+                upsert: { type: 'boolean', description: 'Insert if no documents match the filter' },
             },
             required: ['database', 'collection', 'filter', 'update'],
         },
@@ -135,7 +126,7 @@ const TOOLS = [
     },
     {
         name: 'delete_one',
-        description: 'Delete a single document from a collection matching a filter',
+        description: 'Delete a single document matching a filter',
         inputSchema: {
             type: 'object',
             properties: {
@@ -149,7 +140,7 @@ const TOOLS = [
     },
     {
         name: 'delete_many',
-        description: 'Delete multiple documents from a collection matching a filter',
+        description: 'Delete all documents matching a filter',
         inputSchema: {
             type: 'object',
             properties: {
@@ -177,6 +168,8 @@ const TOOLS = [
     },
 ];
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function text(content: string) {
     return { content: [{ type: 'text', text: content }] };
 }
@@ -185,12 +178,16 @@ function json(data: unknown) {
     return text(JSON.stringify(data, null, 2));
 }
 
+/**
+ * Call the MongoDB Atlas Data API.
+ * Throws on HTTP errors with a descriptive message.
+ */
 async function mongoFetch(
     appId: string,
     apiKey: string,
     action: string,
     payload: Record<string, unknown>,
-) {
+): Promise<Record<string, unknown>> {
     const url = `https://data.mongodb-api.com/app/${appId}/endpoint/data/v1/action/${action}`;
     const res = await fetch(url, {
         method: 'POST',
@@ -200,12 +197,28 @@ async function mongoFetch(
         },
         body: JSON.stringify(payload),
     });
+
+    const body = await res.text();
+
     if (!res.ok) {
-        const body = await res.text();
-        throw new Error(`MongoDB Atlas API returned ${res.status}: ${body}`);
+        // Surface helpful error context
+        if (res.status === 404) {
+            throw new Error(`App ID not found (404). Verify your MONGODB_APP_ID — it should look like "data-abcde" from Atlas App Services. Raw: ${body}`);
+        }
+        if (res.status === 401) {
+            throw new Error(`Authentication failed (401). Check your MONGODB_API_KEY. Raw: ${body}`);
+        }
+        throw new Error(`MongoDB Atlas API error ${res.status}: ${body}`);
     }
-    return res.json();
+
+    try {
+        return JSON.parse(body) as Record<string, unknown>;
+    } catch {
+        throw new Error(`Unexpected non-JSON response: ${body}`);
+    }
 }
+
+// ─── Tool execution ───────────────────────────────────────────────────────────
 
 async function callTool(
     name: string,
@@ -213,49 +226,43 @@ async function callTool(
     appId: string,
     apiKey: string,
     cluster: string,
-) {
+): Promise<{ content: { type: string; text: string }[] }> {
     switch (name) {
         case '_ping': {
-            const database = args.database as string;
-            const collection = args.collection as string;
-            if (!database || !collection) return text('Error: database and collection are required for ping');
+            // Use optional database/collection params with safe defaults.
+            // Any valid response (even empty result) proves credentials work.
+            const database = (args.database as string) || 'test';
+            const collection = (args.collection as string) || '_ping';
             await mongoFetch(appId, apiKey, 'findOne', {
                 dataSource: cluster,
                 database,
                 collection,
                 filter: {},
             });
-            return text(`Connected to MongoDB Atlas cluster "${cluster}"`);
-        }
-
-        case 'list_databases': {
-            const database = args.database as string;
-            if (!database) return text('Error: database is required');
-            const result = await mongoFetch(appId, apiKey, 'aggregate', {
-                dataSource: cluster,
-                database,
-                collection: '_dummy',
-                pipeline: [
-                    { $currentOp: { allUsers: true, idleConnections: false } },
-                ],
-            });
-            // The Data API may not support admin commands directly.
-            // Fall back to returning the aggregate result or a helpful message.
-            return json(result);
+            return text(`Connected to MongoDB Atlas cluster "${cluster}" successfully.`);
         }
 
         case 'list_collections': {
             const database = args.database as string;
             if (!database) return text('Error: database is required');
+            // $listCatalog (MongoDB 6.0+) returns all collections in the database.
+            // We run it against a sentinel collection — the stage is database-level
+            // and works even if the sentinel collection has no documents.
             const result = await mongoFetch(appId, apiKey, 'aggregate', {
                 dataSource: cluster,
                 database,
-                collection: '_dummy',
-                pipeline: [
-                    { $listLocalSessions: {} },
-                ],
+                collection: '_catalog',
+                pipeline: [{ $listCatalog: {} }],
             });
-            return json(result);
+            const docs = (result.documents as Record<string, unknown>[]) || [];
+            // Filter out system/internal collections
+            const collections = docs
+                .filter((d) => typeof d.name === 'string' && !d.name.startsWith('system.'))
+                .map((d) => ({ name: d.name, type: d.type }));
+            if (collections.length === 0) {
+                return text(`No user collections found in database "${database}". The database may be empty or $listCatalog may not be supported on your cluster version (requires MongoDB 6.0+).`);
+            }
+            return json(collections);
         }
 
         case 'find_one': {
@@ -270,7 +277,7 @@ async function callTool(
             };
             if (args.projection) payload.projection = args.projection;
             const result = await mongoFetch(appId, apiKey, 'findOne', payload);
-            return json(result);
+            return json(result.document ?? null);
         }
 
         case 'find': {
@@ -284,11 +291,11 @@ async function callTool(
                 filter: args.filter || {},
             };
             if (args.sort) payload.sort = args.sort;
-            if (args.limit !== undefined) payload.limit = args.limit;
-            if (args.skip !== undefined) payload.skip = args.skip;
+            if (typeof args.skip === 'number') payload.skip = args.skip;
+            payload.limit = typeof args.limit === 'number' ? Math.min(args.limit, 500) : 100;
             if (args.projection) payload.projection = args.projection;
             const result = await mongoFetch(appId, apiKey, 'find', payload);
-            return json(result);
+            return json(result.documents ?? []);
         }
 
         case 'insert_one': {
@@ -296,14 +303,14 @@ async function callTool(
             const collection = args.collection as string;
             const document = args.document as Record<string, unknown>;
             if (!database || !collection) return text('Error: database and collection are required');
-            if (!document) return text('Error: document is required');
+            if (!document || typeof document !== 'object') return text('Error: document must be an object');
             const result = await mongoFetch(appId, apiKey, 'insertOne', {
                 dataSource: cluster,
                 database,
                 collection,
                 document,
             });
-            return json(result);
+            return json({ insertedId: result.insertedId });
         }
 
         case 'insert_many': {
@@ -311,14 +318,14 @@ async function callTool(
             const collection = args.collection as string;
             const documents = args.documents as Record<string, unknown>[];
             if (!database || !collection) return text('Error: database and collection are required');
-            if (!documents || !Array.isArray(documents)) return text('Error: documents array is required');
+            if (!Array.isArray(documents) || documents.length === 0) return text('Error: documents must be a non-empty array');
             const result = await mongoFetch(appId, apiKey, 'insertMany', {
                 dataSource: cluster,
                 database,
                 collection,
                 documents,
             });
-            return json(result);
+            return json({ insertedIds: result.insertedIds });
         }
 
         case 'update_one': {
@@ -330,15 +337,11 @@ async function callTool(
             if (!filter) return text('Error: filter is required');
             if (!update) return text('Error: update is required');
             const payload: Record<string, unknown> = {
-                dataSource: cluster,
-                database,
-                collection,
-                filter,
-                update,
+                dataSource: cluster, database, collection, filter, update,
             };
             if (args.upsert !== undefined) payload.upsert = args.upsert;
             const result = await mongoFetch(appId, apiKey, 'updateOne', payload);
-            return json(result);
+            return json({ matchedCount: result.matchedCount, modifiedCount: result.modifiedCount, upsertedId: result.upsertedId });
         }
 
         case 'update_many': {
@@ -350,15 +353,11 @@ async function callTool(
             if (!filter) return text('Error: filter is required');
             if (!update) return text('Error: update is required');
             const payload: Record<string, unknown> = {
-                dataSource: cluster,
-                database,
-                collection,
-                filter,
-                update,
+                dataSource: cluster, database, collection, filter, update,
             };
             if (args.upsert !== undefined) payload.upsert = args.upsert;
             const result = await mongoFetch(appId, apiKey, 'updateMany', payload);
-            return json(result);
+            return json({ matchedCount: result.matchedCount, modifiedCount: result.modifiedCount, upsertedId: result.upsertedId });
         }
 
         case 'delete_one': {
@@ -368,12 +367,9 @@ async function callTool(
             if (!database || !collection) return text('Error: database and collection are required');
             if (!filter) return text('Error: filter is required');
             const result = await mongoFetch(appId, apiKey, 'deleteOne', {
-                dataSource: cluster,
-                database,
-                collection,
-                filter,
+                dataSource: cluster, database, collection, filter,
             });
-            return json(result);
+            return json({ deletedCount: result.deletedCount });
         }
 
         case 'delete_many': {
@@ -383,12 +379,9 @@ async function callTool(
             if (!database || !collection) return text('Error: database and collection are required');
             if (!filter) return text('Error: filter is required');
             const result = await mongoFetch(appId, apiKey, 'deleteMany', {
-                dataSource: cluster,
-                database,
-                collection,
-                filter,
+                dataSource: cluster, database, collection, filter,
             });
-            return json(result);
+            return json({ deletedCount: result.deletedCount });
         }
 
         case 'aggregate': {
@@ -396,14 +389,11 @@ async function callTool(
             const collection = args.collection as string;
             const pipeline = args.pipeline as Record<string, unknown>[];
             if (!database || !collection) return text('Error: database and collection are required');
-            if (!pipeline || !Array.isArray(pipeline)) return text('Error: pipeline array is required');
+            if (!Array.isArray(pipeline)) return text('Error: pipeline must be an array');
             const result = await mongoFetch(appId, apiKey, 'aggregate', {
-                dataSource: cluster,
-                database,
-                collection,
-                pipeline,
+                dataSource: cluster, database, collection, pipeline,
             });
-            return json(result);
+            return json(result.documents ?? []);
         }
 
         default:
@@ -411,12 +401,12 @@ async function callTool(
     }
 }
 
+// ─── Worker handler ───────────────────────────────────────────────────────────
+
 export default {
     async fetch(request: Request): Promise<Response> {
         if (request.method === 'GET') {
-            return new Response(JSON.stringify({ status: 'ok', server: 'mcp-mongodb' }), {
-                headers: { 'Content-Type': 'application/json' },
-            });
+            return Response.json({ status: 'ok', server: 'mcp-mongodb', version: '2.1.0' });
         }
 
         if (request.method !== 'POST') {
@@ -431,9 +421,9 @@ export default {
         try {
             body = await request.json() as typeof body;
         } catch {
-            return new Response(
-                JSON.stringify({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } }),
-                { status: 400, headers: { 'Content-Type': 'application/json' } },
+            return Response.json(
+                { jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } },
+                { status: 400 },
             );
         }
 
@@ -445,7 +435,7 @@ export default {
                 result: {
                     protocolVersion: '2024-11-05',
                     capabilities: { tools: {} },
-                    serverInfo: { name: 'mcp-mongodb', version: '1.0.0' },
+                    serverInfo: { name: 'mcp-mongodb', version: '2.1.0' },
                 },
             });
         }
@@ -458,7 +448,10 @@ export default {
             if (!appId || !apiKey || !cluster) {
                 return Response.json({
                     jsonrpc: '2.0', id,
-                    error: { code: -32001, message: 'Missing secrets: MONGODB_APP_ID, MONGODB_API_KEY, and MONGODB_CLUSTER required' },
+                    error: {
+                        code: -32001,
+                        message: 'Missing credentials. Configure MONGODB_APP_ID (Atlas App Services App ID), MONGODB_API_KEY, and MONGODB_CLUSTER (cluster name, e.g. "Cluster0").',
+                    },
                 });
             }
             const { name, arguments: args = {} } = (params || {}) as { name: string; arguments?: Record<string, unknown> };
