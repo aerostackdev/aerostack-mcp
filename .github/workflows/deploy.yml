@@ -48,6 +48,9 @@ jobs:
 
       - run: npm install -g esbuild
 
+      - name: Validate deploy script (parser regression guard)
+        run: node --test scripts/__tests__/
+
       - name: Set deploy environment
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then

@@ -17,6 +17,7 @@ import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir } from 'node:os';
+import { collectSecretKeys } from './lib/secret-keys.mjs';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT  = join(__dir, '..');
@@ -234,11 +235,21 @@ if (!PROXIES_ONLY || HOSTED_ONLY) {
       const readme = existsSync(join(dirPath, 'README.md'))
         ? readFileSync(join(dirPath, 'README.md'), 'utf8') : undefined;
 
+      // Union the legacy `env = [...]` array with the newer `[secrets]` table.
+      // Both formats coexist in market tomls; until this fix the parser only
+      // read `toml.env`, leaving `[secrets]`-only MCPs (jira-cloud, eventbrite,
+      // gorgias, …) with empty config_schema.env in the registry — meaning the
+      // gateway never injected their X-Mcp-Secret-* headers and workers errored
+      // with "Missing X_KEY secret" upstream. See parse-secrets.test.mjs.
+      const secretKeys = collectSecretKeys(toml);
+
       await patchMcpMeta(data.mcp_server_id, {
         ...(toml.description && { description: toml.description }),
         ...(toml.category    && { category:    toml.category }),
         ...(toml.tags        && { tags:        toml.tags }),
-        ...(toml.env         && { config_schema: { env: toml.env, ...(toml.scopes && { scopes: toml.scopes }) } }),
+        ...(secretKeys.length > 0 && {
+          config_schema: { env: secretKeys, ...(toml.scopes && { scopes: toml.scopes }) },
+        }),
         ...(readme           && { readme }),
         ...(toml.capability_manifest && { capability_manifest: toml.capability_manifest }),
       });
