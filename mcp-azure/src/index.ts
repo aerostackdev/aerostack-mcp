@@ -145,6 +145,35 @@ async function azurePut(path: string, token: string, body: unknown, params?: Rec
   try { return JSON.parse(text); } catch { return { raw: text }; }
 }
 
+async function azureDelete(path: string, token: string, params?: Record<string, string>): Promise<unknown> {
+  const url = new URL(`${MGMT_BASE}${path}`);
+  if (params) Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+  const res = await fetch(url.toString(), {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+  });
+  if (res.status === 202) return { accepted: true, status: 202 };
+  if (res.status === 204) return { success: true };
+  if (!res.ok) throw new Error(`Azure API error (${res.status}): ${(await res.text()).slice(0, 500)}`);
+  const text = await res.text();
+  if (!text) return { success: true };
+  try { return JSON.parse(text); } catch { return { raw: text }; }
+}
+
+async function azureCostPost(subscriptionId: string, token: string, body: unknown): Promise<unknown> {
+  const url = `${MGMT_BASE}/subscriptions/${subscriptionId}/providers/Microsoft.CostManagement/query?api-version=2023-11-01`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (res.status === 202) return { accepted: true, status: 202 };
+  if (!res.ok) throw new Error(`Azure Cost Management error (${res.status}): ${(await res.text()).slice(0, 500)}`);
+  const text = await res.text();
+  if (!text) return { success: true };
+  try { return JSON.parse(text); } catch { return { raw: text }; }
+}
+
 async function kvGet(url: string, token: string): Promise<unknown> {
   const res = await fetch(url, {
     headers: { 'Authorization': `Bearer ${token}` },
@@ -524,6 +553,295 @@ const TOOLS = [
     },
     annotations: { readOnlyHint: true },
   },
+
+  // Networking — Virtual Networks
+  {
+    name: 'list_virtual_networks',
+    description: 'List all virtual networks across the entire subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_virtual_network',
+    description: 'Get details of a specific virtual network including address space and subnets',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Virtual network name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_subnets',
+    description: 'List all subnets within a specific virtual network',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        vnet_name: { type: 'string', description: 'Virtual network name' },
+      },
+      required: ['resource_group', 'vnet_name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Networking — NSGs
+  {
+    name: 'list_network_security_groups',
+    description: 'List all Network Security Groups (NSGs) across the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_nsg_rules',
+    description: 'Get all security rules defined in a specific Network Security Group',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Network Security Group name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Networking — Public IPs
+  {
+    name: 'list_public_ips',
+    description: 'List all public IP addresses across the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Networking — Load Balancers
+  {
+    name: 'list_load_balancers',
+    description: 'List all load balancers across the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_load_balancer',
+    description: 'Get details of a specific load balancer including frontend IPs, backend pools, and rules',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Load balancer name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Networking — Network Interfaces
+  {
+    name: 'list_network_interfaces',
+    description: 'List all network interfaces across the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Cost Management
+  {
+    name: 'get_cost_summary',
+    description: 'Get total cost for the current month (month-to-date) for the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_cost_by_resource_group',
+    description: 'Get month-to-date cost broken down by resource group',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_cost_by_service',
+    description: 'Get month-to-date cost broken down by Azure service',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_budgets',
+    description: 'List all spending budgets configured for the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_budget',
+    description: 'Get details of a specific budget including current spend vs limit',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Budget name' },
+      },
+      required: ['name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+
+  // DNS
+  {
+    name: 'list_dns_zones',
+    description: 'List all DNS zones in the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_dns_records',
+    description: 'List all DNS records in a specific DNS zone',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        zone_name: { type: 'string', description: 'DNS zone name (e.g. example.com)' },
+      },
+      required: ['resource_group', 'zone_name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_dns_record',
+    description: 'Create or update a DNS record in a zone. Supports A, CNAME, and TXT record types.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        zone_name: { type: 'string', description: 'DNS zone name (e.g. example.com)' },
+        record_type: { type: 'string', description: 'Record type: A, CNAME, or TXT' },
+        record_name: { type: 'string', description: 'Record name (e.g. www, @, mail)' },
+        ttl: { type: 'number', description: 'Time-to-live in seconds (default: 300)' },
+        value: { type: 'string', description: 'Record value — IP address for A, target for CNAME, text for TXT' },
+      },
+      required: ['resource_group', 'zone_name', 'record_type', 'record_name', 'value'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_dns_record',
+    description: 'Delete a DNS record from a zone',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        zone_name: { type: 'string', description: 'DNS zone name (e.g. example.com)' },
+        record_type: { type: 'string', description: 'Record type: A, CNAME, TXT, MX, etc.' },
+        record_name: { type: 'string', description: 'Record name (e.g. www, @, mail)' },
+      },
+      required: ['resource_group', 'zone_name', 'record_type', 'record_name'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // VM Lifecycle additions
+  {
+    name: 'create_vm',
+    description: 'Create a new Azure virtual machine. Requires a pre-created network interface (NIC) ID.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Virtual machine name' },
+        location: { type: 'string', description: 'Azure region (e.g. eastus, westeurope)' },
+        vm_size: { type: 'string', description: 'VM size (e.g. Standard_B2s, Standard_D2s_v3)' },
+        nic_id: { type: 'string', description: 'Full resource ID of a pre-created network interface' },
+        image_reference: {
+          type: 'object',
+          description: 'OS image reference with publisher, offer, sku, version fields',
+          properties: {
+            publisher: { type: 'string', description: 'Image publisher (e.g. Canonical)' },
+            offer: { type: 'string', description: 'Image offer (e.g. UbuntuServer)' },
+            sku: { type: 'string', description: 'Image SKU (e.g. 18.04-LTS)' },
+            version: { type: 'string', description: 'Image version (default: latest)' },
+          },
+        },
+        admin_username: { type: 'string', description: 'Administrator username' },
+        admin_password: { type: 'string', description: 'Administrator password (use for Windows or Linux password auth)' },
+        ssh_public_key: { type: 'string', description: 'SSH public key content for Linux VMs (alternative to admin_password)' },
+      },
+      required: ['resource_group', 'name', 'location', 'vm_size', 'nic_id', 'image_reference', 'admin_username'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_vm',
+    description: 'Delete an Azure virtual machine. This action is irreversible.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Virtual machine name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'list_vm_sizes',
+    description: 'List all available VM sizes in a specific Azure region',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        location: { type: 'string', description: 'Azure region (e.g. eastus, westeurope)' },
+      },
+      required: ['location'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+
+  // Disks
+  {
+    name: 'list_disks',
+    description: 'List all managed disks across the subscription',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_disk',
+    description: 'Get details of a specific managed disk including size, SKU, and state',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Disk name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_disk',
+    description: 'Create a new empty managed disk',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Disk name' },
+        location: { type: 'string', description: 'Azure region (e.g. eastus)' },
+        size_gb: { type: 'number', description: 'Disk size in GB' },
+        sku: { type: 'string', description: 'Storage SKU: Standard_LRS, Premium_LRS, or StandardSSD_LRS' },
+      },
+      required: ['resource_group', 'name', 'location', 'size_gb', 'sku'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_disk',
+    description: 'Delete a managed disk. This action is irreversible.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_group: { type: 'string', description: 'Resource group name' },
+        name: { type: 'string', description: 'Disk name' },
+      },
+      required: ['resource_group', 'name'],
+    },
+    annotations: { readOnlyHint: false },
+  },
 ];
 
 // ── Tool Handlers ─────────────────────────────────────────────────────────────
@@ -716,6 +1034,251 @@ async function callTool(name: string, args: Record<string, unknown>, creds: Cred
       validateRequired(args, ['resource_group', 'name']);
       const token = await getAzureToken(clientId, clientSecret, tenantId);
       return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Web/sites/${args.name}`, token, { 'api-version': '2022-09-01' });
+    }
+
+    // Networking — Virtual Networks
+    case 'list_virtual_networks': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/virtualNetworks`, token, { 'api-version': '2023-05-01', '$top': '100' });
+    }
+    case 'get_virtual_network': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/virtualNetworks/${args.name}`, token, { 'api-version': '2023-05-01' });
+    }
+    case 'list_subnets': {
+      validateRequired(args, ['resource_group', 'vnet_name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/virtualNetworks/${args.vnet_name}/subnets`, token, { 'api-version': '2023-05-01' });
+    }
+
+    // Networking — NSGs
+    case 'list_network_security_groups': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/networkSecurityGroups`, token, { 'api-version': '2023-05-01', '$top': '100' });
+    }
+    case 'get_nsg_rules': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/networkSecurityGroups/${args.name}/securityRules`, token, { 'api-version': '2023-05-01' });
+    }
+
+    // Networking — Public IPs
+    case 'list_public_ips': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/publicIPAddresses`, token, { 'api-version': '2023-05-01', '$top': '100' });
+    }
+
+    // Networking — Load Balancers
+    case 'list_load_balancers': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/loadBalancers`, token, { 'api-version': '2023-05-01', '$top': '100' });
+    }
+    case 'get_load_balancer': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/loadBalancers/${args.name}`, token, { 'api-version': '2023-05-01' });
+    }
+
+    // Networking — Network Interfaces
+    case 'list_network_interfaces': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/networkInterfaces`, token, { 'api-version': '2023-05-01', '$top': '100' });
+    }
+
+    // Cost Management
+    case 'get_cost_summary': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureCostPost(sub, token, {
+        type: 'ActualCost',
+        timeframe: 'MonthToDate',
+        dataset: {
+          granularity: 'None',
+          aggregation: { totalCost: { name: 'PreTaxCost', function: 'Sum' } },
+        },
+      });
+    }
+    case 'get_cost_by_resource_group': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureCostPost(sub, token, {
+        type: 'ActualCost',
+        timeframe: 'MonthToDate',
+        dataset: {
+          granularity: 'None',
+          aggregation: { totalCost: { name: 'PreTaxCost', function: 'Sum' } },
+          grouping: [{ type: 'Dimension', name: 'ResourceGroupName' }],
+        },
+      });
+    }
+    case 'get_cost_by_service': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureCostPost(sub, token, {
+        type: 'ActualCost',
+        timeframe: 'MonthToDate',
+        dataset: {
+          granularity: 'None',
+          aggregation: { totalCost: { name: 'PreTaxCost', function: 'Sum' } },
+          grouping: [{ type: 'Dimension', name: 'ServiceName' }],
+        },
+      });
+    }
+    case 'list_budgets': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Consumption/budgets`, token, { 'api-version': '2023-05-01' });
+    }
+    case 'get_budget': {
+      validateRequired(args, ['name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Consumption/budgets/${args.name}`, token, { 'api-version': '2023-05-01' });
+    }
+
+    // DNS
+    case 'list_dns_zones': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Network/dnsZones`, token, { 'api-version': '2018-05-01', '$top': '100' });
+    }
+    case 'list_dns_records': {
+      validateRequired(args, ['resource_group', 'zone_name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/dnsZones/${args.zone_name}/all`, token, { 'api-version': '2018-05-01' });
+    }
+    case 'create_dns_record': {
+      validateRequired(args, ['resource_group', 'zone_name', 'record_type', 'record_name', 'value']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      const ttl = typeof args.ttl === 'number' ? args.ttl : 300;
+      const recordType = String(args.record_type).toUpperCase();
+      const value = String(args.value);
+      const properties: Record<string, unknown> = { TTL: ttl };
+      if (recordType === 'A') {
+        properties.ARecords = [{ ipv4Address: value }];
+      } else if (recordType === 'CNAME') {
+        properties.CNAMERecord = { cname: value };
+      } else if (recordType === 'TXT') {
+        properties.TXTRecords = [{ value: [value] }];
+      } else if (recordType === 'MX') {
+        properties.MXRecords = [{ preference: 10, exchange: value }];
+      } else {
+        throw new Error(`Unsupported record type: ${args.record_type}. Supported: A, CNAME, TXT, MX`);
+      }
+      return azurePut(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/dnsZones/${args.zone_name}/${recordType}/${args.record_name}`,
+        token,
+        { properties },
+        { 'api-version': '2018-05-01' },
+      );
+    }
+    case 'delete_dns_record': {
+      validateRequired(args, ['resource_group', 'zone_name', 'record_type', 'record_name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      const recordType = String(args.record_type).toUpperCase();
+      return azureDelete(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Network/dnsZones/${args.zone_name}/${recordType}/${args.record_name}`,
+        token,
+        { 'api-version': '2018-05-01' },
+      );
+    }
+
+    // VM Lifecycle additions
+    case 'create_vm': {
+      validateRequired(args, ['resource_group', 'name', 'location', 'vm_size', 'nic_id', 'image_reference', 'admin_username']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      const imageRef = args.image_reference as { publisher: string; offer: string; sku: string; version?: string };
+      const osProfile: Record<string, unknown> = {
+        computerName: args.name,
+        adminUsername: args.admin_username,
+      };
+      if (args.ssh_public_key) {
+        osProfile.linuxConfiguration = {
+          disablePasswordAuthentication: true,
+          ssh: {
+            publicKeys: [{
+              path: `/home/${args.admin_username}/.ssh/authorized_keys`,
+              keyData: args.ssh_public_key,
+            }],
+          },
+        };
+      } else if (args.admin_password) {
+        osProfile.adminPassword = args.admin_password;
+      }
+      const body = {
+        location: args.location,
+        properties: {
+          hardwareProfile: { vmSize: args.vm_size },
+          storageProfile: {
+            imageReference: {
+              publisher: imageRef.publisher,
+              offer: imageRef.offer,
+              sku: imageRef.sku,
+              version: imageRef.version ?? 'latest',
+            },
+            osDisk: {
+              createOption: 'FromImage',
+              managedDisk: { storageAccountType: 'Standard_LRS' },
+            },
+          },
+          osProfile,
+          networkProfile: {
+            networkInterfaces: [{ id: args.nic_id, properties: { primary: true } }],
+          },
+        },
+      };
+      return azurePut(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Compute/virtualMachines/${args.name}`,
+        token,
+        body,
+        { 'api-version': '2023-07-01' },
+      );
+    }
+    case 'delete_vm': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureDelete(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Compute/virtualMachines/${args.name}`,
+        token,
+        { 'api-version': '2023-07-01' },
+      );
+    }
+    case 'list_vm_sizes': {
+      validateRequired(args, ['location']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Compute/locations/${args.location}/vmSizes`, token, { 'api-version': '2023-07-01' });
+    }
+
+    // Disks
+    case 'list_disks': {
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/providers/Microsoft.Compute/disks`, token, { 'api-version': '2023-04-02', '$top': '100' });
+    }
+    case 'get_disk': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureGet(`/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Compute/disks/${args.name}`, token, { 'api-version': '2023-04-02' });
+    }
+    case 'create_disk': {
+      validateRequired(args, ['resource_group', 'name', 'location', 'size_gb', 'sku']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azurePut(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Compute/disks/${args.name}`,
+        token,
+        {
+          location: args.location,
+          sku: { name: args.sku },
+          properties: {
+            diskSizeGB: args.size_gb,
+            creationData: { createOption: 'Empty' },
+          },
+        },
+        { 'api-version': '2023-04-02' },
+      );
+    }
+    case 'delete_disk': {
+      validateRequired(args, ['resource_group', 'name']);
+      const token = await getAzureToken(clientId, clientSecret, tenantId);
+      return azureDelete(
+        `/subscriptions/${sub}/resourceGroups/${args.resource_group}/providers/Microsoft.Compute/disks/${args.name}`,
+        token,
+        { 'api-version': '2023-04-02' },
+      );
     }
 
     default:

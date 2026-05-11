@@ -568,6 +568,135 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: {}, required: [] },
     annotations: { readOnlyHint: true },
   },
+
+  // ── App Platform (delete) ─────────────────────────────────────────────────
+  {
+    name: 'delete_app',
+    description: 'Delete an App Platform application and all its deployments',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        app_id: { type: 'string', description: 'App ID to delete' },
+      },
+      required: ['app_id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── VPCs (delete) ─────────────────────────────────────────────────────────
+  {
+    name: 'delete_vpc',
+    description: 'Delete a VPC (must have no members first)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        vpc_id: { type: 'string', description: 'VPC ID to delete' },
+      },
+      required: ['vpc_id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Domains (delete) ──────────────────────────────────────────────────────
+  {
+    name: 'delete_domain',
+    description: 'Delete a domain and all its DNS records from DigitalOcean',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain_name: { type: 'string', description: 'Domain name to delete (e.g. example.com)' },
+      },
+      required: ['domain_name'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Droplet actions ───────────────────────────────────────────────────────
+  {
+    name: 'resize_droplet',
+    description: 'Resize (vertically scale) a droplet. Droplet must be powered off first for most resizes.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        droplet_id: { type: 'number', description: 'Droplet ID' },
+        size: { type: 'string', description: 'New size slug, e.g. "s-2vcpu-2gb". Use list_droplet_sizes to see options.' },
+        disk: { type: 'boolean', description: 'Also resize the disk (irreversible). Default: false.' },
+      },
+      required: ['droplet_id', 'size'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'snapshot_droplet',
+    description: 'Create a snapshot of a droplet',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        droplet_id: { type: 'number', description: 'Droplet ID' },
+        name: { type: 'string', description: 'Snapshot name' },
+      },
+      required: ['droplet_id', 'name'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Sizes & Regions ───────────────────────────────────────────────────────
+  {
+    name: 'list_droplet_sizes',
+    description: 'List all available droplet sizes with CPU, RAM, disk, and monthly price',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'list_regions',
+    description: 'List all DigitalOcean regions with availability status',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+
+  // ── Snapshots ─────────────────────────────────────────────────────────────
+  {
+    name: 'list_snapshots',
+    description: 'List all snapshots for droplets or volumes',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        resource_type: {
+          type: 'string',
+          enum: ['droplet', 'volume'],
+          description: 'Filter by resource type: "droplet" or "volume" (default: "droplet")',
+        },
+      },
+      required: [],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'delete_snapshot',
+    description: 'Delete a snapshot',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        snapshot_id: { type: 'string', description: 'Snapshot ID to delete' },
+      },
+      required: ['snapshot_id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Droplet neighbors ─────────────────────────────────────────────────────
+  {
+    name: 'get_droplet_neighbors',
+    description: 'List droplets running on the same physical hardware as this droplet',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        droplet_id: { type: 'number', description: 'Droplet ID' },
+      },
+      required: ['droplet_id'],
+    },
+    annotations: { readOnlyHint: true },
+  },
 ];
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
@@ -778,6 +907,65 @@ async function callTool(name: string, args: Record<string, unknown>, apiKey: str
     }
     case 'list_invoices': {
       return apiGet('/customers/my/invoices', apiKey, { per_page: '5' });
+    }
+
+    // ── App Platform (delete) ──────────────────────────────────────────────
+    case 'delete_app': {
+      validateRequired(args, ['app_id']);
+      return apiDelete(`/apps/${args.app_id}`, apiKey);
+    }
+
+    // ── VPCs (delete) ──────────────────────────────────────────────────────
+    case 'delete_vpc': {
+      validateRequired(args, ['vpc_id']);
+      return apiDelete(`/vpcs/${args.vpc_id}`, apiKey);
+    }
+
+    // ── Domains (delete) ───────────────────────────────────────────────────
+    case 'delete_domain': {
+      validateRequired(args, ['domain_name']);
+      return apiDelete(`/domains/${args.domain_name}`, apiKey);
+    }
+
+    // ── Droplet actions ────────────────────────────────────────────────────
+    case 'resize_droplet': {
+      validateRequired(args, ['droplet_id', 'size']);
+      return apiPost(`/droplets/${args.droplet_id}/actions`, apiKey, {
+        type: 'resize',
+        size: args.size,
+        disk: (args.disk as boolean | undefined) ?? false,
+      });
+    }
+    case 'snapshot_droplet': {
+      validateRequired(args, ['droplet_id', 'name']);
+      return apiPost(`/droplets/${args.droplet_id}/actions`, apiKey, {
+        type: 'snapshot',
+        name: args.name,
+      });
+    }
+
+    // ── Sizes & Regions ────────────────────────────────────────────────────
+    case 'list_droplet_sizes': {
+      return apiGet('/sizes', apiKey, { per_page: '100' });
+    }
+    case 'list_regions': {
+      return apiGet('/regions', apiKey, { per_page: '50' });
+    }
+
+    // ── Snapshots ──────────────────────────────────────────────────────────
+    case 'list_snapshots': {
+      const resourceType = (args.resource_type as string | undefined) ?? 'droplet';
+      return apiGet('/snapshots', apiKey, { per_page: '50', resource_type: resourceType });
+    }
+    case 'delete_snapshot': {
+      validateRequired(args, ['snapshot_id']);
+      return apiDelete(`/snapshots/${args.snapshot_id}`, apiKey);
+    }
+
+    // ── Droplet neighbors ──────────────────────────────────────────────────
+    case 'get_droplet_neighbors': {
+      validateRequired(args, ['droplet_id']);
+      return apiGet(`/droplets/${args.droplet_id}/neighbors`, apiKey);
     }
 
     default:

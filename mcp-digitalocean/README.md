@@ -11,14 +11,18 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 ## What You Can Do
 
 - List, create, and delete Droplets — with SSH keys, backups, IPv6, and tags
-- Deploy App Platform apps from GitHub repos or container images, trigger deployments, and tail logs
+- Resize Droplets vertically and create Droplet snapshots
+- Deploy App Platform apps from GitHub repos or container images, trigger deployments, tail logs, and delete apps
 - Manage Kubernetes clusters and check their status
 - Create and query managed Database clusters (PostgreSQL, MySQL, Redis, MongoDB)
 - Configure Cloud Firewalls with granular inbound/outbound rules and attach them to Droplets
-- Create and manage VPCs with custom IP ranges and inspect their members
-- Manage DNS domains and records (A, AAAA, CNAME, MX, TXT, SRV, NS)
+- Create, manage, and delete VPCs with custom IP ranges and inspect their members
+- Manage DNS domains and records (A, AAAA, CNAME, MX, TXT, SRV, NS), and delete entire domains
 - Inspect the Container Registry and list repositories and image tags
 - List Spaces (S3-compatible object storage buckets)
+- List and delete snapshots for Droplets and volumes
+- Discover all available Droplet sizes and regions
+- Check Droplet neighbors (colocation on same physical host)
 - Check account info, current balance, and recent invoices
 
 ## Available Tools
@@ -31,6 +35,9 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 | `get_droplet` | Get full details of a specific Droplet |
 | `create_droplet` | Create a new Droplet (name, region, size, image required) |
 | `delete_droplet` | Delete a Droplet by ID |
+| `resize_droplet` | Vertically scale a Droplet to a different size (Droplet must be powered off) |
+| `snapshot_droplet` | Create a snapshot of a Droplet |
+| `get_droplet_neighbors` | List Droplets running on the same physical hardware |
 
 ### App Platform
 
@@ -42,6 +49,7 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 | `get_app_deployments` | List the 5 most recent deployments for an app |
 | `create_deployment` | Trigger a new deployment for an app |
 | `get_app_logs` | Get recent runtime logs for an app |
+| `delete_app` | Delete an App Platform application and all its deployments |
 
 ### Kubernetes
 
@@ -75,6 +83,7 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 | `get_vpc` | Get details of a specific VPC |
 | `create_vpc` | Create a new VPC in a region with optional IP range |
 | `list_vpc_members` | List all resources (Droplets, etc.) in a VPC |
+| `delete_vpc` | Delete a VPC (must have no members first) |
 
 ### Domains / DNS
 
@@ -83,6 +92,7 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 | `list_domains` | List all domains |
 | `get_domain` | Get details of a specific domain |
 | `create_domain` | Create a new domain with optional A record |
+| `delete_domain` | Delete a domain and all its DNS records |
 | `list_domain_records` | List all DNS records for a domain |
 | `create_domain_record` | Create a DNS record (A, AAAA, CNAME, MX, TXT, SRV, NS) |
 | `delete_domain_record` | Delete a DNS record by ID |
@@ -107,6 +117,20 @@ DigitalOcean is a leading cloud infrastructure provider used by developers and t
 |------|-------------|
 | `list_volumes` | List all block storage volumes |
 | `list_load_balancers` | List all load balancers |
+
+### Snapshots
+
+| Tool | Description |
+|------|-------------|
+| `list_snapshots` | List all snapshots for droplets or volumes |
+| `delete_snapshot` | Delete a snapshot |
+
+### Sizes & Regions
+
+| Tool | Description |
+|------|-------------|
+| `list_droplet_sizes` | List all available droplet sizes with CPU, RAM, disk, and monthly price |
+| `list_regions` | List all DigitalOcean regions with availability status |
 
 ### Account / Billing
 

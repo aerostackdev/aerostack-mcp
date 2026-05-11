@@ -8,9 +8,10 @@
  *   AWS_SECRET_ACCESS_KEY → X-Mcp-Secret-AWS-SECRET-ACCESS-KEY
  *   AWS_REGION            → X-Mcp-Secret-AWS-REGION
  *
- * Covers: S3 (5), EC2 (4), Lambda (4), IAM (3), CloudWatch (4),
+ * Covers: S3 (7), EC2 (8), Lambda (4), IAM (3), CloudWatch (4),
  *         ECS (6), EKS (4), RDS (4), Secrets Manager (4), SSM (3),
- *         ECR (3), SNS (3), SQS (4), Route53 (2), CloudFormation (3) = 60 tools total
+ *         ECR (3), SNS (3), SQS (4), Route53 (2), CloudFormation (3),
+ *         Cost Explorer (5) = 71 tools total
  */
 
 function rpcOk(id: number | string, result: unknown) {
@@ -608,6 +609,133 @@ const TOOLS = [
         },
         annotations: { readOnlyHint: true, destructiveHint: false },
     },
+
+    // ── Cost Explorer ────────────────────────────────────────────────────────
+    {
+        name: 'get_cost_and_usage',
+        description: 'Get AWS cost and usage data for a date range. Dates in YYYY-MM-DD format.',
+        inputSchema: {
+            type: 'object', properties: {
+                start_date: { type: 'string', description: 'Start date in YYYY-MM-DD format' },
+                end_date: { type: 'string', description: 'End date in YYYY-MM-DD format (default: today)' },
+                granularity: { type: 'string', enum: ['MONTHLY', 'DAILY'], description: 'Time granularity (default: MONTHLY)' },
+            }, required: ['start_date'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_cost_by_service',
+        description: 'Get month-to-date cost broken down by AWS service',
+        inputSchema: {
+            type: 'object', properties: {
+                start_date: { type: 'string', description: 'Start date in YYYY-MM-DD format' },
+                end_date: { type: 'string', description: 'End date in YYYY-MM-DD format (default: today)' },
+            }, required: ['start_date'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_cost_by_region',
+        description: 'Get costs grouped by AWS region',
+        inputSchema: {
+            type: 'object', properties: {
+                start_date: { type: 'string', description: 'Start date in YYYY-MM-DD format' },
+                end_date: { type: 'string', description: 'End date in YYYY-MM-DD format (default: today)' },
+            }, required: ['start_date'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_cost_forecast',
+        description: 'Get a cost forecast for the current billing period',
+        inputSchema: {
+            type: 'object', properties: {
+                end_date: { type: 'string', description: 'Forecast until this date in YYYY-MM-DD format (e.g. end of current month)' },
+            }, required: ['end_date'],
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'get_savings_plans_coverage',
+        description: 'Get Savings Plans coverage for the current month',
+        inputSchema: { type: 'object', properties: {} },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+
+    // ── EC2 Provisioning ─────────────────────────────────────────────────────
+    {
+        name: 'run_ec2_instance',
+        description: 'Launch new EC2 instances from an AMI',
+        inputSchema: {
+            type: 'object', properties: {
+                image_id: { type: 'string', description: 'AMI ID (e.g. ami-0abcdef1234567890)' },
+                instance_type: { type: 'string', description: 'Instance type (e.g. t3.micro)' },
+                key_name: { type: 'string', description: 'Key pair name for SSH access (optional)' },
+                security_group_ids: { type: 'string', description: 'Comma-separated security group IDs (optional)' },
+                subnet_id: { type: 'string', description: 'Subnet ID to launch into (optional)' },
+                min_count: { type: 'number', description: 'Minimum number of instances to launch (default 1)' },
+                max_count: { type: 'number', description: 'Maximum number of instances to launch (default 1)' },
+                user_data: { type: 'string', description: 'Base64-encoded user data script (optional)' },
+            }, required: ['image_id', 'instance_type'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'terminate_ec2_instances',
+        description: 'Permanently terminate EC2 instances (irreversible)',
+        inputSchema: {
+            type: 'object', properties: {
+                instance_ids: { type: 'array', items: { type: 'string' }, description: 'List of instance IDs to terminate' },
+            }, required: ['instance_ids'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: true },
+    },
+    {
+        name: 'describe_ec2_images',
+        description: 'List AMI images available to your account',
+        inputSchema: {
+            type: 'object', properties: {
+                owners: { type: 'string', description: 'Filter by owner (default: self)' },
+                max_results: { type: 'number', description: 'Maximum number of results (default 20)' },
+            },
+        },
+        annotations: { readOnlyHint: true, destructiveHint: false },
+    },
+    {
+        name: 'create_ec2_security_group',
+        description: 'Create a new EC2 security group',
+        inputSchema: {
+            type: 'object', properties: {
+                group_name: { type: 'string', description: 'Name for the security group' },
+                description: { type: 'string', description: 'Description of the security group' },
+                vpc_id: { type: 'string', description: 'VPC ID to create the group in (optional — uses default VPC if omitted)' },
+            }, required: ['group_name', 'description'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+
+    // ── S3 Bucket Management ─────────────────────────────────────────────────
+    {
+        name: 'create_s3_bucket',
+        description: 'Create a new S3 bucket',
+        inputSchema: {
+            type: 'object', properties: {
+                bucket_name: { type: 'string', description: 'Name for the new S3 bucket (must be globally unique)' },
+                region: { type: 'string', description: 'AWS region to create the bucket in (default: configured AWS_REGION)' },
+            }, required: ['bucket_name'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: false },
+    },
+    {
+        name: 'delete_s3_bucket',
+        description: 'Delete an S3 bucket (must be empty first — delete all objects before calling this)',
+        inputSchema: {
+            type: 'object', properties: {
+                bucket_name: { type: 'string', description: 'Name of the S3 bucket to delete' },
+            }, required: ['bucket_name'],
+        },
+        annotations: { readOnlyHint: false, destructiveHint: true },
+    },
 ];
 
 // ── Tool Handlers ────────────────────────────────────────────────────────────
@@ -1027,6 +1155,148 @@ async function callTool(
             return awsXmlFetch('GET', `https://cloudformation.${region}.amazonaws.com/?${params}`, '', accessKey, secretKey, region, 'cloudformation');
         }
 
+        // ── Cost Explorer ──
+        case 'get_cost_and_usage': {
+            const today = new Date().toISOString().slice(0, 10);
+            const ceBody = JSON.stringify({
+                TimePeriod: { Start: args.start_date as string, End: (args.end_date as string) || today },
+                Granularity: (args.granularity as string) || 'MONTHLY',
+                Metrics: ['BlendedCost', 'UnblendedCost', 'UsageQuantity'],
+            });
+            return awsFetch(
+                'POST', 'https://ce.us-east-1.amazonaws.com',
+                ceBody, accessKey, secretKey, 'us-east-1', 'ce',
+                { 'x-amz-target': 'AWSInsightsIndexService.GetCostAndUsage' },
+            );
+        }
+        case 'get_cost_by_service': {
+            const today = new Date().toISOString().slice(0, 10);
+            const ceBody = JSON.stringify({
+                TimePeriod: { Start: args.start_date as string, End: (args.end_date as string) || today },
+                Granularity: 'MONTHLY',
+                Metrics: ['BlendedCost'],
+                GroupBy: [{ Type: 'DIMENSION', Key: 'SERVICE' }],
+            });
+            return awsFetch(
+                'POST', 'https://ce.us-east-1.amazonaws.com',
+                ceBody, accessKey, secretKey, 'us-east-1', 'ce',
+                { 'x-amz-target': 'AWSInsightsIndexService.GetCostAndUsage' },
+            );
+        }
+        case 'get_cost_by_region': {
+            const today = new Date().toISOString().slice(0, 10);
+            const ceBody = JSON.stringify({
+                TimePeriod: { Start: args.start_date as string, End: (args.end_date as string) || today },
+                Granularity: 'MONTHLY',
+                Metrics: ['BlendedCost'],
+                GroupBy: [
+                    { Type: 'DIMENSION', Key: 'SERVICE' },
+                    { Type: 'DIMENSION', Key: 'REGION' },
+                ],
+            });
+            return awsFetch(
+                'POST', 'https://ce.us-east-1.amazonaws.com',
+                ceBody, accessKey, secretKey, 'us-east-1', 'ce',
+                { 'x-amz-target': 'AWSInsightsIndexService.GetCostAndUsage' },
+            );
+        }
+        case 'get_cost_forecast': {
+            const today = new Date().toISOString().slice(0, 10);
+            const ceBody = JSON.stringify({
+                TimePeriod: { Start: today, End: args.end_date as string },
+                Metric: 'BLENDED_COST',
+                Granularity: 'MONTHLY',
+            });
+            return awsFetch(
+                'POST', 'https://ce.us-east-1.amazonaws.com',
+                ceBody, accessKey, secretKey, 'us-east-1', 'ce',
+                { 'x-amz-target': 'AWSInsightsIndexService.GetCostForecast' },
+            );
+        }
+        case 'get_savings_plans_coverage': {
+            const now = new Date();
+            const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
+            const today = now.toISOString().slice(0, 10);
+            const ceBody = JSON.stringify({
+                TimePeriod: { Start: firstOfMonth, End: today },
+                Granularity: 'MONTHLY',
+            });
+            return awsFetch(
+                'POST', 'https://ce.us-east-1.amazonaws.com',
+                ceBody, accessKey, secretKey, 'us-east-1', 'ce',
+                { 'x-amz-target': 'AWSInsightsIndexService.GetSavingsPlansCoverage' },
+            );
+        }
+
+        // ── EC2 Provisioning ──
+        case 'run_ec2_instance': {
+            const params = new URLSearchParams({
+                Action: 'RunInstances',
+                Version: '2016-11-15',
+                ImageId: args.image_id as string,
+                InstanceType: args.instance_type as string,
+                MinCount: String((args.min_count as number) || 1),
+                MaxCount: String((args.max_count as number) || 1),
+            });
+            if (args.key_name) params.set('KeyName', args.key_name as string);
+            if (args.subnet_id) params.set('SubnetId', args.subnet_id as string);
+            if (args.user_data) params.set('UserData', args.user_data as string);
+            if (args.security_group_ids) {
+                const sgIds = (args.security_group_ids as string).split(',').map(s => s.trim()).filter(Boolean);
+                sgIds.forEach((id, i) => params.set(`SecurityGroupId.${i + 1}`, id));
+            }
+            return awsXmlFetch('GET', `https://ec2.${region}.amazonaws.com/?${params}`, '', accessKey, secretKey, region, 'ec2');
+        }
+        case 'terminate_ec2_instances': {
+            const params = new URLSearchParams({ Action: 'TerminateInstances', Version: '2016-11-15' });
+            (args.instance_ids as string[]).forEach((id, i) => params.set(`InstanceId.${i + 1}`, id));
+            return awsXmlFetch('GET', `https://ec2.${region}.amazonaws.com/?${params}`, '', accessKey, secretKey, region, 'ec2');
+        }
+        case 'describe_ec2_images': {
+            const owners = (args.owners as string) || 'self';
+            const maxResults = (args.max_results as number) || 20;
+            const params = new URLSearchParams({
+                Action: 'DescribeImages',
+                Version: '2016-11-15',
+                'Owner.1': owners,
+                MaxResults: String(maxResults),
+            });
+            return awsXmlFetch('GET', `https://ec2.${region}.amazonaws.com/?${params}`, '', accessKey, secretKey, region, 'ec2');
+        }
+        case 'create_ec2_security_group': {
+            const params = new URLSearchParams({
+                Action: 'CreateSecurityGroup',
+                Version: '2016-11-15',
+                GroupName: args.group_name as string,
+                GroupDescription: args.description as string,
+            });
+            if (args.vpc_id) params.set('VpcId', args.vpc_id as string);
+            return awsXmlFetch('GET', `https://ec2.${region}.amazonaws.com/?${params}`, '', accessKey, secretKey, region, 'ec2');
+        }
+
+        // ── S3 Bucket Management ──
+        case 'create_s3_bucket': {
+            const bucketRegion = (args.region as string) || region;
+            const url = `https://${args.bucket_name as string}.s3.${bucketRegion}.amazonaws.com/`;
+            // us-east-1 does not accept a LocationConstraint body — it must be empty
+            const bucketBody = bucketRegion === 'us-east-1'
+                ? ''
+                : `<CreateBucketConfiguration><LocationConstraint>${bucketRegion}</LocationConstraint></CreateBucketConfiguration>`;
+            const extraHeaders: Record<string, string> = {};
+            if (bucketBody) extraHeaders['content-type'] = 'application/xml';
+            const signHeaders = await signRequest('PUT', url, bucketBody, accessKey, secretKey, bucketRegion, 's3', extraHeaders);
+            const res = await fetch(url, { method: 'PUT', headers: signHeaders, body: bucketBody || undefined });
+            if (!res.ok) throw new Error(`S3 CreateBucket failed (${res.status}): ${(await res.text()).slice(0, 500)}`);
+            return { success: true, bucket: args.bucket_name, region: bucketRegion };
+        }
+        case 'delete_s3_bucket': {
+            const url = `https://${args.bucket_name as string}.s3.${region}.amazonaws.com/`;
+            const delHeaders = await signRequest('DELETE', url, '', accessKey, secretKey, region, 's3');
+            const res = await fetch(url, { method: 'DELETE', headers: delHeaders });
+            if (!res.ok) throw new Error(`S3 DeleteBucket failed (${res.status}): ${(await res.text()).slice(0, 500)}`);
+            return { success: true, deleted_bucket: args.bucket_name };
+        }
+
         default:
             throw new Error(`Unknown tool: ${name}`);
     }
@@ -1038,7 +1308,7 @@ export default {
     async fetch(request: Request): Promise<Response> {
         if (request.method === 'GET') {
             return new Response(
-                JSON.stringify({ status: 'ok', server: 'mcp-aws', version: '2.0.0', tools: TOOLS.length }),
+                JSON.stringify({ status: 'ok', server: 'mcp-aws', version: '2.1.0', tools: TOOLS.length }),
                 { headers: { 'Content-Type': 'application/json' } },
             );
         }
@@ -1054,7 +1324,7 @@ export default {
             return rpcOk(id, {
                 protocolVersion: '2024-11-05',
                 capabilities: { tools: {} },
-                serverInfo: { name: 'mcp-aws', version: '2.0.0' },
+                serverInfo: { name: 'mcp-aws', version: '2.1.0' },
             });
         }
 

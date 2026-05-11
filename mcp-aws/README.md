@@ -1,6 +1,6 @@
 # mcp-aws
 
-AWS MCP server for Aerostack. Covers 60 tools across 15 AWS services via the AWS REST API with SigV4 authentication.
+AWS MCP server for Aerostack. Covers 71 tools across 17 AWS services via the AWS REST API with SigV4 authentication.
 
 ## Required Secrets
 
@@ -12,7 +12,7 @@ AWS MCP server for Aerostack. Covers 60 tools across 15 AWS services via the AWS
 
 ## Tools
 
-### S3 (5)
+### S3 (7)
 | Tool | Description |
 |------|-------------|
 | `list_s3_buckets` | List all S3 buckets in the account |
@@ -20,14 +20,20 @@ AWS MCP server for Aerostack. Covers 60 tools across 15 AWS services via the AWS
 | `get_s3_object` | Get the text content of an S3 object (max 1 MB) |
 | `put_s3_object` | Upload text content to an S3 object |
 | `delete_s3_object` | Delete an object from a bucket |
+| `create_s3_bucket` | Create a new S3 bucket in any region |
+| `delete_s3_bucket` | Delete an S3 bucket (must be empty first) |
 
-### EC2 (4)
+### EC2 (8)
 | Tool | Description |
 |------|-------------|
 | `describe_ec2_instances` | List instances with status, type, IP, and tags |
 | `start_ec2_instance` | Start a stopped EC2 instance |
 | `stop_ec2_instance` | Stop a running EC2 instance |
 | `describe_ec2_security_groups` | List security groups with inbound/outbound rules |
+| `run_ec2_instance` | Launch new EC2 instances from an AMI |
+| `terminate_ec2_instances` | Permanently terminate EC2 instances (irreversible) |
+| `describe_ec2_images` | List AMI images available to your account |
+| `create_ec2_security_group` | Create a new EC2 security group |
 
 ### Lambda (4)
 | Tool | Description |
@@ -128,12 +134,21 @@ AWS MCP server for Aerostack. Covers 60 tools across 15 AWS services via the AWS
 | `get_cf_stack` | Get stack details including outputs and parameters |
 | `list_cf_stack_resources` | List all resources in a stack with physical IDs and status |
 
+### Cost Explorer (5)
+| Tool | Description |
+|------|-------------|
+| `get_cost_and_usage` | Get cost and usage data for a date range with configurable granularity |
+| `get_cost_by_service` | Get costs grouped by AWS service for a date range |
+| `get_cost_by_region` | Get costs grouped by service and region for a date range |
+| `get_cost_forecast` | Get a cost forecast for the current billing period |
+| `get_savings_plans_coverage` | Get Savings Plans coverage for the current month |
+
 ## IAM Permissions
 
 The IAM user or role needs read permissions for the services you use. For a full read-only setup, attach `ReadOnlyAccess`. For write operations, add the specific policies:
 
-- **S3 write**: `s3:PutObject`, `s3:DeleteObject`
-- **EC2 control**: `ec2:StartInstances`, `ec2:StopInstances`
+- **S3 write**: `s3:PutObject`, `s3:DeleteObject`, `s3:CreateBucket`, `s3:DeleteBucket`
+- **EC2 control**: `ec2:StartInstances`, `ec2:StopInstances`, `ec2:RunInstances`, `ec2:TerminateInstances`, `ec2:CreateSecurityGroup`, `ec2:DescribeImages`
 - **Lambda invoke**: `lambda:InvokeFunction`
 - **ECS update**: `ecs:UpdateService`
 - **Secrets Manager write**: `secretsmanager:CreateSecret`, `secretsmanager:UpdateSecret`
@@ -141,10 +156,13 @@ The IAM user or role needs read permissions for the services you use. For a full
 - **SNS publish**: `sns:Publish`
 - **SQS write**: `sqs:SendMessage`
 - **RDS snapshot**: `rds:CreateDBSnapshot`
+- **Cost Explorer**: `ce:GetCostAndUsage`, `ce:GetCostForecast`, `ce:GetSavingsPlansCoverage`
 
 ## Notes
 
-- **Route53** always signs requests with `us-east-1` regardless of the configured `AWS_REGION`.
-- **IAM** is a global service and also uses `us-east-1` for signing.
+- **Route53**, **IAM**, and **Cost Explorer** always sign requests with `us-east-1` regardless of the configured `AWS_REGION`. Cost Explorer's endpoint is always `https://ce.us-east-1.amazonaws.com`.
 - `get_s3_object` is limited to 1 MB text files. Use the AWS console or CLI for large or binary objects.
 - `receive_sqs_messages` does **not** delete messages — they remain visible in the queue after the visibility timeout expires.
+- `delete_s3_bucket` requires the bucket to be empty. Delete all objects (and versions, if versioning is enabled) before calling this tool.
+- `terminate_ec2_instances` is irreversible. Stopped instances can be terminated; use `stop_ec2_instance` first to confirm the correct instance before terminating.
+- `get_savings_plans_coverage` uses the first day of the current calendar month as the start date and today as the end date automatically.

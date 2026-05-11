@@ -16,6 +16,9 @@ Hetzner Cloud is a leading European cloud provider offering high-performance VPS
 - **Firewalls** — define inbound/outbound rules and apply firewalls to servers to control network access
 - **SSH keys** — manage project-level SSH keys for passwordless server access
 - **Locations and server types** — discover available datacenters and server specs (CPU, RAM, disk, pricing) before provisioning
+- **Load balancers** — create, inspect, and delete load balancers and manage their targets
+- **Snapshots** — create and delete server snapshots for backups and image reuse
+- **Floating IPs** — allocate static IP addresses, assign/unassign them to servers, and release them
 
 ## Available Tools
 
@@ -47,6 +50,19 @@ Hetzner Cloud is a leading European cloud provider offering high-performance VPS
 | `delete_ssh_key` | Remove an SSH key from the project |
 | `list_locations` | List all available datacenter locations |
 | `list_server_types` | List all server types with CPU, RAM, disk, and pricing |
+| `list_load_balancers` | List all load balancers with targets, services, and health status |
+| `get_load_balancer` | Get details of a specific load balancer including all targets and health checks |
+| `create_load_balancer` | Create a new load balancer (type, location, optional algorithm) |
+| `delete_load_balancer` | Delete a load balancer |
+| `add_load_balancer_target` | Add a server or label-selector target to a load balancer |
+| `list_snapshots` | List all server snapshots in the project |
+| `create_server_snapshot` | Create a snapshot of a server |
+| `delete_snapshot` | Delete a snapshot image |
+| `list_floating_ips` | List all floating (static) IP addresses |
+| `create_floating_ip` | Allocate a new floating IP address |
+| `assign_floating_ip` | Assign a floating IP to a server |
+| `unassign_floating_ip` | Remove a floating IP from its current server (IP remains allocated) |
+| `delete_floating_ip` | Release a floating IP address (frees the IP) |
 
 ## Configuration
 

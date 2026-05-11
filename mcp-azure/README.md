@@ -1,8 +1,8 @@
 # mcp-azure — Azure MCP Server
 
-> Manage Azure virtual machines, Kubernetes clusters, App Service, Key Vault, and storage from any AI agent.
+> Manage Azure virtual machines, Kubernetes clusters, App Service, Key Vault, storage, networking, DNS, and cost — from any AI agent.
 
-Azure is Microsoft's cloud platform powering enterprise infrastructure worldwide. This MCP server gives your agents full access to the Azure Resource Manager REST API: listing and controlling VMs, inspecting AKS clusters and node pools, managing App Service web apps and Function Apps, reading Key Vault secrets, browsing storage accounts, and monitoring alert rules and the activity log — all authenticated via OAuth2 client credentials.
+Azure is Microsoft's cloud platform powering enterprise infrastructure worldwide. This MCP server gives your agents full access to the Azure Resource Manager REST API: listing and controlling VMs, inspecting AKS clusters and node pools, managing App Service web apps and Function Apps, reading Key Vault secrets, browsing storage accounts, monitoring alert rules and the activity log, managing virtual networks and NSGs, tracking costs and budgets, managing DNS zones and records, creating and deleting VMs and managed disks — all authenticated via OAuth2 client credentials.
 
 **Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-azure`
 
@@ -10,12 +10,16 @@ Azure is Microsoft's cloud platform powering enterprise infrastructure worldwide
 
 ## What You Can Do
 
-- Start, stop, restart, and inspect the status of Azure virtual machines without touching the portal
+- Start, stop, restart, create, delete, and inspect Azure virtual machines without touching the portal
+- List available VM sizes per region and manage managed disks (create, delete, inspect)
 - List and inspect AKS clusters and their node pools to understand your Kubernetes fleet
 - Restart App Service web apps and Function Apps and fetch their log configuration
 - Read Key Vault secrets by name directly from the data plane using the separate vault scope
 - Browse storage accounts and list blob containers across your subscription
 - Triage production issues using metric alert rules and the last 24 hours of the activity log
+- Inspect virtual networks, subnets, NSG rules, public IPs, load balancers, and network interfaces
+- Track month-to-date costs by subscription, resource group, and service; view and inspect budgets
+- Manage DNS zones and records — list, create (A/CNAME/TXT/MX), and delete DNS records
 
 ## Available Tools
 
@@ -54,6 +58,31 @@ Azure is Microsoft's cloud platform powering enterprise infrastructure worldwide
 | `stop_container_group` | Stop a running Container Instance group |
 | `list_function_apps` | List all Azure Function Apps across the subscription |
 | `get_function_app` | Get details of a specific Azure Function App |
+| `list_virtual_networks` | List all virtual networks across the subscription |
+| `get_virtual_network` | Get details of a specific virtual network including address space and subnets |
+| `list_subnets` | List all subnets within a specific virtual network |
+| `list_network_security_groups` | List all NSGs across the subscription |
+| `get_nsg_rules` | Get all security rules defined in a specific NSG |
+| `list_public_ips` | List all public IP addresses across the subscription |
+| `list_load_balancers` | List all load balancers across the subscription |
+| `get_load_balancer` | Get details of a specific load balancer including frontend IPs and rules |
+| `list_network_interfaces` | List all network interfaces across the subscription |
+| `get_cost_summary` | Get total month-to-date cost for the subscription |
+| `get_cost_by_resource_group` | Get month-to-date cost broken down by resource group |
+| `get_cost_by_service` | Get month-to-date cost broken down by Azure service |
+| `list_budgets` | List all spending budgets configured for the subscription |
+| `get_budget` | Get details of a specific budget including current spend vs limit |
+| `list_dns_zones` | List all DNS zones in the subscription |
+| `list_dns_records` | List all DNS records in a specific DNS zone |
+| `create_dns_record` | Create or update a DNS record (A, CNAME, TXT, MX) |
+| `delete_dns_record` | Delete a DNS record from a zone |
+| `create_vm` | Create a new Azure virtual machine (requires pre-created NIC ID) |
+| `delete_vm` | Delete an Azure virtual machine (irreversible) |
+| `list_vm_sizes` | List all available VM sizes in a specific Azure region |
+| `list_disks` | List all managed disks across the subscription |
+| `get_disk` | Get details of a specific managed disk |
+| `create_disk` | Create a new empty managed disk |
+| `delete_disk` | Delete a managed disk (irreversible) |
 
 ## Configuration
 

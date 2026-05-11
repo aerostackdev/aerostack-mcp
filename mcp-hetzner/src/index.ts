@@ -385,6 +385,164 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: {}, required: [] },
     annotations: { readOnlyHint: true },
   },
+
+  // ── Load Balancers ────────────────────────────────────────────────────────
+  {
+    name: 'list_load_balancers',
+    description: 'List all Hetzner Load Balancers with targets, services, and health status',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'get_load_balancer',
+    description: 'Get details of a specific load balancer including all targets and health checks',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Load balancer ID' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_load_balancer',
+    description: 'Create a new Hetzner Load Balancer',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Load balancer name' },
+        load_balancer_type: { type: 'string', description: 'Load balancer type slug, e.g. "lb11"' },
+        location: { type: 'string', description: 'Datacenter location, e.g. "nbg1"' },
+        algorithm: {
+          type: 'string',
+          enum: ['round_robin', 'least_connections'],
+          description: 'Traffic distribution algorithm (default: "round_robin")',
+        },
+      },
+      required: ['name', 'load_balancer_type', 'location'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_load_balancer',
+    description: 'Delete a load balancer',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Load balancer ID to delete' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'add_load_balancer_target',
+    description: 'Add a server or label-selector target to a load balancer',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        lb_id: { type: 'number', description: 'Load balancer ID' },
+        type: { type: 'string', enum: ['server', 'label_selector'], description: 'Target type: "server" or "label_selector"' },
+        server_id: { type: 'number', description: 'Server ID to add as target (required when type is "server")' },
+        label_selector: { type: 'string', description: 'Label selector string (required when type is "label_selector"), e.g. "env=prod"' },
+      },
+      required: ['lb_id', 'type'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Snapshots ─────────────────────────────────────────────────────────────
+  {
+    name: 'list_snapshots',
+    description: 'List all server snapshots in your Hetzner project',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_server_snapshot',
+    description: 'Create a snapshot of a server (server must be powered off or running)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        server_id: { type: 'number', description: 'Server ID to snapshot' },
+        description: { type: 'string', description: 'Optional description for the snapshot' },
+      },
+      required: ['server_id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_snapshot',
+    description: 'Delete a snapshot image',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Snapshot image ID to delete' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+
+  // ── Floating IPs ──────────────────────────────────────────────────────────
+  {
+    name: 'list_floating_ips',
+    description: 'List all floating (static) IP addresses',
+    inputSchema: { type: 'object', properties: {}, required: [] },
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: 'create_floating_ip',
+    description: 'Allocate a new floating IP address',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', enum: ['ipv4', 'ipv6'], description: 'IP version: "ipv4" or "ipv6"' },
+        home_location: { type: 'string', description: 'Home datacenter location, e.g. "nbg1". Optional.' },
+        server: { type: 'number', description: 'Server ID to assign the floating IP to immediately. Optional.' },
+      },
+      required: ['type'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'assign_floating_ip',
+    description: 'Assign a floating IP to a server',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Floating IP ID' },
+        server_id: { type: 'number', description: 'Server ID to assign the floating IP to' },
+      },
+      required: ['id', 'server_id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'unassign_floating_ip',
+    description: 'Remove a floating IP from its current server (IP remains allocated)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Floating IP ID to unassign' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
+  {
+    name: 'delete_floating_ip',
+    description: 'Release a floating IP address (frees the IP)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', description: 'Floating IP ID to release' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: false },
+  },
 ];
 
 async function callTool(name: string, args: Record<string, unknown>, apiKey: string): Promise<unknown> {
@@ -514,6 +672,81 @@ async function callTool(name: string, args: Record<string, unknown>, apiKey: str
     }
     case 'list_server_types': {
       return apiGet('/server_types', apiKey, { per_page: '50' });
+    }
+
+    // ── Load Balancers ───────────────────────────────────────────────────────
+    case 'list_load_balancers': {
+      return apiGet('/load_balancers', apiKey, { per_page: '50' });
+    }
+    case 'get_load_balancer': {
+      validateRequired(args, ['id']);
+      return apiGet(`/load_balancers/${args.id}`, apiKey);
+    }
+    case 'create_load_balancer': {
+      validateRequired(args, ['name', 'load_balancer_type', 'location']);
+      const algorithm = (args.algorithm as string | undefined) ?? 'round_robin';
+      return apiPost('/load_balancers', apiKey, {
+        name: args.name,
+        load_balancer_type: args.load_balancer_type,
+        location: args.location,
+        algorithm: { type: algorithm },
+      });
+    }
+    case 'delete_load_balancer': {
+      validateRequired(args, ['id']);
+      return apiDelete(`/load_balancers/${args.id}`, apiKey);
+    }
+    case 'add_load_balancer_target': {
+      validateRequired(args, ['lb_id', 'type']);
+      const body: Record<string, unknown> = { type: args.type };
+      if (args.type === 'server') {
+        if (!args.server_id) throw new Error('server_id is required when type is "server"');
+        body.server = { id: args.server_id };
+      } else if (args.type === 'label_selector') {
+        if (!args.label_selector) throw new Error('label_selector is required when type is "label_selector"');
+        body.label_selector = { selector: args.label_selector };
+      }
+      return apiPost(`/load_balancers/${args.lb_id}/actions/add_target`, apiKey, body);
+    }
+
+    // ── Snapshots ────────────────────────────────────────────────────────────
+    case 'list_snapshots': {
+      return apiGet('/images', apiKey, { type: 'snapshot', per_page: '50' });
+    }
+    case 'create_server_snapshot': {
+      validateRequired(args, ['server_id']);
+      return apiPost(`/servers/${args.server_id}/actions/create_image`, apiKey, {
+        type: 'snapshot',
+        description: (args.description as string | undefined) ?? '',
+      });
+    }
+    case 'delete_snapshot': {
+      validateRequired(args, ['id']);
+      return apiDelete(`/images/${args.id}`, apiKey);
+    }
+
+    // ── Floating IPs ─────────────────────────────────────────────────────────
+    case 'list_floating_ips': {
+      return apiGet('/floating_ips', apiKey, { per_page: '50' });
+    }
+    case 'create_floating_ip': {
+      validateRequired(args, ['type']);
+      const body: Record<string, unknown> = { type: args.type };
+      if (args.home_location) body.home_location = args.home_location;
+      if (args.server) body.server = args.server;
+      return apiPost('/floating_ips', apiKey, body);
+    }
+    case 'assign_floating_ip': {
+      validateRequired(args, ['id', 'server_id']);
+      return apiPost(`/floating_ips/${args.id}/actions/assign`, apiKey, { server: args.server_id });
+    }
+    case 'unassign_floating_ip': {
+      validateRequired(args, ['id']);
+      return apiPost(`/floating_ips/${args.id}/actions/unassign`, apiKey, {});
+    }
+    case 'delete_floating_ip': {
+      validateRequired(args, ['id']);
+      return apiDelete(`/floating_ips/${args.id}`, apiKey);
     }
 
     default:
