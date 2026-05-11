@@ -1,7 +1,7 @@
 name = "mcp-aws"
-description = "Manage AWS resources — S3 buckets, EC2 instances, Lambda functions, IAM policies, and CloudWatch metrics via the AWS API."
+description = "Manage AWS resources via the AWS API — S3, EC2, Lambda, IAM, CloudWatch, ECS, EKS, RDS, Secrets Manager, SSM, ECR, SNS, SQS, Route53, and CloudFormation. 60 tools covering the full AWS operations surface."
 category = "Cloud"
-tags = ["aws", "s3", "ec2", "lambda", "iam", "cloudwatch", "amazon", "cloud"]
+tags = ["aws", "s3", "ec2", "lambda", "iam", "cloudwatch", "ecs", "eks", "rds", "secrets-manager", "ssm", "ecr", "sns", "sqs", "route53", "cloudformation", "amazon", "cloud", "devops", "infrastructure"]
 env = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"

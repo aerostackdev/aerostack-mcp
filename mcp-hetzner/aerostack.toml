@@ -1,0 +1,11 @@
+name = "mcp-hetzner"
+description = "Manage Hetzner Cloud servers, networks, volumes, firewalls, and SSH keys via the Hetzner Cloud API."
+category = "Cloud Infrastructure"
+tags = ["hetzner", "cloud", "servers", "vps", "infrastructure", "europe"]
+env = ["HETZNER_API_TOKEN"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+HETZNER_API_TOKEN = "Hetzner Cloud API Token. Create at: console.hetzner.cloud → Project → Security → API Tokens → Generate API Token. Use Read & Write access."

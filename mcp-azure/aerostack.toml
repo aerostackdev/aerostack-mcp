@@ -1,0 +1,14 @@
+name = "mcp-azure"
+description = "Manage Azure VMs, AKS clusters, App Service, Key Vault, Storage, and Monitor alerts from any AI agent."
+category = "Cloud Infrastructure"
+tags = ["azure", "microsoft", "cloud", "vms", "aks", "kubernetes", "app-service", "key-vault"]
+env = ["AZURE_CLIENT_ID", "AZURE_CLIENT_SECRET", "AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[secrets]
+AZURE_CLIENT_ID = "Azure App Registration Client ID. Create at: portal.azure.com → Azure Active Directory → App registrations → New registration → copy Application (client) ID"
+AZURE_CLIENT_SECRET = "Azure App Registration Client Secret. In your App Registration → Certificates & secrets → New client secret"
+AZURE_TENANT_ID = "Azure Tenant ID. Found at: portal.azure.com → Azure Active Directory → Overview → Tenant ID"
+AZURE_SUBSCRIPTION_ID = "Azure Subscription ID. Found at: portal.azure.com → Subscriptions → copy Subscription ID"

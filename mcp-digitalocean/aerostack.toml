@@ -1,7 +1,7 @@
 name = "mcp-digitalocean"
-description = "Manage DigitalOcean Droplets, domains, databases, Kubernetes clusters, volumes, and load balancers."
+description = "Manage DigitalOcean Droplets, App Platform, Kubernetes, Databases, Firewalls, VPCs, DNS, Container Registry, and Spaces."
 category = "Cloud Infrastructure"
-tags = ["digitalocean", "cloud", "droplets", "kubernetes", "infrastructure"]
+tags = ["digitalocean", "cloud", "droplets", "kubernetes", "infrastructure", "spaces", "app-platform", "firewall", "vpc", "registry"]
 env = ["DIGITALOCEAN_TOKEN"]
 main = "src/index.ts"
 compatibility_date = "2024-11-01"

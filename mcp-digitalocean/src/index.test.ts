@@ -39,10 +39,10 @@ describe('mcp-digitalocean', () => {
     expect(data.result.serverInfo.name).toBe('mcp-digitalocean');
   });
 
-  it('tools/list returns 14 tools', async () => {
+  it('tools/list returns 39 tools', async () => {
     const res = await worker.fetch(makeRequest({ jsonrpc: '2.0', id: 1, method: 'tools/list', params: {} }));
     const data = await res.json() as { result: { tools: unknown[] } };
-    expect(data.result.tools.length).toBe(14);
+    expect(data.result.tools.length).toBe(39);
   });
 
   it('tools/call without api key returns -32001', async () => {
@@ -173,10 +173,10 @@ describe('mcp-digitalocean', () => {
 
   it('tools/list contains readOnlyHint annotations', async () => {
     const res = await worker.fetch(makeRequest({ jsonrpc: '2.0', id: 1, method: 'tools/list', params: {} }));
-    const data = await res.json() as { result: { tools: Array<{ annotations: { readOnlyHint: boolean } }> } };
-    const listDroplets = data.result.tools.find((t: { name?: string }) => t.name === 'list_droplets');
+    const data = await res.json() as { result: { tools: Array<{ name: string; annotations: { readOnlyHint: boolean } }> } };
+    const listDroplets = data.result.tools.find(t => t.name === 'list_droplets');
     expect(listDroplets?.annotations.readOnlyHint).toBe(true);
-    const createDroplet = data.result.tools.find((t: { name?: string }) => t.name === 'create_droplet');
+    const createDroplet = data.result.tools.find(t => t.name === 'create_droplet');
     expect(createDroplet?.annotations.readOnlyHint).toBe(false);
   });
 
