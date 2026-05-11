@@ -1,16 +1,66 @@
-# mcp-aws
+# mcp-aws — AWS MCP Server
 
-AWS MCP server for Aerostack. Covers 71 tools across 17 AWS services via the AWS REST API with SigV4 authentication.
+> Manage EC2, S3, ECS, EKS, RDS, Lambda, IAM, CloudWatch, Secrets Manager, SNS, SQS, Route53, CloudFormation, and Cost Explorer — all from any AI agent via the AWS REST API.
 
-## Required Secrets
+AWS is the world's leading cloud platform. This MCP server gives your agents full access to 17 core AWS services via SigV4-authenticated REST APIs: launching and controlling EC2 instances, managing S3 buckets and objects, inspecting ECS/EKS clusters, monitoring RDS databases, invoking Lambda functions, reading CloudWatch logs and alarms, rotating Secrets Manager secrets, sending SNS/SQS messages, querying Cost Explorer, and managing DNS with Route53.
 
-| Secret | Description |
-|--------|-------------|
-| `AWS_ACCESS_KEY_ID` | IAM → Users → Security credentials → Access keys |
-| `AWS_SECRET_ACCESS_KEY` | Shown once when the access key is created |
-| `AWS_REGION` | AWS region (e.g. `us-east-1`, `eu-west-1`) |
+**Live endpoint:** `https://mcp.aerostack.dev/s/aerostack/mcp-aws`
 
-## Tools
+---
+
+## What You Can Do
+
+- Start, stop, launch, and terminate EC2 instances; manage security groups and browse AMI images
+- List, upload, download, and delete S3 objects; create and delete buckets across any region
+- Inspect ECS clusters and services, scale service desired count, and force new deployments
+- List EKS clusters and node groups with their Kubernetes version and scaling configuration
+- Monitor RDS instances, create manual snapshots, and list existing snapshots
+- Invoke Lambda functions synchronously and fetch CloudWatch log events for debugging
+- Read and write SSM Parameter Store values and Secrets Manager secrets
+- Publish to SNS topics, send and receive SQS messages, and inspect queue attributes
+- Query costs by service, region, and date range; get forecasts and Savings Plans coverage
+- List Route53 hosted zones and DNS records; list and inspect CloudFormation stacks
+
+## Configuration
+
+| Variable | Required | Description | How to Get |
+|----------|----------|-------------|------------|
+| `AWS_ACCESS_KEY_ID` | Yes | IAM access key ID | AWS Console → IAM → Users → Security credentials → Create access key |
+| `AWS_SECRET_ACCESS_KEY` | Yes | IAM secret access key | Shown once when the access key is created |
+| `AWS_REGION` | Yes | Default AWS region | e.g. `us-east-1`, `eu-west-1`, `ap-southeast-1` |
+
+## Quick Start
+
+### Add to Aerostack Workspace
+
+1. Go to [aerostack.dev](https://aerostack.dev) → Your Project → **MCPs**
+2. Search for **"AWS"** and click **Add to Workspace**
+3. Add your credentials under **Project → Secrets**
+
+### Example Prompts
+
+```
+"List all running EC2 instances in us-east-1"
+"What's my AWS spend by service for the last 30 days?"
+"Show me all ECS services in the production cluster and their running task counts"
+"Get the last 50 log events from the /aws/lambda/checkout-processor log group"
+"Create an S3 bucket called my-data-lake in eu-west-1"
+```
+
+### Direct API Call
+
+```bash
+curl -X POST https://mcp.aerostack.dev/s/aerostack/mcp-aws \
+  -H 'Content-Type: application/json' \
+  -H 'X-Mcp-Secret-AWS-ACCESS-KEY-ID: AKIA...' \
+  -H 'X-Mcp-Secret-AWS-SECRET-ACCESS-KEY: your-secret' \
+  -H 'X-Mcp-Secret-AWS-REGION: us-east-1' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"describe_ec2_instances","arguments":{}}}'
+```
+
+---
+
+## Available Tools
 
 ### S3 (7)
 | Tool | Description |
@@ -145,10 +195,10 @@ AWS MCP server for Aerostack. Covers 71 tools across 17 AWS services via the AWS
 
 ## IAM Permissions
 
-The IAM user or role needs read permissions for the services you use. For a full read-only setup, attach `ReadOnlyAccess`. For write operations, add the specific policies:
+For a full read-only setup, attach `ReadOnlyAccess`. For write operations, add the specific policies:
 
 - **S3 write**: `s3:PutObject`, `s3:DeleteObject`, `s3:CreateBucket`, `s3:DeleteBucket`
-- **EC2 control**: `ec2:StartInstances`, `ec2:StopInstances`, `ec2:RunInstances`, `ec2:TerminateInstances`, `ec2:CreateSecurityGroup`, `ec2:DescribeImages`
+- **EC2 control**: `ec2:StartInstances`, `ec2:StopInstances`, `ec2:RunInstances`, `ec2:TerminateInstances`, `ec2:CreateSecurityGroup`
 - **Lambda invoke**: `lambda:InvokeFunction`
 - **ECS update**: `ecs:UpdateService`
 - **Secrets Manager write**: `secretsmanager:CreateSecret`, `secretsmanager:UpdateSecret`
@@ -158,11 +208,15 @@ The IAM user or role needs read permissions for the services you use. For a full
 - **RDS snapshot**: `rds:CreateDBSnapshot`
 - **Cost Explorer**: `ce:GetCostAndUsage`, `ce:GetCostForecast`, `ce:GetSavingsPlansCoverage`
 
-## Notes
+## Technical Notes
 
-- **Route53**, **IAM**, and **Cost Explorer** always sign requests with `us-east-1` regardless of the configured `AWS_REGION`. Cost Explorer's endpoint is always `https://ce.us-east-1.amazonaws.com`.
-- `get_s3_object` is limited to 1 MB text files. Use the AWS console or CLI for large or binary objects.
-- `receive_sqs_messages` does **not** delete messages — they remain visible in the queue after the visibility timeout expires.
-- `delete_s3_bucket` requires the bucket to be empty. Delete all objects (and versions, if versioning is enabled) before calling this tool.
-- `terminate_ec2_instances` is irreversible. Stopped instances can be terminated; use `stop_ec2_instance` first to confirm the correct instance before terminating.
-- `get_savings_plans_coverage` uses the first day of the current calendar month as the start date and today as the end date automatically.
+- **SigV4 authentication** is used for all AWS API calls. Requests are signed per-service per-region.
+- **Route53, IAM, and Cost Explorer** always use `us-east-1` regardless of `AWS_REGION` — these are global services.
+- `get_s3_object` is capped at 1 MB text content. Use the AWS CLI for large or binary files.
+- `receive_sqs_messages` does **not** delete messages — they return to the queue after the visibility timeout.
+- `terminate_ec2_instances` is irreversible. Use `stop_ec2_instance` first to confirm the correct instance.
+- `delete_s3_bucket` requires the bucket to be empty first (delete all objects and versions).
+
+## License
+
+MIT
