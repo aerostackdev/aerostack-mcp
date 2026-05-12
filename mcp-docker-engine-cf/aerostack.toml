@@ -1,0 +1,8 @@
+name = "mcp-docker-engine-cf"
+description = "Manage Docker containers, images, volumes, and networks across dev/stg/prod environments — via Cloudflare Tunnel relay."
+category = "DevOps"
+tags = ["docker", "containers", "devops", "infrastructure", "logs", "exec"]
+env = ["DOCKER_DEV_URL", "DOCKER_STG_URL", "DOCKER_PROD_URL", "DOCKER_RELAY_SECRET"]
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]

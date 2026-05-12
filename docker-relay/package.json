@@ -1,0 +1,21 @@
+{
+  "name": "docker-relay",
+  "version": "1.0.0",
+  "description": "Lightweight HTTP relay for Docker Engine — sits behind Cloudflare Tunnel, accepts signed requests from mcp-docker-engine Worker",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.0.2",
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

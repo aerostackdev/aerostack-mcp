@@ -1,0 +1,23 @@
+{
+  "name": "mcp-docker-engine",
+  "version": "1.0.0",
+  "description": "Local MCP server for Docker Engine — inspect containers, stream logs, run exec across dev/stg/prod environments via SSH",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-docker-engine": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
